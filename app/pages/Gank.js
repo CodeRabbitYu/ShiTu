@@ -7,8 +7,11 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    TouchableWithoutFeedback
 } from 'react-native';
+
+import * as Animatable from 'react-native-animatable';
 
 export default class Gank extends Component {
     static navigationOptions = {
@@ -27,21 +30,46 @@ export default class Gank extends Component {
             titleStyle:{fontSize:22},
         },
     };
-
-
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
                     Welcome to React Native!
                 </Text>
-                <Text style={styles.instructions}>
-                    To get starteds, edit index.ios.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Press Cmd+R to reload,{'\n'}
-                    Cmd+D or shake for dev menu
-                </Text>
+                <Animatable.Text animation="zoomInUp"
+                                 duration={5000}>
+                    Zoom me up, Scotty
+                </Animatable.Text>
+                <Animatable.Text animation="slideInDown"
+                                 iterationCount={3}
+                                 direction="alternate"
+                                 easing="ease-in-out">
+                    Up and down you go
+                </Animatable.Text>
+                <Animatable.Text animation="pulse"
+                                 easing="ease-out"
+                                 iterationCount="infinite"
+                                 duration={4000}
+                                 delay={2000}
+                                 style={{ textAlign: 'center' }}>
+                    ❤
+                ️</Animatable.Text>
+
+                <TouchableWithoutFeedback onPress={
+                    () => this.refs.view.bounce(300)
+                            .then((endState) =>
+                            console.log(endState.finished ? 'bounce finished' : 'bounce cancelled'))
+                }>
+                <Animatable.View ref="view">
+                    <Text>Bounce me!</Text>
+                </Animatable.View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() =>
+                this.refs.text.transitionTo(
+                    {opacity: 0.2}
+                    )}>
+                <Animatable.Text ref="text">Fade me!</Animatable.Text>
+                </TouchableWithoutFeedback>
             </View>
         );
     }
@@ -50,8 +78,6 @@ export default class Gank extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     welcome: {
