@@ -33,11 +33,11 @@ const MyTab = TabNavigator({
         // label和icon的背景色 活跃状态下
         activeBackgroundColor:'white',
         // label和icon的前景色 活跃状态下（选中）
-        activeTintColor:'#d81e06',
+        activeTintColor:'#4ECBFC',
         // label和icon的背景色 不活跃状态下
         inactiveBackgroundColor:'white',
         // label和icon的前景色 不活跃状态下(未选中)
-        inactiveTintColor:'#1296db',
+        inactiveTintColor:'#d81e06',
         // 是否显示label，默认为true
         showLabel:false,
         // 不透明度为按选项卡(iOS和Android < 5.0)

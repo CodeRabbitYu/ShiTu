@@ -12,6 +12,10 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
     "react-native-animatable": "^1.1.1",
+    "react-native-blur": "^3.0.0-alpha",
+    "react-native-fetch-blob": "^0.10.4",
+    "react-native-image-picker": "^0.26.3",
+    "react-native-vector-icons": "^4.0.1",
     "react-navigation": "^1.0.0-beta.7"
   },
   "devDependencies": {

@@ -34,7 +34,16 @@ export default class Detail extends Component {
         },
         mode:'modal',
     };
-
+//
+// <Text style={styles.welcome} onPress={() => navigate('Detail', {
+//     callback: (data) => {
+//         this.setState({
+//             childState: data
+//         })
+//     }
+// })}>
+// Welcome to React Native!
+// </Text>
 
     render() {
         const { navigate } = this.props.navigation;
