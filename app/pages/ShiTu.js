@@ -14,6 +14,10 @@ import {  View, Text, Image } from 'react-native-animatable';
 import Button from '../component/Button';
 const { BlurView ,VibrancyView} = require('react-native-blur');
 import ImagePicker from 'react-native-image-picker';
+import Request from '../common/Request';
+import Config from '../common/Config';
+
+import Detail from './Detail';
 
 // 底部弹出框文字
 let photoOptions = {
@@ -56,6 +60,9 @@ export default class ShiTu extends Component {
         // gesturesEnabled- 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
     };
 
+    componentDidMount(){
+    }
+
     constructor(props){
         super(props);
         this.state = {
@@ -64,22 +71,107 @@ export default class ShiTu extends Component {
         };
     }
 
+    upload = (body) => {
+        // 开启XMLHttpRequest服务
+        let xhr = new XMLHttpRequest();
+
+        /** 上传到七牛云的地址 */
+        let url = Config.qiniu.upload;
+
+        // 开启post上传
+        xhr.open('POST',url);
+
+
+        const { navigate } = this.props.navigation;
+
+        // 上传过成功的返回
+        xhr.onload = ()=>{
+            console.log(xhr.status);
+            // 状态码如果不等于200就代表错误
+            if (xhr.status !== 200){
+                alert('请求失败');
+                console.log(xhr.responseText);
+                return;
+            }
+            if (!xhr.responseText){
+                alert('请求失败');
+                console.log(xhr.responseText);
+                return;
+            }
+            // 服务器最后返回的数据
+            let response;
+            try{
+                // 将返回数据还原
+                response = JSON.parse(xhr.response);
+                console.log(response);
+
+                let params = {
+                    token : response.key
+                };
+                Request.post(Config.api.getWebUrl,params,(data)=>{
+                    console.log(data);
+                    navigate('Detail', {
+                        data: data
+                    });
+
+                },(error) =>{
+                    console.log(error);
+                },{});
+
+            }
+            catch (e){
+                console.log(e);
+            }
+
+        };
+
+        xhr.send(body);
+    };
+
     _onPress = () => {
-        console.log('点我查找');
         ImagePicker.showImagePicker(photoOptions, (response) => {
 
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
 
             if (response.didCancel) {
                 console.log('点击了取消按钮');
+
                 return;
             }
+
+            if(!response.error){
+                this.setState({
+                    imageUri:response.uri
+                })
+            }
+
             // let avatarData = 'data:image/png;base64,'+response.data
             let avatarData = 'data:image/jpeg;base64,' + response.data;
+            let body = {
+                'haha':'aa',
+            };
 
-            this.setState({
-                imageUri:response.uri
-            })
+            Request.post(Config.api.uploadImage,body,(data)=>{
+                console.log(data);
+
+                let token = data.data.token;
+                let key = data.data.key;
+                // console.log(data);
+                let body = new FormData();
+                body.append('token',token);
+                body.append('key',key);
+                body.append('file',{
+                    type : 'image/jpeg',
+                    uri : this.state.imageUri,
+                    name : key,
+                });
+                this.upload(body);
+
+            },(error)=>{
+                console.log(error);
+            },{})
+
+
 
         });
     }
@@ -110,13 +202,9 @@ export default class ShiTu extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    menu:{
         flex: 1,
         backgroundColor: 'white',
-    },
-    menu:{
-        width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT - 64 - 49,
     },
     blur:{
         width:SCREEN_WIDTH,
