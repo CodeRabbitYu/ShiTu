@@ -19,7 +19,7 @@ export default class Gank extends Component {
         tabBar:{
             icon: ({ tintColor }) => (
                 <Image
-                    source={{uri : 'gank'}}
+                    source={{uri : '干货'}}
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     icon:{
-        width:35,
-        height:35,
+        width:37,
+        height:37,
     }
 });

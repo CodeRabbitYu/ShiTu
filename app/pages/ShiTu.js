@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
-    AsyncStorage
+    AsyncStorage,
+    InteractionManager
 } from 'react-native';
 
 import '../common/Global'
@@ -17,6 +18,8 @@ import ImagePicker from 'react-native-image-picker';
 import Request from '../common/Request';
 import Config from '../common/Config';
 import Detail from './Detail';
+
+import RNFetchBlob from 'react-native-fetch-blob';
 
 import * as Progress from 'react-native-progress';
 
@@ -61,7 +64,7 @@ export default class ShiTu extends Component {
             label: ' ',
             icon: ({ tintColor }) => (
                 <Image
-                    source={{uri : 'rabbit'}}
+                    source={{uri : '识兔'}}
                     style={[tabBarIcon, {tintColor: tintColor}]}
                 />
             ),
@@ -101,7 +104,7 @@ export default class ShiTu extends Component {
                     console.log(error);
                 })
             }else {
-                // console.log('获取成功' + result);
+                console.log('获取成功' + result);
                 TOKEN = result;
             }
         });
@@ -116,6 +119,8 @@ export default class ShiTu extends Component {
     _upload = (body) => {
         // 开启XMLHttpRequest服务
         let xhr = new XMLHttpRequest();
+
+        console.log(body);
 
         /** 上传到七牛云的地址 */
         let url = Config.qiniu.upload;
@@ -164,13 +169,13 @@ export default class ShiTu extends Component {
                     console.log('getWebUrl');
                     // console.log(data);
                     if (this.perent === 1){
-                        navigate('Detail', {
-                            data: data,
-                            callback: (data) => {
-                                this.hintText = '是否是您寻找的答案呢?'
-                            }
+                        InteractionManager.runAfterInteractions(()=> {
+                            navigate('Detail', {
+                                data: data,
+                            });
+                            this.isUpload = false;
+                            this.hintText = '是否是您寻找的答案呢?'
                         });
-                        this.isUpload = false;
                     }
                 },(error) =>{
                     console.log(error);
@@ -199,16 +204,18 @@ export default class ShiTu extends Component {
             }
 
             // let avatarData = 'data:image/png;base64,'+response.data
-            let avatarData = 'data:image/jpeg;base64,' + response.data;
+            // let avatarData = 'data:image/jpeg;base64,' + response.data;
             if (TOKEN.length > 0){
                 let body = {
                     token:TOKEN,
                 };
-                Request.post(Config.api.getUpLoadToken,body,(data)=>{
+
+                Request.post(Config.api.getUpLoadToken,body,(data)=> {
                     console.log('getUpLoadToken');
                     // console.log(data);
                     let token = data.data.token;
                     let key = data.data.key;
+
                     // console.log(data);
                     let body = new FormData();
                     body.append('token',token);
@@ -219,6 +226,7 @@ export default class ShiTu extends Component {
                         name : key,
                     });
                     this._upload(body);
+
                 },(error)=>{
                     console.log(error);
                 })

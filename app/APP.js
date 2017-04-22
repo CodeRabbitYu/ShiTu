@@ -10,12 +10,16 @@ import {
 import ShiTu from './pages/ShiTu';
 import Gank from './pages/Gank';
 import Detail from './pages/Detail';
+import Main from './pages/Main';
 const MyTab = TabNavigator({
     ShiTu: {
         screen: ShiTu,
     },
     Gank: {
         screen:Gank,
+    },
+    Main:{
+        screen:Main,
     }
 
 }, {

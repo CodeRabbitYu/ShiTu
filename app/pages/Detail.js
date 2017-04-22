@@ -24,10 +24,10 @@ export default class Detail extends Component {
         },
         header: ({ state, setParams ,goBack}) => {
             // console.log(state);
+            // console.log(setParams);
              let right = (
                 <TouchableOpacity>
-                    <Text onPress={() => goBack()}>
-                        哈哈
+                    <Text onPress={() => goBack('ShiTu')}>
                     </Text>
                 </TouchableOpacity>
             );
