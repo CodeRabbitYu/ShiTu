@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
-    // Image
+    AsyncStorage
 } from 'react-native';
 
 import '../common/Global'
@@ -61,6 +61,28 @@ export default class ShiTu extends Component {
     };
 
     componentDidMount(){
+        Request.get(Config.api.getToken,(data)=>{
+            console.log(data);
+
+            if (data && data.success){
+                // 键
+                let token = 'token';
+                // 值（正确的，字符串）
+                let dataToken = data.token;
+                AsyncStorage.setItem(token,dataToken,(error)=>{
+                    if (error){
+                        console.log('存储失败' + error);
+                    }else {
+                        console.log('存储成功');
+                    }
+                })
+            }
+
+
+
+        },(error)=>{
+            console.log(error);
+        },{})
     }
 
     constructor(props){
@@ -86,7 +108,7 @@ export default class ShiTu extends Component {
 
         // 上传过成功的返回
         xhr.onload = ()=>{
-            console.log(xhr.status);
+            // console.log(xhr.status);
             // 状态码如果不等于200就代表错误
             if (xhr.status !== 200){
                 alert('请求失败');
@@ -103,13 +125,13 @@ export default class ShiTu extends Component {
             try{
                 // 将返回数据还原
                 response = JSON.parse(xhr.response);
-                console.log(response);
+                // console.log(response);
 
                 let params = {
                     token : response.key
                 };
                 Request.post(Config.api.getWebUrl,params,(data)=>{
-                    console.log(data);
+                    // console.log(data);
                     navigate('Detail', {
                         data: data
                     });
@@ -147,29 +169,41 @@ export default class ShiTu extends Component {
 
             // let avatarData = 'data:image/png;base64,'+response.data
             let avatarData = 'data:image/jpeg;base64,' + response.data;
-            let body = {
-                'haha':'aa',
-            };
 
-            Request.post(Config.api.uploadImage,body,(data)=>{
-                console.log(data);
+            let body;
+             AsyncStorage.getItem('token',(Error,result)=>{
+                if (result === null){
+                    console.log('获取失败' + result);
+                }else {
+                    console.log('获取成功' + result);
+                    let body = {
+                        token:result,
+                    };
 
-                let token = data.data.token;
-                let key = data.data.key;
-                // console.log(data);
-                let body = new FormData();
-                body.append('token',token);
-                body.append('key',key);
-                body.append('file',{
-                    type : 'image/jpeg',
-                    uri : this.state.imageUri,
-                    name : key,
-                });
-                this.upload(body);
+                    Request.post(Config.api.getUpLoadToken,body,(data)=>{
+                        console.log(data);
 
-            },(error)=>{
-                console.log(error);
-            },{})
+                        let token = data.data.token;
+                        let key = data.data.key;
+                        // console.log(data);
+                        let body = new FormData();
+                        body.append('token',token);
+                        body.append('key',key);
+                        body.append('file',{
+                            type : 'image/jpeg',
+                            uri : this.state.imageUri,
+                            name : key,
+                        });
+                        this.upload(body);
+
+                    },(error)=>{
+                        console.log(error);
+                    },{})
+                }
+            });
+
+
+
 
 
 

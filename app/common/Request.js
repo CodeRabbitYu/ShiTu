@@ -12,6 +12,7 @@ const Request = {
         return RNFetchBlob
             .config(config)
             .fetch('GET',url)
+            .then((response) => response.json())
             .then((response)=>{
                 successCallBack(response);
             })

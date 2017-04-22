@@ -46,11 +46,8 @@ export default class Detail extends Component {
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     scalesPageToFit={true}
-
                     automaticallyAdjustContentInsets={false}
-
                 />
-
             </View>
         );
     }

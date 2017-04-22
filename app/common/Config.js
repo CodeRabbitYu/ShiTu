@@ -10,7 +10,8 @@ const base = {
 const Config = {
 
     api:{
-        uploadImage: base.baseURL + '/ShiTu/uploadImage',
+        getToken: base.baseURL + '/ShiTu/getToken',
+        getUpLoadToken: base.baseURL + '/ShiTu/getUpLoadToken',
         getWebUrl : base.baseURL + '/ShiTu/getWebUrl',
     },
     qiniu:{
