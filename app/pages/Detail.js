@@ -17,17 +17,17 @@ import {
 import ShiTu from './ShiTu';
 export default class Detail extends Component {
     static navigationOptions = {
-        title: 'Detail',
+        title: '识图详情',
         header: {
-            visible: true,
+            visible: false,
             titleStyle:{fontSize:22},
         },
         header: ({ state, setParams ,goBack}) => {
             // console.log(state);
              let right = (
                 <TouchableOpacity>
-                    <Text onPress={() => goBack('ShiTu')}>
-                        返回
+                    <Text onPress={() => goBack()}>
+                        哈哈
                     </Text>
                 </TouchableOpacity>
             );
@@ -38,7 +38,6 @@ export default class Detail extends Component {
 
     render() {
         const { state: { params: { data } } } = this.props.navigation;
-        console.log(data);
         return (
             <View style={styles.container}>
                 <WebView
