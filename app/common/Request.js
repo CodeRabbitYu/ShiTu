@@ -6,11 +6,12 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 
 const Request = {
-    get:(url, successCallBack, failCallBack, config) =>{
+    config:{},
+    get:(url, successCallBack, failCallBack) =>{
         console.log(url);
         // console.log(config);
         return RNFetchBlob
-            .config(config)
+            .config(Request.config)
             .fetch('GET',url)
             .then((response) => response.json())
             .then((response)=>{
@@ -20,7 +21,7 @@ const Request = {
                 failCallBack(error);
             })
     },
-    post:(url, body, successCallBack, failCallBack, config) =>{
+    post:(url, body, successCallBack, failCallBack) =>{
         // console.log(url);
 
         // console.log(config);
@@ -32,7 +33,7 @@ const Request = {
 
         // console.log(header);
         return RNFetchBlob
-            .config(config)
+            .config(Request.config)
             .fetch('POST',url,header)
             .then((response) => response.json())
             .then((response)=>{

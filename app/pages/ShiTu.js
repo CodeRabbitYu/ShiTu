@@ -16,8 +16,13 @@ const { BlurView ,VibrancyView} = require('react-native-blur');
 import ImagePicker from 'react-native-image-picker';
 import Request from '../common/Request';
 import Config from '../common/Config';
-
 import Detail from './Detail';
+
+import * as Progress from 'react-native-progress';
+
+
+import { observable, runInAction, autorun } from 'mobx';
+import { observer } from 'mobx-react/native';
 
 // 底部弹出框文字
 let photoOptions = {
@@ -34,7 +39,22 @@ let photoOptions = {
     }
 };
 
+let TOKEN;
+
+@observer
 export default class ShiTu extends Component {
+    // 北京图片地址
+    @observable
+    imageUri='timg';
+    // 进度条
+    @observable
+    perent='';
+    // 是否正在查找中
+    @observable
+    isUpload=false;
+    @observable
+    hintText= '点击按钮,搜索你想知道的图片哦!';
+
     static navigationOptions = {
         title: '识兔',
         tabBar:{
@@ -61,39 +81,39 @@ export default class ShiTu extends Component {
     };
 
     componentDidMount(){
-        Request.get(Config.api.getToken,(data)=>{
-            console.log(data);
-
-            if (data && data.success){
-                // 键
-                let token = 'token';
-                // 值（正确的，字符串）
-                let dataToken = data.token;
-                AsyncStorage.setItem(token,dataToken,(error)=>{
-                    if (error){
-                        console.log('存储失败' + error);
-                    }else {
-                        console.log('存储成功');
+        let KEY = 'TOKEN';
+        AsyncStorage.getItem(KEY,(Error,result)=>{
+            if (result === null){
+                Request.get(Config.api.getToken,(data)=>{
+                    console.log(data);
+                    if (data && data.success){
+                        let token = data.token;
+                        AsyncStorage.setItem(KEY,token,(error)=>{
+                            if (error){
+                                console.log('存储失败' + error);
+                            }else {
+                                console.log('存储成功');
+                                TOKEN = token;
+                            }
+                        })
                     }
+                },(error)=>{
+                    console.log(error);
                 })
+            }else {
+                // console.log('获取成功' + result);
+                TOKEN = result;
             }
+        });
 
+    };
 
-
-        },(error)=>{
-            console.log(error);
-        },{})
-    }
 
     constructor(props){
         super(props);
-        this.state = {
-            // 用户数据
-            imageUri:'timg',
-        };
-    }
+    };
 
-    upload = (body) => {
+    _upload = (body) => {
         // 开启XMLHttpRequest服务
         let xhr = new XMLHttpRequest();
 
@@ -103,8 +123,19 @@ export default class ShiTu extends Component {
         // 开启post上传
         xhr.open('POST',url);
 
-
         const { navigate } = this.props.navigation;
+
+        // 如果正在上传,将上传返回的onprogress
+        if (xhr.upload){
+            xhr.upload.onprogress = (event)=>{
+                if (event.lengthComputable){
+                    let perent = event.loaded / event.total.toFixed(2);
+                    console.log(perent);
+                    this.perent = perent;
+                    this.isUpload = true;
+                }
+            }
+        }
 
         // 上传过成功的返回
         xhr.onload = ()=>{
@@ -126,25 +157,28 @@ export default class ShiTu extends Component {
                 // 将返回数据还原
                 response = JSON.parse(xhr.response);
                 // console.log(response);
-
                 let params = {
                     token : response.key
                 };
                 Request.post(Config.api.getWebUrl,params,(data)=>{
+                    console.log('getWebUrl');
                     // console.log(data);
-                    navigate('Detail', {
-                        data: data
-                    });
-
+                    if (this.perent === 1){
+                        navigate('Detail', {
+                            data: data,
+                            callback: (data) => {
+                                this.hintText = '是否是您寻找的答案呢?'
+                            }
+                        });
+                        this.isUpload = false;
+                    }
                 },(error) =>{
                     console.log(error);
-                },{});
-
+                });
             }
             catch (e){
                 console.log(e);
             }
-
         };
 
         xhr.send(body);
@@ -157,83 +191,91 @@ export default class ShiTu extends Component {
 
             if (response.didCancel) {
                 console.log('点击了取消按钮');
-
                 return;
             }
 
             if(!response.error){
-                this.setState({
-                    imageUri:response.uri
-                })
+                this.imageUri = response.uri;
             }
 
             // let avatarData = 'data:image/png;base64,'+response.data
             let avatarData = 'data:image/jpeg;base64,' + response.data;
-
-            let body;
-             AsyncStorage.getItem('token',(Error,result)=>{
-                if (result === null){
-                    console.log('获取失败' + result);
-                }else {
-                    console.log('获取成功' + result);
-                    let body = {
-                        token:result,
-                    };
-
-                    Request.post(Config.api.getUpLoadToken,body,(data)=>{
-                        console.log(data);
-
-                        let token = data.data.token;
-                        let key = data.data.key;
-                        // console.log(data);
-                        let body = new FormData();
-                        body.append('token',token);
-                        body.append('key',key);
-                        body.append('file',{
-                            type : 'image/jpeg',
-                            uri : this.state.imageUri,
-                            name : key,
-                        });
-                        this.upload(body);
-
-                    },(error)=>{
-                        console.log(error);
-                    },{})
-                }
-            });
-
-
-
-
-
-
+            if (TOKEN.length > 0){
+                let body = {
+                    token:TOKEN,
+                };
+                Request.post(Config.api.getUpLoadToken,body,(data)=>{
+                    console.log('getUpLoadToken');
+                    // console.log(data);
+                    let token = data.data.token;
+                    let key = data.data.key;
+                    // console.log(data);
+                    let body = new FormData();
+                    body.append('token',token);
+                    body.append('key',key);
+                    body.append('file',{
+                        type : 'image/jpeg',
+                        uri : this.imageUri,
+                        name : key,
+                    });
+                    this._upload(body);
+                },(error)=>{
+                    console.log(error);
+                })
+            }
+            else{
+                console.log('没有获取到TOKEN');
+            }
         });
-    }
+    };
+
     render() {
         const { navigate } = this.props.navigation;
+
         return (
-            <Image source={{uri:this.state.imageUri}}
+            <Image source={{uri:this.imageUri}}
                    style={[styles.menu,{display:'flex'}]}
                    animation="fadeIn"
                    useNativeDriver
             >
-                <BlurView blurType="light" blurAmount={5} style={styles.blur}>
-                    <Text style={styles.textStyle}>
-                        点击按钮,搜索你想知道的图片哦!
-                    </Text>
-                    <Button
-                        backgroundColor={COLORS.appColor}
-                        raised
-                        borderRadius={5}
-                        title='点我寻找!'
-                        animationType="bounceInLeft"
-                        onPress={this._onPress}
-                    />
-                </BlurView>
+                {
+                    !this.isUpload ?  <BlurView blurType="light" blurAmount={5} style={styles.blur}>
+                            <Text style={styles.textStyle}>
+                                {this.hintText}
+                            </Text>
+                            <Button
+                                backgroundColor={COLORS.appColor}
+                                raised
+                                borderRadius={5}
+                                title='点我寻找!'
+                                animationType="bounceInLeft"
+                                onPress={this._onPress}
+                            />
+                        </BlurView>
+                        :
+                        <BlurView blurType="light" blurAmount={5} style={styles.blur}>
+                            <Progress.Circle
+                                showsText={true}
+                                color = {COLORS.appColor}
+                                progress={this.perent}
+                                size={130}
+                                formatText={()=>{
+                                    return(
+                                        <Text style={{fontSize:FONT_SIZE(17)}}>
+                                            正在查找
+                                        </Text>
+                                    )
+                                }}
+                            />
+                        </BlurView>
+                }
             </Image>
         );
-    }
+    };
+
 }
+
+global.USERTOKEN = TOKEN;
 
 const styles = StyleSheet.create({
     menu:{
@@ -249,6 +291,12 @@ const styles = StyleSheet.create({
     textStyle:{
         fontSize:FONT_SIZE(18),
         marginBottom:20
+    },
+    progressStyle:{
+        alignItems:'center',
+        justifyContent:'center',
+        alignSelf:'center',
+        alignContent:'center',
     }
 });
 
