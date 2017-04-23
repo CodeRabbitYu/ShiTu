@@ -102,15 +102,16 @@ export default class ShiTu extends Component {
                     }
                 },(error)=>{
                     console.log(error);
+                    TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
                 })
             }else {
                 console.log('获取成功' + result);
+                // TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
                 TOKEN = result;
             }
         });
 
     };
-
 
     constructor(props){
         super(props);
