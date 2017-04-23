@@ -60,22 +60,14 @@ export default class ShiTu extends Component {
 
     static navigationOptions = {
         title: '识兔',
-        tabBar:{
-            label: ' ',
-            icon: ({ tintColor }) => (
-                <Image
-                    source={{uri : '识兔'}}
-                    style={[tabBarIcon, {tintColor: tintColor}]}
-                />
-            ),
-        },
+
         header: {
             // bool值，header是否可见。
             visible: true,
             // header的title的style
-            titleStyle:{fontSize:22,color:'red'},
+            titleStyle:{fontSize:22,color:'white'},
             // header的style
-            style:{backgroundColor:'white'},
+            style:{backgroundColor:'#4ECBFC'},
             // 返回按钮在iOS平台上，默认是title的值
             // backTitle
         },

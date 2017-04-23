@@ -17,23 +17,36 @@ import {
 import ShiTu from './ShiTu';
 export default class Detail extends Component {
     static navigationOptions = {
-        title: '识图详情',
-        header: {
-            visible: false,
-            titleStyle:{fontSize:22},
-        },
+        // title: '识图详情',
+        // header: {
+        //     visible: false,
+        //     titleStyle:{fontSize:22},
+        // },
         header: ({ state, setParams ,goBack}) => {
+            // const { navigate } = this.props.navigation;
+
             // console.log(state);
             // console.log(setParams);
              let right = (
                 <TouchableOpacity>
-                    <Text onPress={() => goBack('ShiTu')}>
+                    <Text onPress={() => {
+                        const { navigate } = this.props.navigation;
+                        {/*navigate('ShiTu');*/}
+                    }}>
+                        哈哈
                     </Text>
                 </TouchableOpacity>
             );
             return{right};
         },
         mode:'modal',
+    };
+
+    _right = ()=> {
+        const { navigate } = this.props.navigation;
+        // console.log(navigate);
+        console.log(this.props.navigation);
+        navigate('ShiTu')
     };
 
     render() {

@@ -10,18 +10,11 @@ import {
     Image
 } from 'react-native';
 
+import Detail from './Detail';
+
 export default class Main extends Component {
     static navigationOptions = {
-        title: '个人中心',
-        tabBar:{
-            label: ' ',
-            icon: ({ tintColor }) => (
-                <Image
-                    source={{uri : '个人中心'}}
-                    style={[tabBarIcon, {tintColor: tintColor}]}
-                />
-            ),
-        },
+
         header: {
             // bool值，header是否可见。
             visible: true,
@@ -36,9 +29,12 @@ export default class Main extends Component {
         // gesturesEnabled- 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
     };
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
+                <Text style={styles.welcome} onPress={() => navigate('Detail', {
+                                data: '',
+                            })}>
                     Welcome to React Native!
                 </Text>
                 <Text style={styles.instructions}>

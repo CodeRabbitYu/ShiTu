@@ -15,16 +15,6 @@ import * as Animatable from 'react-native-animatable';
 
 export default class Gank extends Component {
     static navigationOptions = {
-        title: 'Gank',
-        tabBar:{
-            icon: ({ tintColor }) => (
-                <Image
-                    source={{uri : '干货'}}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
-            ),
-        },
-
         header: {
             visible: true,
             titleStyle:{fontSize:22},
