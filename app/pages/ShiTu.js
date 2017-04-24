@@ -20,6 +20,8 @@ import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 import Realm from 'realm';
 
+import RNFetchBlob from 'react-native-fetch-blob';
+
 const HistorySchema = {
     name: 'History',
     primaryKey: 'id',
@@ -218,15 +220,44 @@ export default class ShiTu extends Component {
                     let key = data.data.key;
 
                     // console.log(data);
-                    let body = new FormData();
-                    body.append('token',token);
-                    body.append('key',key);
-                    body.append('file',{
+                    let formData = new FormData();
+                    formData.append('token',token);
+                    formData.append('key',key);
+                    formData.append('file',{
                         type : 'image/jpeg',
                         uri : this.imageUri,
                         name : key,
                     });
-                    this._upload(body);
+
+                    console.log(this.imageUri);
+                    // let body = JSON.parse({
+                    //
+                    // });
+                    // console.log(body);
+
+                    RNFetchBlob.fetch('POST',Config.qiniu.upload,{
+                        'Content-Type' : 'multipart/form-data'
+                    },[{
+                        name:'token',data:token,
+                    }, {
+                        name:'key', data:key,
+                    },{
+                        name:'file',data:JSON.stringify({
+                            name:key,
+                            uri:this.imageUri,
+                            type:'image/jpeg',
+                        })
+                    }])
+                        .then((response)=>response.json())
+                        .then((response)=>{
+                            console.log(response);
+                        })
+                        .catch((error)=>{
+                            console.log(error);
+                        });
+
+
+                    // this._upload(body);
 
                 },(error)=>{
                     console.log(error);
