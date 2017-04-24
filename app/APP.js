@@ -139,9 +139,9 @@ const MyApp = StackNavigator({
         navigationOptions: {
             header: {
                 title: '详情页',
-                style: {
-                    backgroundColor: '#fff'
-                },
+                titleStyle:{fontSize:22,color:'white'},
+                // header的style
+                style:{backgroundColor:'#4ECBFC'},
                 backTitle: null
             },
             mode:'modal'
@@ -152,9 +152,9 @@ const MyApp = StackNavigator({
         navigationOptions: {
             header: {
                 title: '搜索历史',
-                style: {
-                    backgroundColor: '#fff'
-                },
+                titleStyle:{fontSize:22,color:'white'},
+                // header的style
+                style:{backgroundColor:'#4ECBFC'},
                 backTitle: null
             },
         },

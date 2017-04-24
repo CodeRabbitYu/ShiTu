@@ -55,7 +55,7 @@ export default class Detail extends Component {
             <View style={styles.container}>
                 <WebView
                     style={{width:SCREEN_WIDTH,height:SCREEN_HEIGHT-20,backgroundColor:'white'}}
-                    source={{uri:data.data,method: 'GET'}}
+                    source={{uri:data,method: 'GET'}}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     scalesPageToFit={true}

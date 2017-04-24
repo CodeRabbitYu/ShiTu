@@ -25,7 +25,7 @@ const HistorySchema = {
     primaryKey: 'id',
     properties: {
         id:         'string',
-        imageUri:   'string',
+        imageURL:   'string',
         timestamp:  'int',
     }
 };
@@ -74,11 +74,7 @@ export default class ShiTu extends Component {
         //     // list.push(realm.objects('History')[i].id);
         // }
 
-        // let history = realm.objects('History');
-        // history.map((v,i) => {
-        //     console.log(v.id);
-        //     list.push(v);
-        // });
+
         // console.log(list);
         let KEY = 'USERTOKEN';
         AsyncStorage.getItem(KEY,(Error,result)=>{
@@ -168,20 +164,22 @@ export default class ShiTu extends Component {
                 Request.post(Config.api.postWebUrl,body,(data)=>{
                     console.log('getWebUrl');
                     // console.log(data);
-                    // realm.write(() => {
-                    //      let history = realm.create('History', {
-                    //          id:      response.key,
-                    //          imageUri:   data.data,
-                    //          timestamp:  Date.now()
-                    //     });
-                    //     // console.log(realm.objects('History').length);
-                    // });
-                    //440d8d79-8d1f-47b8-a556-a78f1af38bb1.jpeg
+
+                    let imageURL = data.data.imageURL;
+                    let timestamp = Date.parse(new Date());
+
+                    realm.write(() => {
+                        realm.create('History', {
+                             id:      response.key.replace('.jpeg',''),
+                             imageURL:   imageURL,
+                             timestamp:  timestamp
+                        });
+                    });
 
                     if (this.perent === 1){
                         InteractionManager.runAfterInteractions(()=> {
                             navigate('Detail', {
-                                data: data,
+                                data: data.data.webURL,
                             });
                             this.isUpload = false;
                             this.hintText = '是否是您寻找的答案呢?'
