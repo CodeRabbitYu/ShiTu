@@ -58,23 +58,6 @@ export default class ShiTu extends Component {
     @observable
     hintText= '点击按钮,搜索你想知道的图片哦!';
 
-    static navigationOptions = {
-        title: '识兔',
-
-        header: {
-            // bool值，header是否可见。
-            visible: true,
-            // header的title的style
-            titleStyle:{fontSize:22,color:'white'},
-            // header的style
-            style:{backgroundColor:'#4ECBFC'},
-            // 返回按钮在iOS平台上，默认是title的值
-            // backTitle
-        },
-        // cardStack- 配置card stack
-        // gesturesEnabled- 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
-    };
-
     componentDidMount(){
         let KEY = 'TOKEN';
         AsyncStorage.getItem(KEY,(Error,result)=>{

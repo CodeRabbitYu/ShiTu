@@ -14,12 +14,6 @@ import {
 import * as Animatable from 'react-native-animatable';
 
 export default class Gank extends Component {
-    static navigationOptions = {
-        header: {
-            visible: true,
-            titleStyle:{fontSize:22},
-        },
-    };
     render() {
         return (
             <View style={styles.container}>

@@ -9,11 +9,11 @@ import {
     View,
     Image
 } from 'react-native';
-
-import Detail from './Detail';
+import Button from '../component/Button';
 
 export default class Main extends Component {
     static navigationOptions = {
+        title: '个人中心',
 
         header: {
             // bool值，header是否可见。
@@ -32,18 +32,15 @@ export default class Main extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome} onPress={() => navigate('Detail', {
-                                data: '',
-                            })}>
+                <Text style={styles.welcome} onPress={() => navigate('Gank')}>
                     Welcome to React Native!
                 </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit index.android.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
-                </Text>
+                <Button
+                    title='搜索历史'
+                    onPress={()=>{
+                        console.log('搜索历史');
+                        navigate('SearchHistory');
+                    }}/>
             </View>
         );
     }

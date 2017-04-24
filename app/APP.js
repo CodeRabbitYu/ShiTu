@@ -16,10 +16,12 @@ import ShiTu from './pages/ShiTu';
 import Gank from './pages/Gank';
 import Detail from './pages/Detail';
 import Main from './pages/Main';
+
+import SearchHistory from './pages/SearchHistory';
+
 const MyTab = TabNavigator({
     ShiTu: {
         screen: ShiTu,
-        title:'识兔',
         navigationOptions: {
             tabBar: {
                 label: '识兔',
@@ -31,6 +33,7 @@ const MyTab = TabNavigator({
                 ),
             },
             header: {
+                title:'识兔',
                 // bool值，header是否可见。
                 visible: true,
                 // header的title的style
@@ -44,38 +47,54 @@ const MyTab = TabNavigator({
     },
     Gank: {
         screen:Gank,
-        title: '干货集中营',
-        tabBar:{
-            label: '干货',
-            icon: ({ tintColor }) => (
-                <Image
-                    source={{uri : '干货'}}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
-            ),
-        },
-        header: {
-            // bool值，header是否可见。
-            visible: true,
-            // header的title的style
-            titleStyle:{fontSize:22,color:'white'},
-            // header的style
-            style:{backgroundColor:'#4ECBFC'},
-            // 返回按钮在iOS平台上，默认是title的值
-            // backTitle
-        },
+        // title: '干货集中营',
+        navigationOptions: {
+            tabBar: {
+                label: '干货',
+                icon: ({tintColor}) => (
+                    <Image
+                        source={{uri : '干货'}}
+                        style={[tabBarIcon, {tintColor: tintColor}]}
+                    />
+                ),
+            },
+            header: {
+                title: '干货集中营',
+                // bool值，header是否可见。
+                visible: true,
+                // header的title的style
+                titleStyle: {fontSize: 22, color: 'white'},
+                // header的style
+                style: {backgroundColor: '#4ECBFC'},
+                // 返回按钮在iOS平台上，默认是title的值
+                // backTitle
+            },
+        }
     },
     Main:{
         screen:Main,
-        title: '个人中心',
-        tabBar:{
-            icon: ({ tintColor }) => (
-                <Image
-                    source={{uri : '个人中心'}}
-                    style={[tabBarIcon, {tintColor: tintColor}]}
-                />
-            ),
-        },
+        navigationOptions: {
+            tabBar: {
+                label: '个人中心',
+                icon: ({tintColor}) => (
+                    <Image
+                        source={{uri : '个人中心'}}
+                        style={[tabBarIcon, {tintColor: tintColor}]}
+                    />
+                ),
+            },
+            header: {
+                title: '个人中心',
+                // bool值，header是否可见。
+                visible: true,
+                // header的title的style
+                titleStyle: {fontSize: 22, color: 'white'},
+                // header的style
+                style: {backgroundColor: '#4ECBFC'},
+                // 返回按钮在iOS平台上，默认是title的值
+                backTitle: null
+            },
+        }
     }
 
 }, {
@@ -113,22 +132,13 @@ const MyTab = TabNavigator({
 const MyApp = StackNavigator({
     MyTab: {
         screen: MyTab,
-        navigationOptions: {
-            header: {
-                title: '互助',
-                style: {
-                    backgroundColor: '#fff'
-                },
-                backTitle: null
-            },
-            mode:'modal'
-        },
+        mode:'modal'
     },
     Detail: {
         screen: Detail,
         navigationOptions: {
             header: {
-                title: '互助',
+                title: '详情页',
                 style: {
                     backgroundColor: '#fff'
                 },
@@ -136,9 +146,19 @@ const MyApp = StackNavigator({
             },
             mode:'modal'
         },
-        headerMode: 'screen',
-
     },
+    SearchHistory:{
+        screen:SearchHistory,
+        navigationOptions: {
+            header: {
+                title: '搜索历史',
+                style: {
+                    backgroundColor: '#fff'
+                },
+                backTitle: null
+            },
+        },
+    }
 }, {
     headerMode: 'screen',
     // mode:'modal'
