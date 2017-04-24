@@ -10,9 +10,9 @@ const base = {
 const Config = {
 
     api:{
-        getToken: base.baseURL + '/ShiTu/getToken',
+        getUserToken: base.baseURL + '/ShiTu/getUserToken',
         getUpLoadToken: base.baseURL + '/ShiTu/getUpLoadToken',
-        getWebUrl : base.baseURL + '/ShiTu/getWebUrl',
+        postWebUrl : base.baseURL + '/ShiTu/postWebUrl',
     },
     qiniu:{
         upload:'http://upload-z2.qiniu.com',

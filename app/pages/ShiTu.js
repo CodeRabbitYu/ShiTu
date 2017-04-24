@@ -15,17 +15,25 @@ import {  View, Text, Image } from 'react-native-animatable';
 import Button from '../component/Button';
 const { BlurView ,VibrancyView} = require('react-native-blur');
 import ImagePicker from 'react-native-image-picker';
-import Request from '../common/Request';
-import Config from '../common/Config';
-import Detail from './Detail';
-
-import RNFetchBlob from 'react-native-fetch-blob';
-
 import * as Progress from 'react-native-progress';
-
-
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
+import Realm from 'realm';
+
+const HistorySchema = {
+    name: 'History',
+    primaryKey: 'id',
+    properties: {
+        id:         'string',
+        imageUri:   'string',
+        timestamp:  'int',
+    }
+};
+
+let realm = new Realm({schema: [HistorySchema],});
+
+import Request from '../common/Request';
+import Config from '../common/Config';
 
 // 底部弹出框文字
 let photoOptions = {
@@ -41,9 +49,7 @@ let photoOptions = {
         path: 'images'
     }
 };
-
-let TOKEN;
-
+let USERTOKEN;
 @observer
 export default class ShiTu extends Component {
     // 北京图片地址
@@ -59,10 +65,25 @@ export default class ShiTu extends Component {
     hintText= '点击按钮,搜索你想知道的图片哦!';
 
     componentDidMount(){
-        let KEY = 'TOKEN';
+        let list =[];
+
+        // console.log(realm.objects('History')[0].imageUri);
+
+        // for (let i =0 ; i<realm.objects('History').length;i++){
+        //     // console.log(realm.objects('History')[i].imageUri);
+        //     // list.push(realm.objects('History')[i].id);
+        // }
+
+        // let history = realm.objects('History');
+        // history.map((v,i) => {
+        //     console.log(v.id);
+        //     list.push(v);
+        // });
+        // console.log(list);
+        let KEY = 'USERTOKEN';
         AsyncStorage.getItem(KEY,(Error,result)=>{
             if (result === null){
-                Request.get(Config.api.getToken,(data)=>{
+                Request.get(Config.api.getUserToken,(data)=>{
                     console.log(data);
                     if (data && data.success){
                         let token = data.token;
@@ -71,18 +92,18 @@ export default class ShiTu extends Component {
                                 console.log('存储失败' + error);
                             }else {
                                 console.log('存储成功');
-                                TOKEN = token;
+                                USERTOKEN = token;
                             }
                         })
                     }
                 },(error)=>{
                     console.log(error);
-                    TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
+                    // TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
                 })
             }else {
                 console.log('获取成功' + result);
                 // TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
-                TOKEN = result;
+                USERTOKEN = result;
             }
         });
 
@@ -111,7 +132,8 @@ export default class ShiTu extends Component {
             xhr.upload.onprogress = (event)=>{
                 if (event.lengthComputable){
                     let perent = event.loaded / event.total.toFixed(2);
-                    console.log(perent);
+                    // 搜索进度打印
+                    // console.log(perent);
                     this.perent = perent;
                     this.isUpload = true;
                 }
@@ -138,12 +160,24 @@ export default class ShiTu extends Component {
                 // 将返回数据还原
                 response = JSON.parse(xhr.response);
                 // console.log(response);
-                let params = {
-                    token : response.key
+
+                let body = {
+                    token:response.key,
                 };
-                Request.post(Config.api.getWebUrl,params,(data)=>{
+
+                Request.post(Config.api.postWebUrl,body,(data)=>{
                     console.log('getWebUrl');
                     // console.log(data);
+                    // realm.write(() => {
+                    //      let history = realm.create('History', {
+                    //          id:      response.key,
+                    //          imageUri:   data.data,
+                    //          timestamp:  Date.now()
+                    //     });
+                    //     // console.log(realm.objects('History').length);
+                    // });
+                    //440d8d79-8d1f-47b8-a556-a78f1af38bb1.jpeg
+
                     if (this.perent === 1){
                         InteractionManager.runAfterInteractions(()=> {
                             navigate('Detail', {
@@ -178,15 +212,8 @@ export default class ShiTu extends Component {
             if(!response.error){
                 this.imageUri = response.uri;
             }
-
-            // let avatarData = 'data:image/png;base64,'+response.data
-            // let avatarData = 'data:image/jpeg;base64,' + response.data;
-            if (TOKEN.length > 0){
-                let body = {
-                    token:TOKEN,
-                };
-
-                Request.post(Config.api.getUpLoadToken,body,(data)=> {
+            if (USERTOKEN.length > 0){
+                Request.get(Config.api.getUpLoadToken,(data)=> {
                     console.log('getUpLoadToken');
                     // console.log(data);
                     let token = data.data.token;
@@ -208,7 +235,7 @@ export default class ShiTu extends Component {
                 })
             }
             else{
-                console.log('没有获取到TOKEN');
+                console.log('没有获取到USERTOKEN');
             }
         });
     };
@@ -259,7 +286,6 @@ export default class ShiTu extends Component {
 
 }
 
-global.USERTOKEN = TOKEN;
 
 const styles = StyleSheet.create({
     menu:{
