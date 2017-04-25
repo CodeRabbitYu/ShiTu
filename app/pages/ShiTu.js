@@ -200,15 +200,13 @@ export default class ShiTu extends Component {
     };
 
     _onPress = () => {
+        const { navigate } = this.props.navigation;
         ImagePicker.showImagePicker(photoOptions, (response) => {
-
-            // console.log('Response = ', response);
-
+            console.log('Response = ', response);
             if (response.didCancel) {
                 console.log('点击了取消按钮');
                 return;
             }
-
             if(!response.error){
                 this.imageUri = response.uri;
             }
@@ -229,36 +227,57 @@ export default class ShiTu extends Component {
                         name : key,
                     });
 
-                    console.log(this.imageUri);
-                    // let body = JSON.parse({
-                    //
-                    // });
-                    // console.log(body);
-
-                    RNFetchBlob.fetch('POST',Config.qiniu.upload,{
-                        'Content-Type' : 'multipart/form-data'
-                    },[{
+                    // console.log(formData);
+                    let PATH = response.uri.replace('file:///','');
+                    let body = [{
                         name:'token',data:token,
                     }, {
                         name:'key', data:key,
                     },{
-                        name:'file',data:JSON.stringify({
-                            name:key,
-                            uri:this.imageUri,
-                            type:'image/jpeg',
-                        })
-                    }])
-                        .then((response)=>response.json())
-                        .then((response)=>{
-                            console.log(response);
-                        })
-                        .catch((error)=>{
-                            console.log(error);
-                        });
+                        name: 'file',
+                        filename: key || 'file',
+                        // type : 'image/jpeg',
+                        data: RNFetchBlob.wrap(PATH)
+                    }];
+                    Request.upload(Config.qiniu.upload,body,(perent)=>{
 
+                        this.perent = perent;
+                        this.isUpload = true;
+                    },(response)=>{
+                        console.log(response);
+                        let body = {
+                            token: response.key,
+                        };
 
+                        Request.post(Config.api.postWebUrl, body, (data) => {
+                            console.log('getWebUrl');
+                            console.log(data);
+
+                            let imageURL = data.data.imageURL;
+                            let timestamp = Date.parse(new Date());
+
+                            realm.write(() => {
+                                realm.create('History', {
+                                    id: response.key.replace('.jpeg', ''),
+                                    imageURL: imageURL,
+                                    timestamp: timestamp
+                                });
+                            });
+
+                            if (this.perent === 1) {
+                                InteractionManager.runAfterInteractions(() => {
+                                    navigate('Detail', {
+                                        data: data.data.webURL,
+                                    });
+                                    this.isUpload = false;
+                                    this.hintText = '是否是您寻找的答案呢?'
+                                });
+                            }
+                        })
+                    },(error)=>{
+                        console.log(error);
+                    });
                     // this._upload(body);
-
                 },(error)=>{
                     console.log(error);
                 })

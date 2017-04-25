@@ -61,10 +61,10 @@ export default class SearchHistory extends Component {
     _images = (imageURL) => {
 
         let imageWidth = (SCREEN_WIDTH/2-15);
-        let imageHeight = 200;
+        let imageHeight = imageWidth * 0.86;
 
-        imageURL = imageURL+ '?imageView2/0/w/'+imageWidth.toFixed(0)+'/h/200';
-        console.log(imageURL);
+        imageURL = imageURL+ '?imageView2/0/w/'+imageWidth.toFixed(0)+'/h/'+imageHeight.toFixed(0);
+        // console.log(imageURL);
         return(
             <Image
                 source={{uri:imageURL}}

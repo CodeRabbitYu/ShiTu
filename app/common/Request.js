@@ -43,8 +43,29 @@ const Request = {
                 failCallBack(error);
             })
     },
-    upload:(url,successCallBack,failCallBack) => {
+    upload:(url,body,uploadProgress,successCallBack,failCallBack) => {
+        return RNFetchBlob.fetch('POST',url,{
+            'Content-Type' : 'multipart/form-data',
+        },body)
+            .uploadProgress((written, total) => {
 
+            })
+            .progress((received, total) => {
+                // console.log('progress', received / total)
+                let perent = received / total;
+                // 搜索进度打印
+                console.log(perent);
+                uploadProgress(perent);
+            })
+            .then((response)=>response.json())
+            .then((response)=> {
+                // console.log(response);
+                successCallBack(response);
+            })
+            .catch((error)=>{
+                failCallBack(error);
+                // console.log(error);
+            });
     }
 };
 
