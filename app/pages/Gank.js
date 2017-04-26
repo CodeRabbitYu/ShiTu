@@ -8,53 +8,66 @@ import {
     Text,
     View,
     Image,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    TouchableOpacity
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
+import ScrollableTabView, {DefaultTabBar, ScrollableTabBar} from 'react-native-scrollable-tab-view';
+
 
 export default class Gank extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            typeArr : [
+                {'title':'全部', 'type':'1',},
+                {'title':'视频', 'type':'41',},
+                {'title':'图片', 'type':'10',},
+                {'title':'段子', 'type':'29',},
+                {'title':'声音 ', 'type':'31',},
+            ],
+        }
+    }
+
+    _onChangeTab = (i) =>{
+        // console.log(i);
+    }
+
+    _onScroll = (e) =>{
+        // console.log(e);
+    }
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Animatable.Text animation="zoomInUp"
-                                 duration={5000}>
-                    Zoom me up, Scotty
-                </Animatable.Text>
-                <Animatable.Text animation="slideInDown"
-                                 iterationCount={3}
-                                 direction="alternate"
-                                 easing="ease-in-out">
-                    Up and down you go
-                </Animatable.Text>
-                <Animatable.Text animation="pulse"
-                                 easing="ease-out"
-                                 iterationCount="infinite"
-                                 duration={4000}
-                                 delay={2000}
-                                 style={{ textAlign: 'center' }}>
-                    ❤
-                ️</Animatable.Text>
+            <ScrollableTabView
+                renderTabBar={() => <ScrollableTabBar />}
+                tabBarActiveTextColor='red'
+                tabBarInactiveTextColor='#rgb(67,67,67)'
+                tabBarBackgroundColor='#f7f7f7'
+                tabBarUnderlineStyle={{backgroundColor:'red'}}
+                onScroll={(e) => this._onScroll(e)}
+                onChangeTab={(i) => this._onChangeTab(i)}
+            >
+                {
+                    this.state.typeArr.map((item, i) => {
+                       if (i===0){
+                           console.log('true');
+                           return (
+                               <View key={i}
+                                     tabLabel={item.title}
+                                     style={{backgroundColor:'red',flex:1}}
+                               />
+                           );
+                       }
+                            return (
+                                <View key={i}
+                                      tabLabel={item.title}
+                                      style={{backgroundColor:'blue',flex:1}}
+                                />
+                            )
 
-                <TouchableWithoutFeedback onPress={
-                    () => this.refs.view.bounce(300)
-                            .then((endState) =>
-                            console.log(endState.finished ? 'bounce finished' : 'bounce cancelled'))
-                }>
-                <Animatable.View ref="view">
-                    <Text>Bounce me!</Text>
-                </Animatable.View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() =>
-                this.refs.text.transitionTo(
-                    {opacity: 0.2}
-                    )}>
-                <Animatable.Text ref="text">Fade me!</Animatable.Text>
-                </TouchableWithoutFeedback>
-            </View>
+                    })
+                }
+            </ScrollableTabView>
         );
     }
 }
@@ -64,18 +77,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    page: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-    icon:{
-        width:37,
-        height:37,
-    }
 });

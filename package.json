@@ -18,6 +18,7 @@
     "react-native-fetch-blob": "^0.10.4",
     "react-native-image-picker": "^0.26.3",
     "react-native-progress": "^3.2.0",
+    "react-native-scrollable-tab-view": "^0.6.5",
     "react-native-vector-icons": "^4.0.1",
     "react-navigation": "^1.0.0-beta.7",
     "realm": "^1.2.0"

@@ -29,6 +29,7 @@ export default class Main extends Component {
         // gesturesEnabled- 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
     };
     render() {
+        console.log('Main');
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
