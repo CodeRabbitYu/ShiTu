@@ -37,6 +37,7 @@ export default class Gank extends Component {
         // console.log(e);
     }
     render() {
+
         return (
             <ScrollableTabView
                 renderTabBar={() => <ScrollableTabBar />}
@@ -53,18 +54,31 @@ export default class Gank extends Component {
                     this.state.typeArr.map((item, i) => {
                        if (i===0){
                            console.log('true');
+                           // 198.37499999999997
+                           // 220.79999999999998
+                           // 166.75
                            return (
                                <View key={i}
                                      tabLabel={item.title}
                                      style={{backgroundColor:'red',flex:1}}
-                               />
+                               >
+                                   <Text>{text}</Text>
+                               </View>
                            );
                        }
+                        {/*let text = Math.round(Math.random()*100);*/}
+
+                        let imageWidth  = SCREEN_WIDTH / 2 - 15;
+                        let imageHeight = imageWidth * 1.15;
+                        console.log(imageHeight);
+                        let text = parseInt(Math.random()*100 + imageHeight);
                             return (
                                 <View key={i}
                                       tabLabel={item.title}
-                                      style={{backgroundColor:'blue',flex:1}}
-                                />
+                                      style={{backgroundColor:'white',flex:1}}
+                                >
+                                    <Text>{text}</Text>
+                                </View>
                             )
 
                     })
