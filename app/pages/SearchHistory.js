@@ -20,6 +20,9 @@ import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 import Button from '../component/Button';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
+
 const HistorySchema = {
     name: 'History',
     primaryKey: 'id',
@@ -31,20 +34,42 @@ const HistorySchema = {
 };
 let realm = new Realm({schema: [HistorySchema],});
 
-@observer
 export default class SearchHistory extends Component {
-    @observable
-    List = [];
+        static navigationOptions = {
+
+        // cardStack- 配置card stack
+        cardStack:{
+            // 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
+            gesturesEnabled:true
+        }
+    };
+
+    constructor(props){
+        super(props);
+        this.state = {
+            ListArr : null,
+        }
+    }
 
     componentDidMount(){
+        console.log(this.props);
         let list = [];
         let history = realm.objects('History');
-        history.map((v,i) => {
+        // let times = history.filtered('timestamp = "ASC"');
+        // console.log(times);
+        // console.log(times[1]);
+        let times = history.sorted('timestamp');
+
+        times.map((v,i) => {
             // console.log(v.id);
             list.push(v);
-        });
 
-        this.List = list;
+        });
+        list.reverse();
+        // console.log(list.length);
+        this.setState({
+            ListArr:list,
+        });
         // console.log(list);
     }
 
@@ -60,10 +85,16 @@ export default class SearchHistory extends Component {
 
     _images = (imageURL) => {
 
-        let imageWidth = (SCREEN_WIDTH/2-15);
-        let imageHeight = imageWidth * 0.86;
+        let imageWidth = SCREEN_WIDTH/2-15;
+        let imageHeight = imageWidth * 1.15;
 
-        imageURL = imageURL+ '?imageView2/0/w/'+imageWidth.toFixed(0)+'/h/'+imageHeight.toFixed(0);
+        let requestWidth = imageWidth + 80;
+        let requestHeight = imageHeight + 80;
+
+        // imageURL = imageURL+ '?imageView2/0/w/'+imageWidth.toFixed(0)+'/h/'+imageHeight.toFixed(0);
+
+        imageURL = `${imageURL}?imageView2/0/w/${requestWidth.toFixed(0)}/h/${requestHeight.toFixed(0)}`;
+
         // console.log(imageURL);
         return(
             <Image
@@ -98,7 +129,7 @@ export default class SearchHistory extends Component {
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={this.List}
+                    data={this.state.ListArr}
                     keyExtractor={item => item.id}
                     renderItem={({item})=>this.renderItem(item)}
                     numColumns={2}

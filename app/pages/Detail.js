@@ -17,11 +17,7 @@ import {
 import ShiTu from './ShiTu';
 export default class Detail extends Component {
     static navigationOptions = {
-        // title: '识图详情',
-        // header: {
-        //     visible: false,
-        //     titleStyle:{fontSize:22},
-        // },
+
         header: ({ state, setParams ,goBack}) => {
             // const { navigate } = this.props.navigation;
 
@@ -39,7 +35,6 @@ export default class Detail extends Component {
             );
             return{right};
         },
-        mode:'modal',
     };
 
     _right = ()=> {

@@ -8,8 +8,11 @@ import {
 } from 'react-navigation';
 
 import React from 'react';
+
 import {
     Image,
+    StyleSheet,
+    Text,
 } from 'react-native';
 
 import ShiTu from './pages/ShiTu';
@@ -18,6 +21,9 @@ import Detail from './pages/Detail';
 import Main from './pages/Main';
 
 import SearchHistory from './pages/SearchHistory';
+
+import Button from './component/Button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const MyTab = TabNavigator({
     ShiTu: {
@@ -150,18 +156,35 @@ const MyApp = StackNavigator({
     SearchHistory:{
         screen:SearchHistory,
         navigationOptions: {
-            header: {
-                title: '搜索历史',
-                titleStyle:{fontSize:22,color:'white'},
-                // header的style
-                style:{backgroundColor:'#4ECBFC'},
-                backTitle: null
-            },
-        },
-    }
+            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})}
+    },
 }, {
     headerMode: 'screen',
     // mode:'modal'
 });
+
+export const StackHeader = ({state, setParams ,goBack}) => {
+    let title = (
+        <Text style={{fontSize:22,color:'white'}}>搜索历史</Text>
+    );
+    style={backgroundColor:'#4ECBFC'};
+    let left = (
+        <Button
+            isCustom={true}
+            customView={
+                            <Icon
+                                name='ios-arrow-back'
+                                size={30}
+                                color='white'
+                                style={{marginLeft:13}}
+                            />
+                        }
+            onPress={()=>{goBack()}}
+        />
+    );
+    return  {title,style , left};
+};
+
+
 
 export default MyApp;

@@ -6,7 +6,8 @@ import {
     AppRegistry,
     StyleSheet,
     AsyncStorage,
-    InteractionManager
+    InteractionManager,
+    StatusBar
 } from 'react-native';
 
 import '../common/Global'
@@ -251,27 +252,47 @@ export default class ShiTu extends Component {
 
                         Request.post(Config.api.postWebUrl, body, (data) => {
                             console.log('getWebUrl');
-                            console.log(data);
 
-                            let imageURL = data.data.imageURL;
-                            let timestamp = Date.parse(new Date());
+                            if (!data){
+                                return;
+                            }
+                            if (data && data.success){
+                                try {
+                                    let imageURL = data.data.imageURL;
+                                    let timestamp = Date.parse(new Date());
 
-                            realm.write(() => {
-                                realm.create('History', {
-                                    id: response.key.replace('.jpeg', ''),
-                                    imageURL: imageURL,
-                                    timestamp: timestamp
-                                });
-                            });
-
-                            if (this.perent === 1) {
-                                InteractionManager.runAfterInteractions(() => {
-                                    navigate('Detail', {
-                                        data: data.data.webURL,
+                                    realm.write(() => {
+                                        realm.create('History', {
+                                            id: response.key.replace('.jpeg', ''),
+                                            imageURL: imageURL,
+                                            timestamp: timestamp
+                                        });
                                     });
-                                    this.isUpload = false;
-                                    this.hintText = '是否是您寻找的答案呢?'
-                                });
+
+                                    if (this.perent === 1) {
+                                        InteractionManager.runAfterInteractions(() => {
+                                            navigate('Detail', {
+                                                data: data.data.webURL,
+                                            });
+                                            this.isUpload = false;
+                                            this.hintText = '是否是您寻找的答案呢?'
+                                        });
+                                    }
+                                }
+                                catch (e) {
+                                    // err = "上传失败";
+                                }
+                                finally {
+                                    // if (err) {
+                                    //     Toast.info(err, 1);
+                                    //     return;
+                                    // }
+                                    // resultCallback(data);
+                                    // task.cancel();
+                                }
+                            }
+                            else {
+                                console.log('上传错误');
                             }
                         })
                     },(error)=>{
@@ -297,6 +318,10 @@ export default class ShiTu extends Component {
                    animation="fadeIn"
                    useNativeDriver
             >
+                <StatusBar
+                    backgroundColor="blue"
+                    barStyle="light-content"
+                />
                 {
                     !this.isUpload ?  <BlurView blurType="light" blurAmount={5} style={styles.blur}>
                             <Text style={styles.textStyle}>
