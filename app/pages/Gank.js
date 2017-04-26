@@ -12,7 +12,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import ScrollableTabView, {DefaultTabBar, ScrollableTabBar} from 'react-native-scrollable-tab-view';
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
 
 export default class Gank extends Component {
@@ -40,12 +40,14 @@ export default class Gank extends Component {
         return (
             <ScrollableTabView
                 renderTabBar={() => <ScrollableTabBar />}
-                tabBarActiveTextColor='red'
-                tabBarInactiveTextColor='#rgb(67,67,67)'
-                tabBarBackgroundColor='#f7f7f7'
-                tabBarUnderlineStyle={{backgroundColor:'red'}}
+                tabBarActiveTextColor='#4ECBFC'
+                tabBarInactiveTextColor='black'
+                tabBarBackgroundColor='white'
+                tabBarUnderlineStyle={{backgroundColor:'#4ECBFC'}}
                 onScroll={(e) => this._onScroll(e)}
                 onChangeTab={(i) => this._onChangeTab(i)}
+                tabBarTextStyle={{fontSize:FONT_SIZE(15)}}
+                tabStyle={{height:20}}
             >
                 {
                     this.state.typeArr.map((item, i) => {
