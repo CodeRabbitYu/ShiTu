@@ -150,7 +150,6 @@ const MyApp = StackNavigator({
                 style:{backgroundColor:'#4ECBFC'},
                 backTitle: null
             },
-            mode:'modal'
         },
     },
     SearchHistory:{
@@ -165,7 +164,7 @@ const MyApp = StackNavigator({
 
 export const StackHeader = ({state, setParams ,goBack}) => {
     let title = (
-        <Text style={{fontSize:22,color:'white'}}>搜索历史</Text>
+        <Text style={{fontSize:22,color:'white'}}>{state.params.title}</Text>
     );
     style={backgroundColor:'#4ECBFC'};
     let left = (
