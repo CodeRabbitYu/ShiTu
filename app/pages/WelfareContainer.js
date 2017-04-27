@@ -15,15 +15,20 @@ import Config from '../common/Config';
 
 export default class WelfareContainer extends Component {
     componentDidMount() {
-        // let url = 'http://gank.io/api/data/拓展视频/10/1'
+
         let type = encodeURIComponent(this.props.type);
+        console.log(type);
 
         let url = `${Config.api.getGankData}?page=${1}&type=${type}`
-        console.log(url);
+
+         // 'http://gank.io/api/data/拓展视频/10/1'
+        // let url = `http://gank.io/api/data/'${1}&type=${type}`
+
+        // console.log(url);
 
         // let url = `http://gank.io/api/data/${this.props.type}/20/1`
         Reqeust.get(url,(data)=>{
-            console.log(data);
+
         },(error)=>{
             console.log(error);
         });

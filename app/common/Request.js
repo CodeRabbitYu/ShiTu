@@ -13,8 +13,10 @@ const Request = {
         return RNFetchBlob
             .config(Request.config)
             .fetch('GET',url)
-            .then((response) => response.json())
+            // .then((response) => response.json())
             .then((response)=>{
+                // response = JSON.stringify(response);
+                console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{
