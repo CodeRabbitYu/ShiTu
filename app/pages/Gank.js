@@ -13,18 +13,21 @@ import {
 } from 'react-native';
 
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
-
+import WelfareContainer from './WelfareContainer';
+import GankListContainer from './GankListContainer';
 
 export default class Gank extends Component {
     constructor(props){
+
         super(props);
         this.state = {
             typeArr : [
-                {'title':'全部', 'type':'1',},
-                {'title':'视频', 'type':'41',},
-                {'title':'图片', 'type':'10',},
-                {'title':'段子', 'type':'29',},
-                {'title':'声音 ', 'type':'31',},
+                {'title':'福利', 'type':'%E7%A6%8F%E5%88%A9',},
+                {'title':'iOS', 'type':'iOS',},
+                {'title':'Android', 'type':'Android',},
+                {'title':'前端', 'type':'前端',},
+                {'title':'休息视频 ', 'type':'休息视频',},
+                {'title':'拓展资源', 'type':'拓展资源'}
             ],
         }
     }
@@ -44,11 +47,10 @@ export default class Gank extends Component {
                 tabBarActiveTextColor='#4ECBFC'
                 tabBarInactiveTextColor='black'
                 tabBarBackgroundColor='white'
-                tabBarUnderlineStyle={{backgroundColor:'#4ECBFC'}}
+                tabBarUnderlineStyle={{backgroundColor:'#4ECBFC',height:2}}
                 onScroll={(e) => this._onScroll(e)}
                 onChangeTab={(i) => this._onChangeTab(i)}
                 tabBarTextStyle={{fontSize:FONT_SIZE(15)}}
-                tabStyle={{height:20}}
             >
                 {
                     this.state.typeArr.map((item, i) => {
@@ -58,12 +60,10 @@ export default class Gank extends Component {
                            // 220.79999999999998
                            // 166.75
                            return (
-                               <View key={i}
-                                     tabLabel={item.title}
-                                     style={{backgroundColor:'red',flex:1}}
-                               >
-                                   <Text>{text}</Text>
-                               </View>
+                               <WelfareContainer key={i}
+                                                 tabLabel={item.title}
+                                                 type={item.type}
+                               />
                            );
                        }
                         {/*let text = Math.round(Math.random()*100);*/}
@@ -73,12 +73,11 @@ export default class Gank extends Component {
                         console.log(imageHeight);
                         let text = parseInt(Math.random()*100 + imageHeight);
                             return (
-                                <View key={i}
-                                      tabLabel={item.title}
-                                      style={{backgroundColor:'white',flex:1}}
-                                >
-                                    <Text>{text}</Text>
-                                </View>
+                                <GankListContainer key={i}
+                                                   tabLabel={item.title}
+                                                   type={item.type}
+                                                   style={{backgroundColor:'white',flex:1}}
+                                />
                             )
 
                     })
