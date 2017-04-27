@@ -13,6 +13,7 @@ const Config = {
         getUserToken: base.baseURL + '/ShiTu/getUserToken',
         getUpLoadToken: base.baseURL + '/ShiTu/getUpLoadToken',
         postWebUrl : base.baseURL + '/ShiTu/postWebUrl',
+        getGankData : base.baseURL + '/ShiTu/getGankData',
     },
     qiniu:{
         upload:'http://upload-z2.qiniu.com',
