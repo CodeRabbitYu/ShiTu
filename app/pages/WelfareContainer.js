@@ -11,13 +11,14 @@ import {
     FlatList,
     ScrollView,
     RefreshControl,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 
 import Reqeust from '../common/Request';
 import Config from '../common/Config';
-import WelfareItem from './WelfareItem';
 import AutoResponisve from 'autoresponsive-react-native';
+import Button from '../component/Button';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
@@ -29,14 +30,20 @@ export default class WelfareContainer extends Component {
     @observable
     isRefresh = false;
 
+
+    constructor(props){
+        super(props);
+        this.state = {
+            defaultData :[],
+        }
+    }
+
     componentDidMount() {
         let type = encodeURIComponent(this.props.type);
         // console.log(type);
         let url = `${Config.api.getGankData}?page=${1}&type=${type}`
         // let url = `http://gank.io/api/data/${this.props.type}/20/1`
         Reqeust.get(url,(data)=>{
-            // console.log(data);
-
             let results = data.data.results;
             results.map((item, i) => {
                 let imageWidth  = SCREEN_WIDTH / 2 - 15;
@@ -48,6 +55,15 @@ export default class WelfareContainer extends Component {
             });
 
             this.dataSource = results;
+            this.setState({
+                defaultData:[{
+                    _id:'test'
+                }]
+            });
+
+            const { navigate,type } = this.props;
+            console.log(navigate);
+            console.log(type);
 
         },(error)=>{
             console.log(error);
@@ -58,43 +74,51 @@ export default class WelfareContainer extends Component {
             itemMargin: 8,
         };
     }
+
+    renderWelfareItem = ()=>{
+        const { navigate,type } = this.props;
+        return this.dataSource.map((item, i) => {
+            return (
+                <TouchableOpacity key = {i}
+                                  style={{height:item.imageHeight,width:item.imageWidth}}
+                                  onPress={()=>{
+                                      navigate('WelfarePicture',{
+                                            title:'图片详情',
+                                            url:item.url
+                                        });
+                                  }}
+                >
+                    <Image
+                        source={{uri:item.url}}
+                        style={{
+                              height:item.imageHeight,
+                              width:item.imageWidth,
+                              marginHorizontal:10,
+                              marginVertical:10,
+                              }}
+                    />
+                </TouchableOpacity>
+            );
+        }, this);
+    };
+
+    renderItem =()=>{
+
+        return(
+            <AutoResponisve {...this.getAutoResponsiveProps()}>
+                {this.renderWelfareItem()}
+            </AutoResponisve>
+        )
+    };
+
     render() {
         return (
-            <ScrollView
-                ref={scrollView => this.scrollView = scrollView}
-                style={{width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}
-                automaticallyAdjustContentInsets={false}
-                removeClippedSubviews={true}
-                scrollEventThrottle={16}
-                onMomentumScrollEnd={this._onMomentumScrollEnd}
-                bounces={true}
-                refreshControl={
-                        <RefreshControl
-                            refreshing={this.isRefresh}
-                            onRefresh={this._onRefresh}
-                            colors={['rgb(217, 51, 58)']}
-                        />
-                    }
-            >
-                <AutoResponisve {...this.getAutoResponsiveProps()}>
-                    {
-                        this.dataSource.map((item,i)=>{
-                            return(
-                                <Image
-                                    key = {i}
-                                    source={{uri:item.url}}
-                                    style={{
-                                          height:item.imageHeight,
-                                          width:item.imageWidth,
-                                          marginHorizontal:10,
-                                          marginVertical:10,
-                                          }}
-                                />
-                            )
-                        })
-                    }
-                </AutoResponisve>
-            </ScrollView>
+            <FlatList
+                data={this.state.defaultData}
+                keyExtractor={item => item._id}
+                renderItem={()=>this.renderItem()}
+                numColumns={2}
+            />
         );
     }
 }

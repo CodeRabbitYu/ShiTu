@@ -22,12 +22,12 @@ export default class Gank extends Component {
         super(props);
         this.state = {
             typeArr : [
-                {'title':'福利', 'type':'福利',},
-                {'title':'iOS', 'type':'iOS',},
-                {'title':'Android', 'type':'Android',},
-                {'title':'前端', 'type':'前端',},
-                {'title':'休息视频 ', 'type':'休息视频',},
-                {'title':'拓展资源', 'type':'拓展资源'}
+                {'title':'福利', 'type':'福利','navigate':'WelfarePicture'},
+                {'title':'iOS', 'type':'iOS','navigate':'iOS'},
+                {'title':'Android', 'type':'Android','navigate':'Android'},
+                {'title':'前端', 'type':'前端','navigate':'qianduan'},
+                {'title':'休息视频 ', 'type':'休息视频','navigate':'video'},
+                {'title':'拓展资源', 'type':'拓展资源','navigate':'resource'}
             ],
         }
     }
@@ -63,6 +63,7 @@ export default class Gank extends Component {
                                <WelfareContainer key={i}
                                                  tabLabel={item.title}
                                                  type={item.type}
+                                                 navigate={item.navigate}
                                />
                            );
                        }

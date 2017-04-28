@@ -21,12 +21,13 @@ export default class WelfareItem extends Component {
     }
 
     render() {
+        const { state: { params: { url } } } = this.props.navigation;
         return (
             <Image
-                source={{uri:this.props.itemData.url}}
+                source={{uri:url}}
                 style={{
-                    height:this.props.itemData.imageHeight,
-                    width:this.props.itemData.imageWidth}}
+                    height:SCREEN_HEIGHT,
+                    width:SCREEN_WIDTH}}
             />
         );
     }

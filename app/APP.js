@@ -20,7 +20,9 @@ import Gank from './pages/Gank';
 import Detail from './pages/Detail';
 import Main from './pages/Main';
 
+import WelfareContainer from './pages/WelfareContainer'
 import SearchHistory from './pages/SearchHistory';
+import WelfarePicture from './pages/WelfarePicture';
 
 import Button from './component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -132,7 +134,6 @@ const MyTab = TabNavigator({
             backgroundColor:'blue',
         }
     }
-
 });
 
 const MyApp = StackNavigator({
@@ -155,8 +156,19 @@ const MyApp = StackNavigator({
     SearchHistory:{
         screen:SearchHistory,
         navigationOptions: {
-            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})}
+            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})
+        }
     },
+    WelfareContainer:{
+        screen:WelfareContainer,
+    },
+    WelfarePicture:{
+        screen:WelfarePicture,
+        navigationOptions:{
+            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})
+        }
+    },
+
 }, {
     headerMode: 'screen',
     // mode:'modal'
