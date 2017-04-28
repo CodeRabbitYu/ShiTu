@@ -70,7 +70,7 @@ export default class Gank extends Component {
 
                         let imageWidth  = SCREEN_WIDTH / 2 - 15;
                         let imageHeight = imageWidth * 1.15;
-                        console.log(imageHeight);
+                        {/*console.log(imageHeight);*/}
                         let text = parseInt(Math.random()*100 + imageHeight);
                             return (
                                 <GankListContainer key={i}

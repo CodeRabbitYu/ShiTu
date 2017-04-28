@@ -8,15 +8,13 @@ import RNFetchBlob from 'react-native-fetch-blob';
 const Request = {
     config:{},
     get:(url, successCallBack, failCallBack) =>{
-        console.log(url);
+        // console.log(url);
         // console.log(config);
         return RNFetchBlob
             .config(Request.config)
             .fetch('GET',url)
             .then((response) => response.json())
             .then((response)=>{
-                // response = JSON.stringify(response);
-                console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{

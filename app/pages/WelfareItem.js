@@ -12,24 +12,22 @@ import {
 } from 'react-native';
 
 export default class WelfareItem extends Component {
+    static defaultProps = {
+        itemData: {},
+    };
+
     componentDidMount() {
-        let url = 'gank.io/api/data/拓展视频/10/1';
+        console.log(this.props.itemData);
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit index.android.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
-                </Text>
-            </View>
+            <Image
+                source={{uri:this.props.itemData.url}}
+                style={{
+                    height:this.props.itemData.imageHeight,
+                    width:this.props.itemData.imageWidth}}
+            />
         );
     }
 }
