@@ -22,7 +22,7 @@ export default class Gank extends Component {
         super(props);
         this.state = {
             typeArr : [
-                {'title':'福利', 'type':'%E7%A6%8F%E5%88%A9',},
+                {'title':'福利', 'type':'福利',},
                 {'title':'iOS', 'type':'iOS',},
                 {'title':'Android', 'type':'Android',},
                 {'title':'前端', 'type':'前端',},
