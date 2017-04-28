@@ -8,27 +8,66 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 
+import { observable, runInAction, autorun } from 'mobx';
+import { observer } from 'mobx-react/native';
+
+@observer
 export default class WelfareItem extends Component {
-    static defaultProps = {
-        itemData: {},
+    static navigationOptions = {
+        // cardStack- 配置card stack
+        cardStack:{
+            // 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
+            gesturesEnabled:true
+        },
+
     };
 
-    componentDidMount() {
-        console.log(this.props.itemData);
+    @observable
+    isShow = false;
+
+    constructor(props){
+        super(props);
+        this.state = {
+            // isShowNav:false,
+        }
     }
+
+    _onPress = ()=> {
+        console.log('111');
+        // !this.state.isShowNav
+        this.setState({
+            isShow: !this.state.isShow
+        });
+        // this.isShow = true;
+    };
 
     render() {
         const { state: { params: { url } } } = this.props.navigation;
+        // const { isShowNav} = this.state;
         return (
-            <Image
-                source={{uri:url}}
-                style={{
-                    height:SCREEN_HEIGHT,
-                    width:SCREEN_WIDTH}}
-            />
+            <TouchableOpacity onPress={this._onPress}>
+                {this.state.isShow ?
+                    <View>
+                        <Image
+                            source={{uri:url}}
+                            style={{
+                        height:SCREEN_HEIGHT-64,
+                        width:SCREEN_WIDTH}}
+                        />
+                    </View>
+                    :
+                    <Image
+                        source={{uri:url}}
+                        style={{
+                        height:SCREEN_HEIGHT,
+                        width:SCREEN_WIDTH}}
+                    />
+                }
+            </TouchableOpacity>
         );
     }
 }

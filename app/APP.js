@@ -103,7 +103,7 @@ const MyTab = TabNavigator({
                 backTitle: null
             },
         }
-    }
+    },
 
 }, {
     tabBarPosition: 'bottom',
@@ -159,9 +159,7 @@ const MyApp = StackNavigator({
             header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})
         }
     },
-    WelfareContainer:{
-        screen:WelfareContainer,
-    },
+
     WelfarePicture:{
         screen:WelfarePicture,
         navigationOptions:{
@@ -179,6 +177,7 @@ export const StackHeader = ({state, setParams ,goBack}) => {
         <Text style={{fontSize:22,color:'white'}}>{state.params.title}</Text>
     );
     style={backgroundColor:'#4ECBFC'};
+    visible= state.params.isVisible;
     let left = (
         <Button
             isCustom={true}
@@ -193,7 +192,7 @@ export const StackHeader = ({state, setParams ,goBack}) => {
             onPress={()=>{goBack()}}
         />
     );
-    return  {title,style , left};
+    return  {title,style ,visible, left};
 };
 
 

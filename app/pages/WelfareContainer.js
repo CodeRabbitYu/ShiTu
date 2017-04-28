@@ -61,9 +61,8 @@ export default class WelfareContainer extends Component {
                 }]
             });
 
-            const { navigate,type } = this.props;
+            const { navigate } = this.props;
             console.log(navigate);
-            console.log(type);
 
         },(error)=>{
             console.log(error);
@@ -76,7 +75,7 @@ export default class WelfareContainer extends Component {
     }
 
     renderWelfareItem = ()=>{
-        const { navigate,type } = this.props;
+        const { navigate } = this.props;
         return this.dataSource.map((item, i) => {
             return (
                 <TouchableOpacity key = {i}
@@ -84,7 +83,8 @@ export default class WelfareContainer extends Component {
                                   onPress={()=>{
                                       navigate('WelfarePicture',{
                                             title:'图片详情',
-                                            url:item.url
+                                            url:item.url,
+                                            isVisible:false
                                         });
                                   }}
                 >
