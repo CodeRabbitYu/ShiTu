@@ -20,7 +20,7 @@ export default class Gank extends Component {
     constructor(props){
         super(props);
         const { navigate } = this.props.navigation;
-        console.log(navigate);
+        // console.log(navigate);
         this.state = {
             typeArr : [
                 {'title':'福利', 'type':'福利','navigate':navigate},

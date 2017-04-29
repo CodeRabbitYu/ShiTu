@@ -30,7 +30,7 @@ export default class WelfareContainer extends Component {
     @observable
     isRefresh = false;
 
-
+    page = 1;
     constructor(props){
         super(props);
         this.state = {
@@ -38,35 +38,62 @@ export default class WelfareContainer extends Component {
         }
     }
 
-    componentDidMount() {
+    fetchData=(page) =>{
+        if (this.isRefresh){
+            console.log('isRefresh?')
+            return;
+        }
+        console.log(page);
+        this.isRefresh = true;
         let type = encodeURIComponent(this.props.type);
         // console.log(type);
-        let url = `${Config.api.getGankData}?page=${1}&type=${type}`
+        let url = `${Config.api.getGankData}?page=${page}&type=${type}`
+        console.log(url);
         // let url = `http://gank.io/api/data/${this.props.type}/20/1`
-        Reqeust.get(url,(data)=>{
-            let results = data.data.results;
-            results.map((item, i) => {
-                let imageWidth  = SCREEN_WIDTH / 2 - 15;
-                let imageHeight = imageWidth * 1.15;
-                imageHeight = parseInt(Math.random()*100 + imageHeight);
-                item.imageHeight = imageHeight;
-                item.imageWidth = imageWidth;
-                // console.log(item);
-            });
+        return Reqeust.get(url,(data)=>{
+            if (data &&data.success) {
+                let results = data.data.results;
+                results.map((item, i) => {
+                    let imageWidth = SCREEN_WIDTH / 2 - 15;
+                    let imageHeight = imageWidth * 1.15;
+                    imageHeight = parseInt(Math.random() * 100 + imageHeight);
+                    item.imageHeight = imageHeight;
+                    item.imageWidth = imageWidth;
+                    console.log(item);
+                });
 
-            this.dataSource = results;
-            this.setState({
-                defaultData:[{
-                    _id:'test'
-                }]
-            });
+                if (page > 1){
+                    console.log('大于1了?')
+                    // this.dataSource = results.(results);
+                }else {
 
-            const { navigate } = this.props;
-            console.log(navigate);
-
+                }
+                this.dataSource = results;
+                this.isRefresh = false;
+                this.setState({
+                    defaultData: [{
+                        _id: 'test'
+                    }]
+                });
+            }
         },(error)=>{
             console.log(error);
         });
+    };
+
+    refreshData = async ()=>{
+        // 正常使用fetch请求,用这个方法应该是没有问题的.我现在的封装会有点小问题,以后解决
+        let data = await this.fetchData();
+        console.log(data);
+    };
+
+    componentDidMount() {
+
+        this.fetchData(this.page);
+
+        // const { navigate } = this.props;
+        // console.log(navigate);
+
     }
     getAutoResponsiveProps() {
         return {
@@ -74,39 +101,17 @@ export default class WelfareContainer extends Component {
         };
     }
 
-    renderWelfareItem = ()=>{
-        const { navigate } = this.props;
-        return this.dataSource.map((item, i) => {
-            return (
-                <TouchableOpacity key = {i}
-                                  style={{height:item.imageHeight,width:item.imageWidth}}
-                                  onPress={()=>{
-                                      navigate('WelfarePicture',{
-                                            title:'图片详情',
-                                            url:item.url,
-                                            isVisible:false
-                                        });
-                                  }}
-                >
-                    <Image
-                        source={{uri:item.url}}
-                        style={{
-                              height:item.imageHeight,
-                              width:item.imageWidth,
-                              marginHorizontal:10,
-                              marginVertical:10,
-                              }}
-                    />
-                </TouchableOpacity>
-            );
-        }, this);
-    };
+    fetchMoreData = ()=> {
+        this.page += this.page;
+        console.log(this.page);
+        this.fetchData(this.page);
+    }
 
     renderItem =()=>{
-
+        const { navigate } = this.props;
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
-                {this.renderWelfareItem()}
+                { WelfareItem(navigate,this.dataSource)}
             </AutoResponisve>
         )
     };
@@ -118,6 +123,10 @@ export default class WelfareContainer extends Component {
                 keyExtractor={item => item._id}
                 renderItem={()=>this.renderItem()}
                 numColumns={2}
+                onRefresh={() => this.fetchData(1)}
+                refreshing={this.isRefresh}
+                onEndReachedThreshold={0}
+                onEndReached={() => this.fetchMoreData()}
             />
         );
     }
@@ -131,3 +140,32 @@ const styles = StyleSheet.create({
         paddingVertical:10,
     },
 });
+
+const WelfareItem = (navigate,dataSource) => {
+    // console.log(navigate);
+    // console.log(dataSource);
+    return dataSource.map((item, i) => {
+        return (
+            <TouchableOpacity key = {i}
+                              style={{height:item.imageHeight,width:item.imageWidth}}
+                              onPress={()=>{
+                                      navigate('WelfarePicture',{
+                                            title:'图片详情',
+                                            url:item.url,
+                                            isVisible:false
+                                        });
+                                  }}
+            >
+                <Image
+                    source={{uri:item.url}}
+                    style={{
+                              height:item.imageHeight,
+                              width:item.imageWidth,
+                              marginHorizontal:10,
+                              marginVertical:10,
+                              }}
+                />
+            </TouchableOpacity>
+        );
+    }, this);
+}
