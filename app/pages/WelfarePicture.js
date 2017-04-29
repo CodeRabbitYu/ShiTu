@@ -15,6 +15,9 @@ import {
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 
+import Button from '../component/Button';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 @observer
 export default class WelfareItem extends Component {
     static navigationOptions = {
@@ -46,27 +49,42 @@ export default class WelfareItem extends Component {
     };
 
     render() {
-        const { state: { params: { url } } } = this.props.navigation;
+        const { state: { params: { url ,title } } } = this.props.navigation;
         // const { isShowNav} = this.state;
+        console.log(this.props.navigation);
+
+        let style ;
+        this.state.isShow ?
+            style={width:SCREEN_WIDTH,height:SCREEN_HEIGHT-64}
+            : {width:SCREEN_WIDTH,height:SCREEN_HEIGHT}
+
         return (
-            <TouchableOpacity onPress={this._onPress}>
+            <TouchableOpacity onPress={this._onPress} activeOpacity={1}>
                 {this.state.isShow ?
-                    <View>
-                        <Image
-                            source={{uri:url}}
-                            style={{
-                        height:SCREEN_HEIGHT-64,
-                        width:SCREEN_WIDTH}}
+                    <View style={{height:64,backgroundColor:'#4ECBFC'}}>
+                        <Button
+                            isCustom={true}
+                            customView={
+                            <Icon
+                                name='ios-arrow-back'
+                                size={30}
+                                color='white'
+                                style={{marginLeft:0,marginTop:27}}
+                            />
+                        }
+                            style={{marginLeft:15}}
+                            onPress={()=>{this.props.navigation.goBack()}}
                         />
                     </View>
-                    :
+                    :null
+                }
                     <Image
                         source={{uri:url}}
-                        style={{
+                        style={[{
                         height:SCREEN_HEIGHT,
-                        width:SCREEN_WIDTH}}
+                        width:SCREEN_WIDTH},style]}
                     />
-                }
+
             </TouchableOpacity>
         );
     }

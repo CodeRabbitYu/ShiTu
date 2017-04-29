@@ -178,15 +178,20 @@ export default class ShiTu extends Component {
                              timestamp:  timestamp
                         });
                     });
+                    data.data.title = '搜索详情';
 
                     if (this.perent === 1){
-                        InteractionManager.runAfterInteractions(()=> {
+                        // InteractionManager.runAfterInteractions(()=> {
                             navigate('Detail', {
                                 data: data.data.webURL,
+                                title:data.data.title,
+                                isVisible:true
                             });
+
+
                             this.isUpload = false;
                             this.hintText = '是否是您寻找的答案呢?'
-                        });
+                        // });
                     }
                 },(error) =>{
                     console.log(error);

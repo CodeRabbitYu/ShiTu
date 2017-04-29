@@ -124,7 +124,7 @@ const MyTab = TabNavigator({
         // label和icon的背景色 不活跃状态下
         inactiveBackgroundColor:'white',
         // label和icon的前景色 不活跃状态下(未选中)
-        inactiveTintColor:'#d81e06',
+        inactiveTintColor:'#aaa',
         // 是否显示label，默认为true
         showLabel:false,
         // 不透明度为按选项卡(iOS和Android < 5.0)
@@ -143,15 +143,9 @@ const MyApp = StackNavigator({
     },
     Detail: {
         screen: Detail,
-        navigationOptions: {
-            header: {
-                title: '详情页',
-                titleStyle:{fontSize:22,color:'white'},
-                // header的style
-                style:{backgroundColor:'#4ECBFC'},
-                backTitle: null
-            },
-        },
+        navigationOptions:{
+            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})
+        }
     },
     SearchHistory:{
         screen:SearchHistory,

@@ -59,16 +59,16 @@ export default class WelfareContainer extends Component {
                     imageHeight = parseInt(Math.random() * 100 + imageHeight);
                     item.imageHeight = imageHeight;
                     item.imageWidth = imageWidth;
-                    console.log(item);
+                    // console.log(item);
                 });
 
                 if (page > 1){
                     console.log('大于1了?')
-                    // this.dataSource = results.(results);
+                    this.dataSource = this.dataSource.concat(results);
                 }else {
-
+                    this.dataSource = results;
                 }
-                this.dataSource = results;
+
                 this.isRefresh = false;
                 this.setState({
                     defaultData: [{
@@ -102,7 +102,7 @@ export default class WelfareContainer extends Component {
     }
 
     fetchMoreData = ()=> {
-        this.page += this.page;
+        this.page = this.page + 1;
         console.log(this.page);
         this.fetchData(this.page);
     }
@@ -125,7 +125,7 @@ export default class WelfareContainer extends Component {
                 numColumns={2}
                 onRefresh={() => this.fetchData(1)}
                 refreshing={this.isRefresh}
-                onEndReachedThreshold={0}
+                onEndReachedThreshold={10}
                 onEndReached={() => this.fetchMoreData()}
             />
         );
