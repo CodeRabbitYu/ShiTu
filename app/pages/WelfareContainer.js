@@ -125,7 +125,6 @@ export default class WelfareContainer extends Component {
                 numColumns={2}
                 onRefresh={() => this.fetchData(1)}
                 refreshing={this.isRefresh}
-                onEndReachedThreshold={10}
                 onEndReached={() => this.fetchMoreData()}
             />
         );

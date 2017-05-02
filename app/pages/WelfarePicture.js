@@ -61,7 +61,7 @@ export default class WelfareItem extends Component {
         return (
             <TouchableOpacity onPress={this._onPress} activeOpacity={1}>
                 {this.state.isShow ?
-                    <View style={{height:64,backgroundColor:'#4ECBFC'}}>
+                    <View style={{height:64,backgroundColor:'#4ECBFC',flexDirection:'row'}}>
                         <Button
                             isCustom={true}
                             customView={
@@ -72,9 +72,10 @@ export default class WelfareItem extends Component {
                                 style={{marginLeft:0,marginTop:27}}
                             />
                         }
-                            style={{marginLeft:15}}
+                            style={{marginLeft:12}}
                             onPress={()=>{this.props.navigation.goBack()}}
                         />
+                        <Text style={styles.navTitleStyle}>{title}</Text>
                     </View>
                     :null
                 }
@@ -95,15 +96,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
+    navTitleStyle:{
+        // alignItems:'center',
+        color:'white',
+        fontSize:FONT_SIZE(20),
+        height:64,
+        width:SCREEN_WIDTH - 29,
+        // alignSelf:'center',
+        // alignItems:'center',
+        // justifyContent:'center',
+        textAlign:'center',
+        marginTop:27,
+
+    }
 });
 

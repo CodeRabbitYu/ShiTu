@@ -45,7 +45,7 @@ const MyTab = TabNavigator({
                 // bool值，header是否可见。
                 visible: true,
                 // header的title的style
-                titleStyle:{fontSize:22,color:'white'},
+                titleStyle:{fontSize:FONT_SIZE(20),color:'white'},
                 // header的style
                 style:{backgroundColor:'#4ECBFC'},
                 // 返回按钮在iOS平台上，默认是title的值
@@ -71,7 +71,7 @@ const MyTab = TabNavigator({
                 // bool值，header是否可见。
                 visible: true,
                 // header的title的style
-                titleStyle: {fontSize: 22, color: 'white'},
+                titleStyle: {fontSize: FONT_SIZE(20), color: 'white'},
                 // header的style
                 style: {backgroundColor: '#4ECBFC'},
                 // 返回按钮在iOS平台上，默认是title的值
@@ -96,7 +96,7 @@ const MyTab = TabNavigator({
                 // bool值，header是否可见。
                 visible: true,
                 // header的title的style
-                titleStyle: {fontSize: 22, color: 'white'},
+                titleStyle: {fontSize: FONT_SIZE(20), color: 'white'},
                 // header的style
                 style: {backgroundColor: '#4ECBFC'},
                 // 返回按钮在iOS平台上，默认是title的值
@@ -168,7 +168,7 @@ const MyApp = StackNavigator({
 
 export const StackHeader = ({state, setParams ,goBack}) => {
     let title = (
-        <Text style={{fontSize:22,color:'white'}}>{state.params.title}</Text>
+        <Text style={{fontSize:FONT_SIZE(20),color:'white'}}>{state.params.title}</Text>
     );
     style={backgroundColor:'#4ECBFC'};
     visible= state.params.isVisible;
