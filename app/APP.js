@@ -168,7 +168,7 @@ const MyApp = StackNavigator({
 
 export const StackHeader = ({state, setParams ,goBack}) => {
     let title = (
-        <Text style={{fontSize:FONT_SIZE(20),color:'white'}}>{state.params.title}</Text>
+        <Text style={{fontSize:FONT_SIZE(20),color:'white',fontWeight:'500'}}>{state.params.title}</Text>
     );
     style={backgroundColor:'#4ECBFC'};
     visible= state.params.isVisible;

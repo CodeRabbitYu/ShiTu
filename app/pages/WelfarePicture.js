@@ -100,14 +100,15 @@ const styles = StyleSheet.create({
         // alignItems:'center',
         color:'white',
         fontSize:FONT_SIZE(20),
+
         height:64,
-        width:SCREEN_WIDTH - 29,
+        width:SCREEN_WIDTH - 47,
         // alignSelf:'center',
         // alignItems:'center',
         // justifyContent:'center',
         textAlign:'center',
-        marginTop:27,
-
+        marginTop:30,
+        fontWeight:'500'
     }
 });
 
