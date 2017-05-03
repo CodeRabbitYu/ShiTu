@@ -93,6 +93,7 @@ export default class WelfareContainer extends Component {
 
         // const { navigate } = this.props;
         // console.log(navigate);
+
     }
     getAutoResponsiveProps() {
         return {
@@ -125,7 +126,6 @@ export default class WelfareContainer extends Component {
                 onRefresh={() => this.fetchData(1)}
                 refreshing={this.isRefresh}
                 onEndReached={() => this.fetchMoreData()}
-                onEndReachedThreshold={0}
             />
         );
     }
@@ -167,4 +167,4 @@ const WelfareItem = (navigate,dataSource) => {
             </TouchableOpacity>
         );
     }, this);
-};
+}

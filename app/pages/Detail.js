@@ -45,7 +45,8 @@ export default class Detail extends Component {
     };
 
     render() {
-        const { state: { params: { data } } } = this.props.navigation;
+        const { state: { params: { data,title } } } = this.props.navigation;
+        console.log(title);
         console.log(this.props.navigation);
         return (
             <View style={styles.container}>
