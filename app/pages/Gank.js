@@ -35,7 +35,7 @@ export default class Gank extends Component {
 
     _onChangeTab = (i) =>{
         // console.log(i);
-    }
+    };
 
     _onScroll = (e) =>{
         // console.log(e);
@@ -56,7 +56,7 @@ export default class Gank extends Component {
                 {
                     this.state.typeArr.map((item, i) => {
                        if (i===0){
-                           console.log('true');
+                           {/*console.log('true');*/}
                            // 198.37499999999997
                            // 220.79999999999998
                            // 166.75

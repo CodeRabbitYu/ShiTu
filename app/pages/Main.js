@@ -14,7 +14,7 @@ import Button from '../component/Button';
 export default class Main extends Component {
 
     render() {
-        console.log('Main');
+        // console.log('Main');
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>

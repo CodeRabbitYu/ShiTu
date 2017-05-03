@@ -74,6 +74,7 @@ const MyTab = TabNavigator({
     Main:{
         screen:Main,
         navigationOptions: {
+
             tabBarLabel: '个人中心',
             tabBarIcon: ({tintColor}) => (
                 <Image
@@ -150,6 +151,15 @@ const MyApp = StackNavigator({
 const  StackOptions = ({navigation}) => {
     console.log(navigation);
     let {state,goBack} = navigation;
+
+    let headerHeight;
+
+    const visible= state.params.isVisible;
+    let header;
+    if (visible === true){
+        header = null;
+    }
+
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const headerTitle = state.params.title;
     const headerTitleStyle = {fontSize:FONT_SIZE(20),color:'white',fontWeight:'500'}
@@ -168,9 +178,9 @@ const  StackOptions = ({navigation}) => {
             onPress={()=>{goBack()}}
         />
     );
-    const visible= false;
 
-    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,visible}
+
+    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header}
 };
 
 

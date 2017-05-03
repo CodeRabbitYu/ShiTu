@@ -18,11 +18,10 @@ export default class GankListContainer extends Component {
         let fuli = '福利';
         // let url = 'http://gank.io/api/data/拓展视频/10/1'
         let a = encodeURIComponent(this.props.type);
-        console.log(a);
         let url = `http://gank.io/api/data/${a}/20/1`;
 
         Reqeust.get(url,(data)=>{
-            console.log(data);
+            // console.log(data);
         },(error)=>{
             console.log(error);
         });

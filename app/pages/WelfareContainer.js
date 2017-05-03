@@ -103,7 +103,7 @@ export default class WelfareContainer extends Component {
 
     fetchMoreData = ()=> {
         this.page = this.page + 1;
-        console.log(this.page);
+        // console.log(this.page);
         this.fetchData(this.page);
     }
 
@@ -151,7 +151,7 @@ const WelfareItem = (navigate,dataSource) => {
                                       navigate('WelfarePicture',{
                                             title:'图片详情',
                                             url:item.url,
-                                            isVisible:false
+                                            isVisible:true
                                         });
                                   }}
             >
