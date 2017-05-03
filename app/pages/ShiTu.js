@@ -184,7 +184,6 @@ export default class ShiTu extends Component {
                         // InteractionManager.runAfterInteractions(()=> {
                             navigate('Detail', {
                                 data: data.data.webURL,
-                                title:data.data.title,
                                 isVisible:true
                             });
 
