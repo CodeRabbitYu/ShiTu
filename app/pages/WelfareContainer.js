@@ -12,7 +12,8 @@ import {
     ScrollView,
     RefreshControl,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native';
 
 import Reqeust from '../common/Request';
@@ -27,30 +28,47 @@ import { observer } from 'mobx-react/native';
 export default class WelfareContainer extends Component {
     @observable
     dataSource = [];
+    // @observable
+    // isLoad = false;
     @observable
     isRefresh = false;
-
+    @observable
     page = 1;
+
     constructor(props){
         super(props);
         this.state = {
             defaultData :[],
+            isLoad:false,
         }
     }
 
+    componentWillMount(){
+        console.log('componentWillMount');
+        this.fetchData(this.page);
+
+        // const { navigate } = this.props;
+        // console.log(navigate);
+
+    }
+
     fetchData=(page) =>{
+        let type = encodeURIComponent(this.props.type);
+        // console.log(type);
+        let url = `${Config.api.getGankData}?page=${page}&type=${type}`;
+
         if (this.isRefresh){
-            console.log('isRefresh?')
+            console.log('isRefresh?');
             return;
         }
         console.log(page);
-        this.isRefresh = true;
-        let type = encodeURIComponent(this.props.type);
-        // console.log(type);
-        let url = `${Config.api.getGankData}?page=${page}&type=${type}`
+
+        if (page === 1){
+            this.isRefresh = true;
+        }
+
         console.log(url);
-        // let url = `http://gank.io/api/data/${this.props.type}/20/1`
-        return Reqeust.get(url,(data)=>{
+        Reqeust.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
@@ -61,15 +79,22 @@ export default class WelfareContainer extends Component {
                     item.imageWidth = imageWidth;
                     // console.log(item);
                 });
+                setTimeout(()=> {
+                    if (page !== 1) {
+                        console.log('page不等于1');
+                        this.dataSource = this.dataSource.concat(results);
+                    } else {
+                        this.dataSource = results;
+                        this.setState({
+                            isLoad: true,
+                        });
+                        this.isRefresh = false;
+                        console.log('page等于1');
+                        // this.isLoad = true;
+                    }
+                },500);
 
-                if (page > 1){
-                    console.log('大于1了?')
-                    this.dataSource = this.dataSource.concat(results);
-                }else {
-                    this.dataSource = results;
-                }
 
-                this.isRefresh = false;
                 this.setState({
                     defaultData: [{
                         _id: 'test'
@@ -87,25 +112,18 @@ export default class WelfareContainer extends Component {
         console.log(data);
     };
 
-    componentDidMount() {
 
-        this.fetchData(this.page);
-
-        // const { navigate } = this.props;
-        // console.log(navigate);
-
-    }
     getAutoResponsiveProps() {
         return {
             itemMargin: 8,
         };
-    }
+    };
 
     fetchMoreData = ()=> {
         this.page = this.page + 1;
         // console.log(this.page);
         this.fetchData(this.page);
-    }
+    };
 
     renderItem =()=>{
         const { navigate } = this.props;
@@ -118,25 +136,38 @@ export default class WelfareContainer extends Component {
 
     render() {
         return (
-            <FlatList
-                data={this.state.defaultData}
-                keyExtractor={item => item._id}
-                renderItem={()=>this.renderItem()}
-                numColumns={2}
-                onRefresh={() => this.fetchData(1)}
-                refreshing={this.isRefresh}
-                onEndReached={() => this.fetchMoreData()}
-            />
+            <View style={styles.containerStyle}>
+                {this.state.isLoad
+                    ? <FlatList
+                        data={this.state.defaultData}
+                        keyExtractor={item => item._id}
+                        renderItem={()=>this.renderItem()}
+                        numColumns={2}
+                        onRefresh={() => this.fetchData(1)}
+                        refreshing={this.isRefresh}
+                        onEndReached={() => this.fetchMoreData()}
+                        onEndReachedThreshold={40}
+                    />
+                    :
+                    <ActivityIndicator
+                        style={styles.loadDataStyle}
+                        size='large'
+                        color='#4ECBFC'
+                    />
+                }
+
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    row:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-        paddingHorizontal:10,
-        paddingVertical:10,
+    containerStyle:{
+        flex:1,
+        backgroundColor:'#F5F5F5',
+    },
+    loadDataStyle: {
+        marginVertical:20,
     },
 });
 

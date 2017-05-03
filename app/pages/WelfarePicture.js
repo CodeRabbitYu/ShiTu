@@ -40,7 +40,6 @@ export default class WelfareItem extends Component {
     }
 
     _onPress = ()=> {
-        console.log('111');
         // !this.state.isShowNav
         this.setState({
             isShow: !this.state.isShow

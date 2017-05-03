@@ -24,11 +24,11 @@ export default class Gank extends Component {
         this.state = {
             typeArr : [
                 {'title':'福利', 'type':'福利','navigate':navigate},
-                {'title':'iOS', 'type':'iOS','navigate':'iOS'},
-                {'title':'Android', 'type':'Android','navigate':'Android'},
-                {'title':'前端', 'type':'前端','navigate':'qianduan'},
-                {'title':'休息视频 ', 'type':'休息视频','navigate':'video'},
-                {'title':'拓展资源', 'type':'拓展资源','navigate':'resource'}
+                {'title':'iOS', 'type':'iOS','navigate':navigate},
+                {'title':'Android', 'type':'Android','navigate':navigate},
+                {'title':'前端', 'type':'前端','navigate':navigate},
+                {'title':'休息视频 ', 'type':'休息视频','navigate':navigate},
+                {'title':'拓展资源', 'type':'拓展资源','navigate':navigate}
             ],
         }
     }
