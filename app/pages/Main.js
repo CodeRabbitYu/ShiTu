@@ -12,22 +12,7 @@ import {
 import Button from '../component/Button';
 
 export default class Main extends Component {
-    static navigationOptions = {
-        title: '个人中心',
 
-        header: {
-            // bool值，header是否可见。
-            visible: true,
-            // header的title的style
-            titleStyle:{fontSize:22,color:'red'},
-            // header的style
-            style:{backgroundColor:'white'},
-            // 返回按钮在iOS平台上，默认是title的值
-            // backTitle
-        },
-        // cardStack- 配置card stack
-        // gesturesEnabled- 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
-    };
     render() {
         console.log('Main');
         const { navigate } = this.props.navigation;

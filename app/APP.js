@@ -30,79 +30,67 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const MyTab = TabNavigator({
     ShiTu: {
         screen: ShiTu,
-        navigationOptions: {
-            tabBar: {
-                label: '识兔',
-                icon: ({tintColor}) => (
-                    <Image
-                        source={{uri : '识兔'}}
-                        style={[tabBarIcon, {tintColor: tintColor}]}
-                    />
-                ),
-            },
-            header: {
-                title:'识兔',
-                // bool值，header是否可见。
-                visible: true,
-                // header的title的style
-                titleStyle:{fontSize:FONT_SIZE(20),color:'white'},
-                // header的style
-                style:{backgroundColor:'#4ECBFC'},
-                // 返回按钮在iOS平台上，默认是title的值
-                // backTitle
-            },
-        }
+        title:'hshs',
+        navigationOptions:{
+            tabBarLabel: '识兔',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={{uri : '识兔'}}
+                    style={[tabBarIcon, {tintColor: tintColor}]}
+                />
+            ),
+            headerTitle:'识兔',
+            // bool值，header是否可见。
+            visible: true,
+            // header的title的style
+            headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
+            // header的style
+            headerStyle:{backgroundColor:'#4ECBFC'},
+        },
     },
+
     Gank: {
         screen:Gank,
         // title: '干货集中营',
         navigationOptions: {
-            tabBar: {
-                label: '干货',
-                icon: ({tintColor}) => (
-                    <Image
-                        source={{uri : '干货'}}
-                        style={[tabBarIcon, {tintColor: tintColor}]}
-                    />
-                ),
-            },
-            header: {
-                title: '干货集中营',
-                // bool值，header是否可见。
-                visible: true,
-                // header的title的style
-                titleStyle: {fontSize: FONT_SIZE(20), color: 'white'},
-                // header的style
-                style: {backgroundColor: '#4ECBFC'},
-                // 返回按钮在iOS平台上，默认是title的值
-                // backTitle
-            },
-        }
+            tabBarLabel: '干货',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={{uri : '干货'}}
+                    style={[tabBarIcon, {tintColor: tintColor}]}
+                />
+            ),
+            headerTitle: '干货集中营',
+            // bool值，header是否可见。
+            visible: true,
+            // header的title的style
+            headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
+            // header的style
+            headerStyle:{backgroundColor:'#4ECBFC'},
+        },
+
+
     },
     Main:{
         screen:Main,
         navigationOptions: {
-            tabBar: {
-                label: '个人中心',
-                icon: ({tintColor}) => (
-                    <Image
-                        source={{uri : '个人中心'}}
-                        style={[tabBarIcon, {tintColor: tintColor}]}
-                    />
-                ),
-            },
-            header: {
-                title: '个人中心',
-                // bool值，header是否可见。
-                visible: true,
-                // header的title的style
-                titleStyle: {fontSize: FONT_SIZE(20), color: 'white'},
-                // header的style
-                style: {backgroundColor: '#4ECBFC'},
-                // 返回按钮在iOS平台上，默认是title的值
-                backTitle: null
-            },
-        }
+            tabBarLabel: '个人中心',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={{uri : '个人中心'}}
+                    style={[tabBarIcon, {tintColor: tintColor}]}
+                />
+            ),
+            headerTitle: '个人中心',
+            // bool值，header是否可见。
+            visible: true,
+            // header的title的style
+            headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
+            // header的style
+            headerStyle:{backgroundColor:'#4ECBFC'},
+            // 返回按钮在iOS平台上，默认是title的值
+            headerBackTitle: null
+        },
     },
 
 }, {
@@ -139,26 +127,19 @@ const MyTab = TabNavigator({
 const MyApp = StackNavigator({
     MyTab: {
         screen: MyTab,
-        mode:'modal'
     },
     Detail: {
         screen: Detail,
-        navigationOptions:{
-            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})
-        }
+        navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     SearchHistory:{
         screen:SearchHistory,
-        navigationOptions: {
-            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})
-        }
+        navigationOptions: ({navigation}) => StackOptions({navigation})
     },
 
     WelfarePicture:{
         screen:WelfarePicture,
-        navigationOptions:{
-            header: ({ state, setParams ,goBack}) => StackHeader({ state, setParams ,goBack})
-        }
+        navigationOptions: ({navigation}) => StackOptions({navigation})
     },
 
 }, {
@@ -166,13 +147,14 @@ const MyApp = StackNavigator({
     // mode:'modal'
 });
 
-export const StackHeader = ({state, setParams ,goBack}) => {
-    let title = (
-        <Text style={{fontSize:FONT_SIZE(20),color:'white',fontWeight:'500'}}>{state.params.title}</Text>
-    );
-    style={backgroundColor:'#4ECBFC'};
-    visible= state.params.isVisible;
-    let left = (
+const  StackOptions = ({navigation}) => {
+    console.log(navigation);
+    let {state,goBack} = navigation;
+    const headerStyle = {backgroundColor:'#4ECBFC'};
+    const headerTitle = state.params.title;
+    const headerTitleStyle = {fontSize:FONT_SIZE(20),color:'white',fontWeight:'500'}
+    const headerBackTitle = false;
+    const headerLeft = (
         <Button
             isCustom={true}
             customView={
@@ -186,8 +168,11 @@ export const StackHeader = ({state, setParams ,goBack}) => {
             onPress={()=>{goBack()}}
         />
     );
-    return  {title,style ,visible, left};
+    const visible= false;
+
+    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,visible}
 };
+
 
 
 
