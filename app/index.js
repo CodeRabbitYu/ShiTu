@@ -13,4 +13,9 @@ if (!__DEV__) {
     };
 }
 
+// 关闭全部的警告
+//console.disableYellowBox = true;
+// 关闭指定的警告
+//console.warn('YellowBox is disabled.');
+
 AppRegistry.registerComponent('ShiTu', () => App);

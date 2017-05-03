@@ -30,8 +30,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const MyTab = TabNavigator({
     ShiTu: {
         screen: ShiTu,
-        title:'hshs',
         navigationOptions:{
+            title:'hshs',
             tabBarLabel: '识兔',
             tabBarIcon: ({tintColor}) => (
                 <Image
@@ -40,8 +40,6 @@ const MyTab = TabNavigator({
                 />
             ),
             headerTitle:'识兔',
-            // bool值，header是否可见。
-            visible: true,
             // header的title的style
             headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
             // header的style
@@ -74,7 +72,6 @@ const MyTab = TabNavigator({
     Main:{
         screen:Main,
         navigationOptions: {
-
             tabBarLabel: '个人中心',
             tabBarIcon: ({tintColor}) => (
                 <Image
@@ -115,7 +112,7 @@ const MyTab = TabNavigator({
         // label和icon的前景色 不活跃状态下(未选中)
         inactiveTintColor:'#aaa',
         // 是否显示label，默认为true
-        showLabel:false,
+        showLabel:true,
         // 不透明度为按选项卡(iOS和Android < 5.0)
         pressOpacity:0.3,
 
