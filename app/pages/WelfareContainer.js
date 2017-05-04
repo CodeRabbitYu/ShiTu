@@ -127,6 +127,7 @@ export default class WelfareContainer extends Component {
 
     renderItem =()=>{
         const { navigate } = this.props;
+        console.log(this.props.navigate);
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
                 { WelfareItem(navigate,this.dataSource)}
