@@ -44,7 +44,7 @@ const MyTab = TabNavigator({
             headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
             // header的style
             headerStyle:{backgroundColor:'#4ECBFC'},
-            tabBarVisible:false
+
         },
     },
 
@@ -94,6 +94,7 @@ const MyTab = TabNavigator({
 
 }, {
     tabBarPosition: 'bottom',
+    // tabBarComponent:TabBarBottom,
     swipeEnabled:false,
     animationEnabled:false,
     lazy:true,
@@ -174,7 +175,11 @@ const StackOptions = ({navigation}) => {
             onPress={()=>{goBack()}}
         />
     );
-    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header}
+    let headerRight;
+    if (state.params.headerRight){
+        headerRight = state.params.headerRight;
+    }
+    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
 };
 
 

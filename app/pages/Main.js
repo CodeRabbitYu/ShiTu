@@ -26,7 +26,7 @@ export default class Main extends Component {
                     onPress={()=>{
                         console.log('搜索历史');
                         navigate('SearchHistory',{
-                            title:'搜索历史'
+                            title:'搜索历史',
                         });
                     }}/>
             </View>

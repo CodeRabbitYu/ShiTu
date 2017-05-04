@@ -53,6 +53,7 @@ export default class SearchHistory extends Component {
 
     componentDidMount(){
         console.log(this.props);
+
         let list = [];
         let history = realm.objects('History');
         // let times = history.filtered('timestamp = "ASC"');
