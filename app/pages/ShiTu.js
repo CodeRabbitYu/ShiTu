@@ -316,6 +316,7 @@ export default class ShiTu extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
+//                   animation="fadeIn"bounceIn
 
         return (
             <Image source={{uri:this.imageUri}}

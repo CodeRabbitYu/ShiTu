@@ -17,6 +17,8 @@ import Config from '../common/Config';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
+import GankListItem from './GankListItem';
+
 
 @observer
 export default class GankListContainer extends Component {
@@ -93,7 +95,8 @@ export default class GankListContainer extends Component {
     renderItem = (item)=>{
         const {navigate} = this.props;
         return (
-            GankItem(navigate,item)
+            // GankItem(navigate,item)
+            <GankListItem navigate={navigate} itemData={item}/>
         )
     };
 

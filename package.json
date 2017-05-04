@@ -18,6 +18,7 @@
     "react-native-blur": "^3.0.0-alpha",
     "react-native-fetch-blob": "^0.10.4",
     "react-native-image-picker": "^0.26.3",
+    "react-native-image-progress": "^0.6.0",
     "react-native-progress": "^3.2.0",
     "react-native-scrollable-tab-view": "^0.6.5",
     "react-native-vector-icons": "^4.0.1",

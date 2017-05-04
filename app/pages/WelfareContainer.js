@@ -153,7 +153,6 @@ export default class WelfareContainer extends Component {
                     <ActivityIndicator
                         style={styles.loadDataStyle}
                         size='large'
-                        color='#4ECBFC'
                     />
                 }
 

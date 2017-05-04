@@ -60,8 +60,6 @@ const MyTab = TabNavigator({
                 />
             ),
             headerTitle: '干货集中营',
-            // bool值，header是否可见。
-            visible: true,
             // header的title的style
             headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
             // header的style
@@ -81,8 +79,6 @@ const MyTab = TabNavigator({
                 />
             ),
             headerTitle: '个人中心',
-            // bool值，header是否可见。
-            visible: true,
             // header的title的style
             headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
             // header的style
@@ -115,7 +111,7 @@ const MyTab = TabNavigator({
         // label和icon的前景色 不活跃状态下(未选中)
         inactiveTintColor:'#aaa',
         // 是否显示label，默认为true
-        showLabel:true,
+        showLabel:false,
         // 不透明度为按选项卡(iOS和Android < 5.0)
         pressOpacity:0.3,
 
@@ -149,7 +145,7 @@ const MyApp = StackNavigator({
 });
 
 const StackOptions = ({navigation}) => {
-    console.log(navigation);
+    // console.log(navigation);
     let {state,goBack} = navigation;
 
     const visible= state.params.isVisible;
@@ -181,8 +177,5 @@ const StackOptions = ({navigation}) => {
     }
     return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
 };
-
-
-
 
 export default MyApp;
