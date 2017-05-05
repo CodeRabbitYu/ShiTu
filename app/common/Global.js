@@ -21,8 +21,8 @@ global.COLORS = Colors;
 // 适配字体
 global.FONT_SIZE = FontSize;
 // TabBarIcon图标大小
-global.tabBarIcon = {
+global.TabBarIcon = {
     width:35,
     height:35,
-}
+};
 

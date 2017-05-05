@@ -30,65 +30,43 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const MyTab = TabNavigator({
     ShiTu: {
         screen: ShiTu,
+        /**
         navigationOptions:{
-            title:'hshs',
             tabBarLabel: '识兔',
-            tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={{uri : '识兔'}}
-                    style={[tabBarIcon, {tintColor: tintColor}]}
-                />
+            tabBarIcon: ({tintColor,focused}) => (
+                focused
+                    ?
+                    <Image
+                        source={{uri : '识兔'}}
+                        style={[tabBarIcon, {tintColor: tintColor}]}
+                    />
+                    :
+                    <Image
+                        source={{uri : '干货'}}
+                        style={[tabBarIcon, {tintColor: tintColor}]}
+                    />
             ),
             headerTitle:'识兔',
             // header的title的style
             headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
             // header的style
             headerStyle:{backgroundColor:'#4ECBFC'},
-
         },
+        */
+        navigationOptions: ()=> TabOptions('识兔','识兔','识兔','识兔'),
     },
-
     Gank: {
         screen:Gank,
         // title: '干货集中营',
-        navigationOptions: {
-            tabBarLabel: '干货',
-            tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={{uri : '干货'}}
-                    style={[tabBarIcon, {tintColor: tintColor}]}
-                />
-            ),
-            headerTitle: '干货集中营',
-            // header的title的style
-            headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
-            // header的style
-            headerStyle:{backgroundColor:'#4ECBFC'},
-        },
-
-
+        navigationOptions: ()=> TabOptions('干货','干货','干货','干货集中营'),
     },
     Main:{
         screen:Main,
-        navigationOptions: {
-            tabBarLabel: '个人中心',
-            tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={{uri : '个人中心'}}
-                    style={[tabBarIcon, {tintColor: tintColor}]}
-                />
-            ),
-            headerTitle: '个人中心',
-            // header的title的style
-            headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
-            // header的style
-            headerStyle:{backgroundColor:'#4ECBFC'},
-            // 返回按钮在iOS平台上，默认是title的值
-            headerBackTitle: null
-        },
+        navigationOptions: ()=> TabOptions('个人中心','个人中心','个人中心','个人中心'),
     },
 
-}, {
+},
+    {
     tabBarPosition: 'bottom',
     // tabBarComponent:TabBarBottom,
     swipeEnabled:false,
@@ -118,6 +96,7 @@ const MyTab = TabNavigator({
 
         indicatorStyle :{
             backgroundColor:'blue',
+            height:0, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了
         }
     }
 });
@@ -144,6 +123,32 @@ const MyApp = StackNavigator({
     headerMode: 'screen',
     // mode:'modal'
 });
+
+export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
+    // console.log(navigation);
+    const tabBarLabel = tabBarTitle;
+    console.log(navTitle);
+    const tabBarIcon = (({tintColor,focused})=> {
+        return(
+            focused
+                ?
+                <Image
+                    source={{uri : normalImage}}
+                    style={[TabBarIcon, {tintColor: tintColor}]}
+                />
+                :
+                <Image
+                    source={{uri : selectedImage}}
+                    style={[TabBarIcon, {tintColor: tintColor}]}
+                />
+        )
+    });
+    const headerTitle = navTitle;
+    const headerTitleStyle = {fontSize:FONT_SIZE(20),color:'white'};
+    // header的style
+    const headerStyle = {backgroundColor:'#4ECBFC'};
+    return {tabBarLabel,tabBarIcon,headerTitle,headerTitleStyle,headerStyle};
+};
 
 const StackOptions = ({navigation}) => {
     // console.log(navigation);
