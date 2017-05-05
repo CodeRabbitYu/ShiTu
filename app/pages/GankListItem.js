@@ -52,7 +52,14 @@ export default class GankListItem extends Component {
             }
             // console.log(`裁剪后:${imageHeight}`);
         }
-        // let height = SCREEN_HEIGHT;
+        let imageFullHeight = this.state.isFullImage ?
+            {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'stretch'} :
+            {height:imageHeight,resizeMode:'contain'};
+
+        let timestamp2 = Date.parse(new Date(itemData.publishedAt));
+        timestamp2 = timestamp2 / 1000;
+        let newDate = new Date();
+        newDate.setTime(timestamp2 * 1000);
 
         return (
             <View style={{marginTop:5,backgroundColor:'white'}}>
@@ -64,14 +71,17 @@ export default class GankListItem extends Component {
                             isCustom={true}
                             customView={
                                 <Image source={{uri:itemData.images[0]}}
-                                 style={[{height:imageHeight,width:imageWidth,resizeMode:'contain'}]}
-                                 onLayout={this._onLayout}
-                                 indicator={Progress.CircleSnail}
-
-                                 onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
-                            />
+                                     style={[{width:imageWidth},imageFullHeight]}
+                                     onLayout={this._onLayout}
+                                     indicator={Progress.CircleSnail}
+                                     onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
+                                />
                             }
-                            onPress={()=>{}}
+                            onPress={()=>{
+                                this.setState({
+                                    isFullImage: !this.state.isFullImage,
+                                })
+                            }}
                         />
 
                         : null
@@ -82,7 +92,7 @@ export default class GankListItem extends Component {
                         {itemData.who}
                     </Text>
                     <Text style={[styles.itemTitleStyle,{fontSize:FONT_SIZE(14)}]}>
-                        {itemData.publishedAt}
+                        {newDate.toLocaleDateString()}
                     </Text>
                 </View>
 

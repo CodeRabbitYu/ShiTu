@@ -102,12 +102,14 @@ export default class WelfareContainer extends Component {
                     } else {
                         // this.state.dataSource = results;
                         this.isLoad = true;
+                        this.isRefresh = false;
+                        this.page = 1;
                         this.setState({
                             // isLoad: true,
                             dataSource:results,
                         });
-                        this.isRefresh = false;
-                        this.page = 1;
+
+
                         console.log('page等于1');
                         // this.isLoad = true;
                     }
@@ -162,29 +164,23 @@ export default class WelfareContainer extends Component {
     render() {
         return (
             <View style={styles.containerStyle}>
-                {this.isLoad
-                    ? <FlatList
-                        data={this.state.defaultData}
-                        keyExtractor={item => item._id}
-                        renderItem={()=>this.renderItem()}
-                        numColumns={2}
-                        onRefresh={() => this.fetchData(1)}
-                        refreshing={this.isRefresh}
-                        onEndReached={() => this.fetchMoreData()}
-                        onEndReachedThreshold={0}
-                        ListFooterComponent={()=>{
+                <FlatList
+                    data={this.state.defaultData}
+                    keyExtractor={item => item._id}
+                    renderItem={()=>this.renderItem()}
+                    numColumns={2}
+                    onRefresh={() => this.fetchData(1)}
+                    refreshing={this.isRefresh}
+                    onEndReached={() => this.fetchMoreData()}
+                    onEndReachedThreshold={0}
+                    ListFooterComponent={()=>{
                             return( !this.isRefresh &&
                                 <ActivityIndicator
                                 />
                             )
                         }}
-                    />
-                    :
-                    <ActivityIndicator
-                        style={styles.loadDataStyle}
-                        size='large'
-                    />
-                }
+                />
+                
 
             </View>
         );

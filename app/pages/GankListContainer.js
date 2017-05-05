@@ -10,6 +10,7 @@ import {
     View,
     FlatList,
     Image,
+    ActivityIndicator
 } from 'react-native';
 
 import Reqeust from '../common/Request';
@@ -29,23 +30,31 @@ export default class GankListContainer extends Component {
     isRefresh = false;
     @observable
     page = 1;
+    @observable
+    isLoad = false;
+    @observable
+    isLoadMore = false;
 
     componentDidMount() {
         this.fetchData(this.page);
     };
 
     fetchData=(page) =>{
+        let type = encodeURIComponent(this.props.type);
+        let url = `${Config.api.getGankData}?page=${page}&type=${type}`;
         if (this.isRefresh){
-            console.log('isRefresh?')
+            console.log('isRefresh?');
             return;
         }
         console.log(page);
-        this.isRefresh = true;
-        let type = encodeURIComponent(this.props.type);
-        // console.log(type);
-        let url = `${Config.api.getGankData}?page=${page}&type=${type}`
+
+        if (page !== 1){
+            this.isLoadMore = true;
+        }else {
+            this.isRefresh = true;
+        }
+
         console.log(url);
-        // let url = `http://gank.io/api/data/${this.props.type}/20/1`
         return Reqeust.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
@@ -72,10 +81,18 @@ export default class GankListContainer extends Component {
 
                 });
                 // console.log(results.length);
+
                 if (page !== 1){
                     console.log('大于1了?');
+
+                    this.isLoadMore = false;
+                    this.isRefresh = false;
+
                     this.dataSource = this.dataSource.concat(results);
                 }else {
+                    this.isLoad = true;
+                    this.isRefresh = false;
+                    this.page = 1;
                     this.dataSource = results;
                 }
 
@@ -110,6 +127,11 @@ export default class GankListContainer extends Component {
             refreshing={this.isRefresh}
             onEndReached={() => this.fetchMoreData()}
             onEndReachedThreshold={0}
+            ListFooterComponent={()=>{
+                            return( !this.isRefresh &&
+                                <ActivityIndicator/>
+                            )
+                        }}
         />
     );
     }
