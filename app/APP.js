@@ -127,7 +127,6 @@ const MyApp = StackNavigator({
 export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
     // console.log(navigation);
     const tabBarLabel = tabBarTitle;
-    console.log(navTitle);
     const tabBarIcon = (({tintColor,focused})=> {
         return(
             focused

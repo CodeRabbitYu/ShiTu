@@ -29,20 +29,24 @@ import * as Progress from 'react-native-progress';
 
 @observer
 export default class WelfareContainer extends Component {
-    @observable
-    dataSource = [];
     // @observable
-    // isLoad = false;
+    // dataSource = [];
+    @observable
+    isLoad = false;
     @observable
     isRefresh = false;
     @observable
     page = 1;
+    @observable
+    isLoadMore = false;
 
     constructor(props){
         super(props);
         this.state = {
             defaultData :[],
-            isLoad:false,
+            dataSource:[],
+            // isLoad:false,
+            // isLoadMore:false,
         }
     }
 
@@ -65,11 +69,13 @@ export default class WelfareContainer extends Component {
         }
         console.log(page);
 
-        if (page === 1){
+        if (page !== 1){
+            this.isLoadMore = true;
+        }else {
             this.isRefresh = true;
         }
 
-        // console.log(url);
+        console.log(url);
         Reqeust.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
@@ -81,14 +87,24 @@ export default class WelfareContainer extends Component {
                     item.imageWidth = imageWidth;
                     // console.log(item);
                 });
+
                 setTimeout(()=> {
                     if (page !== 1) {
                         console.log('page不等于1');
-                        this.dataSource = this.dataSource.concat(results);
-                    } else {
-                        this.dataSource = results;
+
+                        this.isLoadMore = false;
+                        this.isRefresh = false;
+
                         this.setState({
-                            isLoad: true,
+                            dataSource : this.state.dataSource.concat(results)
+                        });
+                        // this.state.dataSource = this.state.dataSource.concat(results);
+                    } else {
+                        // this.state.dataSource = results;
+                        this.isLoad = true;
+                        this.setState({
+                            // isLoad: true,
+                            dataSource:results,
                         });
                         this.isRefresh = false;
                         this.page = 1;
@@ -123,9 +139,14 @@ export default class WelfareContainer extends Component {
     };
 
     fetchMoreData = ()=> {
-        this.page = this.page + 1;
-        console.log(this.page);
-        this.fetchData(this.page);
+
+        if (this.isLoadMore) {
+            return;
+        } else {
+            this.page = this.page + 1;
+            this.fetchData(this.page);
+            // console.log(this.page);
+        }
     };
 
     renderItem =()=>{
@@ -133,7 +154,7 @@ export default class WelfareContainer extends Component {
         // console.log(this.props.navigate);
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
-                { WelfareItem(navigate,this.dataSource)}
+                { WelfareItem(navigate,this.state.dataSource)}
             </AutoResponisve>
         )
     };
@@ -141,7 +162,7 @@ export default class WelfareContainer extends Component {
     render() {
         return (
             <View style={styles.containerStyle}>
-                {this.state.isLoad
+                {this.isLoad
                     ? <FlatList
                         data={this.state.defaultData}
                         keyExtractor={item => item._id}
