@@ -72,7 +72,7 @@ export default class GankListContainer extends Component {
 
                 });
                 // console.log(results.length);
-                if (page > 1){
+                if (page !== 1){
                     console.log('大于1了?');
                     this.dataSource = this.dataSource.concat(results);
                 }else {
@@ -84,7 +84,7 @@ export default class GankListContainer extends Component {
         },(error)=>{
             console.log(error);
         });
-    }
+    };
 
     fetchMoreData = ()=> {
         this.page = this.page + 1;

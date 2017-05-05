@@ -11,8 +11,6 @@ import {
 } from 'react-native';
 
 import Image from 'react-native-image-progress';
-import ProgressBar from 'react-native-progress/Bar';
-// import Progress from 'react-native-progress/Pie';
 import * as Progress from 'react-native-progress';
 import Button from '../component/Button';
 
@@ -54,7 +52,7 @@ export default class GankListItem extends Component {
             }
             // console.log(`裁剪后:${imageHeight}`);
         }
-        let height = SCREEN_HEIGHT;
+        // let height = SCREEN_HEIGHT;
 
         return (
             <View style={{marginTop:5,backgroundColor:'white'}}>
@@ -66,7 +64,7 @@ export default class GankListItem extends Component {
                             isCustom={true}
                             customView={
                                 <Image source={{uri:itemData.images[0]}}
-                                 style={[{height:imageHeight,width:imageWidth,resizeMode:'contain'},height]}
+                                 style={[{height:imageHeight,width:imageWidth,resizeMode:'contain'}]}
                                  onLayout={this._onLayout}
                                  indicator={Progress.CircleSnail}
 

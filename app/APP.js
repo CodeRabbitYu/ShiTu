@@ -93,6 +93,7 @@ const MyTab = TabNavigator({
     // tabBarComponent:TabBarBottom,
     swipeEnabled:false,
     animationEnabled:false,
+    backBehavior:'none',
     lazy:true,
     tabBarOptions: {
         // tabbar上label的style

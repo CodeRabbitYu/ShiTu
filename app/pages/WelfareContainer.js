@@ -11,7 +11,7 @@ import {
     FlatList,
     ScrollView,
     RefreshControl,
-    Image,
+    // Image,
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native';
@@ -23,6 +23,9 @@ import Button from '../component/Button';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
+
+import Image from 'react-native-image-progress';
+import * as Progress from 'react-native-progress';
 
 @observer
 export default class WelfareContainer extends Component {
@@ -46,7 +49,6 @@ export default class WelfareContainer extends Component {
     componentWillMount(){
         console.log('componentWillMount');
         this.fetchData(this.page);
-
         // const { navigate } = this.props;
         // console.log(navigate);
 
@@ -67,7 +69,7 @@ export default class WelfareContainer extends Component {
             this.isRefresh = true;
         }
 
-        console.log(url);
+        // console.log(url);
         Reqeust.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
@@ -89,6 +91,7 @@ export default class WelfareContainer extends Component {
                             isLoad: true,
                         });
                         this.isRefresh = false;
+                        this.page = 1;
                         console.log('page等于1');
                         // this.isLoad = true;
                     }
@@ -121,13 +124,13 @@ export default class WelfareContainer extends Component {
 
     fetchMoreData = ()=> {
         this.page = this.page + 1;
-        // console.log(this.page);
+        console.log(this.page);
         this.fetchData(this.page);
     };
 
     renderItem =()=>{
         const { navigate } = this.props;
-        console.log(this.props.navigate);
+        // console.log(this.props.navigate);
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
                 { WelfareItem(navigate,this.dataSource)}
@@ -147,7 +150,13 @@ export default class WelfareContainer extends Component {
                         onRefresh={() => this.fetchData(1)}
                         refreshing={this.isRefresh}
                         onEndReached={() => this.fetchMoreData()}
-                        onEndReachedThreshold={40}
+                        onEndReachedThreshold={0}
+                        ListFooterComponent={()=>{
+                            return( !this.isRefresh &&
+                                <ActivityIndicator
+                                />
+                            )
+                        }}
                     />
                     :
                     <ActivityIndicator
@@ -188,6 +197,7 @@ const WelfareItem = (navigate,dataSource) => {
             >
                 <Image
                     source={{uri:item.url}}
+                    indicator={Progress.CircleSnail}
                     style={{
                               height:item.imageHeight,
                               width:item.imageWidth,
