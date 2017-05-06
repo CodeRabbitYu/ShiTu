@@ -20,6 +20,7 @@
     "react-native-image-picker": "^0.26.3",
     "react-native-image-progress": "^0.6.0",
     "react-native-progress": "^3.2.0",
+    "react-native-progress-bar-classic": "^1.2.0",
     "react-native-scrollable-tab-view": "^0.6.5",
     "react-native-vector-icons": "^4.0.1",
     "react-navigation": "^1.0.0-beta.9",

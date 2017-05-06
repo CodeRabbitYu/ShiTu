@@ -55,7 +55,7 @@ let photoOptions = {
 let USERTOKEN;
 @observer
 export default class ShiTu extends Component {
-    // 北京图片地址
+    // 背景图片地址
     @observable
     imageUri='timg';
     // 进度条
@@ -207,6 +207,7 @@ export default class ShiTu extends Component {
 
     _onPress = () => {
         const { navigate } = this.props.navigation;
+
         ImagePicker.showImagePicker(photoOptions, (response) => {
             console.log('Response = ', response);
             if (response.didCancel) {
@@ -275,10 +276,10 @@ export default class ShiTu extends Component {
                                     });
 
                                     if (this.perent === 1) {
+                                        navigate('Detail', {
+                                            data: data.data.webURL,
+                                        });
                                         InteractionManager.runAfterInteractions(() => {
-                                            navigate('Detail', {
-                                                data: data.data.webURL,
-                                            });
                                             this.isUpload = false;
                                             this.hintText = '是否是您寻找的答案呢?'
                                         });
@@ -339,7 +340,15 @@ export default class ShiTu extends Component {
                                 borderRadius={5}
                                 title='点我寻找!'
                                 animationType="bounceInLeft"
-                                onPress={this._onPress}
+                                onPress = {()=>{
+                                    const { navigate } = this.props.navigation;
+
+                                    navigate('Detail', {
+                                        // data: data.data.webURL,
+                                        title:'搜索详情',
+                                        isVisible:false
+                                    });
+                                }}
                             />
                         </BlurView>
                         :

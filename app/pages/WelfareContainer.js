@@ -225,4 +225,4 @@ const WelfareItem = (navigate,dataSource) => {
             </TouchableOpacity>
         );
     }, this);
-}
+};
