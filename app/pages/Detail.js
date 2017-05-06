@@ -74,11 +74,19 @@ export default class Detail extends Component {
                     startInLoadingState={true}
                     onLoadStart={()=>{
                         console.log('开始加载');
-                        this.setIntervar=setInterval(()=>{
+                        this.setIntervar = setInterval(()=>{
+                            {/*if (this.state.progress > 80){*/}
+                                {/*return;*/}
+                            {/*}*/}
                             this.setState({
                                 progress:this.state.progress + 1,
                             });
-                        });
+                        },10);
+                    }}
+                    onLoad={()=>{
+                        this.setState({
+                                progress:100,
+                            });
                     }}
                     onLoadEnd={()=>{
                         this.setState({
