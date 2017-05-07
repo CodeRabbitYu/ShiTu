@@ -35,6 +35,10 @@ export default class Detail extends Component {
         console.log(navState);
     };
 
+    renderLoading = () => {
+
+    };
+
     _renderLoading = ()=>{
         return(
             <ProgressBarAnimated
@@ -44,9 +48,11 @@ export default class Detail extends Component {
                         width:SCREEN_WIDTH,
                         borderWidth:0,
                         borderRadius:0,
-
+                        position:'relative',
+                        top:-4,
+                        zIndex:99
                     }}
-                filledColor='#4ECBFC'
+                filledColor='red'
                 unfilledColor='white'
             />
         )
@@ -61,7 +67,20 @@ export default class Detail extends Component {
         // console.log(this.props.navigation);
         return (
             <View style={styles.container}>
-
+                <ProgressBarAnimated
+                    progress={this.state.progress}
+                    style={{
+                        height:5,
+                        width:SCREEN_WIDTH,
+                        borderWidth:0,
+                        borderRadius:0,
+                        position:'relative',
+                        top:0,
+                        zIndex:99
+                    }}
+                    filledColor='#4ECBFC'
+                    unfilledColor='white'
+                />
                 <WebView
                     style={styles.webView}
                     source={{uri:url,method: 'GET'}}
