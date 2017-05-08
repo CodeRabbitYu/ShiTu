@@ -4,7 +4,7 @@
 /**
  * Created by Rabbit on 2017/4/19.
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -15,121 +15,85 @@ import {
     WebView,
     InteractionManager
 } from 'react-native';
-import ShiTu from './ShiTu';
+
+import Button from '../component/Button';
+
 
 import ProgressBarAnimated from '../component/ProgressBarAnimated';
 
-import { NavigationActions } from 'react-navigation'
-
-import { observable, runInAction, autorun } from 'mobx';
-import { observer } from 'mobx-react/native';
-
+import {NavigationActions} from 'react-navigation'
+let WEBVIEW_REF = 'webview';
 const setParamsAction = NavigationActions.setParams({
     params: {
-        name:'hahah',
-        title:'hahaha',
+        name: 'hahah',
+        title: 'hahaha',
     },
-    title:'hahaha',
+    title: 'hahaha',
     key: 'screen-123',
 });
 
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routeName: 'SearchHistory',params:{
-            isVisible:false,
-        }})
+        NavigationActions.navigate({
+            routeName: 'SearchHistory', params: {
+                isVisible: false,
+            }
+        })
     ]
 });
 
-@observer
 export default class Detail extends Component {
 
-    // @observable
-    // progress=0;
-    @observable
-    isProgress=false;
 
     constructor(props) {
         super(props);
         this.state = {
             progress: 0,
-            isProgress:false,
+            isProgress: false,
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log(this.props.navigation);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setIntervar && clearInterval(this.setIntervar);
     }
 
-    _onNavigationStateChange = (navState)=> {
-        // console.log(navState);
-        console.log('获得数据啦？');
+    _onNavigationStateChange = (navState) => {
+        console.log(navState);
     };
 
     renderLoading = () => {
 
     };
-
-    _renderLoading = ()=>{
-        console.log('1111');
-        return(
-            <ProgressBarAnimated
-                progress={this.state.progress}
-                style={{
-                        height:5,
-                        width:SCREEN_WIDTH,
-                        borderWidth:0,
-                        borderRadius:0,
-                        position:'relative',
-                        top:0,
-                        zIndex:99
-                    }}
-                filledColor='red'
-                unfilledColor='white'
-            />
-        )
-    };
-
 // <TouchableOpacity onPress={()=>this.props.navigation.dispatch(setParamsAction)}>
 // <Text>1111</Text>
 // </TouchableOpacity>
 
     render() {
-        const { state: { params: { data,title } } } = this.props.navigation;
-        // console.log('111');
+        const {state: {params: {data, title}}} = this.props.navigation;
         let url = "http://image.baidu.com/wiseshitu?guess=1&" +
             "uptype=upload_wise&queryImageUrl=http://oo6mt5wjj.bkt.clouddn.com/" +
             "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
         // console.log(this.props.navigation);
         return (
             <View style={styles.container}>
-                {
-                    !this.isProgress
-                    ?
-
-                        console.log('不加载')
-                    :
-                        <ProgressBarAnimated
-                            progress={this.state.progress}
-                            style={{
-                                height:5,
-                                width:SCREEN_WIDTH,
-                                borderWidth:0,
-                                borderRadius:0,
-                                position:'absolute',
-                                top:0,
-                                zIndex:99,
+                <ProgressBarAnimated
+                    progress={this.state.progress}
+                    style={{
+                            height:20,
+                            width:SCREEN_WIDTH,
+                            borderWidth:0,
+                            borderRadius:0,
                             }}
-                            filledColor='#4ECBFC'
-                            unfilledColor='#F5FCFF'
-                        />
-                }
+                    filledColor='#4ECBFC'
+                    unfilledColor='#F5FCFF'
+                />
                 <WebView
+                    ref={WEBVIEW_REF}
                     style={styles.webView}
                     source={{uri:url,method: 'GET'}}
                     javaScriptEnabled={true}
@@ -141,39 +105,38 @@ export default class Detail extends Component {
                     startInLoadingState={true}
                     onLoadStart={()=>{
                         console.log('开始加载');
-                        {/*this.setState({*/}
-                            {/*isProgress:true,*/}
-                        {/*});*/}
-                        this.isProgress = true;
-
+                        this.setState({
+                            progress:0,
+                        });
                         this.setIntervar = setInterval(()=>{
                             if (this.state.progress > 80){
                                 return;
                             }
                             this.setState({
-                                progress:this.state.progress + 1,
+                                progress:this.state.progress + 0.1,
                             });
                         });
                     }}
                     onLoad={()=>{
-                        {/*this.setState({*/}
-                            {/*progress:100,*/}
-                        {/*});*/}
+                        console.log('加载完成');
                     }}
                     onLoadEnd={()=>{
-                        console.log('加载结束');
-                        console.log(this.state.progress);
+                        console.log('加载结束，成功或失败都会走到这里');
                         this.setState({
                             progress:100,
                         });
-                        InteractionManager.runAfterInteractions(()=> {
-                            setTimeout(()=>{
-                                this.isProgress = false;
-                            },500);
-                        });
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
+                    onError={()=>{
+                        console.log('加载失败');
+                    }}
                 />
+                <View style={styles.bottomViewStyle}>
+                    <Button onPress={()=>{
+                        console.log('点击');
+                         this.refs[WEBVIEW_REF].goBack();
+                    }}/>
+                </View>
             </View>
         );
     }
@@ -184,11 +147,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF',
     },
-    webView:{
-        height:SCREEN_HEIGHT-20,
-        width:SCREEN_WIDTH,
+    webView: {
+        height: SCREEN_HEIGHT - 20,
+        width: SCREEN_WIDTH,
         // backgroundColor:'white',
         // position:'absolute',
         // top:-49
+    },
+    bottomViewStyle:{
+        width:SCREEN_WIDTH,
+        height:49,
+        backgroundColor:'red',
+        flexDirection:'row'
     }
 });
