@@ -2,14 +2,14 @@
  * Created by Rabbit on 2017/4/20.
  */
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, PixelRatio, Platform } from 'react-native';
+import { Dimensions, StyleSheet, PixelRatio, Platform,DeviceInfo } from 'react-native';
 import FontSize from '../component/TextSize';
 import Colors from '../component/Colors';
 
 // 获取屏幕宽度
-global.SCREEN_WIDTH = Dimensions.get('window').width;
+global.SCREEN_WIDTH = DeviceInfo.get('window').width;
 // 获取屏幕高度
-global.SCREEN_HEIGHT = Dimensions.get('window').height;
+global.SCREEN_HEIGHT = DeviceInfo.get('window').height;
 // 获取屏幕分辨率
 global.PixelRatio = PixelRatio.get();
 // 系统是iOS
