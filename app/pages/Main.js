@@ -27,6 +27,7 @@ export default class Main extends Component {
                         console.log('搜索历史');
                         navigate('SearchHistory',{
                             title:'搜索历史',
+                            isVisible:true,
                         });
                     }}/>
             </View>

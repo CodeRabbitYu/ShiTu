@@ -346,7 +346,7 @@ export default class ShiTu extends Component {
                                     navigate('Detail', {
                                         // data: data.data.webURL,
                                         title:'搜索详情',
-                                        isVisible:false
+                                        isVisible:true
                                     });
                                 }}
                             />
