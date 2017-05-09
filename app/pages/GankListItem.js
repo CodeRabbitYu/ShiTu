@@ -8,17 +8,20 @@ import {
     StyleSheet,
     Text,
     View,
+    TouchableOpacity
 } from 'react-native';
 
 import Image from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 import Button from '../component/Button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class GankListItem extends Component {
 
     static defaultProps = {
         navigate: React.PropTypes.object,
         itemData: React.PropTypes.object,
+        itemPress:React.PropTypes.object,
     };
 
     constructor(props){
@@ -26,16 +29,17 @@ export default class GankListItem extends Component {
         this.state = {
             isFullImage:false,
         }
-    }
+    };
 
     _onLayout(event){
         // console.log(event.nativeEvent.layout);
-    }
+    };
 
     _onProgress(loaded,total){
         // console.log(loaded);
         // console.log(total);
-    }
+    };
+
 
     render() {
         let imageHeight,imageWidth;
@@ -53,7 +57,7 @@ export default class GankListItem extends Component {
             // console.log(`裁剪后:${imageHeight}`);
         }
         let imageFullHeight = this.state.isFullImage ?
-            {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'stretch'} :
+            {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'contain'} :
             {height:imageHeight,resizeMode:'contain'};
 
         let timestamp2 = Date.parse(new Date(itemData.publishedAt));
@@ -62,7 +66,7 @@ export default class GankListItem extends Component {
         newDate.setTime(timestamp2 * 1000);
 
         return (
-            <View style={{marginTop:5,backgroundColor:'white'}}>
+            <TouchableOpacity style={{marginTop:5,backgroundColor:'white'}} onPress={this.props.itemPress} activeOpacity={0.9}>
                 <Text style={styles.itemTitleStyle}>{itemData.desc}</Text>
                 {
                     itemData.isImage > 0
@@ -87,16 +91,18 @@ export default class GankListItem extends Component {
                         : null
 
                 }
-                <View style={{flexDirection:'row'}}>
+                <View style={{flexDirection:'row',marginTop:5}}>
+                    <Icon name="md-ribbon" style={styles.itemIconStyle}  />
                     <Text style={[styles.itemTitleStyle,{fontSize:FONT_SIZE(14)}]}>
                         {itemData.who}
                     </Text>
+                    <Icon name="md-time" style={{marginLeft:5}} size={25}/>
                     <Text style={[styles.itemTitleStyle,{fontSize:FONT_SIZE(14)}]}>
                         {newDate.toLocaleDateString()}
                     </Text>
                 </View>
 
-            </View>
+            </TouchableOpacity>
         );
     }
 }
@@ -105,6 +111,10 @@ const styles = StyleSheet.create({
     itemTitleStyle:{
         fontSize:FONT_SIZE(16),
         padding:5
+    },
+    itemIconStyle:{
+        fontSize: 25,
+        marginLeft:5
     }
 });
 

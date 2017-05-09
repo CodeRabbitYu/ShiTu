@@ -41,7 +41,7 @@ const resetAction = NavigationActions.reset({
 export default class Detail extends Component {
     constructor(props) {
         super(props);
-        const {state: {params: {data, title}}} = this.props.navigation;
+        const {state: {params: {data}}} = this.props.navigation;
         let url = "http://image.baidu.com/wiseshitu?guess=1&" +
             "uptype=upload_wise&queryImageUrl=http://oo6mt5wjj.bkt.clouddn.com/" +
             "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
@@ -50,7 +50,7 @@ export default class Detail extends Component {
             active:false,
             isGoBack:false,
             isForWard:false,
-            url:url
+            url:data
         }
     }
 
@@ -162,10 +162,10 @@ export default class Detail extends Component {
                               outRangeScale={1}
                               autoInactive={false}
                 >
-                    <ActionButton.Item buttonColor={'#9b59b6'}
+                    <ActionButton.Item buttonColor={'#F8D168'}
                                        style={styles.actionItemStyle}
                                        onPress={this._reload}>
-                        <Icon name="ios-refresh-outline" style={styles.actionButtonIcon} />
+                        <Icon name="ios-refresh-outline" style={[styles.actionButtonIcon,{fontSize:25}]}/>
                     </ActionButton.Item>
                     <ActionButton.Item buttonColor={this.state.isForWard ?'#1abc9c' : '#dddddd'}
                                        onPress={this._goForward}
@@ -196,19 +196,18 @@ const styles = StyleSheet.create({
     webView: {
         height: SCREEN_HEIGHT - 20,
         width: SCREEN_WIDTH,
-        // backgroundColor:'white',
-        // position:'absolute',
-        // top:-49
+
     },
     actionButtonIcon: {
         fontSize: 20,
         height: 22,
         color: 'white',
+        alignSelf:'center',
+        alignItems:'center',
     },
     actionItemStyle:{
         height:40,
         width:40,
-        alignSelf:'center',
-        alignItems:'center',
+
     }
 });

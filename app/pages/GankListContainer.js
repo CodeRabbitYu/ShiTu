@@ -10,16 +10,18 @@ import {
     View,
     FlatList,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    InteractionManager
 } from 'react-native';
 
 import Reqeust from '../common/Request';
 import Config from '../common/Config';
 
+
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 import GankListItem from './GankListItem';
-
+import WebViewDetail from './WebViewDetail';
 
 @observer
 export default class GankListContainer extends Component {
@@ -109,11 +111,22 @@ export default class GankListContainer extends Component {
         this.fetchData(this.page);
     };
 
+    itemPress = (item) =>{
+        console.log(item);
+        const {navigate} = this.props;
+        InteractionManager.runAfterInteractions(() => {
+            navigate('WebViewDetail', {
+                data: item.url,
+                isVisible:true
+            });
+        });
+    };
+
     renderItem = (item)=>{
         const {navigate} = this.props;
         return (
             // GankItem(navigate,item)
-            <GankListItem navigate={navigate} itemData={item}/>
+            <GankListItem navigate={navigate} itemData={item} itemPress={()=>this.itemPress(item)}/>
         )
     };
 

@@ -79,6 +79,7 @@ export default class Gank extends Component {
                                                    tabLabel={item.title}
                                                    type={item.type}
                                                    style={{backgroundColor:'white',flex:1}}
+                                                   navigate={item.navigate}
                                 />
                             )
 

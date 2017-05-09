@@ -17,7 +17,7 @@ import {
 
 import ShiTu from './pages/ShiTu';
 import Gank from './pages/Gank';
-import Detail from './pages/Detail';
+import WebViewDetail from './pages/WebViewDetail';
 import Main from './pages/Main';
 
 import WelfareContainer from './pages/WelfareContainer'
@@ -107,8 +107,8 @@ const MyApp = StackNavigator({
     MyTab: {
         screen: MyTab,
     },
-    Detail: {
-        screen: Detail,
+    WebViewDetail: {
+        screen: WebViewDetail,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     SearchHistory:{

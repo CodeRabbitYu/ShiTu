@@ -343,7 +343,7 @@ export default class ShiTu extends Component {
                                 onPress = {()=>{
                                     const { navigate } = this.props.navigation;
 
-                                    navigate('Detail', {
+                                    navigate('WebViewDetail', {
                                         // data: data.data.webURL,
                                         title:'搜索详情',
                                         isVisible:true
