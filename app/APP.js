@@ -27,6 +27,8 @@ import WelfarePicture from './pages/WelfarePicture';
 import Button from './component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
+
 const MyTab = TabNavigator({
     ShiTu: {
         screen: ShiTu,
