@@ -129,16 +129,16 @@ export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
     const tabBarLabel = tabBarTitle;
     const tabBarIcon = (({tintColor,focused})=> {
         return(
-            focused
+            !focused
                 ?
                 <Image
                     source={{uri : normalImage}}
-                    style={[TabBarIcon, {tintColor: tintColor}]}
+                    style={[{height:35,width:35}, {tintColor: tintColor}]}
                 />
                 :
                 <Image
                     source={{uri : selectedImage}}
-                    style={[TabBarIcon, {tintColor: tintColor}]}
+                    style={[{height:35,width:35}, {tintColor: tintColor}]}
                 />
         )
     });
