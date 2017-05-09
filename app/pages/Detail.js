@@ -20,6 +20,11 @@ import ProgressBarAnimated from '../component/ProgressBarAnimated';
 
 import { NavigationActions } from 'react-navigation'
 
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import { Container, Content, Button, Spinner, Fab,} from 'native-base';
+
 const WEBVIEW_REF = 'webview';
 
 const resetAction = NavigationActions.reset({
@@ -36,8 +41,16 @@ const resetAction = NavigationActions.reset({
 export default class Detail extends Component {
     constructor(props) {
         super(props);
+        const {state: {params: {data, title}}} = this.props.navigation;
+        let url = "http://image.baidu.com/wiseshitu?guess=1&" +
+            "uptype=upload_wise&queryImageUrl=http://oo6mt5wjj.bkt.clouddn.com/" +
+            "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
         this.state = {
             progress: 0,
+            active:false,
+            isGoBack:false,
+            isForWard:false,
+            url:url
         }
     }
 
@@ -50,7 +63,11 @@ export default class Detail extends Component {
     }
 
     _onNavigationStateChange = (navState) => {
-        console.log('获得数据啦？');
+        this.setState({
+            isGoBack: navState.canGoBack,
+            isForWard: navState.canGoForward,
+            url:navState.url,
+        });
     };
 
     renderLoading = () => {
@@ -61,11 +78,28 @@ export default class Detail extends Component {
 // <Text>1111</Text>
 // </TouchableOpacity>
 
+    _reload = ()=> {
+        console.log('刷新');
+        this.refs[WEBVIEW_REF].reload();
+    };
+    _goForward = ()=> {
+        console.log('去前面的页面');
+        this.refs[WEBVIEW_REF].goForward();
+    };
+
+    _goBack = ()=> {
+        console.log('返回上级页面');
+        this.refs[WEBVIEW_REF].goBack();
+    };
+
+    _close = ()=> {
+        console.log('关闭');
+        const {goBack} = this.props.navigation;
+        goBack();
+    };
+
     render() {
-        const {state: {params: {data, title}}} = this.props.navigation;
-        let url = "http://image.baidu.com/wiseshitu?guess=1&" +
-            "uptype=upload_wise&queryImageUrl=http://oo6mt5wjj.bkt.clouddn.com/" +
-            "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
+
         // console.log(this.props.navigation);
         return (
             <View style={styles.container}>
@@ -85,7 +119,7 @@ export default class Detail extends Component {
                 <WebView
                     ref={WEBVIEW_REF}
                     style={styles.webView}
-                    source={{uri:url,method: 'GET'}}
+                    source={{uri:this.state.url,method: 'GET'}}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     scalesPageToFit={true}
@@ -115,10 +149,40 @@ export default class Detail extends Component {
                         this.setState({
                             progress:100,
                         });
-
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
                 />
+                <ActionButton buttonColor="rgba(231,76,60,1)"
+                              active={false}
+                              hideShadow={true}
+                              position="right"
+                              spacing={-5}
+                              offsetY={15}
+                              offsetX={15}
+                              outRangeScale={1}
+                              autoInactive={false}
+                >
+                    <ActionButton.Item buttonColor={'#9b59b6'}
+                                       style={styles.actionItemStyle}
+                                       onPress={this._reload}>
+                        <Icon name="ios-refresh-outline" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor={this.state.isForWard ?'#1abc9c' : '#dddddd'}
+                                       onPress={this._goForward}
+                                       style={styles.actionItemStyle} >
+                        <Icon name="ios-arrow-forward-outline" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor={this.state.isGoBack ?'#3498db' : '#dddddd'}
+                                       onPress={this._goBack}
+                                       style={styles.actionItemStyle}>
+                        <Icon name="ios-arrow-back-outline" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor='#9b59b6'
+                                       style={styles.actionItemStyle}
+                                       onPress={this._close}>
+                        <Icon name="md-close-circle" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                </ActionButton>
             </View>
         );
     }
@@ -135,5 +199,16 @@ const styles = StyleSheet.create({
         // backgroundColor:'white',
         // position:'absolute',
         // top:-49
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+    },
+    actionItemStyle:{
+        height:40,
+        width:40,
+        alignSelf:'center',
+        alignItems:'center',
     }
 });
