@@ -129,16 +129,16 @@ export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
     const tabBarLabel = tabBarTitle;
     const tabBarIcon = (({tintColor,focused})=> {
         return(
-            !focused
+            !sfocused
                 ?
                 <Image
                     source={{uri : normalImage}}
-                    style={[styles.TabBarIcon, {tintColor: tintColor}]}
+                    style={[TabBarIcon, {tintColor: tintColor}]}
                 />
                 :
                 <Image
                     source={{uri : selectedImage}}
-                    style={[styles.TabBarIcon, {tintColor: tintColor}]}
+                    style={[TabBarIcon, {tintColor: tintColor}]}
                 />
         )
     });
@@ -182,12 +182,5 @@ const StackOptions = ({navigation}) => {
     }
     return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
 };
-
-const styles = StyleSheet.create({
-    TabBarIcon:{
-        height:35,
-        width:35,
-    }
-});
 
 export default MyApp;
