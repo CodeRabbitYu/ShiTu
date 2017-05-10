@@ -4,7 +4,7 @@
 'use strict';
 
 const base = {
-    baseURL:'http://localhost:1234/api',
+    baseURL:iOS?'http://localhost:1234/api':'http://10.0.2.2:1234/api',
 };
 
 const Config = {
