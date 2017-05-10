@@ -15,6 +15,7 @@ const Request = {
             .fetch('GET',url)
             .then((response) => response.json())
             .then((response)=>{
+            console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{

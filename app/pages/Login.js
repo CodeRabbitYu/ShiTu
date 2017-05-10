@@ -14,16 +14,50 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit index.android.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
-                </Text>
+                <Image source={require('../resources/timg.jpeg')}
+                       style={[styles.menu,{display:'flex'}]}
+                       animation="fadeIn"
+                       useNativeDriver
+                >
+                    <StatusBar
+                        backgroundColor="blue"
+                        barStyle="light-content"
+                    />
+                    {
+                        !this.isUpload ?  <BlurView
+                                viewRef={this.state.viewRef}
+                                blurType="light" blurAmount={5} style={styles.blur}>
+                                <Text style={styles.textStyle}>
+                                    {this.hintText}
+                                </Text>
+                                <Button
+                                    backgroundColor={COLORS.appColor}
+                                    style={{position: 'absolute'}}
+                                    raised
+                                    borderRadius={5}
+                                    title='点我寻找!'
+                                    animationType="bounceInLeft"
+                                    onPress = {this._onPress}
+                                />
+                            </BlurView>
+                            :
+                            <BlurView blurType="light" blurAmount={5} style={styles.blur}>
+                                <Progress.Circle
+                                    showsText={true}
+                                    color = {COLORS.appColor}
+                                    progress={this.perent}
+                                    size={130}
+                                    formatText={()=>{
+                                    return(
+                                        <Text style={{fontSize:FONT_SIZE(17)}}>
+                                            正在查找
+                                        </Text>
+                                    )
+                                }}
+                                />
+                            </BlurView>
+                    }
+                </Image>
             </View>
         );
     }

@@ -7,7 +7,8 @@ import {
     StyleSheet,
     AsyncStorage,
     InteractionManager,
-    StatusBar
+    StatusBar,
+    findNodeHandle
 } from 'react-native';
 
 import '../common/Global'
@@ -110,6 +111,9 @@ export default class ShiTu extends Component {
 
     constructor(props){
         super(props);
+        this.state = {
+            viewRef: null,
+        }
     };
 
     _upload = (body) => {
@@ -182,11 +186,11 @@ export default class ShiTu extends Component {
 
                     if (this.perent === 1){
                         InteractionManager.runAfterInteractions(()=> {
-                            navigate('Detail', {
-                                data: data.data.webURL,
-                                title:'搜索详情',
-                                isVisible:true
-                            });
+                            // navigate('Detail', {
+                            //     data: data.data.webURL,
+                            //     title:'搜索详情',
+                            //     isVisible:true
+                            // });
 
 
                             this.isUpload = false;
@@ -318,52 +322,129 @@ export default class ShiTu extends Component {
         });
     };
 
+    _imageOnLoaded= ()=> {
+        Android && InteractionManager.runAfterInteractions(() => {
+            setTimeout(() => {
+                this.setState({ viewRef: findNodeHandle(this.refs.backgroundImage) });
+            }, 10);
+        });
+    };
+
+    _defaultView() {
+        return(
+            iOS ?
+                <BlurView blurType="light"
+                          blurAmount={5}
+                          style={styles.iOSBlur}
+                >
+                    <Text style={styles.textStyle}>
+                        {this.hintText}
+                    </Text>
+                    <Button
+                        backgroundColor={COLORS.appColor}
+                        raised
+                        borderRadius={5}
+                        title='点我寻找!'
+                        animationType="bounceInLeft"
+                        onPress = {this._onPress}
+                    />
+                </BlurView>
+                :
+                <View style={styles.blurViewStyle}>
+                    <BlurView blurType="light"
+                              blurAmount={5}
+                              style={styles.AndroidBlur}
+                              viewRef={this.state.viewRef}
+                    />
+                        <Text style={styles.textStyle}>
+                            {this.hintText}
+                        </Text>
+                        <Button
+                            backgroundColor={COLORS.appColor}
+                            raised
+                            borderRadius={5}
+                            title='点我寻找!'
+                            animationType="bounceInLeft"
+                            onPress = {this._onPress}
+                        />
+                </View>
+        )
+    }
+
+    _findView () {
+        return(
+            iOS
+                ?
+                <BlurView blurType="light"
+                      blurAmount={5}
+                      style={styles.iOSBlur}
+                      viewRef={this.state.viewRef}
+                >
+                    <Progress.Circle
+                        showsText={true}
+                        color = {COLORS.appColor}
+                        progress={this.perent}
+                        size={130}
+                        formatText={()=>{
+                                            return(
+                                                <Text style={{fontSize:FONT_SIZE(17)}}>
+                                                    正在查找
+                                                </Text>
+                                            )
+                                        }}
+                    />
+                </BlurView>
+                :
+                <View style={styles.blurViewStyle}>
+                    <BlurView blurType="light"
+                                              blurAmount={5}
+                                              style={styles.iOSBlur}
+                                              viewRef={this.state.viewRef}
+                    />
+                    <Progress.Circle
+                        showsText={true}
+                        color = {COLORS.appColor}
+                        progress={this.perent}
+                        size={130}
+                        formatText={()=>{
+                                            return(
+                                                <Text style={{fontSize:FONT_SIZE(17)}}>
+                                                    正在查找
+                                                </Text>
+                                            )
+                                        }}
+                    />
+
+                </View>
+        )
+    }
+
     render() {
         const { navigate } = this.props.navigation;
-//                   animation="fadeIn"bounceIn
 
         return (
-            <Image source={{uri:this.imageUri}}
-                   style={[styles.menu,{display:'flex'}]}
-                   animation="fadeIn"
-                   useNativeDriver
-            >
-                <StatusBar
-                    backgroundColor="blue"
-                    barStyle="light-content"
+            <View style={styles.container}>
+                <Image source={require('../resources/timg.jpeg')}
+                       style={[styles.image,{display:'flex'}]}
+                       animation="fadeIn"
+                       useNativeDriver
+                       ref={'backgroundImage'}
+                       onLoad={this._imageOnLoaded()}
                 />
-                {
-                    !this.isUpload ?  <BlurView blurType="light" blurAmount={5} style={styles.blur}>
-                            <Text style={styles.textStyle}>
-                                {this.hintText}
-                            </Text>
-                            <Button
-                                backgroundColor={COLORS.appColor}
-                                raised
-                                borderRadius={5}
-                                title='点我寻找!'
-                                animationType="bounceInLeft"
-                                onPress = {this._onPress}
-                            />
-                        </BlurView>
-                        :
-                        <BlurView blurType="light" blurAmount={5} style={styles.blur}>
-                            <Progress.Circle
-                                showsText={true}
-                                color = {COLORS.appColor}
-                                progress={this.perent}
-                                size={130}
-                                formatText={()=>{
-                                    return(
-                                        <Text style={{fontSize:FONT_SIZE(17)}}>
-                                            正在查找
-                                        </Text>
-                                    )
-                                }}
-                            />
-                        </BlurView>
-                }
-            </Image>
+                    <StatusBar
+                        backgroundColor="blue"
+                        barStyle="light-content"
+                    />
+                    {
+                        !this.isUpload
+                            ?
+                            this._defaultView()
+
+                            :
+                            this._findView()
+                    }
+
+            </View>
         );
     };
 
@@ -371,15 +452,40 @@ export default class ShiTu extends Component {
 
 
 const styles = StyleSheet.create({
-    menu:{
+    container: {
         flex: 1,
-        backgroundColor: 'white',
+        justifyContent: 'center',
     },
-    blur:{
+    image:{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        right: 0,
+        // resizeMode: 'cover',
+        width: null,
+        height: null,
+    },
+    iOSBlur:{
         width:SCREEN_WIDTH,
         height:SCREEN_HEIGHT - 64 - 49,
         alignItems:'center',
         justifyContent: 'center',
+    },
+    AndroidBlur:{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        right: 0,
+    },
+    blurViewStyle:{
+        width:SCREEN_WIDTH,
+        height:SCREEN_HEIGHT,
+        alignItems:'center',
+        justifyContent:'center',
+        alignSelf:'center',
+        alignContent:'center',
     },
     textStyle:{
         fontSize:FONT_SIZE(18),
