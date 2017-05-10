@@ -20,4 +20,6 @@ if (!__DEV__) {
 // 关闭指定的警告
 //console.warn('YellowBox is disabled.');
 
+console.ignoredYellowBox = ['Warning: BackAndroid is deprecated.  Please use BackHandler instead.'];
+
 AppRegistry.registerComponent('ShiTu', () => App);

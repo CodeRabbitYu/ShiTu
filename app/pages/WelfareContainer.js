@@ -54,7 +54,7 @@ export default class WelfareContainer extends Component {
         console.log('componentWillMount');
         this.fetchData(this.page);
         const { navigate } = this.props;
-        console.log(navigate);
+        // console.log(navigate);
 
     }
 
