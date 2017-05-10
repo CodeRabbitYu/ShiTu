@@ -11,4 +11,6 @@ https://github.com/RabbitDream/ShiTuServer
 
 项目中上传图片使用的是七牛云,我将AK/SK删除了,需要自行在七牛官网申请.然后修改项目中的一些东西
 
+如果还是没有弄明白可以加QQ群:397885169询问
+
 
