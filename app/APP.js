@@ -27,11 +27,13 @@ import WelfarePicture from './pages/WelfarePicture';
 import Button from './component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import Login from './pages/Login';
 
+let token = false;
 
 const MyTab = TabNavigator({
     ShiTu: {
-        screen: ShiTu,
+        screen: token ? Login : ShiTu,
         /**
         navigationOptions:{
             tabBarLabel: '识兔',

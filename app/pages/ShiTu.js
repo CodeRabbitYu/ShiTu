@@ -235,6 +235,8 @@ export default class ShiTu extends Component {
                     });
 
                     // console.log(formData);
+                    // 上传七牛云,这里需要将///处理掉,因为使用wrap的时候,会再添加一层
+
                     let PATH = response.uri.replace('file:///','');
                     let body = [{
                         name:'token',data:token,
@@ -276,8 +278,9 @@ export default class ShiTu extends Component {
                                     });
 
                                     if (this.perent === 1) {
-                                        navigate('Detail', {
+                                        navigate('WebViewDetail', {
                                             data: data.data.webURL,
+                                            isVisible:true
                                         });
                                         InteractionManager.runAfterInteractions(() => {
                                             this.isUpload = false;
@@ -340,15 +343,7 @@ export default class ShiTu extends Component {
                                 borderRadius={5}
                                 title='点我寻找!'
                                 animationType="bounceInLeft"
-                                onPress = {()=>{
-                                    const { navigate } = this.props.navigation;
-
-                                    navigate('WebViewDetail', {
-                                        // data: data.data.webURL,
-                                        title:'搜索详情',
-                                        isVisible:true
-                                    });
-                                }}
+                                onPress = {this._onPress}
                             />
                         </BlurView>
                         :

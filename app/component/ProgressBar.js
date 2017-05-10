@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, LayoutAnimation } from 'react-native'
 
-export default class ProgressBarAnimated extends Component {
+export default class ProgressBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     }
 });
 
-ProgressBarAnimated.PropTypes = {
+ProgressBar.PropTypes = {
     style: React.PropTypes.node,
     progress: React.PropTypes.number.isRequired,
     filledColor: React.PropTypes.string,
