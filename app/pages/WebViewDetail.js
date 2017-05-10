@@ -154,7 +154,7 @@ export default class Detail extends Component {
                     }}
                 />
                 <ActionButton buttonColor="rgba(231,76,60,1)"
-                              active={false}
+                              active={true}
                               hideShadow={true}
                               position="right"
                               spacing={-5}
@@ -162,6 +162,7 @@ export default class Detail extends Component {
                               offsetX={15}
                               outRangeScale={1}
                               autoInactive={false}
+                              onPress={()=>{console.log('点击Action了')}}
                 >
                     <ActionButton.Item buttonColor={'#F8D168'}
                                        style={styles.actionItemStyle}

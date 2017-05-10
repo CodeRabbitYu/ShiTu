@@ -241,8 +241,8 @@ export default class ShiTu extends Component {
                     // console.log(formData);
                     // 上传七牛云,这里需要将///处理掉,因为使用wrap的时候,会再添加一层
 
-                    // let PATH = response.uri.replace('file:///','');
-                    let PATH = response.uri;
+                    let PATH = iOS?response.uri.replace('file:///',''):response.uri;
+                    // let PATH = response.uri;
                     let body = [{
                         name:'token',data:token,
                     }, {
@@ -283,10 +283,10 @@ export default class ShiTu extends Component {
                                     });
 
                                     if (this.perent === 1) {
-                                        // navigate('WebViewDetail', {
-                                        //     data: data.data.webURL,
-                                        //     isVisible:true
-                                        // });
+                                        navigate('WebViewDetail', {
+                                            data: data.data.webURL,
+                                            isVisible:true
+                                        });
                                         InteractionManager.runAfterInteractions(() => {
                                             this.isUpload = false;
                                             this.hintText = '是否是您寻找的答案呢?'
