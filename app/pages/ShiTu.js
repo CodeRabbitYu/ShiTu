@@ -69,7 +69,6 @@ export default class ShiTu extends Component {
     hintText= '点击按钮,搜索你想知道的图片哦!';
 
     componentDidMount(){
-        let list =[];
 
         // console.log(realm.objects('History')[0].imageUri);
 

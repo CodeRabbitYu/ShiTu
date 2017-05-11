@@ -1,5 +1,5 @@
 /**
- * Created by Rabbit on 2017/4/22.
+ * Created by Rabbit on 2017/5/11.
  */
 import React, { Component } from 'react';
 import {
@@ -10,19 +10,17 @@ import {
     Image,
     AsyncStorage,
     Modal,
-    TouchableOpacity,
-    Alert
+    TouchableOpacity
 } from 'react-native';
 import Button from '../component/Button';
-import Login from '../pages/Login';
-export default class Main extends Component {
+
+export default class LoginModal extends Component {
     async componentDidMount(){
         let data = await AsyncStorage.getItem('TOKEN');
         // console.log(data);
         if (data === null){
             console.log('false');
             return(
-                // Alert.alert('尚未登录')
                 null
             )
         }else {
@@ -41,23 +39,17 @@ export default class Main extends Component {
     }
 
 
-    _closeModal= () => {
-        console.log('关闭窗口');
-        this.setState({modalVisible: false});
-    }
-
     render() {
         // console.log('Main');
-        const { navigate } = this.props.navigation;
         return (
             <View style={{marginTop: 22}}>
                 <Modal
                     animationType={"slide"}
-                    transparent={true}
+                    transparent={false}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {alert("Modal has been closed.")}}
                 >
-                    <Login closeClick={this._closeModal}/>
+                   
                 </Modal>
 
                 <TouchableOpacity onPress={() => {
@@ -89,18 +81,3 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
-/**
-<View style={styles.container}>
-    <Text style={styles.welcome} onPress={() => navigate('Gank')}>
-        Welcome to React Native!
-    </Text>
-    <Button
-        title='搜索历史'
-        onPress={()=>{
-                        console.log('搜索历史');
-                        navigate('SearchHistory',{
-                            title:'搜索历史',
-                        });
-                    }}/>
-</View>
- */
