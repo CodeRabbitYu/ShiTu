@@ -13,6 +13,7 @@ import {
     Image,
     StyleSheet,
     Text,
+    AsyncStorage
 } from 'react-native';
 
 import ShiTu from './pages/ShiTu';
@@ -29,11 +30,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Login from './pages/Login';
 
-let token = false;
+// let token = false;
+
+async function token() {
+    return await AsyncStorage.getItem('TOKEN');
+}
 
 const MyTab = TabNavigator({
     ShiTu: {
-        screen: token ? Login : ShiTu,
+        screen: !token() ? Login : ShiTu,
         /**
         navigationOptions:{
             tabBarLabel: '识兔',
@@ -147,10 +152,11 @@ export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
         )
     });
     const headerTitle = navTitle;
-    const headerTitleStyle = {fontSize:FONT_SIZE(20),color:'white'};
+    const headerTitleStyle = {fontSize:FONT_SIZE(20),color:'white',alignSelf:'center'};
     // header的style
     const headerStyle = {backgroundColor:'#4ECBFC'};
-    return {tabBarLabel,tabBarIcon,headerTitle,headerTitleStyle,headerStyle};
+    const tabBarVisible = token()?true:false;
+    return {tabBarLabel,tabBarIcon,headerTitle,headerTitleStyle,headerStyle,tabBarVisible};
 };
 
 const StackOptions = ({navigation}) => {

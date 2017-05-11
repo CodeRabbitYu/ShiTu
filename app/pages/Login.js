@@ -7,57 +7,49 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
+    AsyncStorage,
+    Button
 } from 'react-native';
 
 export default class Login extends Component {
+    componentDidMount(){
+    }
+
+    _savePress = () => {
+        console.log('点击按钮');
+        AsyncStorage.setItem('TOKEN', 'Super Man' ,(error)=>{
+            if (error){
+                console.log('存储失败' + error);
+            }else {
+                console.log('存储成功');
+
+            }
+        })
+    };
+    _getPress() {
+        console.log('取出数据');
+        let data = AsyncStorage.getItem('TOKEN');
+        console.log(data);
+
+        if (data){
+            console.log('登录成功');
+            return true;
+        }else {
+            console.log('尚未登录');
+            return false;
+        }
+    };
+    _removePress (){
+        let key = 'TOKEN';
+        AsyncStorage.removeItem(key);
+    }
     render() {
         return (
             <View style={styles.container}>
-                <Image source={require('../resources/timg.jpeg')}
-                       style={[styles.menu,{display:'flex'}]}
-                       animation="fadeIn"
-                       useNativeDriver
-                >
-                    <StatusBar
-                        backgroundColor="blue"
-                        barStyle="light-content"
-                    />
-                    {
-                        !this.isUpload ?  <BlurView
-                                viewRef={this.state.viewRef}
-                                blurType="light" blurAmount={5} style={styles.blur}>
-                                <Text style={styles.textStyle}>
-                                    {this.hintText}
-                                </Text>
-                                <Button
-                                    backgroundColor={COLORS.appColor}
-                                    style={{position: 'absolute'}}
-                                    raised
-                                    borderRadius={5}
-                                    title='点我寻找!'
-                                    animationType="bounceInLeft"
-                                    onPress = {this._onPress}
-                                />
-                            </BlurView>
-                            :
-                            <BlurView blurType="light" blurAmount={5} style={styles.blur}>
-                                <Progress.Circle
-                                    showsText={true}
-                                    color = {COLORS.appColor}
-                                    progress={this.perent}
-                                    size={130}
-                                    formatText={()=>{
-                                    return(
-                                        <Text style={{fontSize:FONT_SIZE(17)}}>
-                                            正在查找
-                                        </Text>
-                                    )
-                                }}
-                                />
-                            </BlurView>
-                    }
-                </Image>
+                <Button title='保存' onPress={this._savePress}></Button>
+                <Button title='获取' onPress={()=>this._getPress()}></Button>
+                <Button title='删除' onPress={()=>this._removePress()}></Button>
             </View>
         );
     }

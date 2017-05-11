@@ -61,7 +61,7 @@ export default class WelfareContainer extends Component {
     fetchData=(page) =>{
         let type = encodeURIComponent(this.props.type);
         // console.log(type);
-        let url = `${Config.api.getGankData}?page=${page}&count=${'20'}&type=${type}`;
+        let url = `${Config.api.getGankData}?page=${page}&count=${'1'}&type=${type}`;
 
         if (this.isRefresh){
             console.log('isRefresh?');
