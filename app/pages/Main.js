@@ -11,12 +11,17 @@ import {
     AsyncStorage,
     Modal,
     TouchableOpacity,
-    Alert
+    Alert,
+    StatusBar
 } from 'react-native';
 import Button from '../component/Button';
 import Login from '../pages/Login';
+import LoginModal from '../component/LoginModal';
 export default class Main extends Component {
+
     async componentDidMount(){
+        // this.props.navigation.setParams({title:'hjaha '})
+        // console.log(this.props.navigation);
         let data = await AsyncStorage.getItem('TOKEN');
         // console.log(data);
         if (data === null){
@@ -29,6 +34,8 @@ export default class Main extends Component {
             console.log('true');
             return true;
         }
+
+
     }
 
     constructor(props) {
@@ -46,20 +53,21 @@ export default class Main extends Component {
         this.setState({modalVisible: false});
     }
 
+    componentWillUnmount(){
+        this.setState({modalVisible: false});
+    }
     render() {
         // console.log('Main');
         const { navigate } = this.props.navigation;
         return (
             <View style={{marginTop: 22}}>
-                <Modal
-                    animationType={"slide"}
-                    transparent={true}
-                    visible={this.state.modalVisible}
-                    onRequestClose={() => {alert("Modal has been closed.")}}
-                >
-                    <Login closeClick={this._closeModal}/>
-                </Modal>
+                <StatusBar
+                    backgroundColor="blue"
+                    barStyle="dark-content"
+                    showHideTransition="slide"
+                />
 
+                <LoginModal isVisible={this.state.modalVisible}/>
                 <TouchableOpacity onPress={() => {
                                               this.setModalVisible(true)
                                             }}>
@@ -89,6 +97,16 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
+/**
+<Modal
+    animationType={"slide"}
+    transparent={true}
+    visible={this.state.modalVisible}
+    onRequestClose={() => {alert("Modal has been closed.")}}
+>
+    <Login closeClick={this._closeModal} navigate={navigate}/>
+</Modal>
+*/
 /**
 <View style={styles.container}>
     <Text style={styles.welcome} onPress={() => navigate('Gank')}>

@@ -26,19 +26,15 @@ export default class WelfareItem extends Component {
             // 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
             gesturesEnabled:false
         },
-        header:({goBack}) => ({
-            title:'hahaha',
-            headerTitle:'hahaha',
 
-        })
     };
 
     @observable
     isShow = false;
 
     componentDidMount(){
-        // this.props.navigation.setParams({title:'hahahahaha'});
-        // console.log(this.props.navigation);
+        this.props.navigation.setParams({title:'hahahahaha'});
+        console.log(this.props.navigation);
     }
 
     constructor(props){

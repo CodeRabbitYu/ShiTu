@@ -28,12 +28,24 @@ export default class Login extends Component {
     componentDidMount(){
     }
 
+    _registerPress(){
+        console.log('注册');
+        this.props.navigate('SearchHistory',{
+            title:'搜索历史',
+        });
+    }
+
+    _loginPress () {
+        console.log('登录');
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Button title='保存' onPress={()=>this._savePress()} />
                 <Button title='获取' onPress={()=>this._getPress()} />
-                <Button title='删除' onPress={()=>this._removePress()} />
+                <Button title='注册' onPress={()=>this._registerPress()} />
                 <Button title='登录' onPress={()=>this._loginPress()} />
                 <Button title='关闭' onPress={this.props.closeClick} />
             </View>

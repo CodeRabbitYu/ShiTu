@@ -13,7 +13,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Button from '../component/Button';
-
+import Login from '../pages/Login';
 export default class LoginModal extends Component {
     async componentDidMount(){
         let data = await AsyncStorage.getItem('TOKEN');
@@ -46,21 +46,25 @@ export default class LoginModal extends Component {
                 <Modal
                     animationType={"slide"}
                     transparent={false}
-                    visible={this.state.modalVisible}
+                    visible={this.props.isVisible}
                     onRequestClose={() => {alert("Modal has been closed.")}}
                 >
-                   
+                    <Login closeClick={this._closeModal}/>
                 </Modal>
 
-                <TouchableOpacity onPress={() => {
-                                              this.setModalVisible(true)
-                                            }}>
-                    <Text>Show Modal</Text>
-                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={() => {*/}
+                                              {/*this.setModalVisible(true)*/}
+                                            {/*}}>*/}
+                    {/*<Text>Show Modal</Text>*/}
+                {/*</TouchableOpacity>*/}
 
             </View>
         );
     }
+}
+
+LoginModal.PropTypes = {
+    isVisible:React.PropTypes.bool,
 }
 
 const styles = StyleSheet.create({

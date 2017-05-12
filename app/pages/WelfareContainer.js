@@ -61,7 +61,7 @@ export default class WelfareContainer extends Component {
     fetchData=(page) =>{
         let type = encodeURIComponent(this.props.type);
         // console.log(type);
-        let url = `${Config.api.getGankData}?page=${page}&count=${'1'}&type=${type}`;
+        let url = `${Config.api.getGankData}?page=${page}&count=${'20'}&type=${type}`;
 
         if (this.isRefresh){
             console.log('isRefresh?');
@@ -176,6 +176,7 @@ export default class WelfareContainer extends Component {
                     ListFooterComponent={()=>{
                             return( !this.isRefresh &&
                                 <ActivityIndicator
+                                style={styles.loadDataStyle}
                                 />
                             )
                         }}
@@ -192,6 +193,7 @@ const styles = StyleSheet.create({
     },
     loadDataStyle: {
         marginVertical:20,
+        marginTop:20
     },
 });
 

@@ -151,6 +151,7 @@ export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
     // header的style
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const tabBarVisible = true;
+    // const header = null;
     return {tabBarLabel,tabBarIcon,headerTitle,headerTitleStyle,headerStyle,tabBarVisible};
 };
 
@@ -160,6 +161,9 @@ const StackOptions = ({navigation}) => {
 
     const visible= state.params.isVisible;
     let header;
+    if (!visible){
+        return;
+    }
     if (visible === true){
         header = null;
     }
