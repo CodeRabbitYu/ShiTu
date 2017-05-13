@@ -17,6 +17,7 @@ import {
 import Button from '../component/Button';
 import Login from '../pages/Login';
 import LoginModal from '../component/LoginModal';
+
 export default class Main extends Component {
 
     async componentDidMount(){
@@ -34,8 +35,6 @@ export default class Main extends Component {
             console.log('true');
             return true;
         }
-
-
     }
 
     constructor(props) {
@@ -45,6 +44,11 @@ export default class Main extends Component {
 
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
+        return(
+            <View>
+                <LoginModal isVisible={true}/>
+            </View>
+        )
     }
 
 
@@ -67,10 +71,9 @@ export default class Main extends Component {
                     showHideTransition="slide"
                 />
 
-                <LoginModal isVisible={this.state.modalVisible}/>
-                <TouchableOpacity onPress={() => {
-                                              this.setModalVisible(true)
-                                            }}>
+                {/*<LoginModal isVisible={this.state.modalVisible}/>*/}
+
+                <TouchableOpacity onPress={() => this.setModalVisible(true)}>
                     <Text>Show Modal</Text>
                 </TouchableOpacity>
 

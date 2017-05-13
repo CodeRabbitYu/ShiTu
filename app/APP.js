@@ -20,8 +20,6 @@ import ShiTu from './pages/ShiTu';
 import Gank from './pages/Gank';
 import WebViewDetail from './pages/WebViewDetail';
 import Main from './pages/Main';
-
-import WelfareContainer from './pages/WelfareContainer'
 import SearchHistory from './pages/SearchHistory';
 import WelfarePicture from './pages/WelfarePicture';
 
@@ -29,11 +27,45 @@ import Button from './component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Login from './pages/Login';
-import Tool from './common/Tool';
+
+// import ShiTuIcon from './resources/ShiTu.png';
+// import GankIcon from './resources/Gank.png';
+// import MainIcon from './resources/Main.png';
+
+const ShiTuIcon = require('./resources/ShiTu.png');
+const GankIcon = require('./resources/Gank.png');
+const MainIcon = require('./resources/Main.png');
+
+const ShiTuStack = StackNavigator({
+    ShiTu:{
+        screen:ShiTu,
+        navigationOptions: ()=> TabOptions('识兔',ShiTuIcon,ShiTuIcon,'识兔'),
+    },
+},{
+    mode:'modal',
+});
+
+const GankStack = StackNavigator({
+    Gank:{
+        screen:Gank,
+        navigationOptions: ()=> TabOptions('干货',GankIcon,GankIcon,'干货集中营'),
+    }
+},{
+    mode:'modal',
+});
+
+const MainStack = StackNavigator({
+    Main:{
+        screen:Main,
+        navigationOptions: ()=> TabOptions('个人中心',MainIcon,MainIcon,'个人中心'),
+    },
+},{
+    mode:'modal',
+});
 
 const MyTab = TabNavigator({
-    ShiTu: {
-        screen: ShiTu,
+    ShiTuStack: {
+        screen: ShiTuStack,
         /**
         navigationOptions:{
             tabBarLabel: '识兔',
@@ -57,18 +89,22 @@ const MyTab = TabNavigator({
             headerStyle:{backgroundColor:'#4ECBFC'},
         },
         */
-        navigationOptions: ()=> TabOptions('识兔','识兔','识兔','识兔'),
+        navigationOptions:{
+            header:null
+        }
     },
-    Gank: {
-        screen:Gank,
-        // title: '干货集中营',
-        navigationOptions: ()=> TabOptions('干货','干货','干货','干货集中营'),
+    GankStack: {
+        screen:GankStack,
+        navigationOptions:{
+            header:null
+        }
     },
-    Main:{
-        screen:Main,
-        navigationOptions: ()=> TabOptions('个人中心','个人中心','个人中心','个人中心'),
+    MainStack:{
+        screen:MainStack,
+        navigationOptions:{
+            header:null
+        }
     },
-
 },
     {
     tabBarPosition: 'bottom',
@@ -125,7 +161,6 @@ const MyApp = StackNavigator({
 
 }, {
     headerMode: 'screen',
-    // mode:'modal'
 });
 
 export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
@@ -133,17 +168,10 @@ export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
     const tabBarLabel = tabBarTitle;
     const tabBarIcon = (({tintColor,focused})=> {
         return(
-            !focused
-                ?
-                <Image
-                    source={{uri : normalImage}}
-                    style={[{height:35,width:35}, {tintColor: tintColor}]}
-                />
-                :
-                <Image
-                    source={{uri : selectedImage}}
-                    style={[{height:35,width:35}, {tintColor: tintColor}]}
-                />
+            <Image
+                source={!focused ? normalImage : selectedImage}
+                style={[{height:35,width:35}, {tintColor: tintColor}]}
+            />
         )
     });
     const headerTitle = navTitle;

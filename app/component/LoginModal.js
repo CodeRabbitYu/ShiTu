@@ -31,14 +31,19 @@ export default class LoginModal extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {modalVisible: false};
+        console.log(this.props.isVisible);
+        this.state = {
+            modalVisible: this.props.isVisible};
     }
 
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
     }
 
-
+    _closeModal = ()=>{
+        console.log('关闭');
+        this.setState({modalVisible: false});
+    }
     render() {
         // console.log('Main');
         return (
@@ -46,7 +51,7 @@ export default class LoginModal extends Component {
                 <Modal
                     animationType={"slide"}
                     transparent={false}
-                    visible={this.props.isVisible}
+                    visible={ this.state.modalVisible}
                     onRequestClose={() => {alert("Modal has been closed.")}}
                 >
                     <Login closeClick={this._closeModal}/>
