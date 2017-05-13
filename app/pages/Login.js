@@ -9,10 +9,12 @@ import {
     Text,
     View,
     AsyncStorage,
-    Button
 } from 'react-native';
 
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Button from '../component/Button';
+
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
@@ -24,35 +26,18 @@ const resetAction = NavigationActions.reset({
 export default class Login extends Component {
 
     static navigationOptions = {
-        tabBarVisible:false
+        tabBarVisible:false,
+        // header:null,
     }
 
     componentDidMount(){
     }
 
-    _registerPress(){
-        console.log('注册');
-        // this.props.navigate('SearchHistory',{
-        //     title:'搜索历史',
-        // });
-    }
 
-    _loginPress () {
-        console.log('登录');
-
-    }
-
-    _closePress (){
-        this.props.navigation.goBack();
-    }
 
     render() {
         return (
             <View style={styles.container}>
-                <Button title='保存' onPress={()=>this._savePress()} />
-                <Button title='获取' onPress={()=>this._getPress()} />
-                <Button title='注册' onPress={()=>this._registerPress()} />
-                <Button title='登录' onPress={()=>this._loginPress()} />
                 <Button title='关闭' onPress={()=>this._closePress()} />
             </View>
         );
@@ -62,20 +47,9 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'white',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
+
 });
 
 Login.PropTypes = {

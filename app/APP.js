@@ -70,9 +70,7 @@ const MainStack = StackNavigator({
     },
     Login:{
         screen:Login,
-        navigationOptions:{
-            headerTitle:'Login',
-        }
+        navigationOptions: ({navigation}) => LoginOptions({navigation})
     }
 },{
     mode:'modal',
@@ -192,7 +190,7 @@ const MyApp = StackNavigator({
     headerMode: 'screen',
 });
 
-export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
+const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
     // console.log(navigation);
     const tabBarLabel = tabBarTitle;
     const tabBarIcon = (({tintColor,focused})=> {
@@ -247,5 +245,40 @@ const StackOptions = ({navigation}) => {
     }
     return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
 };
+
+const LoginOptions = ({navigation}) => {
+    let {state,goBack} = navigation;
+    // if (!state.params.isVisible){
+    //     return;
+    // }
+
+    const headerStyle = {backgroundColor:'#4ECBFC'};
+    const headerTitle = '登录';
+    const headerTitleStyle = {fontSize:FONT_SIZE(20),color:'white',fontWeight:'500'}
+    const headerBackTitle = false;
+    const headerLeft = (
+        <Button
+            isCustom={true}
+            customView={
+                            <Icon
+                                name='md-close'
+                                size={30}
+                                color='white'
+                                style={{marginLeft:13}}
+                            />
+                        }
+            onPress={()=>{goBack()}}
+        />
+    );
+    let headerRight;
+    if (state.params.headerRight){
+        headerRight = state.params.headerRight;
+    }
+    let header;
+    if (state.params.isVisible === true){
+        header = null;
+    }
+    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
+}
 
 export default MyApp;

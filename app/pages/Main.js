@@ -37,25 +37,17 @@ export default class Main extends Component {
         }
     }
 
+    componentWillReceiveProps(){
+        console.log('走吗?');
+    }
+
+
     constructor(props) {
         super(props);
         this.state = {modalVisible: false};
     }
 
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
-        return(
-            <View>
-                <LoginModal isVisible={true}/>
-            </View>
-        )
-    }
 
-
-    _closeModal= () => {
-        console.log('关闭窗口');
-        this.setState({modalVisible: false});
-    }
 
     componentWillUnmount(){
         this.setState({modalVisible: false});
@@ -74,11 +66,11 @@ export default class Main extends Component {
                 {/*<LoginModal isVisible={this.state.modalVisible}/>*/}
 
                 <TouchableOpacity onPress={() => {
-                    navigate('SearchHistory',{
+                    navigate('Login',{
                         title:'Sousuo '
                     });
                 }}>
-                    <Text>Show Modal</Text>
+                    <Text>登录按钮</Text>
                 </TouchableOpacity>
 
             </View>
