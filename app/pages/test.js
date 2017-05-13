@@ -16,7 +16,7 @@ import { NavigationActions } from 'react-navigation'
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routeName: 'ShiTu'})
+        NavigationActions.navigate({ routes:[{index:'0'}]})
     ]
 });
 
@@ -24,7 +24,7 @@ const resetAction = NavigationActions.reset({
 export default class Login extends Component {
 
     static navigationOptions = {
-        tabBarVisible:false
+        
     }
 
     componentDidMount(){
@@ -37,8 +37,9 @@ export default class Login extends Component {
         // });
     }
 
-    _loginPress () {
-        console.log('登录');
+    _resetPress () {
+        console.log('重置');
+        this.props.navigation.dispatch(resetAction)
 
     }
 
@@ -52,7 +53,7 @@ export default class Login extends Component {
                 <Button title='保存' onPress={()=>this._savePress()} />
                 <Button title='获取' onPress={()=>this._getPress()} />
                 <Button title='注册' onPress={()=>this._registerPress()} />
-                <Button title='登录' onPress={()=>this._loginPress()} />
+                <Button title='reset' onPress={()=>this._resetPress()} />
                 <Button title='关闭' onPress={()=>this._closePress()} />
             </View>
         );
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'white',
     },
     welcome: {
         fontSize: 20,

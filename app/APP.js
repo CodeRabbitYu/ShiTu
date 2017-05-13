@@ -27,10 +27,7 @@ import Button from './component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Login from './pages/Login';
-
-// import ShiTuIcon from './resources/ShiTu.png';
-// import GankIcon from './resources/Gank.png';
-// import MainIcon from './resources/Main.png';
+import Test from './pages/test';
 
 const ShiTuIcon = require('./resources/ShiTu.png');
 const GankIcon = require('./resources/Gank.png');
@@ -41,6 +38,12 @@ const ShiTuStack = StackNavigator({
         screen:ShiTu,
         navigationOptions: ()=> TabOptions('识兔',ShiTuIcon,ShiTuIcon,'识兔'),
     },
+    Login:{
+        screen:Login,
+        navigationOptions:{
+            headerTitle:'Login',
+        }
+    }
 },{
     mode:'modal',
 });
@@ -49,6 +52,12 @@ const GankStack = StackNavigator({
     Gank:{
         screen:Gank,
         navigationOptions: ()=> TabOptions('干货',GankIcon,GankIcon,'干货集中营'),
+    },
+    Login:{
+        screen:Login,
+        navigationOptions:{
+            headerTitle:'Login',
+        }
     }
 },{
     mode:'modal',
@@ -59,6 +68,12 @@ const MainStack = StackNavigator({
         screen:Main,
         navigationOptions: ()=> TabOptions('个人中心',MainIcon,MainIcon,'个人中心'),
     },
+    Login:{
+        screen:Login,
+        navigationOptions:{
+            headerTitle:'Login',
+        }
+    }
 },{
     mode:'modal',
 });
@@ -116,10 +131,18 @@ const MyTab = TabNavigator({
     tabBarOptions: {
         // tabbar上label的style
         labelStyle: {
+            // marginTop:0
+        },
+        // tabbar的Iconstyle
+        iconStyle:{
+            height:35,
+            width:35,
+            margin:0
         },
         // tabbar的style
         style: {
-            height:49
+            height:49,
+            backgroundColor:'white'
         },
         // label和icon的背景色 活跃状态下
         activeBackgroundColor:'white',
@@ -129,14 +152,14 @@ const MyTab = TabNavigator({
         inactiveBackgroundColor:'white',
         // label和icon的前景色 不活跃状态下(未选中)
         inactiveTintColor:'#aaa',
+        showIcon:true,
         // 是否显示label，默认为true
-        showLabel:false,
+        showLabel:iOS?false:true,
         // 不透明度为按选项卡(iOS和Android < 5.0)
         pressOpacity:0.3,
 
         indicatorStyle :{
-            // backgroundColor:'blue',
-            height:0, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了
+            height:0, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了,
         }
     }
 });
@@ -158,6 +181,12 @@ const MyApp = StackNavigator({
         screen:WelfarePicture,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
+    Test:{
+        screen:Test,
+        navigationOptions:{
+            headerTitle:'Test',
+        }
+    }
 
 }, {
     headerMode: 'screen',
@@ -170,7 +199,7 @@ export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
         return(
             <Image
                 source={!focused ? normalImage : selectedImage}
-                style={[{height:35,width:35}, {tintColor: tintColor}]}
+                style={[{height:35,width:35 }, {tintColor: tintColor}]}
             />
         )
     });
@@ -186,15 +215,10 @@ export const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
 const StackOptions = ({navigation}) => {
     // console.log(navigation);
     let {state,goBack} = navigation;
+    // if (!state.params.isVisible){
+    //     return;
+    // }
 
-    const visible= state.params.isVisible;
-    let header;
-    if (!visible){
-        return;
-    }
-    if (visible === true){
-        header = null;
-    }
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const headerTitle = state.params.title;
     const headerTitleStyle = {fontSize:FONT_SIZE(20),color:'white',fontWeight:'500'}
@@ -216,6 +240,10 @@ const StackOptions = ({navigation}) => {
     let headerRight;
     if (state.params.headerRight){
         headerRight = state.params.headerRight;
+    }
+
+    if (state.params.isVisible === true){
+        header = null;
     }
     return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
 };

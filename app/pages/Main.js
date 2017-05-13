@@ -73,7 +73,11 @@ export default class Main extends Component {
 
                 {/*<LoginModal isVisible={this.state.modalVisible}/>*/}
 
-                <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+                <TouchableOpacity onPress={() => {
+                    navigate('SearchHistory',{
+                        title:'Sousuo '
+                    });
+                }}>
                     <Text>Show Modal</Text>
                 </TouchableOpacity>
 
