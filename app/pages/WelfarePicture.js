@@ -73,7 +73,7 @@ export default class WelfareItem extends Component {
                                 name='ios-arrow-back'
                                 size={30}
                                 color='white'
-                                style={{marginLeft:0,marginTop:27}}
+                                style={{marginLeft:iOS?0:12,marginTop:27}}
                             />
                         }
                             style={{marginLeft:12}}

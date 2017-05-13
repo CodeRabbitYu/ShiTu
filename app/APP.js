@@ -241,7 +241,7 @@ const StackOptions = ({navigation}) => {
     if (state.params.headerRight){
         headerRight = state.params.headerRight;
     }
-
+    let header;
     if (state.params.isVisible === true){
         header = null;
     }

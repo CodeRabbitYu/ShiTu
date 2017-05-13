@@ -141,7 +141,7 @@ export default class WelfareContainer extends Component {
     };
 
     fetchMoreData = ()=> {
-
+        console.log('加载更多数据');
         if (this.isLoadMore) {
             return;
         } else {
@@ -172,7 +172,7 @@ export default class WelfareContainer extends Component {
                     onRefresh={() => this.fetchData(1)}
                     refreshing={this.isRefresh}
                     onEndReached={() => this.fetchMoreData()}
-                    onEndReachedThreshold={0}
+                    onEndReachedThreshold={1}
                     ListFooterComponent={()=>{
                             return( !this.isRefresh &&
                                 <ActivityIndicator
