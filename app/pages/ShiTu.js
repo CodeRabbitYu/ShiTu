@@ -282,12 +282,12 @@ export default class ShiTu extends Component {
                                     });
 
                                     if (this.perent === 1) {
-                                        navigate('WebViewDetail', {
-                                            data: data.data.webURL,
-                                            isVisible:true
-                                        });
+                                        // navigate('WebViewDetail', {
+                                        //     data: data.data.webURL,
+                                        //     isVisible:true
+                                        // });
                                         InteractionManager.runAfterInteractions(() => {
-                                            this.isUpload = false;
+                                            // this.isUpload = false;
                                             this.hintText = '是否是您寻找的答案呢?'
                                         });
                                     }
@@ -396,16 +396,17 @@ export default class ShiTu extends Component {
                 </BlurView>
                 :
                 <View style={styles.blurViewStyle}>
-                    <BlurView blurType="light"
+                    {this.state.viewRef && <BlurView blurType="light"
                                               blurAmount={5}
-                                              style={styles.iOSBlur}
+                                              style={styles.AndroidBlur}
                                               viewRef={this.state.viewRef}
-                    />
+                    />}
                     <Progress.Circle
                         showsText={true}
                         color = {COLORS.appColor}
                         progress={this.perent}
                         size={130}
+                        style={styles.progressStyle}
                         formatText={()=>{
                                             return(
                                                 <Text style={{fontSize:FONT_SIZE(17)}}>
@@ -424,8 +425,10 @@ export default class ShiTu extends Component {
 
         return (
             <View style={styles.container}>
-                <Image source={require('../resources/timg.jpeg')}
-                       style={[styles.image,{display:'flex'}]}
+                <Image
+                    //source={require('../resources/timg.jpeg')}
+                    source={{uri:this.imageUri}}
+                       style={[styles.image]}
                        animation="fadeIn"
                        useNativeDriver
                        ref={'backgroundImage'}
@@ -484,8 +487,8 @@ const styles = StyleSheet.create({
         height:SCREEN_HEIGHT,
         alignItems:'center',
         justifyContent:'center',
-        alignSelf:'center',
-        alignContent:'center',
+        // alignSelf:'center',
+        // alignContent:'center',
     },
     textStyle:{
         fontSize:FONT_SIZE(18),

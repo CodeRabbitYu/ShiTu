@@ -58,8 +58,8 @@ export default class Main extends Component {
         return (
             <View style={{marginTop: 22}}>
                 <StatusBar
-                    backgroundColor="blue"
-                    barStyle="dark-content"
+                    // backgroundColor="blue"
+                    // barStyle="dark-content"
                     showHideTransition="slide"
                 />
 
