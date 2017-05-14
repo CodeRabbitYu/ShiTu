@@ -427,7 +427,7 @@ export default class ShiTu extends Component {
             <View style={styles.container}>
                 <Image
                     //source={require('../resources/timg.jpeg')}
-                    source={{uri:this.imageUri}}
+                    source={{uri:'timg'}}
                        style={[styles.image]}
                        animation="fadeIn"
                        useNativeDriver
@@ -442,7 +442,6 @@ export default class ShiTu extends Component {
                         !this.isUpload
                             ?
                             this._defaultView()
-
                             :
                             this._findView()
                     }
@@ -491,7 +490,8 @@ const styles = StyleSheet.create({
         // alignContent:'center',
     },
     textStyle:{
-        fontSize:FONT_SIZE(18),
+        fontSize:iOS?FONT_SIZE(18):FONT_SIZE(22),
+        color:'black',
         marginBottom:20
     },
     progressStyle:{
