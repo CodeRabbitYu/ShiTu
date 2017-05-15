@@ -17,6 +17,7 @@ import {
 import Reqeust from '../common/Request';
 import Config from '../common/Config';
 
+import { fetch } from '../common/XMLRequest';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
@@ -38,7 +39,20 @@ export default class GankListContainer extends Component {
     isLoadMore = false;
 
     componentDidMount() {
-        this.fetchData(this.page);
+        // this.fetchData(this.page);
+        let url = `${Config.api.getGankData}?page=${1}&count=${'20'}&type=${iOS}`;
+        console.log(url);
+        let params = {
+            url:url
+        }
+
+        fetch(params)
+            .then((data)=>{
+            console.log(data);
+            })
+            .catch((error)=>{
+            console.log(error);
+            })
     };
 
     fetchData=(page) =>{

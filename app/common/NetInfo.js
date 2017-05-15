@@ -14,7 +14,7 @@ const TAG_NETWORK_CHANGE = "NetworkChange";
  * 检查网络链接状态
  * @param callback
  */
-const checkNetworkState = (callback) =>{
+const listenerNetworkState = (callback) =>{
     NetInfo.isConnected.fetch().done(
         (isConnected) => {
             callback(isConnected);
@@ -41,7 +41,7 @@ const addEventListener = (tag,handler)=>{
 };
 
 export default{
-    checkNetworkState,
+    listenerNetworkState,
     addEventListener,
     removeEventListener,
     NOT_NETWORK,

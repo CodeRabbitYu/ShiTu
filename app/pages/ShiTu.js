@@ -76,6 +76,7 @@ export default class ShiTu extends Component {
     handleMethod = (isConnected)=> {
         console.log('ShiTu', (isConnected ? 'online' : 'offline'));
         console.log(isConnected);
+        NetInfo.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
     };
 
 
@@ -87,18 +88,18 @@ export default class ShiTu extends Component {
         // NetWorkTool.addEventListener('change',this.handleMethod);
         iOS
             ?
-            NetWorkTool.checkNetworkState(()=>{
+            NetWorkTool.listenerNetworkState(()=>{
                 NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
             })
             :
-            NetWorkTool.checkNetworkState((isConnected)=>{
+            NetWorkTool.listenerNetworkState((isConnected)=>{
                 console.log(isConnected);
             });
 
     }
 
     componentWillUnmount(){
-        // NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
+        NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
     }
 
     componentDidMount(){
