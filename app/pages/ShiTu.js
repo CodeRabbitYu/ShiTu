@@ -8,10 +8,13 @@ import {
     AsyncStorage,
     InteractionManager,
     StatusBar,
-    findNodeHandle
+    findNodeHandle,
+    NetInfo
 } from 'react-native';
 
 import '../common/Global'
+import NetWorkTool from '../common/NetInfo';
+// import {isNetworkConnected} from '../common/isNetInfo';
 
 import {  View, Text, Image } from 'react-native-animatable';
 import Button from '../component/Button';
@@ -54,6 +57,8 @@ let photoOptions = {
     }
 };
 let USERTOKEN;
+
+
 @observer
 export default class ShiTu extends Component {
     // 背景图片地址
@@ -68,15 +73,56 @@ export default class ShiTu extends Component {
     @observable
     hintText= '点击按钮,搜索你想知道的图片哦!';
 
+    handleMethod = (isConnected)=> {
+        console.log('ShiTu', (isConnected ? 'online' : 'offline'));
+        console.log(isConnected);
+    };
+
+     isNetworkConnected = ()=> {
+        return NetInfo.fetch().then(reachability => {
+            if (reachability === 'unknown') {
+                return new Promise(resolve => {
+                    const handleFirstConnectivityChangeIOS = isConnected => {
+                        NetInfo.isConnected.removeEventListener('change', handleFirstConnectivityChangeIOS);
+                        resolve(isConnected);
+                    };
+                    NetInfo.isConnected.addEventListener('change', handleFirstConnectivityChangeIOS);
+                });
+            }
+            reachability = reachability.toLowerCase();
+            return (reachability !== 'none' && reachability !== 'unknown');
+        });
+    }
+
+    componentWillMount(){
+        // NetInfo.isConnected.fetch().then().done(() => {
+        //     NetInfo.isConnected.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
+        // });
+        
+        // NetWorkTool.addEventListener('change',this.isNetworkConnected);
+
+        // NetWorkTool.checkNetworkState((isConnected)=>{
+        //     NetWorkTool.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
+        // });
+
+
+    }
+
+    componentWillUnmount(){
+        // NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
+    }
+
     componentDidMount(){
 
-        // console.log(realm.objects('History')[0].imageUri);
+        this.isNetworkConnected().then((response)=>{
+            console.log(response);
+        }).catch((err)=>{
+            console.log(err);
+        });
 
-        // for (let i =0 ; i<realm.objects('History').length;i++){
-        //     // console.log(realm.objects('History')[i].imageUri);
-        //     // list.push(realm.objects('History')[i].id);
-        // }
-
+        // NetWorkTool.checkNetworkState((isConnected)=>{
+        //     console.log(isConnected);
+        // });
 
         // console.log(list);
         let KEY = 'USERTOKEN';
@@ -110,6 +156,7 @@ export default class ShiTu extends Component {
 
     constructor(props){
         super(props);
+
         this.state = {
             viewRef: null,
         }
