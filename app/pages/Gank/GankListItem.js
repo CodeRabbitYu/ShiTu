@@ -13,7 +13,7 @@ import {
 
 import Image from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
-import Button from '../component/Button';
+import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class GankListItem extends Component {

@@ -16,18 +16,18 @@ import {
     AsyncStorage
 } from 'react-native';
 
-import ShiTu from './pages/ShiTu';
-import Gank from './pages/Gank';
-import WebViewDetail from './pages/WebViewDetail';
-import Main from './pages/Main';
-import SearchHistory from './pages/SearchHistory';
-import WelfarePicture from './pages/WelfarePicture';
+import ShiTu from './pages/ShiTu/ShiTu';
+import Gank from './pages/Gank/Gank';
+import WebViewDetail from './pages/Component/WebViewDetail';
+import Main from './pages/Main/Main';
+import SearchHistory from './pages/Main/SearchHistory';
+import WelfarePicture from './pages/Gank/WelfarePicture';
 
 import Button from './component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Login from './pages/Login';
-import Test from './pages/test';
+import Login from './pages/Login/Login';
+import Test from './pages/Component/test';
 
 const ShiTuIcon = require('./resources/ShiTu.png');
 const GankIcon = require('./resources/Gank.png');

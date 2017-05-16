@@ -13,7 +13,7 @@ import {
 
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Button from '../component/Button';
+import Button from '../../component/Button';
 
 const resetAction = NavigationActions.reset({
     index: 0,

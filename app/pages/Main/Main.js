@@ -14,9 +14,9 @@ import {
     Alert,
     StatusBar
 } from 'react-native';
-import Button from '../component/Button';
-import Login from '../pages/Login';
-import LoginModal from '../component/LoginModal';
+import Button from '../../component/Button';
+import Login from '../Login/Login';
+import LoginModal from '../../component/LoginModal';
 
 export default class Main extends Component {
 

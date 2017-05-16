@@ -15,7 +15,7 @@ import {
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 
-import Button from '../component/Button';
+import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 @observer

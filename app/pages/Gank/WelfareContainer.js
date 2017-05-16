@@ -16,10 +16,10 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-import Reqeust from '../common/Request';
-import Config from '../common/Config';
+import Reqeust from '../../common/Request';
+import Config from '../../common/Config';
 import AutoResponisve from 'autoresponsive-react-native';
-import Button from '../component/Button';
+import Button from '../../component/Button';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';

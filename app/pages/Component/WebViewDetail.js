@@ -16,7 +16,7 @@ import {
     InteractionManager
 } from 'react-native';
 
-import ProgressBar from '../component/ProgressBar';
+import ProgressBar from '../../component/ProgressBar';
 
 import { NavigationActions } from 'react-navigation'
 

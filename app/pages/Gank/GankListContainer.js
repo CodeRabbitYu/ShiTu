@@ -14,15 +14,15 @@ import {
     InteractionManager
 } from 'react-native';
 
-import Reqeust from '../common/Request';
-import Config from '../common/Config';
+import Reqeust from '../../common/Request';
+import Config from '../../common/Config';
 
-import { fetch } from '../common/XMLRequest';
+import { fetch } from '../../common/XMLRequest';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 import GankListItem from './GankListItem';
-import WebViewDetail from './WebViewDetail';
+import WebViewDetail from '../Component/WebViewDetail';
 
 @observer
 export default class GankListContainer extends Component {
