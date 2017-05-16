@@ -15,6 +15,7 @@ if (!__DEV__) {
         },
     };
 }
+// global.BASEURL = 'hahaha';
 // 关闭全部的警告
 //console.disableYellowBox = true;
 // 关闭指定的警告

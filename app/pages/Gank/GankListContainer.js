@@ -14,10 +14,12 @@ import {
     InteractionManager
 } from 'react-native';
 
-import Reqeust from '../../common/Request';
+import Request from '../../common/Request';
 import Config from '../../common/Config';
 
-import { fetch } from '../../common/XMLRequest';
+import { fetch } from '../../common/Fetch';
+
+// import { fetch } from '../../common/XMLRequest';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
@@ -40,12 +42,61 @@ export default class GankListContainer extends Component {
 
     componentDidMount() {
         // this.fetchData(this.page);
-        let url = `${Config.api.getGankData}?page=${1}&count=${'20'}&type=${iOS}`;
-        console.log(url);
-        let params = {
-            url:url
-        }
+        // let url = `${Config.api.getGankData}?page=${1}&count=${'20'}&type=${'iOS'}`;
+        // console.log(url);
+        // let url = Config.api.getGankData;
 
+        let url = 'https://api-test.shunliandongli.com/v1/home/all.json';
+        let param = {
+            method:'GET',
+            headers:{
+                'User-Agent':'ShunLian iPhone 9.0.1/1.0.0 ',
+                'X-Device-ID': 'FC1D511A-70FA-4ABC-8E7A-F1AACCBF9BAA',
+                'Accept-Encoding':'gzip,deflate',
+                'X-Ip':'192.168.1.1',
+            }
+        };
+        // console.log(param);
+        // json.stringify(param);
+
+        /**
+        fetch(url,{
+            method:'GET',
+            headers: {
+                'User-Agent': 'ShunLian iPhone 9.0.1/1.0.0',
+                'X-Device-ID': 'BC393529-B688-4B6B-91DD-71F9244B92D8',
+                'Accept-Encoding': 'gzip,deflate',
+                'X-Ip': '172.16.17.74',
+            }
+        })
+            .then((response)=>{
+                console.log(response);
+                return response.json()
+            })
+            .then((response)=>{
+                console.log(response);
+            })
+            .catch((e)=>{
+                console.log(e);
+            })
+        */
+
+
+        let params = {
+            'page' : '1',
+            'count' : '20',
+            'type' : 'iOS'
+        };
+
+        fetch(url).then((res)=>{
+            // console.log(res);
+        }).catch((e)=>{
+            // console.log(e);
+        });
+
+        // Request.fetch(params);
+
+        /**
         fetch(params)
             .then((data)=>{
             console.log(data);
@@ -53,6 +104,7 @@ export default class GankListContainer extends Component {
             .catch((error)=>{
             console.log(error);
             })
+         */
     };
 
     fetchData=(page) =>{
@@ -71,7 +123,7 @@ export default class GankListContainer extends Component {
         }
 
         console.log(url);
-        return Reqeust.get(url,(data)=>{
+        return Request.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
@@ -136,7 +188,7 @@ export default class GankListContainer extends Component {
         });
     };
 
-    renderItem = (item)=>{
+    renderItem =(item)=>{
         const {navigate} = this.props;
         return (
             // GankItem(navigate,item)

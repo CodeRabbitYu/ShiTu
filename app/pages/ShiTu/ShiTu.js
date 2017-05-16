@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 
 import '../../common/Global'
-import NetWorkTool from '../common/NetInfo';
+import NetWorkTool from '../../common/NetInfo';
 // import {isNetworkConnected} from '../common/isNetInfo';
 
 import {  View, Text, Image } from 'react-native-animatable';
-import Button from '../component/Button';
+import Button from '../../component/Button';
 const { BlurView ,VibrancyView} = require('react-native-blur');
 import ImagePicker from 'react-native-image-picker';
 import * as Progress from 'react-native-progress';
@@ -39,8 +39,8 @@ const HistorySchema = {
 
 let realm = new Realm({schema: [HistorySchema],});
 
-import Request from '../common/Request';
-import Config from '../common/Config';
+import Request from '../../common/Request';
+import Config from '../../common/Config';
 
 // 底部弹出框文字
 let photoOptions = {

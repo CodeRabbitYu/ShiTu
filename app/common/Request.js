@@ -2,41 +2,45 @@
  * Created by Rabbit on 2017/4/21.
  */
 'use strict';
-
-
-import React,{
-    NetInfo
-} from 'react-native';
-
 import RNFetchBlob from 'react-native-fetch-blob';
 
-const NOT_NETWORK = "网络不可用，请稍后再试";
-const TAG_NETWORK_CHANGE = "NetworkChange";
 
-/***
- * 检查网络链接状态
- * @param callback
- */
-const checkNetworkState = (callback) =>{
-    NetInfo.isConnected.fetch().done(
-        (isConnected) => {
-            callback(isConnected);
-        }
-    );
-};
-
-/***
- * 移除网络状态变化监听
- * @param tag
- * @param handler
- */
-const removeEventListener = (tag,handler) => {
-    NetInfo.isConnected.removeEventListener(tag, handler);
-};
-
+export function fetch(obj) {
+    let method = obj.method || 'GET';
+    let params = obj.params || '';
+    console.log(obj);
+    return RNFetchBlob
+        .fetch(method,obj.url)
+        .then((res) => {
+            // console.log(res);
+            if (res.respInfo !== 200){
+                return
+            }
+        })
+        .then((res))
+        .catch((e)=>{
+            console.log(e);
+        });
+}
 
 const Request = {
     config:{},
+    fetch:(obj,successCakkBack,failCallBack)=>{
+        return RNFetchBlob.fetch('GET',obj.url)
+            .then((res)=>{
+                console.log(res.respInfo);
+                if (res.respInfo.status === 200){
+                    // return res.json()
+                    return '请求失败';
+                }
+            })
+            .then((res)=>{
+                // console.log(res);
+            })
+            .catch((e) => {
+                // console.log(e);
+            })
+    },
     get:(url, successCallBack, failCallBack) =>{
         // console.log(url);
         // console.log(config);

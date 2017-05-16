@@ -16,7 +16,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-import Reqeust from '../../common/Request';
+import Request from '../../common/Request';
 import Config from '../../common/Config';
 import AutoResponisve from 'autoresponsive-react-native';
 import Button from '../../component/Button';
@@ -76,7 +76,7 @@ export default class WelfareContainer extends Component {
         }
 
         console.log(url);
-        Reqeust.get(url,(data)=>{
+        Request.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
