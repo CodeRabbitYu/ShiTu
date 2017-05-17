@@ -61,6 +61,7 @@ let USERTOKEN;
 
 @observer
 export default class ShiTu extends Component {
+
     // 背景图片地址
     @observable
     imageUri='timg';
@@ -200,7 +201,7 @@ export default class ShiTu extends Component {
 
                 Request.post(Config.api.postWebUrl,body,(data)=>{
                     console.log('getWebUrl');
-                    // console.log(data);
+                    console.log(data);
 
                     let imageURL = data.data.imageURL;
                     let timestamp = Date.parse(new Date());
@@ -286,8 +287,8 @@ export default class ShiTu extends Component {
                         // type : 'image/jpeg',
                         data: RNFetchBlob.wrap(PATH)
                     }];
-                    Request.upload(Config.qiniu.upload,body,(perent)=>{
 
+                    Request.upload(Config.qiniu.upload,body,(perent)=>{
                         this.perent = perent;
                         this.isUpload = true;
                     },(response)=>{
@@ -461,7 +462,7 @@ export default class ShiTu extends Component {
             <View style={styles.container}>
                 <Image
                     //source={require('../resources/timg.jpeg')}
-                    source={{uri:'timg'}}
+                    source={{uri:this.imageUri}}
                        style={[styles.image]}
                        animation="fadeIn"
                        useNativeDriver

@@ -83,10 +83,8 @@ const Request = {
             'Content-Type' : 'multipart/form-data',
         },body)
             .uploadProgress((written, total) => {
-
             })
             .progress((received, total) => {
-                // console.log('progress', received / total)
                 let perent = received / total;
                 // 搜索进度打印
                 console.log(perent);

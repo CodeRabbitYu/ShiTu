@@ -19,6 +19,7 @@ import Login from '../Login/Login';
 
 export default class Main extends Component {
 
+
     async componentDidMount(){
         // this.props.navigation.setParams({title:'hjaha '})
         console.log(this.props.navigation);
@@ -27,7 +28,7 @@ export default class Main extends Component {
         let data = await AsyncStorage.getItem('TOKEN');
         // console.log(data);
         if (data === null){
-            console.log('false');
+            // console.log('false');
             return(
                 // Alert.alert('尚未登录')
                 null

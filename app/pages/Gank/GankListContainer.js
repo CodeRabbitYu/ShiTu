@@ -47,12 +47,8 @@ export default class GankListContainer extends Component {
     }
     componentWillMount() {
         // this.fetchData(this.page);
-        // let url = `${Config.api.getGankData}?page=${1}&count=${'20'}&type=${'iOS'}`;
-        // console.log(url);
-        // let url = Config.api.getGankData;
 
         let arr = [];
-
 
         // let url = 'https://api-test.shunliandongli.com/v1/home/all.json';
         let url = 'https://api.foyuanzhilu.com/v1/app-banner/more/3';
@@ -102,57 +98,9 @@ export default class GankListContainer extends Component {
             })
 
 
-        // header(param);
-
-        // console.log(param);
-        // json.stringify(param);
-
-        /**
-        fetch(url,{
-            method:'GET',
-            headers: {
-                'User-Agent': 'ShunLian iPhone 9.0.1/1.0.0',
-                'X-Device-ID': 'BC393529-B688-4B6B-91DD-71F9244B92D8',
-                'Accept-Encoding': 'gzip,deflate',
-                'X-Ip': '172.16.17.74',
-            }
-        })
-            .then((response)=>{
-                console.log(response);
-                return response.json()
-            })
-            .then((response)=>{
-                console.log(response);
-            })
-            .catch((e)=>{
-                console.log(e);
-            })
-        */
 
 
-        // let params = {
-        //     'page' : '1',
-        //     'count' : '20',
-        //     'type' : 'iOS'
-        // };
-        //
-        // fetch(url).then((res)=>{
-        //     // console.log(res);
-        // }).catch((e)=>{
-        //     // console.log(e);
-        // });
 
-        // Request.fetch(params);
-
-        /**
-        fetch(params)
-            .then((data)=>{
-            console.log(data);
-            })
-            .catch((error)=>{
-            console.log(error);
-            })
-         */
     };
 
     fetchData=(page) =>{

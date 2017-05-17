@@ -33,6 +33,7 @@ const ShiTuIcon = require('./resources/ShiTu.png');
 const GankIcon = require('./resources/Gank.png');
 const MainIcon = require('./resources/Main.png');
 
+// 为了实现登录的modal效果,所以将ShiTu页面单独拆分出来.
 const ShiTuStack = StackNavigator({
     ShiTu:{
         screen:ShiTu,
@@ -48,6 +49,7 @@ const ShiTuStack = StackNavigator({
     mode:'modal',
 });
 
+// 为了实现登录的modal效果,所以将Gank页面单独拆分出来.
 const GankStack = StackNavigator({
     Gank:{
         screen:Gank,
@@ -62,7 +64,7 @@ const GankStack = StackNavigator({
 },{
     mode:'modal',
 });
-
+//// 为了实现登录的modal效果,所以将Main页面单独拆分出来.
 const MainStack = StackNavigator({
     Main:{
         screen:Main,
