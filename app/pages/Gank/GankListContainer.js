@@ -17,7 +17,9 @@ import {
 import Request from '../../common/Request';
 import Config from '../../common/Config';
 
-import { fetch } from '../../common/Fetch';
+import { fetch, header } from '../../common/Fetch';
+import RNFetch from 'react-native-fetch-blob';
+
 
 // import { fetch } from '../../common/XMLRequest';
 
@@ -40,13 +42,20 @@ export default class GankListContainer extends Component {
     @observable
     isLoadMore = false;
 
-    componentDidMount() {
+    state = {
+        titleArr:[],
+    }
+    componentWillMount() {
         // this.fetchData(this.page);
         // let url = `${Config.api.getGankData}?page=${1}&count=${'20'}&type=${'iOS'}`;
         // console.log(url);
         // let url = Config.api.getGankData;
 
-        let url = 'https://api-test.shunliandongli.com/v1/home/all.json';
+        let arr = [];
+
+
+        // let url = 'https://api-test.shunliandongli.com/v1/home/all.json';
+        let url = 'https://api.foyuanzhilu.com/v1/app-banner/more/3';
         let param = {
             method:'GET',
             headers:{
@@ -56,6 +65,45 @@ export default class GankListContainer extends Component {
                 'X-Ip':'192.168.1.1',
             }
         };
+
+        RNFetch
+            .config({
+                timeout:100,
+                indicator:true
+            })
+            .fetch('GET', url,{
+                'User-Agent':'ShunLian iPhone 9.0.1/1.0.0 ',
+                'X-Device-ID': 'FC1D511A-70FA-4ABC-8E7A-F1AACCBF9BAA',
+                'Accept-Encoding':'gzip,deflate',
+                'X-Ip':'192.168.1.1',
+            },JSON.stringify({
+                'name':'rabbit'
+            }))
+            .then((response) => {
+                // console.log(response);
+                    return response.json()
+            })
+            .then((response) => {
+                console.log(response);
+                // console.log(response.length);
+                for (let i = 0;i<response.length;i++){
+                    // console.log(response[i].title);
+                    arr.push(response[i]);
+
+
+                }
+                console.log(arr);
+                this.setState({
+                    titleArr:arr
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+
+        // header(param);
+
         // console.log(param);
         // json.stringify(param);
 
@@ -82,17 +130,17 @@ export default class GankListContainer extends Component {
         */
 
 
-        let params = {
-            'page' : '1',
-            'count' : '20',
-            'type' : 'iOS'
-        };
-
-        fetch(url).then((res)=>{
-            // console.log(res);
-        }).catch((e)=>{
-            // console.log(e);
-        });
+        // let params = {
+        //     'page' : '1',
+        //     'count' : '20',
+        //     'type' : 'iOS'
+        // };
+        //
+        // fetch(url).then((res)=>{
+        //     // console.log(res);
+        // }).catch((e)=>{
+        //     // console.log(e);
+        // });
 
         // Request.fetch(params);
 
@@ -197,6 +245,7 @@ export default class GankListContainer extends Component {
     };
 
     render() {
+
         return (
         <FlatList
             data={this.dataSource}

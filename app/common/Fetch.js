@@ -8,6 +8,11 @@ import RNFetch from 'react-native-fetch-blob';
  *
  */
 
+export function header(Obj) {
+    console.log(Obj);
+    return fetch('','',Obj,'POST');
+}
+
 /***
  * @param url       请求网址
  * @param params    请求参数
@@ -15,20 +20,27 @@ import RNFetch from 'react-native-fetch-blob';
  * @param header    请求头
  * @returns {Promise}
  */
-export function fetch(url, params, header, method = 'GET') {
+export function fetch(url, params, header, method='GET') {
     // console.log(url);
     // console.log(params);
+    let rt_method = method;
+
+    if (header){
+
+        return;
+    }
+
     let URL = verifyURL(url);
     let postParams = {
-        method,
+        rt_method,
         'User-Agent': 'ShunLian iPhone 9.0.1/1.0.0 ',
         'X-Device-ID': 'FC1D511A-70FA-4ABC-8E7A-F1AACCBF9BAA',
         'Accept-Encoding': 'gzip, deflate',
         'X-Ip': '192.168.1.1',
     };
-
+    console.log(postParams);
     if (params) {
-        if (method !== 'GET') {
+        if (rt_method !== 'GET') {
             postParams.body = JSON.stringify(params);
         } else {
             let keys = Object.keys(params);
@@ -41,9 +53,8 @@ export function fetch(url, params, header, method = 'GET') {
         }
     }
 
-    console.log(url);
     return new Promise((resolve, reject) => {
-        RNFetch.fetch(method, url, postParams)
+        RNFetch.fetch(rt_method, URL, postParams)
             .then((response) => {
                 // console.log(response);
                 if (response.respInfo.status === 200) {
@@ -79,3 +90,4 @@ function verifyURL(url) {
     }
 
 }
+

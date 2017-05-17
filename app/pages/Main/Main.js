@@ -21,7 +21,9 @@ export default class Main extends Component {
 
     async componentDidMount(){
         // this.props.navigation.setParams({title:'hjaha '})
-        // console.log(this.props.navigation);
+        console.log(this.props.navigation);
+
+
         let data = await AsyncStorage.getItem('TOKEN');
         // console.log(data);
         if (data === null){
