@@ -4,48 +4,31 @@
 'use strict';
 import RNFetchBlob from 'react-native-fetch-blob';
 
-
-export function fetch(obj) {
-    let method = obj.method || 'GET';
-    let params = obj.params || '';
-    console.log(obj);
-    return RNFetchBlob
-        .fetch(method,obj.url)
-        .then((res) => {
-            // console.log(res);
-            if (res.respInfo !== 200){
-                return
-            }
-        })
-        .then((res))
-        .catch((e)=>{
-            console.log(e);
-        });
-}
-
 const Request = {
-    config:{},
-    fetch:(obj,successCakkBack,failCallBack)=>{
-        return RNFetchBlob.fetch('GET',obj.url)
-            .then((res)=>{
-                console.log(res.respInfo);
-                if (res.respInfo.status === 200){
-                    // return res.json()
-                    return '请求失败';
-                }
-            })
-            .then((res)=>{
-                // console.log(res);
-            })
-            .catch((e) => {
-                // console.log(e);
-            })
+    GetConfig:{
+        // 指示器,iOS专属
+        indicator:true,
+        // 超时
+        // timeout:15000
+        // 缓存
+        // fileCache : bool,
+        // 缓存地址
+        // path : string,
+        // appendExt : string,
+        // session : string,
+        // addAndroidDownloads : any,
+    },
+    PostConfig:{
+        indicator:true
+    },
+    UpLoadConfig:{
+        indicator:true
     },
     get:(url, successCallBack, failCallBack) =>{
         // console.log(url);
         // console.log(config);
         return RNFetchBlob
-            .config(Request.config)
+            .config(Request.PostConfig)
             .fetch('GET',url)
             .then((response) => response.json())
             .then((response)=>{
@@ -57,18 +40,13 @@ const Request = {
             })
     },
     post:(url, body, successCallBack, failCallBack) =>{
-        // console.log(url);
-
-        // console.log(config);
 
         let header = {
             method: 'POST',
             body: JSON.stringify(body)
         };
-
-        // console.log(header);
         return RNFetchBlob
-            .config(Request.config)
+            .config(Request.PostConfig)
             .fetch('POST',url,header)
             .then((response) => response.json())
             .then((response)=>{
@@ -79,7 +57,9 @@ const Request = {
             })
     },
     upload:(url,body,uploadProgress,successCallBack,failCallBack) => {
-        return RNFetchBlob.fetch('POST',url,{
+        return RNFetchBlob
+            .config(Request.UpLoadConfig)
+            .fetch('POST',url,{
             'Content-Type' : 'multipart/form-data',
         },body)
             .uploadProgress((written, total) => {
@@ -97,7 +77,6 @@ const Request = {
             })
             .catch((error)=>{
                 failCallBack(error);
-                // console.log(error);
             });
     }
 };

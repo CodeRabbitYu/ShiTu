@@ -292,11 +292,9 @@ export default class ShiTu extends Component {
                         this.perent = perent;
                         this.isUpload = true;
                     },(response)=>{
-                        console.log(response);
                         let body = {
                             token: response.key,
                         };
-
                         Request.post(Config.api.postWebUrl, body, (data) => {
                             console.log('getWebUrl');
 
