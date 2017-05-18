@@ -9,7 +9,8 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 
 import { observable, runInAction, autorun } from 'mobx';
@@ -17,6 +18,15 @@ import { observer } from 'mobx-react/native';
 
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import ActionSheet from 'react-native-actionsheet'
+
+const CANCEL_INDEX = 0;
+const DESTRUCTIVE_INDEX = 4;
+const options = [ '取消','收藏图片','设为主屏幕' ];
+const actionTitle = '选择';
+
+// const { state } = this.props.navigation;
 
 @observer
 export default class WelfareItem extends Component {
@@ -40,7 +50,7 @@ export default class WelfareItem extends Component {
         //     </TouchableOpacity>
         // )
         // });
-        console.log(this.props.navigation);
+        console.log(this.props.navigation.state);
     }
 
     constructor(props){
@@ -58,6 +68,29 @@ export default class WelfareItem extends Component {
         // this.isShow = true;
     };
 
+    _onLongPress = ()=>{
+        console.log('长按手势');
+        console.log(this.props.navigation.state);
+
+        this.ActionSheet.show()
+    }
+
+    handlePress(url,i) {
+        console.log(url);
+        console.log(i);
+        // const { state: { params: { url } } } = this.props.navigation;
+        let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
+        if(i===2){
+            AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
+                if (error){
+                    console.log('存储失败' + error);
+                }else {
+                    console.log('存储成功');
+                }
+            })
+        }
+    }
+
     render() {
         const { state: { params: { url ,title } } } = this.props.navigation;
         // const { isShowNav} = this.state;
@@ -69,34 +102,46 @@ export default class WelfareItem extends Component {
             : {width:SCREEN_WIDTH,height:SCREEN_HEIGHT}
 
         return (
-            <TouchableOpacity onPress={this._onPress} activeOpacity={1}>
-                {this.state.isShow ?
-                    <View style={{height:64,backgroundColor:'#4ECBFC',flexDirection:'row'}}>
-                        <Button
-                            isCustom={true}
-                            customView={
-                            <Icon
-                                name='ios-arrow-back'
-                                size={30}
-                                color='white'
-                                style={{marginLeft:iOS?0:12,marginTop:27}}
+            <View>
+                <TouchableOpacity onPress={this._onPress}
+                                  activeOpacity={1}
+                                  onLongPress={this._onLongPress}
+                >
+                    {this.state.isShow ?
+                        <View style={{height:64,backgroundColor:'#4ECBFC',flexDirection:'row'}}>
+                            <Button
+                                isCustom={true}
+                                customView={
+                                <Icon
+                                    name='ios-arrow-back'
+                                    size={30}
+                                    color='white'
+                                    style={{marginLeft:iOS?0:12,marginTop:27}}
+                                />
+                            }
+                                style={{marginLeft:12}}
+                                onPress={()=>{this.props.navigation.goBack()}}
                             />
-                        }
-                            style={{marginLeft:12}}
-                            onPress={()=>{this.props.navigation.goBack()}}
+                            <Text style={styles.navTitleStyle}>{title}</Text>
+                        </View>
+                        :null
+                    }
+                        <Image
+                            source={{uri:url}}
+                            style={[{
+                            height:SCREEN_HEIGHT,
+                            width:SCREEN_WIDTH},style]}
                         />
-                        <Text style={styles.navTitleStyle}>{title}</Text>
-                    </View>
-                    :null
-                }
-                    <Image
-                        source={{uri:url}}
-                        style={[{
-                        height:SCREEN_HEIGHT,
-                        width:SCREEN_WIDTH},style]}
-                    />
-
-            </TouchableOpacity>
+                </TouchableOpacity>
+                <ActionSheet
+                    ref={o => this.ActionSheet = o}
+                    title={actionTitle}
+                    options={options}
+                    cancelButtonIndex={CANCEL_INDEX}
+                    destructiveButtonIndex={DESTRUCTIVE_INDEX}
+                    onPress={(i)=>this.handlePress(url,i)}
+                />
+            </View>
         );
     }
 }

@@ -64,7 +64,7 @@ export default class ShiTu extends Component {
 
     // 背景图片地址
     @observable
-    imageUri='timg';
+    imageUri='';
     // 进度条
     @observable
     perent='';
@@ -76,17 +76,20 @@ export default class ShiTu extends Component {
 
     handleMethod = (isConnected)=> {
         console.log('ShiTu', (isConnected ? 'online' : 'offline'));
-        console.log(isConnected);
         NetInfo.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
     };
 
 
     componentWillMount(){
-        // NetInfo.isConnected.fetch().then().done(() => {
-        //     NetInfo.isConnected.addEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
-        // });
-
-        // NetWorkTool.addEventListener('change',this.handleMethod);
+        let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
+        AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
+            console.log(result);
+            if (result === null){
+                this.imageUri = 'timg';
+            }else{
+                this.imageUri = result;
+            }
+        });
         iOS
             ?
             NetWorkTool.listenerNetworkState(()=>{
@@ -104,7 +107,7 @@ export default class ShiTu extends Component {
     }
 
     componentDidMount(){
-
+        console.log('componentDidMount');
         // NetWorkTool.checkNetworkState((isConnected)=>{
         //     console.log(isConnected);
         // });
@@ -136,6 +139,7 @@ export default class ShiTu extends Component {
                 USERTOKEN = result;
             }
         });
+
 
     };
 
@@ -454,6 +458,7 @@ export default class ShiTu extends Component {
     }
 
     render() {
+        console.log('render');
         const { navigate } = this.props.navigation;
 
         return (

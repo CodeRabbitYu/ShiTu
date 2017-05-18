@@ -22,6 +22,7 @@ global.Android = (Platform.OS === 'android');
 global.COLORS = Colors;
 // 适配字体
 global.FONT_SIZE = FontSize;
+// 用户登录状态
 global.TOKEN = false;
 // TabBarIcon图标大小
 global.TabBarIcon = {
