@@ -154,8 +154,10 @@ export default class Detail extends Component {
                     }}
                 />
                 <ActionButton buttonColor="rgba(231,76,60,1)"
-                              active={true}
-                              hideShadow={true}
+                              // 是否自动打开
+                              active={iOS?false:true}
+                              // 是否展示阴影
+                              hideShadow={iOS?false:true}
                               position="right"
                               spacing={-5}
                               offsetY={15}

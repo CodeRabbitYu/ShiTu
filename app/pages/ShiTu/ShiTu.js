@@ -320,7 +320,7 @@ export default class ShiTu extends Component {
                                             isVisible:true
                                         });
                                         InteractionManager.runAfterInteractions(() => {
-                                            // this.isUpload = false;
+                                            this.isUpload = false;
                                             this.hintText = '是否是您寻找的答案呢?'
                                         });
                                     }
