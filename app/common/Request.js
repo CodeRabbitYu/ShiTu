@@ -5,6 +5,7 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 
 const Request = {
+    // 框架可以用过cancel 取消某个网络请求
     GetConfig:{
         // 指示器,iOS专属
         indicator:true,
@@ -32,7 +33,6 @@ const Request = {
             .fetch('GET',url)
             .then((response) => response.json())
             .then((response)=>{
-            console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{

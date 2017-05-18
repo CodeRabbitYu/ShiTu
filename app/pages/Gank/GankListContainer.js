@@ -47,61 +47,7 @@ export default class GankListContainer extends Component {
     }
     componentWillMount() {
         // 为了测试一些功能,所以将干货的网络调用关闭.  如果想运行app,将下面的注释解开
-        // this.fetchData(this.page);
-
-        let arr = [];
-
-        // let url = 'https://api-test.shunliandongli.com/v1/home/all.json';
-        let url = 'https://api.foyuanzhilu.com/v1/app-banner/more/3';
-        let param = {
-            method:'GET',
-            headers:{
-                'User-Agent':'ShunLian iPhone 9.0.1/1.0.0 ',
-                'X-Device-ID': 'FC1D511A-70FA-4ABC-8E7A-F1AACCBF9BAA',
-                'Accept-Encoding':'gzip,deflate',
-                'X-Ip':'192.168.1.1',
-            }
-        };
-
-        RNFetch
-            .config({
-                timeout:100,
-                indicator:true
-            })
-            .fetch('GET', url,{
-                'User-Agent':'ShunLian iPhone 9.0.1/1.0.0 ',
-                'X-Device-ID': 'FC1D511A-70FA-4ABC-8E7A-F1AACCBF9BAA',
-                'Accept-Encoding':'gzip,deflate',
-                'X-Ip':'192.168.1.1',
-            },JSON.stringify({
-                'name':'rabbit'
-            }))
-            .then((response) => {
-                // console.log(response);
-                    return response.json()
-            })
-            .then((response) => {
-                console.log(response);
-                // console.log(response.length);
-                for (let i = 0;i<response.length;i++){
-                    // console.log(response[i].title);
-                    arr.push(response[i]);
-
-
-                }
-                console.log(arr);
-                this.setState({
-                    titleArr:arr
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-
-
-
-
-
+        this.fetchData(this.page);
     };
 
     fetchData=(page) =>{
@@ -111,7 +57,7 @@ export default class GankListContainer extends Component {
             console.log('isRefresh?');
             return;
         }
-        console.log(page);
+        // console.log(page);
 
         if (page !== 1){
             this.isLoadMore = true;
@@ -170,7 +116,7 @@ export default class GankListContainer extends Component {
 
     fetchMoreData = ()=> {
         this.page = this.page + 1;
-        console.log(this.page);
+        // console.log(this.page);
         this.fetchData(this.page);
     };
 

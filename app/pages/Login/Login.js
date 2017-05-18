@@ -18,10 +18,13 @@ import Button from '../../component/Button';
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routeName: 'ShiTu'})
+        NavigationActions.navigate({ routeName: 'Main'})
     ]
 });
-
+const setParamsAction = NavigationActions.setParams({
+    params: { title: 'Hello' },
+    key: 'screen-123',
+});
 
 export default class Login extends Component {
 
@@ -30,14 +33,30 @@ export default class Login extends Component {
         // header:null,
     }
 
+    constructor(props){
+        super(props);
+        let { state } = this.props.navigation;
+        this.state = {
+            title: state.title,
+        }
+    }
+
     componentDidMount(){
     }
 
+    _closePress=()=>{
+        console.log(this.props.navigation);
+        this.props.navigation.dispatch(setParamsAction);
+        console.log(this.props.navigation);
+    }
 
 
     render() {
+        let { state } = this.props.navigation;
+
         return (
             <View style={styles.container}>
+                <Text>{this.state.title}</Text>
                 <Button title='关闭' onPress={()=>this._closePress()} />
             </View>
         );
