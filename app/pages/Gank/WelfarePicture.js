@@ -43,7 +43,7 @@ export default class WelfareItem extends Component {
     isShow = false;
 
     componentDidMount(){
-        this.props.navigation.setParams({title:'hahahahaha'});
+        // this.props.navigation.setParams({title:'hahahahaha'});
         // this.props.navigation.setParams({ headerLeft:({ navigation ,goBack})=>(
         //     <TouchableOpacity onPress={()=>{goBack('Main')}}>
         //         <Text>hahaha</Text>
@@ -61,24 +61,17 @@ export default class WelfareItem extends Component {
     }
 
     _onPress = ()=> {
-        // !this.state.isShowNav
         this.setState({
             isShow: !this.state.isShow
         });
-        // this.isShow = true;
+        this.props.navigation.setParams({isVisible:this.state.isShow});
     };
 
     _onLongPress = ()=>{
-        console.log('长按手势');
-        console.log(this.props.navigation.state);
-
         this.ActionSheet.show()
-    }
+    };
 
     handlePress(url,i) {
-        console.log(url);
-        console.log(i);
-        // const { state: { params: { url } } } = this.props.navigation;
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         if(i===2){
             AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
@@ -92,9 +85,7 @@ export default class WelfareItem extends Component {
     }
 
     render() {
-        const { state: { params: { url ,title } } } = this.props.navigation;
-        // const { isShowNav} = this.state;
-        console.log(this.props.navigation);
+        const { state: { params: { url } } } = this.props.navigation;
 
         let style ;
         this.state.isShow ?
@@ -107,31 +98,13 @@ export default class WelfareItem extends Component {
                                   activeOpacity={1}
                                   onLongPress={this._onLongPress}
                 >
-                    {this.state.isShow ?
-                        <View style={{height:64,backgroundColor:'#4ECBFC',flexDirection:'row'}}>
-                            <Button
-                                isCustom={true}
-                                customView={
-                                <Icon
-                                    name='ios-arrow-back'
-                                    size={30}
-                                    color='white'
-                                    style={{marginLeft:iOS?0:12,marginTop:27}}
-                                />
-                            }
-                                style={{marginLeft:12}}
-                                onPress={()=>{this.props.navigation.goBack()}}
-                            />
-                            <Text style={styles.navTitleStyle}>{title}</Text>
-                        </View>
-                        :null
-                    }
-                        <Image
-                            source={{uri:url}}
-                            style={[{
+                    <Image
+                        source={{uri:url}}
+                        style={[{
                             height:SCREEN_HEIGHT,
                             width:SCREEN_WIDTH},style]}
-                        />
+                    />
+
                 </TouchableOpacity>
                 <ActionSheet
                     ref={o => this.ActionSheet = o}
@@ -150,20 +123,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-    },
-    navTitleStyle:{
-        // alignItems:'center',
-        color:'white',
-        fontSize:FONT_SIZE(20),
-
-        height:64,
-        width:SCREEN_WIDTH - 47,
-        // alignSelf:'center',
-        // alignItems:'center',
-        // justifyContent:'center',
-        textAlign:'center',
-        marginTop:30,
-        fontWeight:'500'
     }
 });
 

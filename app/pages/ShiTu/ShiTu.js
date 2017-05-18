@@ -74,6 +74,7 @@ export default class ShiTu extends Component {
     @observable
     hintText= '点击按钮,搜索你想知道的图片哦!';
 
+
     handleMethod = (isConnected)=> {
         console.log('ShiTu', (isConnected ? 'online' : 'offline'));
         NetInfo.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
