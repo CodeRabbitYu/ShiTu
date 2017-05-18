@@ -46,6 +46,7 @@ export default class GankListContainer extends Component {
         titleArr:[],
     }
     componentWillMount() {
+        // 为了测试一些功能,所以将干货的网络调用关闭.  如果想运行app,将下面的注释解开
         // this.fetchData(this.page);
 
         let arr = [];

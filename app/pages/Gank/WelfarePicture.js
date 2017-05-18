@@ -34,6 +34,12 @@ export default class WelfareItem extends Component {
 
     componentDidMount(){
         this.props.navigation.setParams({title:'hahahahaha'});
+        // this.props.navigation.setParams({ headerLeft:({ navigation ,goBack})=>(
+        //     <TouchableOpacity onPress={()=>{goBack('Main')}}>
+        //         <Text>hahaha</Text>
+        //     </TouchableOpacity>
+        // )
+        // });
         console.log(this.props.navigation);
     }
 
