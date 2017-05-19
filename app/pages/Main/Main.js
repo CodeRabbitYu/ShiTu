@@ -19,13 +19,16 @@ import Login from '../Login/Login';
 
 export default class Main extends Component {
 
-    static navigationOptions = ({navigate}) => {
-          
-    };
+    static navigationOptions = ({navigation,screenProps}) => ({
+        headerTitle:screenProps,
+        tabBarLabel:({focused})=>(
+            <Text style={{color: focused?'red':'green'}}>我的</Text>
+        )
+    });
 
     async componentDidMount(){
         // this.props.navigation.setParams({title:'hjaha '})
-        console.log(this.props.navigation);
+        // console.log(this.props);
 
 
         let data = await AsyncStorage.getItem('TOKEN');
@@ -42,14 +45,33 @@ export default class Main extends Component {
         }
     }
 
-    componentWillReceiveProps(){
-        console.log('走吗?');
+    // 组件要不要更新
+    shouldComponentUpdate() {
+        console.log('shouldComponentUpdate','组件要不要更新');
+        return true;
+    }
+    // 组件将要更新
+    componentWillUpdate(){
+        console.log('componentWillUpdate','组件将要更新');
+    }
+
+    // 即将拿到组件的更新
+    componentWillReceiveProps(props) {
+        console.log('componentWillReceiveProps',props);
+    }
+
+    // 组件已经更新
+    componentDidUpdate() {
+        console.log('componentDidUpdate','组件更新完成');
     }
 
 
     constructor(props) {
         super(props);
-        this.state = {modalVisible: false};
+        this.state = {
+            modalVisible: false,
+            data: ''
+        };
     }
 
 
@@ -59,6 +81,12 @@ export default class Main extends Component {
     }
     render() {
         // console.log('Main');
+
+        console.log (this.props.navigation.state);
+        if (this.state.data){
+            console.log('获得数据');
+        }
+
         const { navigate } = this.props.navigation;
         return (
             <View style={{marginTop: 22}}>
@@ -72,12 +100,16 @@ export default class Main extends Component {
 
                 <TouchableOpacity onPress={() => {
                     navigate('Login',{
-                        title:'Sousuo '
+                        callback: (data)=>{
+                            this.setState({
+                                data:data
+                            })
+                        },
+                        title:'Sousuo'
                     });
                 }}>
                     <Text>登录按钮</Text>
                 </TouchableOpacity>
-
             </View>
         );
     }

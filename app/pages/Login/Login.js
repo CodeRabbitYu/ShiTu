@@ -42,13 +42,21 @@ export default class Login extends Component {
     }
 
     componentDidMount(){
+        // this.props.navigation.setParams({callback:'hahaha'})
+        console.log(this.props.navigation);
     }
 
-    _closePress=()=>{
+    _closePress=()=> {
         console.log(this.props.navigation);
-        this.props.navigation.dispatch(setParamsAction);
-        console.log(this.props.navigation);
+        // this.props.navigation.dispatch(setParamsAction);
+        // console.log(this.props.navigation);
+
+        let { state , goBack} = this.props.navigation;
+        state.params.callback('hahaha');
+        goBack();
     }
+
+
 
 
     render() {

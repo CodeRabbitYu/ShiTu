@@ -48,11 +48,19 @@ export default class WelfareItem extends Component {
     @observable
     isShow = false;
 
-    componentDidMount(){
-        // console.log(this.props.navigation);
-        // console.log(this.props.navigation.state);
+    fetch = async (url) => {
+        try {
+            let data = await fetch(url);
+            data = await data.json();
+            console.log(data);
+        }catch (e){
+            console.log(e);
+        }
+    }
 
-        // this.props.navigation.setParams({title:'hahahahaha'});
+    componentDidMount(){
+
+        this.fetch('https://api.foyuanzhilu.com/v1/app-banner/more/3');
 
         this.props.navigation.setParams({
             title:'hahaha',
