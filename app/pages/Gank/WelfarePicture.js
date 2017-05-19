@@ -10,7 +10,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    DeviceEventEmitter
 } from 'react-native';
 
 import { observable, runInAction, autorun } from 'mobx';
@@ -50,6 +51,9 @@ export default class WelfareItem extends Component {
         //     </TouchableOpacity>
         // )
         // });
+
+
+        console.log(this.props);
         console.log(this.props.navigation.state);
     }
 
@@ -72,6 +76,7 @@ export default class WelfareItem extends Component {
     };
 
     handlePress(url,i) {
+
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         if(i===2){
             AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
@@ -79,6 +84,7 @@ export default class WelfareItem extends Component {
                     console.log('存储失败' + error);
                 }else {
                     console.log('存储成功');
+                    DeviceEventEmitter.emit('SHITUIMAGE',url);
                 }
             })
         }

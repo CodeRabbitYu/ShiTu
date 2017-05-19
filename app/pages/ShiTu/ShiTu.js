@@ -9,7 +9,8 @@ import {
     InteractionManager,
     StatusBar,
     findNodeHandle,
-    NetInfo
+    NetInfo,
+    DeviceEventEmitter
 } from 'react-native';
 
 import '../../common/Global'
@@ -82,6 +83,11 @@ export default class ShiTu extends Component {
 
 
     componentWillMount(){
+
+        this.subscription = DeviceEventEmitter.addListener('SHITUIMAGE', (params)=>{
+            this.imageUri = params;
+        });
+
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
             console.log(result);
@@ -104,6 +110,7 @@ export default class ShiTu extends Component {
     }
 
     componentWillUnmount(){
+        this.subscription.remove();
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
     }
 
