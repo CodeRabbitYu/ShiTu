@@ -85,7 +85,8 @@ export default class ShiTu extends Component {
     componentWillMount(){
 
         this.subscription = DeviceEventEmitter.addListener('SHITUIMAGE', (params)=>{
-            this.imageUri = params;
+            // this.imageUri = params;
+            alert(params);
         });
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
@@ -367,7 +368,7 @@ export default class ShiTu extends Component {
         });
     };
 
-    _imageOnLoaded= ()=> {
+    _imageOnLoaded = ()=> {
         Android && InteractionManager.runAfterInteractions(() => {
             setTimeout(() => {
                 this.setState({ viewRef: findNodeHandle(this.refs.backgroundImage) });
@@ -467,18 +468,16 @@ export default class ShiTu extends Component {
 
     render() {
         console.log('render');
-        const { navigate } = this.props.navigation;
-
         return (
             <View style={styles.container}>
                 <Image
                     //source={require('../resources/timg.jpeg')}
-                    source={{uri:this.imageUri}}
+                       source={{uri:'timg'}}
                        style={[styles.image]}
                        animation="fadeIn"
                        useNativeDriver
                        ref={'backgroundImage'}
-                       onLoad={this._imageOnLoaded()}
+                       onLoad={this._imageOnLoaded}
                 />
                     <StatusBar
                         backgroundColor="blue"
