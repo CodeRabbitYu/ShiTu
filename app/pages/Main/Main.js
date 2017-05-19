@@ -19,7 +19,9 @@ import Login from '../Login/Login';
 
 export default class Main extends Component {
 
-
+    static navigationOptions = ({navigate}) => {
+          
+    };
 
     async componentDidMount(){
         // this.props.navigation.setParams({title:'hjaha '})

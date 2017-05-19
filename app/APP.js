@@ -16,6 +16,8 @@ import {
     AsyncStorage
 } from 'react-native';
 
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
+
 import ShiTu from './pages/ShiTu/ShiTu';
 import Gank from './pages/Gank/Gank';
 import WebViewDetail from './pages/Component/WebViewDetail';
@@ -33,7 +35,10 @@ const ShiTuIcon = require('./resources/ShiTu.png');
 const GankIcon = require('./resources/Gank.png');
 const MainIcon = require('./resources/Main.png');
 
+
+
 // 为了实现登录的modal效果,所以将ShiTu页面单独拆分出来.
+// 推荐除了Login的页面,其他的都不要写在里面
 const ShiTuStack = StackNavigator({
     ShiTu:{
         screen:ShiTu,
@@ -179,7 +184,7 @@ const MyApp = StackNavigator({
 
     WelfarePicture:{
         screen:WelfarePicture,
-        navigationOptions: ({navigation}) => StackOptions({navigation})
+        // navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     Test:{
         screen:Test,
@@ -190,6 +195,9 @@ const MyApp = StackNavigator({
 
 }, {
     headerMode: 'screen',
+    transitionConfig:()=>({
+        screenInterpolator:CardStackStyleInterpolator.forHorizontal,
+    })
 });
 
 const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {

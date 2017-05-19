@@ -31,30 +31,35 @@ const actionTitle = '选择';
 
 @observer
 export default class WelfareItem extends Component {
-    static navigationOptions = {
-        // cardStack- 配置card stack
-        cardStack:{
-            // 是否允许通过手势关闭该界面，在iOS上默认为true，在Android上默认为false
-            gesturesEnabled:false
-        },
+    static navigationOptions = ({ navigation, screenProps }) => ({
+        title: navigation.state.params.title + "'s Profile!",
+        headerRight:(
+            <Text onPress={navigation.state.params.goBackPress}>
+                返回返回返回
+            </Text>
+        )
+    });
 
-    };
+    goBackPress = () => {
+        alert('haha');
+        console.log(this.props.navigation);
+    }
 
     @observable
     isShow = false;
 
     componentDidMount(){
+        // console.log(this.props.navigation);
+        // console.log(this.props.navigation.state);
+
         // this.props.navigation.setParams({title:'hahahahaha'});
-        // this.props.navigation.setParams({ headerLeft:({ navigation ,goBack})=>(
-        //     <TouchableOpacity onPress={()=>{goBack('Main')}}>
-        //         <Text>hahaha</Text>
-        //     </TouchableOpacity>
-        // )
-        // });
+
+        this.props.navigation.setParams({
+            title:'hahaha',
+            goBackPress:this.goBackPress
+        })
 
 
-        console.log(this.props);
-        console.log(this.props.navigation.state);
     }
 
     constructor(props){
@@ -65,6 +70,10 @@ export default class WelfareItem extends Component {
     }
 
     _onPress = ()=> {
+        this.props.navigation.setParams({title:'hahahahaha'});
+        this.props.navigation.setParams({goBackPress:this.goBackPress})
+        console.log(this.props.navigation);
+        console.log(this.props.navigation.state);
         this.setState({
             isShow: !this.state.isShow
         });

@@ -84,18 +84,19 @@ export default class ShiTu extends Component {
 
     componentWillMount(){
 
-        this.subscription = DeviceEventEmitter.addListener('SHITUIMAGE', (params)=>{
-            // this.imageUri = params;
-            alert(params);
-        });
-
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
             console.log(result);
             if (result === null){
-                this.imageUri = 'timg';
+                // this.imageUri = 'timg';
+                this.setState({
+                    imageUri:'timg',
+                })
             }else{
-                this.imageUri = result;
+                // this.imageUri = result;
+                this.setState({
+                    imageUri:result,
+                })
             }
         });
         iOS
@@ -149,6 +150,13 @@ export default class ShiTu extends Component {
             }
         });
 
+        this.subscription = DeviceEventEmitter.addListener('SHITUIMAGE', (params)=>{
+            // this.imageUri = params;
+            this.setState({
+                imageUri:params,
+            });
+            // console.log(params);
+        });
 
     };
 
@@ -157,6 +165,7 @@ export default class ShiTu extends Component {
 
         this.state = {
             viewRef: null,
+            imageUri:'',
         }
     };
 
@@ -263,7 +272,10 @@ export default class ShiTu extends Component {
                 return;
             }
             if(!response.error){
-                this.imageUri = response.uri;
+                // this.imageUri = response.uri;
+                this.setState({
+                    imageUri:response.uri
+                })
             }
             if (USERTOKEN.length > 0){
                 Request.get(Config.api.getUpLoadToken,(data)=> {
@@ -472,7 +484,7 @@ export default class ShiTu extends Component {
             <View style={styles.container}>
                 <Image
                     //source={require('../resources/timg.jpeg')}
-                       source={{uri:'timg'}}
+                       source={{uri:this.state.imageUri}}
                        style={[styles.image]}
                        animation="fadeIn"
                        useNativeDriver
@@ -507,7 +519,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 0,
-        bottom: 0,
+        bottom: -1,
         right: 0,
         // resizeMode: 'cover',
         width: null,
