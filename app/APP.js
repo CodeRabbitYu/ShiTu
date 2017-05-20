@@ -73,7 +73,7 @@ const GankStack = StackNavigator({
 const MainStack = StackNavigator({
     Main:{
         screen:Main,
-        // navigationOptions: ()=> TabOptions('个人中心',MainIcon,MainIcon,'个人中心'),
+        navigationOptions: ()=> TabOptions('个人中心',MainIcon,MainIcon,'个人中心'),
     },
     Login:{
         screen:Login,
@@ -159,7 +159,7 @@ const MyTab = TabNavigator({
         inactiveTintColor:'#aaa',
         showIcon:true,
         // 是否显示label，默认为true
-        showLabel:iOS?true:true,
+        showLabel:iOS?false:true,
         // 不透明度为按选项卡(iOS和Android < 5.0)
         pressOpacity:0.3,
 

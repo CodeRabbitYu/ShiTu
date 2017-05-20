@@ -27,7 +27,9 @@ export default class Root extends Component {
 };
 
 
-console.ignoredYellowBox = ['Warning: BackAndroid is deprecated.  Please use BackHandler instead.'];
+console.ignoredYellowBox = ['Warning: BackAndroid is deprecated.  Please use BackHandler instead.',
+'source.uri should not be an empty string'
+];
 // global.BASEURL = 'hahaha';
 // 关闭全部的警告
 //console.disableYellowBox = true;

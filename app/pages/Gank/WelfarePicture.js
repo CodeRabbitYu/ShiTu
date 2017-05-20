@@ -58,7 +58,7 @@ export default class WelfareItem extends Component {
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
 
         this.fetch('https://api.foyuanzhilu.com/v1/app-banner/more/3');
 
