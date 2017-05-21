@@ -184,7 +184,7 @@ const MyApp = StackNavigator({
 
     WelfarePicture:{
         screen:WelfarePicture,
-        // navigationOptions: ({navigation}) => StackOptions({navigation})
+        navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     Test:{
         screen:Test,

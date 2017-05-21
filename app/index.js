@@ -1,7 +1,7 @@
 /**
  * Created by Rabbit on 2017/4/19.
  */
-import { AppRegistry,View } from 'react-native';
+import { AppRegistry,View,Text } from 'react-native';
 import React, { Component } from 'react';
 import App from './APP';
 if (!__DEV__) {
@@ -19,9 +19,26 @@ if (!__DEV__) {
 
 
 export default class Root extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isLogin:false
+        }
+    }
     render() {
         return (
-           <App screenProps={'hahah'}/>
+            this.state.isLogin ?
+                <App screenProps={'hahah'}/>
+                :
+                <View style={{marginTop:30}}>
+                    <Text onPress={()=>{
+                        this.setState({
+                            isLogin:true
+                        })
+                    }}>
+                        1111
+                    </Text>
+                </View>
         );
     }
 };
