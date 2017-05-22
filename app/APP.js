@@ -258,10 +258,6 @@ const StackOptions = ({navigation}) => {
 
 const LoginOptions = ({navigation}) => {
     let {state,goBack} = navigation;
-    // if (!state.params.isVisible){
-    //     return;
-    // }
-
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const headerTitle = '登录';
     const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),color:'white',fontWeight:'500'}
@@ -288,7 +284,8 @@ const LoginOptions = ({navigation}) => {
     if (state.params.isVisible === true){
         header = null;
     }
-    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
+    const gesturesEnabled = false;
+    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight,gesturesEnabled}
 }
 
 export default MyApp;

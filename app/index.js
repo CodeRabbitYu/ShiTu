@@ -27,7 +27,7 @@ export default class Root extends Component {
     }
     render() {
         return (
-            this.state.isLogin ?
+            !this.state.isLogin ?
                 <App screenProps={'hahah'}/>
                 :
                 <View style={{marginTop:30}}>
@@ -36,7 +36,7 @@ export default class Root extends Component {
                             isLogin:true
                         })
                     }}>
-                        1111
+                        点我登录
                     </Text>
                 </View>
         );
