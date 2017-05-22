@@ -60,14 +60,10 @@ export default class WelfareItem extends Component {
 
     componentWillMount(){
 
-        this.fetch('https://api.foyuanzhilu.com/v1/app-banner/more/3');
-
-        // this.props.navigation.setParams({
-        //     title:'hahaha',
-        //     goBackPress:this.goBackPress
-        // })
-
-
+        this.props.navigation.setParams({
+            title:'hahaha',
+            goBackPress:this.goBackPress
+        })
     }
 
     constructor(props){
