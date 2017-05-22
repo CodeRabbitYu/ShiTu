@@ -99,6 +99,45 @@ export default class Detail extends Component {
         goBack();
     };
 
+    _renderActionButton = () =>{
+        return(
+            <ActionButton buttonColor="rgba(231,76,60,1)"
+                // 是否自动打开
+                          active={iOS?false:true}
+                // 是否展示阴影
+                          hideShadow={iOS?false:true}
+                          position="right"
+                          spacing={-5}
+                          offsetY={15}
+                          offsetX={15}
+                          outRangeScale={1}
+                          autoInactive={false}
+                          onPress={()=>{console.log('点击Action了')}}
+            >
+                <ActionButton.Item buttonColor={'#F8D168'}
+                                   style={styles.actionItemStyle}
+                                   onPress={this._reload}>
+                    <Icon name="ios-refresh-outline" style={[styles.actionButtonIcon,{fontSize:25}]}/>
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor={this.state.isForWard ?'#1abc9c' : '#dddddd'}
+                                   onPress={this._goForward}
+                                   style={styles.actionItemStyle} >
+                    <Icon name="ios-arrow-forward-outline" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor={this.state.isGoBack ?'#3498db' : '#dddddd'}
+                                   onPress={this._goBack}
+                                   style={styles.actionItemStyle}>
+                    <Icon name="ios-arrow-back-outline" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#9b59b6'
+                                   style={styles.actionItemStyle}
+                                   onPress={this._close}>
+                    <Icon name="md-close-circle" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+            </ActionButton>
+        )
+    }
+
     render() {
 
         // console.log(this.props.navigation);
@@ -153,40 +192,16 @@ export default class Detail extends Component {
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
                 />
-                <ActionButton buttonColor="rgba(231,76,60,1)"
-                              // 是否自动打开
-                              active={iOS?false:true}
-                              // 是否展示阴影
-                              hideShadow={iOS?false:true}
-                              position="right"
-                              spacing={-5}
-                              offsetY={15}
-                              offsetX={15}
-                              outRangeScale={1}
-                              autoInactive={false}
-                              onPress={()=>{console.log('点击Action了')}}
-                >
-                    <ActionButton.Item buttonColor={'#F8D168'}
-                                       style={styles.actionItemStyle}
-                                       onPress={this._reload}>
-                        <Icon name="ios-refresh-outline" style={[styles.actionButtonIcon,{fontSize:25}]}/>
-                    </ActionButton.Item>
-                    <ActionButton.Item buttonColor={this.state.isForWard ?'#1abc9c' : '#dddddd'}
-                                       onPress={this._goForward}
-                                       style={styles.actionItemStyle} >
-                        <Icon name="ios-arrow-forward-outline" style={styles.actionButtonIcon} />
-                    </ActionButton.Item>
-                    <ActionButton.Item buttonColor={this.state.isGoBack ?'#3498db' : '#dddddd'}
-                                       onPress={this._goBack}
-                                       style={styles.actionItemStyle}>
-                        <Icon name="ios-arrow-back-outline" style={styles.actionButtonIcon} />
-                    </ActionButton.Item>
-                    <ActionButton.Item buttonColor='#9b59b6'
-                                       style={styles.actionItemStyle}
-                                       onPress={this._close}>
-                        <Icon name="md-close-circle" style={styles.actionButtonIcon} />
-                    </ActionButton.Item>
-                </ActionButton>
+                {
+                Android ?
+                    this.state.progress === 100
+                        ?
+                        this._renderActionButton()
+                        :
+                        null
+                    :
+                    this._renderActionButton()
+                }
             </View>
         );
     }

@@ -78,10 +78,10 @@ export default class WelfareItem extends Component {
     }
 
     _onPress = ()=> {
-        this.props.navigation.setParams({title:'hahahahaha'});
+        // this.props.navigation.setParams({title:'hahahahaha'});
         this.props.navigation.setParams({goBackPress:this.goBackPress})
-        console.log(this.props.navigation);
-        console.log(this.props.navigation.state);
+        // console.log(this.props.navigation);
+        // console.log(this.props.navigation.state);
         this.setState({
             isShow: !this.state.isShow
         });
