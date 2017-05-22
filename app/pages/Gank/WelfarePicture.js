@@ -62,10 +62,10 @@ export default class WelfareItem extends Component {
 
         this.fetch('https://api.foyuanzhilu.com/v1/app-banner/more/3');
 
-        this.props.navigation.setParams({
-            title:'hahaha',
-            goBackPress:this.goBackPress
-        })
+        // this.props.navigation.setParams({
+        //     title:'hahaha',
+        //     goBackPress:this.goBackPress
+        // })
 
 
     }
@@ -78,14 +78,13 @@ export default class WelfareItem extends Component {
     }
 
     _onPress = ()=> {
-        // this.props.navigation.setParams({title:'hahahahaha'});
-        this.props.navigation.setParams({goBackPress:this.goBackPress})
         // console.log(this.props.navigation);
         // console.log(this.props.navigation.state);
         this.setState({
             isShow: !this.state.isShow
         });
         this.props.navigation.setParams({isVisible:this.state.isShow});
+
     };
 
     _onLongPress = ()=>{

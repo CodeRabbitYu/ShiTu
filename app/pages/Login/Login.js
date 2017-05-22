@@ -54,7 +54,7 @@ export default class Login extends Component {
         let { state , goBack} = this.props.navigation;
         state.params.callback('hahaha');
         goBack();
-    }
+    };
 
 
 

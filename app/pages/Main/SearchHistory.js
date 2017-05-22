@@ -107,6 +107,13 @@ export default class SearchHistory extends Component {
 
     _itemPress = (item) => {
         console.log(item.id);
+
+        const { navigate } = this.props.navigation;
+        navigate('WelfarePicture',{
+            title:'图片详情',
+            url:item.imageURL,
+            isVisible:true
+        });
     };
 
     renderItem = (item)=> {

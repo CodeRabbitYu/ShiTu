@@ -105,10 +105,18 @@ export default class Main extends Component {
                                 data:data
                             })
                         },
-                        title:'Sousuo'
+                        title:'登录'
                     });
                 }}>
-                    <Text>登录按钮</Text>
+                    <Text style={{fontSize:20}}>登录按钮</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {
+                    navigate('SearchHistory',{
+                        title:'搜索历史'
+                    });
+                }} style={{marginTop:30}}>
+                    <Text style={{fontSize:20}}>搜索历史</Text>
                 </TouchableOpacity>
             </View>
         );
