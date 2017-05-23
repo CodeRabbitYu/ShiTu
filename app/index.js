@@ -5,6 +5,10 @@ import { AppRegistry,View,Text } from 'react-native';
 import React, { Component } from 'react';
 import {Provider}from 'react-redux';
 
+import configureStore from './store/ConfigureStore';
+
+const store = configureStore();
+
 import App from './APP';
 if (!__DEV__) {
     global.console = {
@@ -30,7 +34,9 @@ export default class Root extends Component {
     render() {
         return (
             !this.state.isLogin ?
-                <App screenProps={'hahah'}/>
+                <Provider store={store}>
+                    <App screenProps={'hahah'}/>
+                </Provider>
                 :
                 <View style={{marginTop:30}}>
                     <Text onPress={()=>{

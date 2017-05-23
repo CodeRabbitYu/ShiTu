@@ -14,7 +14,14 @@ import {
 } from 'react-native';
 
 import '../../common/Global'
-import NetWorkTool from '../../common/NetInfo';
+import NetWorkTool from '../../common/NetInfo'
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// import { userToken } from '../../actions/ShiTuUserToken';
+import * as User from '../../actions/ShiTuUserToken';
+
 // import {isNetworkConnected} from '../common/isNetInfo';
 
 import {  View, Text, Image } from 'react-native-animatable';
@@ -61,7 +68,7 @@ let USERTOKEN;
 
 
 @observer
-export default class ShiTu extends Component {
+class ShiTu extends Component {
 
     // 背景图片地址
     @observable
@@ -77,16 +84,20 @@ export default class ShiTu extends Component {
 
 
     handleMethod = (isConnected)=> {
-        console.log('ShiTu', (isConnected ? 'online' : 'offline'));
+        // 检测网络状态
+        // console.log('ShiTu', (isConnected ? 'online' : 'offline'));
         NetInfo.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
     };
 
 
     componentWillMount(){
 
+
+
+
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
-            console.log(result);
+            // console.log(result);
             if (result === null){
                 // this.imageUri = 'timg';
                 this.setState({
@@ -118,6 +129,9 @@ export default class ShiTu extends Component {
 
     componentDidMount(){
         console.log('componentDidMount');
+
+        console.log(this.props);
+
         // NetWorkTool.checkNetworkState((isConnected)=>{
         //     console.log(isConnected);
         // });
@@ -559,3 +573,24 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = (state) => {
+    const { ShiTu } = state;
+    return {
+        ShiTu
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    const userActions = bindActionCreators(User, dispatch);
+    return {
+        userActions
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(ShiTu)
+// export default connect((state) => {
+//     const { ShiTu } = state;
+//     return {
+//         ShiTu
+//     };
+// },{ userToken })(ShiTu)
