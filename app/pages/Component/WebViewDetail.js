@@ -48,10 +48,10 @@ export default class Detail extends Component {
             "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
         this.state = {
             progress: 0,
-            active:false,
+            active:true,
             isGoBack:false,
             isForWard:false,
-            url:data
+            url:data,
         }
     }
 
@@ -103,7 +103,7 @@ export default class Detail extends Component {
         return(
             <ActionButton buttonColor="rgba(231,76,60,1)"
                 // 是否自动打开
-                          active={iOS?false:true}
+                          active={iOS?false:this.state.active}
                 // 是否展示阴影
                           hideShadow={iOS?false:true}
                           position="right"
@@ -171,6 +171,7 @@ export default class Detail extends Component {
                         console.log('开始加载');
                         this.setState({
                             progress:0,
+                            active:false,
                         });
                         this.setIntervar = setInterval(()=>{
                             if (this.state.progress > 80){
@@ -188,19 +189,19 @@ export default class Detail extends Component {
                         console.log('加载结束，成功或失败都会走到这里');
                         this.setState({
                             progress:100,
+                            active:true
                         });
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
                 />
                 {
-                Android ?
+
                     this.state.progress === 100
                         ?
                         this._renderActionButton()
                         :
                         null
-                    :
-                    this._renderActionButton()
+
                 }
             </View>
         );
