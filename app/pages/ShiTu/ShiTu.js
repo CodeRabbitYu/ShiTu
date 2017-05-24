@@ -130,10 +130,12 @@ class ShiTu extends Component {
     componentDidMount(){
         console.log('componentDidMount');
 
+
+        this.props.dispatch(userToken());
         console.log(this.props);
 
-        let { userToken } = this.props.userActions;
-        userToken();
+        console.log(this.props.ShiTuReducer);
+
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
         //     console.log(isConnected);
@@ -576,24 +578,25 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => {
-    const { ShiTu } = state;
-    return {
-        ShiTu
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    const userActions = bindActionCreators(User, dispatch);
-    return {
-        userActions
-    };
-};
-
-export default connect(mapStateToProps,mapDispatchToProps)(ShiTu)
-// export default connect((state) => {
-//     const { ShiTu } = state;
+// const mapStateToProps = (state) => {
+//     const { ShiTuReducer } = state;
 //     return {
-//         ShiTu
+//         ShiTuReducer
 //     };
-// },{ userToken })(ShiTu)
+// };
+//
+// const mapDispatchToProps = (dispatch) => {
+//     const userActions = bindActionCreators(User, dispatch);
+//     return {
+//         userActions
+//     };
+// };
+//
+// export default connect(mapStateToProps,mapDispatchToProps)(ShiTu)
+
+export default connect((state) => {
+    const { ShiTuReducer } = state;
+    return {
+        ShiTuReducer
+    };
+})(ShiTu)

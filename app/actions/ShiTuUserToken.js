@@ -7,8 +7,7 @@ import Config from '../common/Config';
 import Request from '../common/Request';
 
 
-export let userToken = () => {
-    console.log('222222222');
+export function userToken() {
     return dispatch => {
         // dispatch(loadUserToken());
         return Request.get(Config.api.getUserToken,(data)=>{
