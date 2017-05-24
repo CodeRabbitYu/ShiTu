@@ -91,8 +91,8 @@ class ShiTu extends Component {
 
 
     componentWillMount(){
-
-
+        console.log('componentWillMount');
+        this.props.dispatch(userToken());
 
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
@@ -131,11 +131,8 @@ class ShiTu extends Component {
         console.log('componentDidMount');
 
 
-        this.props.dispatch(userToken());
+
         console.log(this.props);
-
-        console.log(this.props.ShiTuReducer);
-
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
         //     console.log(isConnected);
@@ -499,6 +496,7 @@ class ShiTu extends Component {
 
     render() {
         console.log('render');
+        console.log(this.props.ShiTuReducer);
         return (
             <View style={styles.container}>
                 <Image

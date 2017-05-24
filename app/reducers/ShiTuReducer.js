@@ -10,12 +10,13 @@ const initialState = {
     qiNiuToken: '',
     qiNiuKey: '',
 };
-let ShiTuReducer = (state = initialState, action) => {
+export default function ShiTuReducer(state = initialState, action){
     // console.log(action);
     switch (action.type) {
         case types.USER_TOKEN_SUCCESS:
             console.log(action);
             return Object.assign({}, state, {
+                ...state,
                 token: action.token,
             });
         case types.QINIU_UPLOAD_TOKEN:
@@ -27,9 +28,9 @@ let ShiTuReducer = (state = initialState, action) => {
             return Object.assign({}, state ,{
                 webViewUrl:action.webViewUrl,
             });
+        default:
+            return state;
 
     }
-    return state;
+    // return state;
 }
-
-export default ShiTuReducer;

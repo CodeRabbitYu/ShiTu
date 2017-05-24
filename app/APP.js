@@ -239,7 +239,7 @@ const StackOptions = ({navigation}) => {
                                 name='ios-arrow-back'
                                 size={30}
                                 color='white'
-                                style={{marginLeft:13}}
+                                style={{marginLeft:0}}
                             />
                         }
             onPress={()=>{goBack()}}
@@ -253,7 +253,7 @@ const StackOptions = ({navigation}) => {
     if (state.params.isVisible === true){
         header = null;
     }
-    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight}
+    return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,header,headerLeft,headerRight}
 };
 
 const LoginOptions = ({navigation}) => {
