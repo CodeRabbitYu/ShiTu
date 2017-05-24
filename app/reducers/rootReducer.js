@@ -3,11 +3,10 @@
  */
 import { combineReducers } from 'redux';
 import ShiTuReducer from './ShiTuReducer';
-import GankReducer from './GankReducer';
+// import GankReducer from './GankReducer';
 
-const RootReducer = combineReducers({
+const rootReducer = combineReducers({
     ShiTuReducer,
-
 });
 
-export default RootReducer;
+export default rootReducer;

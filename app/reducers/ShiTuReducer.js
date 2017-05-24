@@ -1,7 +1,7 @@
 /**
  * Created by Rabbit on 2017/5/23.
  */
-import * as TYPES from '../constant/ActionTypes';
+import * as types from '../constant/ActionTypes';
 
 const initialState = {
     imageURL: 'timg',
@@ -10,27 +10,23 @@ const initialState = {
     qiNiuToken: '',
     qiNiuKey: '',
 };
-
-export default function ShiTuReducer(state = initialState, action) {
+let ShiTuReducer = (state = initialState, action) => {
     console.log(action);
     switch (action.type) {
-        case TYPES.USER_TOKEN_SUCCESS:
+        case types.USER_TOKEN_SUCCESS:
             console.log('111');
             return Object.assign({}, state, {
-                ...state,
                 userToken: action.userToken,
             });
-        case TYPES.QINIU_UPLOAD_TOKEN:
+        case types.QINIU_UPLOAD_TOKEN:
             console.log('222');
             return Object.assign({}, state, {
-                ...state,
                 qiNiuToken:action.qiNiuToken,
                 qiNiuKey: action.qiNiuKey,
             });
-        case TYPES.WEBVIEW_URL:
+        case types.WEBVIEW_URL:
             console.log('333');
             return Object.assign({}, state ,{
-                ...state,
                 webViewUrl:action.webViewUrl,
             });
         default:
@@ -39,3 +35,5 @@ export default function ShiTuReducer(state = initialState, action) {
             return state;
     }
 }
+
+export default ShiTuReducer;

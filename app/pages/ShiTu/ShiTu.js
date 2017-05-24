@@ -19,7 +19,7 @@ import NetWorkTool from '../../common/NetInfo'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-// import { userToken } from '../../actions/ShiTuUserToken';
+import { userToken } from '../../actions/ShiTuUserToken';
 import * as User from '../../actions/ShiTuUserToken';
 
 // import {isNetworkConnected} from '../common/isNetInfo';
@@ -131,6 +131,9 @@ class ShiTu extends Component {
         console.log('componentDidMount');
 
         console.log(this.props);
+
+        let { userToken } = this.props.userActions;
+        userToken();
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
         //     console.log(isConnected);
