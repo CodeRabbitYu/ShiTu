@@ -290,7 +290,7 @@ class ShiTu extends Component {
     };
 
     _onPress = () => {
-
+        isUpload = true;
         const { navigate } = this.props.navigation;
         const { userToken } = this.props.ShiTuReducer;
 
@@ -310,8 +310,9 @@ class ShiTu extends Component {
             }
             if (userToken.length > 0){
 
+
                 this.props.qiNiuToken(response);
-                
+
 
                 // const { ShiTuReducer } = this.props;
                 // const { token, key } = ShiTuReducer.qiniuData.data;
@@ -342,7 +343,7 @@ class ShiTu extends Component {
                           style={styles.iOSBlur}
                 >
                     <Text style={styles.textStyle}>
-                        {this.hintText}
+                        {hintText}
                     </Text>
                     <Button
                         backgroundColor={COLORS.appColor}
@@ -361,7 +362,7 @@ class ShiTu extends Component {
                               viewRef={this.state.viewRef}
                     />}
                         <Text style={styles.textStyle}>
-                            {this.hintText}
+                            {hintText}
                         </Text>
                         <Button
                             backgroundColor={COLORS.appColor}
@@ -436,7 +437,11 @@ class ShiTu extends Component {
                     data: webURL,
                     isVisible:true
                 });
+                isUpload = false;
+                hintText = '是否是您寻找的答案呢?'
+
             }
+
         }
 
 
@@ -456,7 +461,7 @@ class ShiTu extends Component {
                         barStyle="light-content"
                     />
                     {
-                        !this.isUpload
+                        !isUpload
                             ?
                             this._defaultView()
                             :
