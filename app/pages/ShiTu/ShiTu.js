@@ -70,20 +70,24 @@ let photoOptions = {
 };
 
 
+let perent = '';
+let isUpload = false;
+let hintText = '点击按钮,搜索你想知道的图片哦!';
+
 @observer
 class ShiTu extends Component {
 
-    // 背景图片地址
-    @observable
-    imageUri='';
-    // 进度条
-    @observable
-    perent='';
-    // 是否正在查找中
-    @observable
-    isUpload=false;
-    @observable
-    hintText= '点击按钮,搜索你想知道的图片哦!';
+    // // 背景图片地址
+    // @observable
+    // imageUri='';
+    // // 进度条
+    // @observable
+    // perent='';
+    // // 是否正在查找中
+    // @observable
+    // isUpload=false;
+    // @observable
+    // hintText= '点击按钮,搜索你想知道的图片哦!';
 
 
     handleMethod = (isConnected)=> {
@@ -290,10 +294,10 @@ class ShiTu extends Component {
         const { navigate } = this.props.navigation;
         const { userToken } = this.props.ShiTuReducer;
 
-        console.log(this.props.ShiTuReducer);
+        console.log(this.props);
 
         ImagePicker.showImagePicker(photoOptions, (response) => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
             if (response.didCancel) {
                 console.log('点击了取消按钮');
                 return;
@@ -306,109 +310,15 @@ class ShiTu extends Component {
             }
             if (userToken.length > 0){
 
-                this.props.qiNiuToken();
+                this.props.qiNiuToken(response);
+                
 
-                const { ShiTuReducer } = this.props;
+                // const { ShiTuReducer } = this.props;
                 // const { token, key } = ShiTuReducer.qiniuData.data;
 
-                console.log(this.props);
+                // console.log(ShiTuReducer.qiNiuToken);
 
-                Request.get(Config.api.getUpLoadToken,(data)=> {
-                    console.log('getUpLoadToken');
-                    // console.log(data);
-                    let token = data.data.token;
-                    let key = data.data.key;
 
-                    // console.log(data);
-
-                    // 创建form表单来上传图片,但现在使用react-native-fetch-blob就没用到这个
-                    /**
-                    let formData = new FormData();
-                    formData.append('token',token);
-                    formData.append('key',key);
-                    formData.append('file',{
-                        type : 'image/jpeg',
-                        uri : this.imageUri,
-                        name : key,
-                    });
-                    console.log(formData);
-                     */
-
-                    // 上传七牛云,这里需要将'///'处理掉,因为使用wrap的时候,会再添加一层
-                    let PATH = iOS?response.uri.replace('file:///',''):response.uri;
-                    // let PATH = response.uri;
-                    let body = [{
-                        name:'token',data:token,
-                    }, {
-                        name:'key', data:key,
-                    },{
-                        name: 'file',
-                        filename: key || 'file',
-                        // type : 'image/jpeg',
-                        data: RNFetchBlob.wrap(PATH)
-                    }];
-
-                    Request.upload(Config.qiniu.upload,body,(perent)=>{
-                        this.perent = perent;
-                        this.isUpload = true;
-                    },(response)=>{
-                        let body = {
-                            token: response.key,
-                        };
-                        Request.post(Config.api.postWebUrl, body, (data) => {
-                            console.log('getWebUrl');
-
-                            if (!data){
-                                return;
-                            }
-                            if (data && data.success){
-                                try {
-                                    let imageURL = data.data.imageURL;
-                                    let timestamp = Date.parse(new Date());
-
-                                    realm.write(() => {
-                                        realm.create('History', {
-                                            id: response.key.replace('.jpeg', ''),
-                                            imageURL: imageURL,
-                                            timestamp: timestamp
-                                        });
-                                    });
-
-                                    if (this.perent === 1) {
-                                        // navigate('WebViewDetail', {
-                                        //     data: data.data.webURL,
-                                        //     isVisible:true
-                                        // });
-                                        InteractionManager.runAfterInteractions(() => {
-                                            this.isUpload = false;
-                                            this.hintText = '是否是您寻找的答案呢?'
-                                        });
-                                    }
-                                }
-                                catch (e) {
-                                    // err = "上传失败";
-                                }
-                                finally {
-                                    // if (err) {
-                                    //     Toast.info(err, 1);
-                                    //     return;
-                                    // }
-                                    // resultCallback(data);
-                                    // task.cancel();
-                                }
-                            }
-                            else {
-                                console.log('上传错误');
-                            }
-                        })
-                    },(error)=>{
-                        console.log(error);
-                    });
-
-                    // this._upload(body);
-                },(error)=>{
-                    console.log(error);
-                })
             }
             else{
                 console.log('没有获取到USERTOKEN');
@@ -517,6 +427,19 @@ class ShiTu extends Component {
     render() {
         console.log('render');
         console.log(this.props.ShiTuReducer);
+        const { navigate } = this.props.navigation;
+        const { qiNiuData } = this.props.ShiTuReducer;
+        if (qiNiuData){
+            const { webURL } = qiNiuData.data;
+            if (webURL){
+                navigate('WebViewDetail', {
+                    data: webURL,
+                    isVisible:true
+                });
+            }
+        }
+
+
         return (
             <View style={styles.container}>
                 <Image
