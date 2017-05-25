@@ -6,19 +6,22 @@ import Config from '../common/Config';
 
 import Request from '../common/Request';
 
-import {
-    AsyncStorage,
-} from 'react-native';
 
-
-
-export function userToken() {
+export function qiNiuToken() {
     return dispatch => {
-        return Request.get(Config.api.getUserToken,(data)=>{
-            dispatch({type: types.USER_TOKEN_SUCCESS,token:data.token});
+        return Request.get(Config.api.getUpLoadToken,(data)=>{
+            console.log(data);
+            dispatch(getQiNiuToken(data));
         },(error)=>{
             console.log(error);
-            dispatch({type: types.USER_TOKEN_ERROR, error: error});
+            dispatch({type: types.QINIU_UPLOAD_TOKEN_ERROR, error: error});
         });
     }
 };
+
+export function getQiNiuToken(qiNiuData){
+    return{
+        type: types.QINIU_UPLOAD_TOKEN,
+        qiNiuData
+    }
+}

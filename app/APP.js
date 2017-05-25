@@ -229,7 +229,8 @@ const StackOptions = ({navigation}) => {
 
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const headerTitle = state.params.title;
-    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),color:'white',fontWeight:'500'}
+    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),
+        color:'white',fontWeight:'500',alignSelf:'center'}
     const headerBackTitle = false;
     const headerLeft = (
         <Button
@@ -239,7 +240,7 @@ const StackOptions = ({navigation}) => {
                                 name='ios-arrow-back'
                                 size={30}
                                 color='white'
-                                style={{marginLeft:0}}
+                                style={{marginLeft:12}}
                             />
                         }
             onPress={()=>{goBack()}}

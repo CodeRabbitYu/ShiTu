@@ -17,7 +17,7 @@ export function userToken() {
             AsyncStorage.getItem(KEY,(Error,result)=>{
                 if (result === null){
                     Request.get(Config.api.getUserToken,(data)=>{
-                        console.log(data);
+                        // console.log(data);
                         if (data && data.success){
                             let token = data.token;
                             AsyncStorage.setItem(KEY,token,(error)=>{
@@ -48,9 +48,9 @@ export function userToken() {
 };
 
 
-export function getUserToken(token) {
+export function getUserToken(userToken) {
     return {
         type: types.USER_TOKEN_SUCCESS,
-        token
+        userToken
     }
 }

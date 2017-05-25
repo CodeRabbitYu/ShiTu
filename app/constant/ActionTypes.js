@@ -6,8 +6,9 @@ export const USER_TOKEN_SUCCESS = 'USER_TOKEN_SUCCESS';
 // 获取失败
 export const USER_TOKEN_ERROR = 'USER_TOKEN_ERROR';
 
-// 上传Toke
+// 获取七牛Token和key
 export const QINIU_UPLOAD_TOKEN = 'QINIU_UPLOAD_TOKEN';
+export const QINIU_UPLOAD_TOKEN_ERROR = 'QINIU_UPLOAD_TOKEN_ERROR';
 // 上传网址
 export const QINIU_UPLOAD = 'QINIU_UPLOAD';
 // 获取网址信息

@@ -5,24 +5,23 @@ import * as types from '../constant/ActionTypes';
 
 const initialState = {
     imageURL: 'timg',
-    token: '',
+    userToken: '',
     webViewUrl: '',
-    qiNiuToken: '',
-    qiNiuKey: '',
+    qiNiuData: null,
 };
 export default function ShiTuReducer(state = initialState, action){
     // console.log(action);
     switch (action.type) {
         case types.USER_TOKEN_SUCCESS:
-            console.log(action);
+            // console.log(action);
             return Object.assign({}, state, {
                 ...state,
-                token: action.token,
+                userToken: action.userToken,
             });
         case types.QINIU_UPLOAD_TOKEN:
+            console.log(action);
             return Object.assign({}, state, {
-                qiNiuToken:action.qiNiuToken,
-                qiNiuKey: action.qiNiuKey,
+                qiNiuData:action.qiNiuData,
             });
         case types.WEBVIEW_URL:
             return Object.assign({}, state ,{

@@ -20,7 +20,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { userToken } from '../../actions/ShiTuUserToken';
+
+import { qiNiuToken } from '../../actions/ShiTuQiNiu';
+
 import * as User from '../../actions/ShiTuUserToken';
+import * as QiNiu from '../../actions/ShiTuQiNiu';
 
 // import {isNetworkConnected} from '../common/isNetInfo';
 
@@ -64,7 +68,6 @@ let photoOptions = {
         path: 'images'
     }
 };
-let USERTOKEN;
 
 
 @observer
@@ -92,8 +95,7 @@ class ShiTu extends Component {
 
     componentWillMount(){
         console.log('componentWillMount');
-        this.props.dispatch(userToken());
-
+        // this.props.dispatch(userToken());
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
@@ -129,16 +131,21 @@ class ShiTu extends Component {
 
     componentDidMount(){
         console.log('componentDidMount');
+        this.props.userToken();
 
 
 
-        console.log(this.props);
+
+        // console.log(this.props.ShiTuReducer);
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
         //     console.log(isConnected);
         // });
 
         // console.log(list);
+
+        /**
+         * 没有使用redux之前获取USERTOKEN的方法
         let KEY = 'USERTOKEN';
         AsyncStorage.getItem(KEY,(Error,result)=>{
             if (result === null){
@@ -165,7 +172,7 @@ class ShiTu extends Component {
                 USERTOKEN = result;
             }
         });
-
+        */
         this.subscription = DeviceEventEmitter.addListener('SHITUIMAGE', (params)=>{
             // this.imageUri = params;
             this.setState({
@@ -279,7 +286,11 @@ class ShiTu extends Component {
     };
 
     _onPress = () => {
+
         const { navigate } = this.props.navigation;
+        const { userToken } = this.props.ShiTuReducer;
+
+        console.log(this.props.ShiTuReducer);
 
         ImagePicker.showImagePicker(photoOptions, (response) => {
             console.log('Response = ', response);
@@ -293,7 +304,15 @@ class ShiTu extends Component {
                     imageUri:response.uri
                 })
             }
-            if (USERTOKEN.length > 0){
+            if (userToken.length > 0){
+
+                this.props.qiNiuToken();
+
+                const { ShiTuReducer } = this.props;
+                // const { token, key } = ShiTuReducer.qiniuData.data;
+
+                console.log(this.props);
+
                 Request.get(Config.api.getUpLoadToken,(data)=> {
                     console.log('getUpLoadToken');
                     // console.log(data);
@@ -356,10 +375,10 @@ class ShiTu extends Component {
                                     });
 
                                     if (this.perent === 1) {
-                                        navigate('WebViewDetail', {
-                                            data: data.data.webURL,
-                                            isVisible:true
-                                        });
+                                        // navigate('WebViewDetail', {
+                                        //     data: data.data.webURL,
+                                        //     isVisible:true
+                                        // });
                                         InteractionManager.runAfterInteractions(() => {
                                             this.isUpload = false;
                                             this.hintText = '是否是您寻找的答案呢?'
@@ -385,6 +404,7 @@ class ShiTu extends Component {
                     },(error)=>{
                         console.log(error);
                     });
+
                     // this._upload(body);
                 },(error)=>{
                     console.log(error);
@@ -583,18 +603,25 @@ const styles = StyleSheet.create({
 //     };
 // };
 //
-// const mapDispatchToProps = (dispatch) => {
+// const mapDispatchToUserToken = (dispatch) => {
 //     const userActions = bindActionCreators(User, dispatch);
 //     return {
 //         userActions
 //     };
 // };
 //
-// export default connect(mapStateToProps,mapDispatchToProps)(ShiTu)
+// const mapDispatchToQiNiuToken = (dispatch) => {
+//     const qiNiuActions = bindActionCreators(QiNiu, dispatch);
+//     return {
+//         qiNiuActions
+//     };
+// };
+//
+// export default connect(mapStateToProps,mapDispatchToUserToken,mapDispatchToQiNiuToken)(ShiTu)
 
 export default connect((state) => {
     const { ShiTuReducer } = state;
     return {
         ShiTuReducer
     };
-})(ShiTu)
+},{ userToken,qiNiuToken  })(ShiTu)

@@ -8,14 +8,14 @@ import rootReducer from '../reducers/rootReducer';
 
 let middlewares = [];
 
-// middlewares.push(logger);
+middlewares.push(logger);
 middlewares.push(thunk);
 
 /* global __DEV__  */
 // if (__DEV__) {
 // }
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 
 export default function configureStore(initialState){
     return createStoreWithMiddleware(rootReducer,initialState);
