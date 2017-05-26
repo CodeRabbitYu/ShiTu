@@ -64,6 +64,8 @@ export function qiNiuToken(response) {
                             let imageURL = data.data.imageURL;
                             let timestamp = Date.parse(new Date());
 
+                            console.log(dispatch);
+
                             dispatch(getQiNiuToken(data));
 
                             /**

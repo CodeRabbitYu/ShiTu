@@ -133,6 +133,24 @@ class ShiTu extends Component {
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
     }
 
+    componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps');
+        const { navigate } = this.props.navigation;
+        const { qiNiuData } = nextProps.ShiTuReducer;
+        if (qiNiuData){
+            const { webURL } = qiNiuData.data;
+            if (webURL){
+                navigate('WebViewDetail', {
+                    data: webURL,
+                    isVisible:true
+                });
+                isUpload = false;
+                hintText = '是否是您寻找的答案呢?'
+
+            }
+        }
+    }
+
     componentDidMount(){
         console.log('componentDidMount');
         this.props.userToken();
@@ -441,9 +459,7 @@ class ShiTu extends Component {
                 hintText = '是否是您寻找的答案呢?'
 
             }
-
         }
-
 
         return (
             <View style={styles.container}>
