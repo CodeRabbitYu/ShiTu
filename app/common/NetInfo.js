@@ -21,7 +21,6 @@ const listenerNetworkState = (callback) =>{
         }
     );
 };
-
 /***
  * 移除网络状态变化监听
  * @param tag

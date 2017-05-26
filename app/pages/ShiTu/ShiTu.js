@@ -22,6 +22,7 @@ import { bindActionCreators } from 'redux';
 import { userToken } from '../../actions/ShiTuUserToken';
 
 import { qiNiuToken } from '../../actions/ShiTuQiNiu';
+import { backImage } from '../../actions/ShiTuBackImage';
 
 import * as User from '../../actions/ShiTuUserToken';
 import * as QiNiu from '../../actions/ShiTuQiNiu';
@@ -73,6 +74,7 @@ let photoOptions = {
 let perent = '';
 let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
+let imageUri = '';
 
 @observer
 class ShiTu extends Component {
@@ -102,6 +104,8 @@ class ShiTu extends Component {
         // this.props.dispatch(userToken());
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
+        /**
+         * 获取存储中的图片
         AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
             // console.log(result);
             if (result === null){
@@ -116,6 +120,7 @@ class ShiTu extends Component {
                 })
             }
         });
+         */
         iOS
             ?
             NetWorkTool.listenerNetworkState(()=>{
@@ -136,7 +141,8 @@ class ShiTu extends Component {
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
         const { navigate } = this.props.navigation;
-        const { qiNiuData } = nextProps.ShiTuReducer;
+        const { imageURL,qiNiuData } = nextProps.ShiTuReducer;
+        imageUri = imageURL;
         if (qiNiuData){
             const { webURL } = qiNiuData.data;
             if (webURL){
@@ -155,6 +161,7 @@ class ShiTu extends Component {
         console.log('componentDidMount');
         this.props.userToken();
 
+        this.props.backImage();
 
 
 
@@ -210,7 +217,7 @@ class ShiTu extends Component {
 
         this.state = {
             viewRef: null,
-            imageUri:'',
+            // imageUri:'',
         }
     };
 
@@ -465,7 +472,7 @@ class ShiTu extends Component {
             <View style={styles.container}>
                 <Image
                     //source={require('../resources/timg.jpeg')}
-                       source={{uri:this.state.imageUri}}
+                       source={{uri:imageUri}}
                        style={[styles.image]}
                        animation="fadeIn"
                        useNativeDriver
@@ -568,4 +575,4 @@ export default connect((state) => {
     return {
         ShiTuReducer
     };
-},{ userToken,qiNiuToken  })(ShiTu)
+},{ userToken,qiNiuToken,backImage  })(ShiTu)

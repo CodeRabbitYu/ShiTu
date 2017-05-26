@@ -25,7 +25,12 @@ export default function ShiTuReducer(state = initialState, action){
             });
         case types.WEBVIEW_URL:
             return Object.assign({}, state ,{
+                ...state,
                 webViewUrl:action.webViewUrl,
+            });
+        case types.BACKIMAGE_URL:
+            return Object.assign({}, state ,{
+                imageURL:action.imageURL,
             });
         default:
             return state;

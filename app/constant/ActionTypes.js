@@ -13,6 +13,8 @@ export const QINIU_UPLOAD_TOKEN_ERROR = 'QINIU_UPLOAD_TOKEN_ERROR';
 export const QINIU_UPLOAD = 'QINIU_UPLOAD';
 // 获取网址信息
 export const WEBVIEW_URL = 'WEBVIEW_URL';
+// 首页背景图片
+export const BACKIMAGE_URL = 'BACKIMAGE_URL';
 
 // 干活集中营数据
 export const REQUEST_GANK_LIST = 'REQUEST_GANK_LIST';
