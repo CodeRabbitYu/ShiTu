@@ -4,7 +4,7 @@
 import { combineReducers } from 'redux';
 import ShiTuReducer from './ShiTuReducer';
 // import GankReducer from './GankReducer';
-
+//取决于这里你加入了多少 reducer
 const rootReducer = combineReducers({
     ShiTuReducer,
 });

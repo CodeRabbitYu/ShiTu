@@ -21,8 +21,8 @@ import { bindActionCreators } from 'redux';
 
 import { userToken } from '../../actions/ShiTuUserToken';
 
-import { qiNiuToken } from '../../actions/ShiTuQiNiu';
-import { backImage } from '../../actions/ShiTuBackImage';
+import { qiNiuToken, getQiNiuToken } from '../../actions/ShiTuQiNiu';
+import { backImage,getBackImage } from '../../actions/ShiTuBackImage';
 
 import * as User from '../../actions/ShiTuUserToken';
 import * as QiNiu from '../../actions/ShiTuQiNiu';
@@ -131,6 +131,11 @@ class ShiTu extends Component {
                 console.log(isConnected);
             });
 
+
+        console.log(this.props)
+        const {getQiNiuToken} = this.props;
+        // getQiNiuToken({name:'1111'});//这里就是触发  action 方法
+
     }
 
     componentWillUnmount(){
@@ -159,6 +164,8 @@ class ShiTu extends Component {
 
     componentDidMount(){
         console.log('componentDidMount');
+
+
         this.props.userToken();
 
         this.props.backImage();
@@ -453,8 +460,12 @@ class ShiTu extends Component {
     render() {
         console.log('render');
         console.log(this.props.ShiTuReducer);
+
+
         const { navigate } = this.props.navigation;
         const { qiNiuData } = this.props.ShiTuReducer;
+
+
         if (qiNiuData){
             const { webURL } = qiNiuData.data;
             if (webURL){
@@ -570,9 +581,19 @@ const styles = StyleSheet.create({
 //
 // export default connect(mapStateToProps,mapDispatchToUserToken,mapDispatchToQiNiuToken)(ShiTu)
 
+// export default connect((state) => {
+//     const { ShiTuReducer } = state;
+//     return {
+//         ShiTuReducer
+//     };
+// },{ userToken,qiNiuToken,backImage  })(ShiTu)
+
+//这里是绑定  一共2个参数  第一个是  state  第二个是  方法  方法有很多方式  我这样的是比较方便的  不需要引用dispatch来调方法
+//在别的页面想使用同样的 state  或者 调用相同的方法 改值  一样的connect
+//  这个state   是整个 状态树  里面还有很多 取决于你的 reducers
 export default connect((state) => {
     const { ShiTuReducer } = state;
     return {
         ShiTuReducer
     };
-},{ userToken,qiNiuToken,backImage  })(ShiTu)
+},  dispatch => bindActionCreators({userToken, qiNiuToken, backImage,getQiNiuToken}, dispatch),)(ShiTu)

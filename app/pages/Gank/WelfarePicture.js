@@ -17,6 +17,11 @@ import {
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { backImage,getBackImage } from '../../actions/ShiTuBackImage';
+
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -30,7 +35,7 @@ const actionTitle = '选择';
 // const { state } = this.props.navigation;
 
 @observer
-export default class WelfareItem extends Component {
+class WelfareItem extends Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
         title: navigation.state.params.title + "'s Profile!",
         headerRight:(
@@ -63,7 +68,9 @@ export default class WelfareItem extends Component {
         this.props.navigation.setParams({
             title:'hahaha',
             goBackPress:this.goBackPress
-        })
+        });
+
+        console.log(this.props);
     }
 
     constructor(props){
@@ -96,7 +103,9 @@ export default class WelfareItem extends Component {
                     console.log('存储失败' + error);
                 }else {
                     console.log('存储成功');
-                    DeviceEventEmitter.emit('SHITUIMAGE',url);
+                    // 之前的做法是这里发送通知到首页
+                    // DeviceEventEmitter.emit('SHITUIMAGE',url);
+                    this.props.getBackImage(url);
                 }
             })
         }
@@ -143,4 +152,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     }
 });
+
+export default connect((state) => {
+    // ShiTuReducer 可以有很多吗？
+    // 这个页面应该数据Welf了。。 下面可以写多个吗？可以啊你  按需加backImage 这个只是方法
+    const { ShiTuReducer } = state;
+    return {
+        ShiTuReducer
+    };
+},  dispatch => bindActionCreators({ backImage,getBackImage}, dispatch),)(WelfareItem)
 
