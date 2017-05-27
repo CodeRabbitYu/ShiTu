@@ -52,8 +52,7 @@ export default class GankListContainer extends Component {
 
     fetchData=(page) =>{
         let type = encodeURIComponent(this.props.type);
-        // let url = `${Config.api.getGankData}?page=${page}&count=${'20'}&type=${type}`;
-        let url = 'http://url.cn/49gBsIk'
+        let url = `${Config.api.getGankData}?page=${page}&count=${'20'}&type=${type}`;
         if (this.isRefresh){
             console.log('isRefresh?');
             return;
