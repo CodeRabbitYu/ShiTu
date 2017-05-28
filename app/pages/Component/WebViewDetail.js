@@ -143,7 +143,6 @@ export default class Detail extends Component {
         // console.log(this.props.navigation);
         return (
             <View style={styles.container}>
-
                 <ProgressBar
                     progress={this.state.progress}
                     style={{

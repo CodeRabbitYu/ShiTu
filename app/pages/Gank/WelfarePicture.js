@@ -21,6 +21,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { backImage,getBackImage } from '../../actions/ShiTuBackImage';
+import { qiNiuToken, getQiNiuToken } from '../../actions/ShiTuQiNiu';
+
 
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -105,6 +107,7 @@ class WelfarePicture extends Component {
                     console.log('存储成功');
                     // 之前的做法是这里发送通知到首页
                     // DeviceEventEmitter.emit('SHITUIMAGE',url);
+                    this.props.getQiNiuToken();
                     this.props.getBackImage(url);
                 }
             })
@@ -158,7 +161,7 @@ export default connect((state) => {
     return {
         ShiTuReducer
     };
-},{  backImage,getBackImage})(WelfarePicture)
+},{  backImage,getBackImage,getQiNiuToken})(WelfarePicture)
 
 // export default connect((state) => {
 //     // ShiTuReducer 可以有很多吗？

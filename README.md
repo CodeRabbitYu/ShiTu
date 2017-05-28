@@ -4,6 +4,7 @@
 ## [react-navigation使用技巧](http://www.jianshu.com/p/2f575cc35780)
 ## [react-native-image-picker在iOS上闪退的解决办法](http://www.jianshu.com/p/977bc5eea1b1)
 ## [React-Native中的数据持久化方式](http://www.jianshu.com/p/22cbb0124158)
+## [Redux "使用"教程](http://www.jianshu.com/p/525c39bd672a)
 
 
 #### 我已经将识兔的本地服务器开源
@@ -13,6 +14,8 @@ https://github.com/RabbitDream/ShiTuServer
 然后,`node index`
 #### 运行node之前需要配置一些七牛云的参数才能正常使用.
 #### 如果还是没有弄明白可以加QQ群:397885169询问
+
+![识兔效果图](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔.gif)
 
 ![项目首页](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/%E8%AF%86%E5%85%94%E9%A6%96%E9%A1%B5.png)
 ![搜索详情](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/%E6%90%9C%E7%B4%A2%E8%AF%A6%E6%83%85.png)

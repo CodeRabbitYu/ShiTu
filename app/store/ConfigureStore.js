@@ -15,7 +15,7 @@ middlewares.push(thunk);
 // if (__DEV__) {
 // }
 
-const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 export default function configureStore(initialState){
     return createStoreWithMiddleware(rootReducer,initialState);

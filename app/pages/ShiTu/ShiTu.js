@@ -103,7 +103,7 @@ class ShiTu extends Component {
         console.log('componentWillMount');
         // this.props.dispatch(userToken());
 
-        let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
+        // let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         /**
          * 获取存储中的图片
         AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
@@ -132,8 +132,8 @@ class ShiTu extends Component {
             });
 
 
-        console.log(this.props)
-        const {getQiNiuToken} = this.props;
+        // console.log(this.props);
+        // const {getQiNiuToken} = this.props;
         // getQiNiuToken({name:'1111'});//这里就是触发  action 方法
 
     }
@@ -145,9 +145,13 @@ class ShiTu extends Component {
 
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
+        console.log(nextProps.ShiTuReducer);
         const { navigate } = this.props.navigation;
         const { imageURL,qiNiuData } = nextProps.ShiTuReducer;
-        imageUri = imageURL;
+        if (imageURL){
+            imageUri = imageURL;
+        }
+
         if (qiNiuData){
             const { webURL } = qiNiuData.data;
             if (webURL){
@@ -172,7 +176,7 @@ class ShiTu extends Component {
 
 
 
-        console.log(this.props.ShiTuReducer);
+        // console.log(this.props.ShiTuReducer);
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
         //     console.log(isConnected);
@@ -208,7 +212,7 @@ class ShiTu extends Component {
                 USERTOKEN = result;
             }
         });
-        */
+
         this.subscription = DeviceEventEmitter.addListener('SHITUIMAGE', (params)=>{
             // this.imageUri = params;
             this.setState({
@@ -216,6 +220,7 @@ class ShiTu extends Component {
             });
             // console.log(params);
         });
+         */
 
     };
 
@@ -459,30 +464,10 @@ class ShiTu extends Component {
 
     render() {
         console.log('render');
-        console.log(this.props.ShiTuReducer);
-
-
-        const { navigate } = this.props.navigation;
-        const { qiNiuData } = this.props.ShiTuReducer;
-
-
-        if (qiNiuData){
-            const { webURL } = qiNiuData.data;
-            if (webURL){
-                navigate('WebViewDetail', {
-                    data: webURL,
-                    isVisible:true
-                });
-                isUpload = false;
-                hintText = '是否是您寻找的答案呢?'
-
-            }
-        }
-
+        // console.log(this.props.ShiTuReducer);
         return (
             <View style={styles.container}>
                 <Image
-                    //source={require('../resources/timg.jpeg')}
                        source={{uri:imageUri}}
                        style={[styles.image]}
                        animation="fadeIn"
