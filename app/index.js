@@ -2,7 +2,9 @@
  * Created by Rabbit on 2017/4/19.
  */
 import { AppRegistry,View,Text } from 'react-native';
+
 import React, { Component } from 'react';
+
 import {Provider}from 'react-redux';
 
 import configureStore from './store/ConfigureStore';
@@ -35,7 +37,7 @@ export default class Root extends Component {
         return (
             !this.state.isLogin ?
                 <Provider store={store}>
-                    <App screenProps={'hahah'}/>
+                    <App />
                 </Provider>
                 :
                 <View style={{marginTop:30}}>

@@ -35,20 +35,20 @@ const actionTitle = '选择';
 // const { state } = this.props.navigation;
 
 @observer
-class WelfareItem extends Component {
+class WelfarePicture extends Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: navigation.state.params.title + "'s Profile!",
-        headerRight:(
-            <Text onPress={navigation.state.params.goBackPress}>
-                返回返回返回
-            </Text>
-        )
+        // title: navigation.state.params.title + "'s Profile!",
+        // headerRight:(
+        //     <Text onPress={navigation.state.params.goBackPress}>
+        //         返回
+        //     </Text>
+        // )
     });
 
     goBackPress = () => {
         alert('haha');
         console.log(this.props.navigation);
-    }
+    };
 
     @observable
     isShow = false;
@@ -65,10 +65,10 @@ class WelfareItem extends Component {
 
     componentWillMount(){
 
-        this.props.navigation.setParams({
-            title:'hahaha',
-            goBackPress:this.goBackPress
-        });
+        // this.props.navigation.setParams({
+        //     title:'hahaha',
+        //     goBackPress:this.goBackPress
+        // });
 
         console.log(this.props);
     }
@@ -154,11 +154,18 @@ const styles = StyleSheet.create({
 });
 
 export default connect((state) => {
-    // ShiTuReducer 可以有很多吗？
-    // 这个页面应该数据Welf了。。 下面可以写多个吗？可以啊你  按需加backImage 这个只是方法
     const { ShiTuReducer } = state;
     return {
         ShiTuReducer
     };
-},  dispatch => bindActionCreators({ backImage,getBackImage}, dispatch),)(WelfareItem)
+},{  backImage,getBackImage})(WelfarePicture)
+
+// export default connect((state) => {
+//     // ShiTuReducer 可以有很多吗？
+//     // 这个页面应该数据Welf了。。 下面可以写多个吗？可以啊你  按需加backImage 这个只是方法
+//     const { ShiTuReducer } = state;
+//     return {
+//         ShiTuReducer
+//     };
+// },  dispatch => bindActionCreators({ backImage,getBackImage}, dispatch),)(WelfareItem)
 

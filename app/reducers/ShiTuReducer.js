@@ -34,7 +34,5 @@ export default function ShiTuReducer(state = initialState, action){
             });
         default:
             return state;
-
     }
-    // return state;
 }
