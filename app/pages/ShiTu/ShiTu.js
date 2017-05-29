@@ -102,25 +102,6 @@ class ShiTu extends Component {
     componentWillMount(){
         console.log('componentWillMount');
         // this.props.dispatch(userToken());
-
-        // let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
-        /**
-         * 获取存储中的图片
-        AsyncStorage.getItem(SHITUIMAGEKEY,(Error,result)=>{
-            // console.log(result);
-            if (result === null){
-                // this.imageUri = 'timg';
-                this.setState({
-                    imageUri:'timg',
-                })
-            }else{
-                // this.imageUri = result;
-                this.setState({
-                    imageUri:result,
-                })
-            }
-        });
-         */
         iOS
             ?
             NetWorkTool.listenerNetworkState(()=>{
@@ -168,8 +149,6 @@ class ShiTu extends Component {
 
     componentDidMount(){
         console.log('componentDidMount');
-
-
         this.props.userToken();
 
         this.props.backImage();
@@ -346,17 +325,7 @@ class ShiTu extends Component {
                 })
             }
             if (userToken.length > 0){
-
-
                 this.props.qiNiuToken(response);
-
-
-                // const { ShiTuReducer } = this.props;
-                // const { token, key } = ShiTuReducer.qiniuData.data;
-
-                // console.log(ShiTuReducer.qiNiuToken);
-
-
             }
             else{
                 console.log('没有获取到USERTOKEN');
