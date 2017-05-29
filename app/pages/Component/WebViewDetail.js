@@ -105,7 +105,7 @@ export default class Detail extends Component {
                 // 是否自动打开
                           active={iOS?false:this.state.active}
                 // 是否展示阴影
-                          hideShadow={iOS?false:true}
+                          hideShadow={iOS?true:true}
                           position="right"
                           spacing={-5}
                           offsetY={15}
@@ -188,14 +188,16 @@ export default class Detail extends Component {
                         console.log('加载结束，成功或失败都会走到这里');
                         this.setState({
                             progress:100,
-                            active:true
+                            // active:true
                         });
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
                 />
+                {this._renderActionButton()}
                 {
 
-                    this.state.progress === 100
+
+                    !this.state.progress === 100
                         ?
                         this._renderActionButton()
                         :
