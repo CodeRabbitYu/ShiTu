@@ -20,14 +20,32 @@ import Login from '../Login/Login';
 export default class Main extends Component {
 
     static navigationOptions = ({navigation,screenProps}) => ({
-        headerTitle:screenProps,
+        headerTitle:'HAHA',
+        headerLeft:(
+            <Text style={{color:'red'}} onPress={()=>navigation.state.params.navigatePress()}>我的</Text>
+        ),
         tabBarLabel:({focused})=>(
             <Text style={{color: focused?'red':'green'}}>我的</Text>
         )
     });
 
+    navigatePress = () => {
+        alert('点击headerRight');
+        console.log(this.props.navigation);
+    }
+
     async componentDidMount(){
         // this.props.navigation.setParams({title:'hjaha '})
+
+        this.props.navigation.setParams({
+            navigatePress:this.navigatePress
+        })
+
+        // this.props.navigation.setParams({
+        //     title:'hahaha',
+        //     goBackPress:this.goBackPress,
+        // });
+
         // console.log(this.props);
 
 
