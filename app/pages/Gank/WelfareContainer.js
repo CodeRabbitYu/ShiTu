@@ -198,8 +198,6 @@ const styles = StyleSheet.create({
 });
 
 const WelfareItem = (navigate,dataSource) => {
-    // console.log(navigate);
-    // console.log(dataSource);
     return dataSource.map((item, i) => {
         return (
             <TouchableOpacity key = {i}
