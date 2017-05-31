@@ -21,9 +21,9 @@ export default class Main extends Component {
 
     static navigationOptions = ({navigation,screenProps}) => ({
         headerTitle:'HAHA',
-        headerLeft:(
-            <Text style={{color:'red'}} onPress={()=>navigation.state.params.navigatePress()}>我的</Text>
-        ),
+        // headerLeft:(
+        //     <Text style={{color:'red'}} onPress={()=>navigation.state.params.navigatePress()}>我的</Text>
+        // ),
         tabBarLabel:({focused})=>(
             <Text style={{color: focused?'red':'green'}}>我的</Text>
         )
