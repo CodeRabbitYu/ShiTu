@@ -39,7 +39,7 @@ export default class Main extends Component {
 
         this.props.navigation.setParams({
             navigatePress:this.navigatePress
-        })
+        });
 
         // this.props.navigation.setParams({
         //     title:'hahaha',
@@ -136,6 +136,37 @@ export default class Main extends Component {
                 }} style={{marginTop:30}}>
                     <Text style={{fontSize:20}}>搜索历史</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {
+                    this.setState({
+                        modalVisible:true
+                    })
+                }} style={{marginTop:30}}>
+                    <Text style={{fontSize:20}}>弹出Modal</Text>
+                </TouchableOpacity>
+
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {alert("Modal has been closed.")}}
+                >
+                    <View style={{marginTop: 22,backgroundColor:'red'}}>
+                        <View>
+                            <Text>Hello World!</Text>
+
+                            <TouchableOpacity onPress={() => {
+                              this.setState({
+                                        modalVisible:false
+                                    })
+                            }}>
+                                <Text>Hide Modal</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    </View>
+                </Modal>
+
             </View>
         );
     }

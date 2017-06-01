@@ -89,7 +89,6 @@ class WelfarePicture extends Component {
             isShow: !this.state.isShow
         });
         this.props.navigation.setParams({isVisible:this.state.isShow});
-
     };
 
     _onLongPress = ()=>{
