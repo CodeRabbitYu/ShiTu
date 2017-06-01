@@ -41,12 +41,7 @@ export default class GankListContainer extends Component {
     isLoad = false;
     @observable
     isLoadMore = false;
-
-    state = {
-        titleArr:[],
-    }
     componentWillMount() {
-        // 为了测试一些功能,所以将干货的网络调用关闭.  如果想运行app,将下面的注释解开
         this.fetchData(this.page);
     };
 
@@ -67,7 +62,7 @@ export default class GankListContainer extends Component {
 
         console.log(url);
         return Request.get(url,(data)=>{
-            console.log(data);
+            // console.log(data);
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
