@@ -4,34 +4,27 @@
 import * as types from '../constant/ActionTypes';
 
 const initialState = {
-    imageURL: 'timg',
-    userToken: '',
-    webViewUrl: '',
-    qiNiuData: null,
+    welfareData: [],
+    isLoading: true,
+    isLoadMore: false,
+    isRefreshing: false
 };
 
 export default function ShiTuReducer(state = initialState, action){
     // console.log(action);
     switch (action.type) {
-        case types.USER_TOKEN_SUCCESS:
+        case types.LOAD_WELFARE_LIST:
             // console.log(action);
             return Object.assign({}, state, {
-                ...state,
-                userToken: action.userToken,
+                isLoading: action.isLoading,
+                isLoadMore: action.isLoadMore,
+                isRefreshing: action.isRefreshing
             });
-        case types.QINIU_UPLOAD_TOKEN:
-            console.log(action);
+        case types.GET_WELFARE_LIST:
             return Object.assign({}, state, {
-                qiNiuData:action.qiNiuData,
-            });
-        case types.WEBVIEW_URL:
-            return Object.assign({}, state ,{
-                ...state,
-                webViewUrl:action.webViewUrl,
-            });
-        case types.BACKIMAGE_URL:
-            return Object.assign({}, state ,{
-                imageURL:action.imageURL,
+                isLoading: false,
+                isRefreshing: false,
+                welfareData:action.welfareData,
             });
         default:
             return state;

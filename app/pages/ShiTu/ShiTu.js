@@ -442,7 +442,7 @@ class ShiTu extends Component {
 
     render() {
         console.log('render');
-        // console.log(this.props.ShiTuReducer);
+        console.log(this.props.ShiTuReducer);
         return (
             <View style={styles.container}>
                 <Image

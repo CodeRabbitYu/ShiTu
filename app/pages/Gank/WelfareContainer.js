@@ -21,22 +21,27 @@ import Config from '../../common/Config';
 import AutoResponisve from 'autoresponsive-react-native';
 import Button from '../../component/Button';
 
+import { connect } from 'react-redux';
+import { welfareData } from '../../actions/GankWelfareData';
+
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 
 import Image from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 
+let page = 1;
+
 @observer
-export default class WelfareContainer extends Component {
+class WelfareContainer extends Component {
     // @observable
     // dataSource = [];
     @observable
     isLoad = false;
     @observable
     isRefresh = false;
-    @observable
-    page = 1;
+    // @observable
+    // page = 1;
     @observable
     isLoadMore = false;
 
@@ -52,10 +57,17 @@ export default class WelfareContainer extends Component {
 
     componentWillMount(){
         console.log('componentWillMount');
-        this.fetchData(this.page);
+
+        // this.fetchData(this.page);
         const { navigate } = this.props;
         // console.log(navigate);
 
+    }
+
+    componentDidMount(){
+        console.log('componentDidMount');
+
+        this.props.welfareData(page,this.props.type);
     }
 
     fetchData=(page) =>{
@@ -145,23 +157,35 @@ export default class WelfareContainer extends Component {
         if (this.isLoadMore) {
             return;
         } else {
-            this.page = this.page + 1;
-            this.fetchData(this.page);
+            page = page + 1;
+
+            this.props.welfareData(page,this.props.type);
+
+            // this.fetchData(this.page);
             // console.log(this.page);
         }
     };
 
     renderItem =()=>{
         const { navigate } = this.props;
-        // console.log(this.props.navigate);
+        console.log(this.props.GankReducer);
+
+        const { welfareData } = this.props.GankReducer;
+        console.log(welfareData);
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
-                { WelfareItem(navigate,this.state.dataSource)}
+                { WelfareItem(navigate,welfareData)}
             </AutoResponisve>
         )
     };
 
+    _onRefresh = () => {
+        this.props.welfareData(1,this.props.type);
+        console.log(this.props.GankReducer);
+    };
+
     render() {
+        console.log('render');
         return (
             <View style={styles.containerStyle}>
                 <FlatList
@@ -169,14 +193,14 @@ export default class WelfareContainer extends Component {
                     keyExtractor={item => item._id}
                     renderItem={()=>this.renderItem()}
                     numColumns={2}
-                    onRefresh={() => this.fetchData(1)}
+                    onRefresh={() => this._onRefresh()}
                     refreshing={this.isRefresh}
                     onEndReached={() => this.fetchMoreData()}
                     onEndReachedThreshold={1}
                     ListFooterComponent={()=>{
                             return( !this.isRefresh &&
                                 <ActivityIndicator
-                                style={styles.loadDataStyle}
+                                    style={styles.loadDataStyle}
                                 />
                             )
                         }}
@@ -224,3 +248,11 @@ const WelfareItem = (navigate,dataSource) => {
         );
     }, this);
 };
+
+export default connect((state) => {
+    const { GankReducer } = state;
+    return {
+        GankReducer
+    };
+},{ welfareData})(WelfareContainer)
+

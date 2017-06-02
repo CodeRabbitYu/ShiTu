@@ -9,6 +9,7 @@ import Request from '../common/Request';
 import {
     AsyncStorage,
 } from 'react-native';
+
 let KEY = 'USERTOKEN';
 export function userToken() {
     return dispatch => {
