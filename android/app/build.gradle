@@ -131,6 +131,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-video')
     compile project(':realm')
     compile project(':react-native-image-picker')
     compile project(':react-native-vector-icons')

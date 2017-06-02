@@ -100,6 +100,7 @@ const Request = {
                 }
             })
             .then((response)=>{
+                console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{
