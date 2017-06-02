@@ -6,7 +6,6 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View,
     Image,
     AsyncStorage,
     Modal,
@@ -16,6 +15,9 @@ import {
 } from 'react-native';
 import Button from '../../component/Button';
 import Login from '../Login/Login';
+
+import {  View } from 'react-native-animatable';
+import AlertModal from '../Component/AlertModal';
 
 export default class Main extends Component {
 
@@ -88,7 +90,8 @@ export default class Main extends Component {
         super(props);
         this.state = {
             modalVisible: false,
-            data: ''
+            data: '',
+            viewVisible : false,
         };
     }
 
@@ -116,6 +119,21 @@ export default class Main extends Component {
 
                 {/*<LoginModal isVisible={this.state.modalVisible}/>*/}
 
+                <AlertModal
+                    ref={AlertModal => this.AlertModal = AlertModal}
+
+                    message='这是一个自定义弹窗'
+                    rightButtonText='确定'
+                    leftButtonText='取消'
+                    onRightClick={()=>{
+                        {/*this.AlertModal.hide();*/}
+                        this.AlertModal.setTitle('haha');
+                    }}
+                    onLeftClick={()=>{
+                        this.AlertModal.hide();
+                    }}
+                />
+
                 <TouchableOpacity onPress={() => {
                     navigate('Login',{
                         callback: (data)=>{
@@ -138,27 +156,50 @@ export default class Main extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {
-                    this.setState({
-                        modalVisible:true
-                    })
+                    this.AlertModal.show();
                 }} style={{marginTop:30}}>
                     <Text style={{fontSize:20}}>弹出Modal</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {
+                    this.setState({
+                        viewVisible:true
+                    })
+                }} style={{marginTop:30}}>
+                    <Text style={{fontSize:20}}>弹出View</Text>
+                </TouchableOpacity>
+
+                {this.state.viewVisible ?
+                    <View style={{height:300,width:'100%',backgroundColor:'red'}}
+                          animation="bounceInUp"
+                          useNativeDriver
+                          ref="viewModal"
+                    >
+                        <Text style={{fontSize:20}} onPress={()=>{
+                            this.refs.viewModal.viewVisible = false;
+                            {/*this.setState({*/}
+                                {/*viewVisible:false,*/}
+                            {/*})*/}
+                        }
+                        }>关闭View</Text>
+                    </View>
+                    : null
+                }
 
                 <Modal
                     animationType={"slide"}
                     transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {alert("Modal has been closed.")}}
+                    ref={activeModal => this.activeModal = activeModal}
                 >
                     <View style={{marginTop: 22,backgroundColor:'red'}}>
                         <View>
                             <Text>Hello World!</Text>
-
                             <TouchableOpacity onPress={() => {
-                              this.setState({
-                                        modalVisible:false
-                                    })
+
+                                this.activeModal.hideModal();
+
                             }}>
                                 <Text>Hide Modal</Text>
                             </TouchableOpacity>
@@ -169,6 +210,16 @@ export default class Main extends Component {
 
             </View>
         );
+    }
+    showModal(){
+        this.setState({
+            modalVisible:true
+        })
+    }
+    hideModal(){
+        this.setState({
+            modalVisible:false
+        })
     }
 }
 
