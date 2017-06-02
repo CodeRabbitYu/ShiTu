@@ -176,10 +176,9 @@ export default class Main extends Component {
                           ref="viewModal"
                     >
                         <Text style={{fontSize:20}} onPress={()=>{
-                            this.refs.viewModal.viewVisible = false;
-                            {/*this.setState({*/}
-                                {/*viewVisible:false,*/}
-                            {/*})*/}
+                            this.setState({
+                                viewVisible:false,
+                            })
                         }
                         }>关闭View</Text>
                     </View>

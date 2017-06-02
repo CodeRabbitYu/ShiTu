@@ -127,24 +127,34 @@ class ShiTu extends Component {
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
         console.log(nextProps.ShiTuReducer);
+        console.log(this.props.ShiTuReducer);
+
         const { navigate } = this.props.navigation;
         const { imageURL,qiNiuData } = nextProps.ShiTuReducer;
-        if (imageURL){
-            imageUri = imageURL;
-        }
 
-        if (qiNiuData){
-            const { webURL } = qiNiuData.data;
-            if (webURL){
-                navigate('WebViewDetail', {
-                    data: webURL,
-                    isVisible:true
-                });
+        if (this.props.ShiTuReducer.imageURL !== imageURL){
+            if (imageURL) {
+                imageUri = imageURL;
                 isUpload = false;
-                hintText = '是否是您寻找的答案呢?'
-
             }
         }
+
+        if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
+            if (qiNiuData) {
+                const { webURL } = qiNiuData.data;
+                if (webURL) {
+                    navigate('WebViewDetail', {
+                        data: webURL,
+                        isVisible: true
+                    });
+                    isUpload = false;
+                    hintText = '是否是您寻找的答案呢?'
+                }
+            }
+        }
+
+        // if (this.props.ShiTuReducer !== nextProps.ShiTuReducer) {
+        // }
     }
 
     componentDidMount(){
@@ -319,16 +329,15 @@ class ShiTu extends Component {
                 return;
             }
             if(!response.error){
-                // this.imageUri = response.uri;
-                this.setState({
-                    imageUri:response.uri
-                })
-            }
-            if (userToken.length > 0){
-                this.props.qiNiuToken(response);
-            }
-            else{
-                console.log('没有获取到USERTOKEN');
+                // imageUri = response.uri;
+
+                this.props.getBackImage(response.uri);
+                if (userToken.length > 0){
+                    this.props.qiNiuToken(response);
+                }
+                else{
+                    console.log('没有获取到USERTOKEN');
+                }
             }
         });
     };
@@ -540,7 +549,7 @@ export default connect((state) => {
     return {
         ShiTuReducer
     };
-},{ userToken, qiNiuToken, backImage,getQiNiuToken})(ShiTu)
+},{ userToken, qiNiuToken, backImage,getQiNiuToken,getBackImage})(ShiTu)
 
 //这里是绑定 一共2个参数 第一个是 state 第二个是 方法 方法有很多方式 我这样的是比较方便的 不需要引用dispatch来调方法
 //在别的页面想使用同样的 state 或者 调用相同的方法 改值 一样的connect

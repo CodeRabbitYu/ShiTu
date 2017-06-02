@@ -53,7 +53,7 @@ class WelfarePicture extends Component {
     };
 
     @observable
-    isShow = false;
+    isShow = true;
 
     fetch = async (url) => {
         try {
@@ -85,10 +85,13 @@ class WelfarePicture extends Component {
     _onPress = ()=> {
         // console.log(this.props.navigation);
         // console.log(this.props.navigation.state);
-        this.setState({
-            isShow: !this.state.isShow
-        });
-        this.props.navigation.setParams({isVisible:this.state.isShow});
+        // this.setState({
+        //     isShow: !this.state.isShow
+        // });
+
+        this.isShow = !this.isShow;
+        console.log(this.isShow);
+        this.props.navigation.setParams({isVisible:this.isShow});
     };
 
     _onLongPress = ()=>{
@@ -115,11 +118,11 @@ class WelfarePicture extends Component {
 
     render() {
         const { state: { params: { url } } } = this.props.navigation;
-
+        console.log(this.isShow);
         let style ;
-        this.state.isShow ?
-            style={width:SCREEN_WIDTH,height:SCREEN_HEIGHT-64}
-            : {width:SCREEN_WIDTH,height:SCREEN_HEIGHT}
+        this.isShow ?
+            style={width:SCREEN_WIDTH, height:SCREEN_HEIGHT}
+            : style={width:SCREEN_WIDTH, height:SCREEN_HEIGHT-64}
 
         return (
             <View>
@@ -129,9 +132,7 @@ class WelfarePicture extends Component {
                 >
                     <Image
                         source={{uri:url}}
-                        style={[{
-                            height:SCREEN_HEIGHT,
-                            width:SCREEN_WIDTH},style]}
+                        style={style}
                     />
 
                 </TouchableOpacity>
