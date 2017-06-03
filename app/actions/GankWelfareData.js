@@ -5,7 +5,7 @@ import * as types from '../constant/ActionTypes';
 import Config from '../common/Config';
 
 import Request from '../common/Request';
-
+let dataSource = [];
 export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
     return dispatch => {
         type = encodeURIComponent(type);
@@ -14,6 +14,7 @@ export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
         // 1.发出拉取数据的信号
         dispatch(loadWelfareContent(isLoading, isLoadMore, isRefreshing));
         console.log(page);
+
         return Request.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
@@ -25,7 +26,7 @@ export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
                     item.imageWidth = imageWidth;
                     // console.log(item);
                 });
-                var dataSource = [];
+
                 setTimeout(()=> {
                     if (page === 1) {
                         console.log('page等于1');
@@ -37,8 +38,10 @@ export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
                         // this.state.dataSource = this.state.dataSource.concat(results);
                     } else {
                         // this.state.dataSource = results;
+                        console.log(dataSource.length);
 
                         dataSource = dataSource.concat(results);
+
                         console.log(dataSource.length);
                         dispatch(getWelfareData(dataSource));
 

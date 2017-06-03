@@ -21,6 +21,7 @@ import Config from '../../common/Config';
 import AutoResponisve from 'autoresponsive-react-native';
 import Button from '../../component/Button';
 
+// 使用Redux需要调用的状态
 import { connect } from 'react-redux';
 import { welfareData } from '../../actions/GankWelfareData';
 
@@ -32,7 +33,7 @@ import * as Progress from 'react-native-progress';
 
 
 /**
- * 初始化状态
+ * redux初始化状态
  */
 let isLoading = true;
 let isLoadMore = false;
@@ -40,25 +41,25 @@ let isRefreshing = false;
 let isFirstLoad = true;
 let page = 1;
 
+
 @observer
 class WelfareContainer extends Component {
-    // @observable
-    // dataSource = [];
-    // @observable
-    // isLoad = false;
-    // @observable
-    // isRefresh = false;
-    // @observable
-    // page = 1;
-    // @observable
-    // isLoadMore = false;
+    @observable
+    dataSource = [];
+    @observable
+    isLoad = false;
+    @observable
+    isRefresh = false;
+    @observable
+    page = 1;
+    @observable
+    isLoadMore = false;
 
     constructor(props){
         super(props);
         this.state = {
-            defaultData : [{
-                _id: 'test'
-            }],
+            // 如果使用redux,需要给defaultData赋初值,可以参考fetchData最后
+            defaultData : [],
             dataSource:[],
             // isLoad:false,
             // isLoadMore:false,
@@ -67,17 +68,14 @@ class WelfareContainer extends Component {
 
     componentWillMount(){
         console.log('componentWillMount');
-
-        // this.fetchData(this.page);
-        const { navigate } = this.props;
-        // console.log(navigate);
-
     }
 
     componentDidMount(){
         console.log('componentDidMount');
+        this.fetchData(this.page);
 
-        this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
+        // 使用redux获取数据
+        //this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
     }
 
     fetchData=(page) =>{
@@ -89,15 +87,13 @@ class WelfareContainer extends Component {
             console.log('isRefresh?');
             return;
         }
-        // console.log(page);
+        console.log(page);
 
         if (page !== 1){
             this.isLoadMore = true;
         }else {
             this.isRefresh = true;
         }
-
-        console.log(url);
         Request.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
@@ -130,13 +126,10 @@ class WelfareContainer extends Component {
                             // isLoad: true,
                             dataSource:results,
                         });
-
-
                         console.log('page等于1');
                         // this.isLoad = true;
                     }
                 },500);
-
 
                 this.setState({
                     defaultData: [{
@@ -164,19 +157,23 @@ class WelfareContainer extends Component {
 
     fetchMoreData = ()=> {
 
+        /**
+         *  使用redux实现加载更多的方法
+
         isLoadMore = true;
         isLoading = false;
         isRefreshing = false;
         page += 1;
-        console.log(`page:${page}`);
-        this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
+         */
+        //this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
 
         console.log('加载更多数据');
-        if (isLoadMore) {
+        // 使用普通的方式实现
+        if (this.isLoadMore) {
             return;
         } else {
-            // this.fetchData(this.page);
-            // console.log(this.page);
+            this.page = this.page + 1;
+            this.fetchData(this.page);
         }
     };
 
@@ -184,30 +181,34 @@ class WelfareContainer extends Component {
         const { navigate } = this.props;
         // console.log(navigate);
 
+        // 使用redux需要传递的参数,如果使用,需要将welfareData放在WelfareItem第二个参数的地方
         let { welfareData } = this.props.GankReducer;
 
-        console.log(welfareData);
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
-               { WelfareItem(navigate,welfareData)}
+               { WelfareItem(navigate,this.state.dataSource)}
             </AutoResponisve>
         )
     };
 
+    // 如果使用redux需要传递一些参数到action,所以单独使用了一个方法,如果不使用redux可以不调用
     _onRefresh = () => {
-        console.log('_onRefresh');
         isLoading = false;
         isLoadMore = false;
         isRefreshing = true;
-        this.props.welfareData(1, this.props.type, isLoading, isLoadMore, isRefreshing);
+        page = 1;
+        this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
+        isFirstLoad = false;
         // console.log(this.props.GankReducer);
     };
 
     render() {
         console.log('render');
-        // console.log(this.props.GankReducer);
+
+        // 利用redux管理页面的刷新
         const { isRefreshing } = this.props.GankReducer;
-        isFirstLoad = false;
+
+
         // console.log(welfareData);
         return (
             <View style={styles.containerStyle}>
@@ -215,13 +216,14 @@ class WelfareContainer extends Component {
                     data={this.state.defaultData}
                     keyExtractor={item => item._id}
                     numColumns={2}
-                    onRefresh={this._onRefresh}
-                    refreshing={isRefreshing}
+                    onRefresh={()=>this.fetchData(1)}
+                    refreshing={this.isRefresh}
                     renderItem={this.renderItem}
-                    onEndReached={this.fetchMoreData}
+                    onEndReached={()=>this.fetchMoreData()}
                     onEndReachedThreshold={0}
                     ListFooterComponent={()=>{
-                            return( !isRefreshing &&
+                        // 如果使用redux,this.isRefresh要改成isRefreshing
+                            return( !this.isRefresh &&
                                 <ActivityIndicator
                                     style={styles.loadDataStyle}
                                 />
