@@ -37,6 +37,7 @@ import * as Progress from 'react-native-progress';
 let isLoading = true;
 let isLoadMore = false;
 let isRefreshing = false;
+let isFirstLoad = true;
 let page = 1;
 
 @observer
@@ -55,7 +56,9 @@ class WelfareContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-            defaultData :[],
+            defaultData : [{
+                _id: 'test'
+            }],
             dataSource:[],
             // isLoad:false,
             // isLoadMore:false,
@@ -160,14 +163,18 @@ class WelfareContainer extends Component {
     };
 
     fetchMoreData = ()=> {
+
+        isLoadMore = true;
+        isLoading = false;
+        isRefreshing = false;
+        page += 1;
+        console.log(`page:${page}`);
+        this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
+
         console.log('加载更多数据');
-        if (this.isLoadMore) {
+        if (isLoadMore) {
             return;
         } else {
-            page += 1;
-            console.log(`page:${page}`);
-            this.props.welfareData(page,this.props.type);
-
             // this.fetchData(this.page);
             // console.log(this.page);
         }
@@ -175,36 +182,44 @@ class WelfareContainer extends Component {
 
     renderItem =()=>{
         const { navigate } = this.props;
-        // console.log(this.props.GankReducer);
+        // console.log(navigate);
 
-        const { welfareData } = this.props.GankReducer;
-        // console.log(welfareData);
+        let { welfareData } = this.props.GankReducer;
+
+        console.log(welfareData);
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
-                { WelfareItem(navigate,welfareData)}
+               { WelfareItem(navigate,welfareData)}
             </AutoResponisve>
         )
     };
 
     _onRefresh = () => {
-        this.props.welfareData(1,this.props.type);
+        console.log('_onRefresh');
+        isLoading = false;
+        isLoadMore = false;
+        isRefreshing = true;
+        this.props.welfareData(1, this.props.type, isLoading, isLoadMore, isRefreshing);
         // console.log(this.props.GankReducer);
     };
 
     render() {
         console.log('render');
-        console.log(this.props.GankReducer);
+        // console.log(this.props.GankReducer);
+        const { isRefreshing } = this.props.GankReducer;
+        isFirstLoad = false;
+        // console.log(welfareData);
         return (
             <View style={styles.containerStyle}>
                 <FlatList
                     data={this.state.defaultData}
                     keyExtractor={item => item._id}
-                    renderItem={()=>this.renderItem()}
                     numColumns={2}
-                    onRefresh={() => this._onRefresh()}
+                    onRefresh={this._onRefresh}
                     refreshing={isRefreshing}
-                    onEndReached={() => this.fetchMoreData()}
-                    onEndReachedThreshold={1}
+                    renderItem={this.renderItem}
+                    onEndReached={this.fetchMoreData}
+                    onEndReachedThreshold={0}
                     ListFooterComponent={()=>{
                             return( !isRefreshing &&
                                 <ActivityIndicator
@@ -262,5 +277,5 @@ export default connect((state) => {
     return {
         GankReducer
     };
-},{ welfareData})(WelfareContainer)
+},{ welfareData })(WelfareContainer)
 

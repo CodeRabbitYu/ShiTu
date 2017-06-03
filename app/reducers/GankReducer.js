@@ -10,7 +10,7 @@ const initialState = {
     isRefreshing: false
 };
 
-export default function ShiTuReducer(state = initialState, action){
+export default function GankReducer(state = initialState, action){
     // console.log(action);
     switch (action.type) {
         case types.LOAD_WELFARE_LIST:

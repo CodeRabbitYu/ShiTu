@@ -126,8 +126,6 @@ class ShiTu extends Component {
 
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
-        console.log(nextProps.ShiTuReducer);
-        console.log(this.props.ShiTuReducer);
 
         const { navigate } = this.props.navigation;
         const { imageURL,qiNiuData } = nextProps.ShiTuReducer;

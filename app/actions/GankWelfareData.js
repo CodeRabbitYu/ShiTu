@@ -25,25 +25,24 @@ export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
                     item.imageWidth = imageWidth;
                     // console.log(item);
                 });
-                let dataSource = [];
+                var dataSource = [];
                 setTimeout(()=> {
-                    if (page !== 1) {
-                        console.log('page不等于1');
+                    if (page === 1) {
+                        console.log('page等于1');
 
-                        this.isLoadMore = false;
-                        this.isRefresh = false;
-                        dataSource = dataSource.concat(results);
-                        dispatch(getWelfareData(dataSource));
-                        // this.state.dataSource = this.state.dataSource.concat(results);
-                    } else {
-                        // this.state.dataSource = results;
-                        this.isLoad = true;
-                        this.isRefresh = false;
-                        this.page = 1;
                         dataSource = results;
                         dispatch(getWelfareData(dataSource));
 
-                        console.log('page等于1');
+
+                        // this.state.dataSource = this.state.dataSource.concat(results);
+                    } else {
+                        // this.state.dataSource = results;
+
+                        dataSource = dataSource.concat(results);
+                        console.log(dataSource.length);
+                        dispatch(getWelfareData(dataSource));
+
+                        console.log('page不等于1');
                         // this.isLoad = true;
                     }
                 },500);

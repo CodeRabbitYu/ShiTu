@@ -20,7 +20,10 @@ export const BACKIMAGE_URL = 'BACKIMAGE_URL';
 // 加载福利状态
 export const LOAD_WELFARE_LIST = 'LOAD_WELFARE_LIST';
 // 获取福利数据
-export const GET_WELFARE_LIST = 'WELFARE_GANK_LIST';
+export const GET_WELFARE_LIST = 'GET_WELFARE_LIST';
+
+
+
 export const REQUEST_GANK_LIST = 'REQUEST_GANK_LIST';
 export const FETCH_GANK_LIST = 'FETCH_GANK_LIST';
 export const RECEIVE_GANK_LIST = 'RECEIVE_GANK_LIST';
