@@ -13,7 +13,7 @@ export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
 
         // 1.发出拉取数据的信号
         dispatch(loadWelfareContent(isLoading, isLoadMore, isRefreshing));
-
+        console.log(page);
         return Request.get(url,(data)=>{
             if (data &&data.success) {
                 let results = data.data.results;
@@ -25,7 +25,29 @@ export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
                     item.imageWidth = imageWidth;
                     // console.log(item);
                 });
-                dispatch(getWelfareData(results));
+                let dataSource = [];
+                setTimeout(()=> {
+                    if (page !== 1) {
+                        console.log('page不等于1');
+
+                        this.isLoadMore = false;
+                        this.isRefresh = false;
+                        dataSource = dataSource.concat(results);
+                        dispatch(getWelfareData(dataSource));
+                        // this.state.dataSource = this.state.dataSource.concat(results);
+                    } else {
+                        // this.state.dataSource = results;
+                        this.isLoad = true;
+                        this.isRefresh = false;
+                        this.page = 1;
+                        dataSource = results;
+                        dispatch(getWelfareData(dataSource));
+
+                        console.log('page等于1');
+                        // this.isLoad = true;
+                    }
+                },500);
+
             }
         },(error)=>{
             console.log(error);

@@ -58,7 +58,8 @@ const Request = {
      * 设置Header请求头
      */
     Header:{
-
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
     },
     /**
      * Config参数
@@ -117,22 +118,45 @@ const Request = {
     post:(url, body, successCallBack, failCallBack) =>{
 
         Request.Header.body = JSON.stringify(body);
-        return RNFetchBlob
-            .config(Request.PostConfig)
-            .fetch('POST',url,Request.Header)
-            .then((response) => {
-                if (response.respInfo.status === 200){
-                    return response.json();
-                }else {
-                    return failCallBack(response);
-                }
-            })
+        console.log(Request.Header);
+
+        let header = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        };
+
+        console.log(header);
+        return fetch(url,header)
+            .then((response) => response.json())
             .then((response)=>{
+                console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{
+                console.log(error);
                 failCallBack(error);
             })
+
+        // return RNFetchBlob
+        //     .config(Request.PostConfig)
+        //     .fetch('POST',url,Request.Header)
+        //     .then((response) => {
+        //         if (response.respInfo.status === 200){
+        //             return response.json();
+        //         }else {
+        //             return failCallBack(response);
+        //         }
+        //     })
+        //     .then((response)=>{
+        //         successCallBack(response);
+        //     })
+        //     .catch((error)=>{
+        //         failCallBack(error);
+        //     })
     },
     /**
      * @param url               请求网址
