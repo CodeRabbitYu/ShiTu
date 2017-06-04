@@ -74,7 +74,7 @@ let photoOptions = {
 let perent = '';
 let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
-let imageUri = '';
+// let imageUri = '';
 
 @observer
 class ShiTu extends Component {
@@ -130,12 +130,18 @@ class ShiTu extends Component {
         const { navigate } = this.props.navigation;
         const { imageURL,qiNiuData } = nextProps.ShiTuReducer;
 
-        if (this.props.ShiTuReducer.imageURL !== imageURL){
-            if (imageURL) {
-                imageUri = imageURL;
-                isUpload = false;
-            }
-        }
+        this.setState({
+            imageUri:imageURL,
+        })
+        // imageUri = imageURL;
+
+        // if (this.props.ShiTuReducer.imageURL !== imageURL){
+        //     if (imageURL) {
+        //         console.log(imageURL);
+        //
+        //         isUpload = false;
+        //     }
+        // }
 
         if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
             if (qiNiuData) {
@@ -216,7 +222,7 @@ class ShiTu extends Component {
 
         this.state = {
             viewRef: null,
-            // imageUri:'',
+            imageUri:'',
         }
     };
 
@@ -440,10 +446,11 @@ class ShiTu extends Component {
 
     render() {
         console.log('render');
+        console.log(this.state.imageUri);
         return (
             <View style={styles.container}>
                 <Image
-                       source={{uri:imageUri}}
+                       source={{uri:this.state.imageUri}}
                        style={[styles.image]}
                        animation="fadeIn"
                        useNativeDriver

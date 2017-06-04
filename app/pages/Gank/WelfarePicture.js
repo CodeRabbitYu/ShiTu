@@ -90,7 +90,7 @@ class WelfarePicture extends Component {
         // });
 
         this.isShow = !this.isShow;
-        console.log(this.isShow);
+        // console.log(this.isShow);
         this.props.navigation.setParams({isVisible:this.isShow});
     };
 
@@ -109,7 +109,7 @@ class WelfarePicture extends Component {
                     console.log('存储成功');
                     // 之前的做法是这里发送通知到首页
                     // DeviceEventEmitter.emit('SHITUIMAGE',url);
-                    // this.props.getQiNiuToken();
+                    this.props.getQiNiuToken();
                     this.props.getBackImage(url);
                 }
             })
@@ -118,7 +118,7 @@ class WelfarePicture extends Component {
 
     render() {
         const { state: { params: { url } } } = this.props.navigation;
-        console.log(this.isShow);
+        // console.log(this.isShow);
         let style ;
         this.isShow ?
             style={width:SCREEN_WIDTH, height:SCREEN_HEIGHT}

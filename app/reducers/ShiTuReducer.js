@@ -29,6 +29,7 @@ export default function ShiTuReducer(state = initialState, action){
                 webViewUrl:action.webViewUrl,
             });
         case types.BACKIMAGE_URL:
+            console.log(action.imageURL);
             return Object.assign({}, state ,{
                 imageURL:action.imageURL,
             });
