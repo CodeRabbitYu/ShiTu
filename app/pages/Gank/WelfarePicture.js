@@ -109,7 +109,7 @@ class WelfarePicture extends Component {
                     console.log('存储成功');
                     // 之前的做法是这里发送通知到首页
                     // DeviceEventEmitter.emit('SHITUIMAGE',url);
-                    this.props.getQiNiuToken();
+                    // this.props.getQiNiuToken();
                     this.props.getBackImage(url);
                 }
             })

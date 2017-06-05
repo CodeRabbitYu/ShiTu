@@ -10,7 +10,8 @@ import {
     StatusBar,
     findNodeHandle,
     NetInfo,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Image
 } from 'react-native';
 
 import '../../common/Global'
@@ -29,7 +30,7 @@ import * as QiNiu from '../../actions/ShiTuQiNiu';
 
 // import {isNetworkConnected} from '../common/isNetInfo';
 
-import {  View, Text, Image } from 'react-native-animatable';
+import {  View, Text,  } from 'react-native-animatable';
 import Button from '../../component/Button';
 const { BlurView ,VibrancyView} = require('react-native-blur');
 import ImagePicker from 'react-native-image-picker';
@@ -222,7 +223,7 @@ class ShiTu extends Component {
 
         this.state = {
             viewRef: null,
-            imageUri:'',
+            imageUri:'timg',
         }
     };
 
@@ -453,7 +454,6 @@ class ShiTu extends Component {
                        source={{uri:this.state.imageUri}}
                        style={[styles.image]}
                        animation="fadeIn"
-                       useNativeDriver
                        ref={'backgroundImage'}
                        onLoad={this._imageOnLoaded}
                 />
