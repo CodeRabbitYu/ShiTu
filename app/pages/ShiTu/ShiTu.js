@@ -10,7 +10,7 @@ import {
     StatusBar,
     findNodeHandle,
     NetInfo,
-    DeviceEventEmitter,
+    z,
     Image
 } from 'react-native';
 
@@ -75,7 +75,7 @@ let photoOptions = {
 let perent = '';
 let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
-// let imageUri = '';
+let imageUri = '';
 
 @observer
 class ShiTu extends Component {
@@ -131,18 +131,20 @@ class ShiTu extends Component {
         const { navigate } = this.props.navigation;
         const { imageURL,qiNiuData } = nextProps.ShiTuReducer;
 
-        this.setState({
-            imageUri:imageURL,
-        })
+
+
+
         // imageUri = imageURL;
 
-        // if (this.props.ShiTuReducer.imageURL !== imageURL){
-        //     if (imageURL) {
-        //         console.log(imageURL);
-        //
-        //         isUpload = false;
-        //     }
-        // }
+        if (this.props.ShiTuReducer.imageURL !== imageURL){
+            if (imageURL) {
+                console.log(imageURL);
+                imageUri=imageURL;
+                // isUpload = false;
+
+                this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+            }
+        }
 
         if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
             if (qiNiuData) {
@@ -167,8 +169,6 @@ class ShiTu extends Component {
         this.props.userToken();
 
         this.props.backImage();
-
-
 
         // console.log(this.props.ShiTuReducer);
 
@@ -223,7 +223,7 @@ class ShiTu extends Component {
 
         this.state = {
             viewRef: null,
-            imageUri:'timg',
+            // imageUri:'timg',
         }
     };
 
@@ -350,7 +350,7 @@ class ShiTu extends Component {
     _imageOnLoaded = ()=> {
         Android && InteractionManager.runAfterInteractions(() => {
             setTimeout(() => {
-                this.setState({ viewRef: findNodeHandle(this.refs.backgroundImage) });
+                this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
             }, 0);
         });
     };
@@ -447,16 +447,16 @@ class ShiTu extends Component {
 
     render() {
         console.log('render');
-        console.log(this.state.imageUri);
         return (
             <View style={styles.container}>
                 <Image
-                       source={{uri:this.state.imageUri}}
+                       source={{uri:imageUri}}
                        style={[styles.image]}
                        animation="fadeIn"
-                       ref={'backgroundImage'}
-                       onLoad={this._imageOnLoaded}
+                       ref={image => this.backgroundImage = image}
+                       onLoad={() => this._imageOnLoaded()}
                 />
+
                     <StatusBar
                         backgroundColor="blue"
                         barStyle="light-content"

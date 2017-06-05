@@ -90,6 +90,7 @@ const Request = {
      * @returns
      */
     get:(url, successCallBack, failCallBack) =>{
+        console.log(url);
         return RNFetchBlob
             .config(Request.PostConfig)
             .fetch('GET',url,Request.Header)
@@ -101,10 +102,11 @@ const Request = {
                 }
             })
             .then((response)=>{
-                // console.log(response);
+                console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{
+            console.log(error);
                 failCallBack(error);
             })
     },

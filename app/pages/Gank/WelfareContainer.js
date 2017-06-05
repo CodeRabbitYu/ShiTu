@@ -95,6 +95,7 @@ class WelfareContainer extends Component {
             this.isRefresh = true;
         }
         Request.get(url,(data)=>{
+            console.log(data);
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
