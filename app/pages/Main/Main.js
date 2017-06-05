@@ -107,7 +107,7 @@ export default class Main extends Component {
         if (this.state.data){
             console.log('获得数据');
         }
-
+        
         const { navigate } = this.props.navigation;
         return (
             <View style={{marginTop: 22}}>
