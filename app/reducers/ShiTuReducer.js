@@ -8,6 +8,7 @@ const initialState = {
     userToken: '',
     webViewUrl: '',
     qiNiuData: null,
+    viewRef:null,
 };
 export default function ShiTuReducer(state = initialState, action){
     // console.log(action);
@@ -31,6 +32,7 @@ export default function ShiTuReducer(state = initialState, action){
         case types.BACKIMAGE_URL:
             console.log(action.imageURL);
             return Object.assign({}, state ,{
+                viewRef:action.viewRef,
                 imageURL:action.imageURL,
             });
         default:

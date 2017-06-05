@@ -10,8 +10,6 @@ import {
     StatusBar,
     findNodeHandle,
     NetInfo,
-    z,
-    Image
 } from 'react-native';
 
 import '../../common/Global'
@@ -30,7 +28,7 @@ import * as QiNiu from '../../actions/ShiTuQiNiu';
 
 // import {isNetworkConnected} from '../common/isNetInfo';
 
-import {  View, Text,  } from 'react-native-animatable';
+import {  View, Text, Image } from 'react-native-animatable';
 import Button from '../../component/Button';
 const { BlurView ,VibrancyView} = require('react-native-blur');
 import ImagePicker from 'react-native-image-picker';
@@ -76,7 +74,7 @@ let perent = '';
 let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
 let imageUri = '';
-
+// let viewRef = null;
 @observer
 class ShiTu extends Component {
 
@@ -91,6 +89,8 @@ class ShiTu extends Component {
     // isUpload=false;
     // @observable
     // hintText= '点击按钮,搜索你想知道的图片哦!';
+    @observable
+    viewRef = null;
 
 
     handleMethod = (isConnected)=> {
@@ -129,8 +129,7 @@ class ShiTu extends Component {
         console.log('componentWillReceiveProps');
 
         const { navigate } = this.props.navigation;
-        const { imageURL,qiNiuData } = nextProps.ShiTuReducer;
-
+        const { imageURL, qiNiuData } = nextProps.ShiTuReducer;
 
 
 
@@ -140,9 +139,9 @@ class ShiTu extends Component {
             if (imageURL) {
                 console.log(imageURL);
                 imageUri=imageURL;
-                // isUpload = false;
-
-                this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+                this.viewRef = 88;
+                // this.setState({ viewRef: findNodeHandle(this.backgroundImage)});
+                console.log(this.viewRef);
             }
         }
 
@@ -222,7 +221,7 @@ class ShiTu extends Component {
         super(props);
 
         this.state = {
-            viewRef: null,
+            // viewRef: null,
             // imageUri:'timg',
         }
     };
@@ -350,7 +349,8 @@ class ShiTu extends Component {
     _imageOnLoaded = ()=> {
         Android && InteractionManager.runAfterInteractions(() => {
             setTimeout(() => {
-                this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+                // this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+                this.viewRef = findNodeHandle(this.backgroundImage);
             }, 0);
         });
     };
@@ -376,10 +376,12 @@ class ShiTu extends Component {
                 </BlurView>
                 :
                 <View style={styles.blurViewStyle}>
-                    {this.state.viewRef && <BlurView blurType="light"
+                    {console.log(this.viewRef)}
+                    {this.viewRef &&
+                    <BlurView blurType="light"
                               blurAmount={5}
                               style={styles.AndroidBlur}
-                              viewRef={this.state.viewRef}
+                              viewRef={this.viewRef}
                     />}
                         <Text style={styles.textStyle}>
                             {hintText}
@@ -403,7 +405,6 @@ class ShiTu extends Component {
                 <BlurView blurType="light"
                       blurAmount={5}
                       style={styles.iOSBlur}
-                      viewRef={this.state.viewRef}
                 >
                     <Progress.Circle
                         showsText={true}
@@ -421,10 +422,11 @@ class ShiTu extends Component {
                 </BlurView>
                 :
                 <View style={styles.blurViewStyle}>
-                    {this.state.viewRef && <BlurView blurType="light"
-                                              blurAmount={5}
-                                              style={styles.AndroidBlur}
-                                              viewRef={this.state.viewRef}
+                    {this.viewRef &&
+                    <BlurView blurType="light"
+                              blurAmount={5}
+                              style={styles.AndroidBlur}
+                              viewRef={this.viewRef}
                     />}
                     <Progress.Circle
                         showsText={true}
@@ -454,7 +456,7 @@ class ShiTu extends Component {
                        style={[styles.image]}
                        animation="fadeIn"
                        ref={image => this.backgroundImage = image}
-                       onLoad={() => this._imageOnLoaded()}
+                       onLoadEnd={() => this._imageOnLoaded()}
                 />
 
                     <StatusBar
@@ -498,11 +500,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     AndroidBlur:{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        bottom: 0,
-        right: 0,
+        // position: 'absolute',
+        height:100,
+        width:SCREEN_WIDTH
+        // left: 0,
+        // top: 0,
+        // bottom: 0,
+        // right: 0,
     },
     blurViewStyle:{
         width:SCREEN_WIDTH,
