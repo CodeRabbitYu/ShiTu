@@ -11,7 +11,8 @@ import {
     Modal,
     TouchableOpacity,
     Alert,
-    StatusBar
+    StatusBar,
+    InteractionManager
 } from 'react-native';
 import Button from '../../component/Button';
 import Login from '../Login/Login';
@@ -50,7 +51,6 @@ export default class Main extends Component {
 
         // console.log(this.props);
 
-
         let data = await AsyncStorage.getItem('TOKEN');
         // console.log(data);
         if (data === null){
@@ -63,6 +63,8 @@ export default class Main extends Component {
             console.log('true');
             return true;
         }
+
+
     }
 
     // 组件要不要更新
@@ -78,6 +80,7 @@ export default class Main extends Component {
     // 即将拿到组件的更新
     componentWillReceiveProps(props) {
         console.log('componentWillReceiveProps',props);
+
     }
 
     // 组件已经更新
@@ -107,7 +110,7 @@ export default class Main extends Component {
         if (this.state.data){
             console.log('获得数据');
         }
-        
+
         const { navigate } = this.props.navigation;
         return (
             <View style={{marginTop: 22}}>
@@ -173,12 +176,21 @@ export default class Main extends Component {
                     <View style={{height:300,width:'100%',backgroundColor:'red'}}
                           animation="bounceInUp"
                           useNativeDriver
-                          ref="viewModal"
+                          ref={ (e) => this._view = e }
                     >
                         <Text style={{fontSize:20}} onPress={()=>{
-                            this.setState({
-                                viewVisible:false,
-                            })
+                            this._view.setNativeProps({
+                                animation:"bounceInDown",
+                                style:{
+                                  backgroundColor:'green',
+                                }
+                              });
+
+                        InteractionManager.runAfterInteractions(()=> {
+                                this.setState({
+                                    viewVisible:false,
+                                })
+                            });
                         }
                         }>关闭View</Text>
                     </View>

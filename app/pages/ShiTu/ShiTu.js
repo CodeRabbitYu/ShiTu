@@ -90,7 +90,7 @@ class ShiTu extends Component {
     // @observable
     // hintText= '点击按钮,搜索你想知道的图片哦!';
     @observable
-    viewRef = null;
+    viewRef = 80;
 
 
     handleMethod = (isConnected)=> {
@@ -131,17 +131,11 @@ class ShiTu extends Component {
         const { navigate } = this.props.navigation;
         const { imageURL, qiNiuData } = nextProps.ShiTuReducer;
 
-
-
-        // imageUri = imageURL;
-
         if (this.props.ShiTuReducer.imageURL !== imageURL){
             if (imageURL) {
                 console.log(imageURL);
                 imageUri=imageURL;
                 this.viewRef = 88;
-                // this.setState({ viewRef: findNodeHandle(this.backgroundImage)});
-                console.log(this.viewRef);
             }
         }
 
@@ -352,6 +346,7 @@ class ShiTu extends Component {
                 // this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
                 this.viewRef = findNodeHandle(this.backgroundImage);
             }, 0);
+
         });
     };
 
@@ -376,7 +371,6 @@ class ShiTu extends Component {
                 </BlurView>
                 :
                 <View style={styles.blurViewStyle}>
-                    {console.log(this.viewRef)}
                     {this.viewRef &&
                     <BlurView blurType="light"
                               blurAmount={5}
