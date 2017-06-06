@@ -221,7 +221,7 @@ class WelfareContainer extends Component {
                     refreshing={this.isRefresh}
                     renderItem={this.renderItem}
                     onEndReached={()=>this.fetchMoreData()}
-                    onEndReachedThreshold={0}
+                    onEndReachedThreshold={1}
                     ListFooterComponent={()=>{
                         // 如果使用redux,this.isRefresh要改成isRefreshing
                             return( !this.isRefresh &&

@@ -4,7 +4,7 @@
 import {createStore,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import rootReducer from '../reducers/RootReducer';
+import RootReducer from '../reducers/RootReducer';
 
 let middlewares = [];
 
@@ -18,5 +18,5 @@ middlewares.push(thunk);
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 export default function configureStore(initialState){
-    return createStoreWithMiddleware(rootReducer,initialState);
+    return createStoreWithMiddleware(RootReducer,initialState);
 }

@@ -11,7 +11,7 @@ export function backImage() {
     return dispatch => {
         return AsyncStorage.getItem(KEY,(Error,result)=>{
                 if (result === null){
-                    dispatch(getBackImage('timg'))
+                    dispatch(getBackImage('timg'));
                 }else {
                     console.log('获取图片成功' + result);
                     dispatch(getBackImage(result));

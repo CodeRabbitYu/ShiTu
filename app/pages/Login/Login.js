@@ -6,14 +6,21 @@ import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
-    Text,
     View,
     AsyncStorage,
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
-import Icon from 'react-native-vector-icons/Ionicons';
+// import Icon from 'react-native-vector-icons/Ionicons';
 import Button from '../../component/Button';
+import RTTextInput from '../../component/RTTextInput';
+
+import { FormLabel, FormInput } from 'react-native-elements'
+
+import { observable, runInAction, autorun } from 'mobx';
+import { observer } from 'mobx-react/native';
+
+import { Container, Content, Form, Item, Input,Label,Icon} from 'native-base';
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -26,7 +33,14 @@ const setParamsAction = NavigationActions.setParams({
     key: 'screen-123',
 });
 
+
+@observer
 export default class Login extends Component {
+
+    // @observable
+    // success=true;
+    // @observable
+    // error=false;
 
     static navigationOptions = {
         tabBarVisible:false,
@@ -38,6 +52,10 @@ export default class Login extends Component {
         let { state } = this.props.navigation;
         this.state = {
             title: state.title,
+            accountSuccess:true,
+            accountError:false,
+            passwordSuccess:true,
+            passwordError:false,
         }
     }
 
@@ -56,17 +74,72 @@ export default class Login extends Component {
         goBack();
     };
 
+    _passwordJudge = (text) => {
+        if (text !== '111') {
+            this.setState({
+                passwordError: true,
+                passwordSuccess: false,
+            })
 
+        } else {
+            this.setState({
+                passwordError: false,
+                passwordSuccess: true,
+            })
+        }
+    };
 
+    _accountJudge = (text) => {
 
+        if (text !== '111') {
+            this.setState({
+                accountError: true,
+                accountSuccess: false,
+            })
+
+        } else {
+            this.setState({
+                accountError: false,
+                accountSuccess: true,
+            })
+        }
+    };
     render() {
         let { state } = this.props.navigation;
-
+        console.log('render');
         return (
-            <View style={styles.container}>
-                <Text>{this.state.title}</Text>
-                <Button title='关闭' onPress={()=>this._closePress()} />
-            </View>
+            <Container>
+                <Content>
+                    <Form>
+                        <Item success={this.state.accountSuccess}
+                              error={this.state.accountError}
+                              style={{borderBottomColor:'blue'}}
+                              floatingLabel
+                        >
+                            <Icon name='md-contact' />
+                            <Input placeholder="账号"
+                                   ref = {(input) => this.accountInput = input}
+                                   onChangeText={(text) =>this._accountJudge(text)}/>
+                        </Item>
+                        <Item success={this.state.passwordSuccess}
+                              error={this.state.passwordError}>
+                            <Icon name='md-lock' />
+                            <Input placeholder="密码"
+                                   onChangeText={(text) =>this._passwordJudge(text)}
+                            />
+                        </Item>
+                    </Form>
+                    <FormLabel>Name</FormLabel>
+                    <FormInput placeholder='账号'
+                               onChangeText={(text)=>{}}
+                               selectionColor='red'/>
+                    <RTTextInput placeholder="密码"
+                                 selectionColor='green'
+                                 containerStyle={{borderBottomColor:'green'}}
+                    />
+                </Content>
+
+            </Container>
         );
     }
 }

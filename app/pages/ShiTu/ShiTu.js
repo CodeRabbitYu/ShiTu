@@ -73,8 +73,7 @@ let photoOptions = {
 let perent = '';
 let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
-let imageUri = '';
-// let viewRef = null;
+let imageUri = 'timg';
 @observer
 class ShiTu extends Component {
 
@@ -90,7 +89,7 @@ class ShiTu extends Component {
     // @observable
     // hintText= '点击按钮,搜索你想知道的图片哦!';
     @observable
-    viewRef = 80;
+    viewRef = null;
 
 
     handleMethod = (isConnected)=> {
