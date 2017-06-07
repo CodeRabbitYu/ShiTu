@@ -18,7 +18,7 @@ import Button from '../../component/Button';
 import Login from '../Login/Login';
 
 import {  View } from 'react-native-animatable';
-import AlertModal from '../Component/AlertModal';
+import AlertModal from '../../common/AlertModal';
 
 export default class Main extends Component {
 

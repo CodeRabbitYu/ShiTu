@@ -11,7 +11,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 
 export function qiNiuToken(response) {
     return dispatch => {
-        return  Request.get(Config.api.getUpLoadToken,(data)=> {
+        return  Request.get(Config.api.qiniu.upLoadToken,(data)=> {
             // console.log('getUpLoadToken');
             // console.log(data);
             let token = data.data.token;
@@ -53,7 +53,7 @@ export function qiNiuToken(response) {
                 let body = {
                     token: response.key,
                 };
-                Request.post(Config.api.postWebUrl, body, (data) => {
+                Request.post(Config.api.shitu.detailURL, body, (data) => {
                     console.log('getWebUrl');
 
                     if (!data){

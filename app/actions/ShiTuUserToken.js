@@ -13,7 +13,7 @@ import {
 let KEY = 'USERTOKEN';
 export function userToken() {
     return dispatch => {
-        return Request.get(Config.api.getUserToken,(data)=>{
+        return Request.get(Config.api.userToken,(data)=>{
 
             AsyncStorage.getItem(KEY,(Error,result)=>{
                 if (result === null){

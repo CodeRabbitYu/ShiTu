@@ -14,10 +14,19 @@ const base = {
 const Config = {
 
     api:{
-        getUserToken: base.baseURL + '/ShiTu/getUserToken',
-        getUpLoadToken: base.baseURL + '/ShiTu/getUpLoadToken',
-        postWebUrl : base.baseURL + '/ShiTu/postWebUrl',
-        getGankData : base.baseURL + '/ShiTu/getGankData',
+        userToken: base.baseURL + '/userToken',
+        shitu:{
+            detailURL : base.baseURL + '/shitu/detailURL',
+        },
+        gank:{
+            listData : base.baseURL + '/gank/listData',
+        },
+        user:{
+            login : base.baseURL  + '/user/login',
+        },
+        qiniu:{
+            upLoadToken: base.baseURL + '/qiniu/upLoadToken',
+        }
     },
     qiniu:{
         upload:'http://upload-z2.qiniu.com',
