@@ -4,14 +4,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Text as NativeText, View, StyleSheet, TextInput, Platform } from 'react-native'
-
+import Icon from 'react-native-vector-icons/Ionicons';
 class RTTextInput extends Component {
     focus() {
         const ref = this.props.textInputRef;
         this.refs[ref].focus();
-        this.refs.containerRef.style = {
-            backgroundColor:'red'
-        }
     }
     blur() {
         const ref = this.props.textInputRef;
@@ -30,12 +27,11 @@ class RTTextInput extends Component {
             successColor,
             error,
             errorColor,
+            iconName,
             ...attributes
         } = this.props;
-        success || true ? selectionColor = successColor || 'red' : selectionColor = 'blue';
+        success ? selectionColor = successColor || '#4ECBFC' : selectionColor = '#4ECBFC';
         error ? selectionColor = errorColor || 'red' : null;
-        // alert(selectionColor);
-        alert(successColor);
         return (
             <View
                 ref={containerRef}
@@ -44,11 +40,18 @@ class RTTextInput extends Component {
                 error ? { borderBottomColor : errorColor}:
                 containerStyle && containerStyle ] }
             >
+                <Icon name={iconName}
+                      size = {30}
+                      color={selectionColor}
+                      style={styles.iconStyle}
+                      padding={0}
+                />
                 <TextInput
                     ref={textInputRef}
                     selectionColor={selectionColor}
                     style={[styles.input, inputStyle && inputStyle]}
-                    underlineColorAndroid={selectionColor}
+                    underlineColorAndroid={'transparent'}
+                    clearButtonMode={'while-editing'}
                     {...attributes}
                 />
             </View>
@@ -70,25 +73,30 @@ RTTextInput.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        // marginLeft: 15,
+        marginLeft: 15,
         // marginRight: 15,
+        flexDirection:'row',
+        borderBottomColor:'#4ECBFC',
+        borderBottomWidth: 1,
 
-        ...Platform.select({
-            ios: {
-                borderBottomColor:'purple',
-                borderBottomWidth: 1,
-                // marginLeft: 20,
-                // marginRight: 20,
-            },
-        }),
     },
     input: {
         // underlineColorAndroid:'red',
-        height: iOS?36:46,
-        width: SCREEN_WIDTH,
+        marginLeft:5,
+        marginRight:10,
+        height: iOS?46:46,
+        width: SCREEN_WIDTH - 50,
         color: 'blue',
         fontSize: FONT_SIZE(14),
     },
+    iconStyle:{
+        alignSelf:'center',
+        justifyContent:'center',
+        alignItems:'center',
+        height:28,
+        width:28,
+
+    }
 });
 
 export default RTTextInput;

@@ -8,6 +8,8 @@ import {
     StyleSheet,
     View,
     AsyncStorage,
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
@@ -75,7 +77,7 @@ export default class Login extends Component {
     };
 
     _passwordJudge = (text) => {
-        if (text !== '111') {
+        if (text.length !== 6) {
             this.setState({
                 passwordError: true,
                 passwordSuccess: false,
@@ -91,16 +93,16 @@ export default class Login extends Component {
 
     _accountJudge = (text) => {
 
-        if (text !== '111') {
+        if (/^1[34578]\d{9}$/.test(text)) {
             this.setState({
-                accountError: true,
-                accountSuccess: false,
+                accountError: false,
+                accountSuccess: true,
             })
 
         } else {
             this.setState({
-                accountError: false,
-                accountSuccess: true,
+                accountError: true,
+                accountSuccess: false,
             })
         }
     };
@@ -108,50 +110,35 @@ export default class Login extends Component {
         let { state } = this.props.navigation;
         console.log('render');
         return (
-            <Container>
-                <Content>
-                    <Form>
-                        <Item success={this.state.accountSuccess}
-                              error={this.state.accountError}
-                              inlineLabel={false}
-                              //style={{borderBottomColor:'blue'}}
-                              floatingLabel
-                        >
-                            <Icon name='md-contact' />
-                            <Input placeholder="账号"
-                                   ref = {(input) => this.accountInput = input}
-                                   onChangeText={(text) =>this._accountJudge(text)}/>
-                        </Item>
-                        <Item success={this.state.passwordSuccess}
-                              error={this.state.passwordError}>
-                            <Icon name='md-lock' />
-                            <Input placeholder="密码"
-                                   onChangeText={(text) =>this._passwordJudge(text)}
-                            />
-                        </Item>
-                    </Form>
-                    <FormLabel>Name</FormLabel>
-                    <FormInput placeholder='账号'
-                               onChangeText={(text)=>{}}
-                               selectionColor='red'/>
+            <View>
 
-
-
-
-
-                    <RTTextInput placeholder="密码"
-                                 containerRef='haha'
-                                 success={false}
-                                 successColor='orange'
-                                 error={true}
+                    <RTTextInput placeholder="用户名"
+                                 success={this.state.accountSuccess}
+                                 successColor='#4ECBFC'
+                                 error={this.state.accountError}
                                  errorColor='red'
+                                 onChangeText={(text) =>this._accountJudge(text)}
+                                 ref={(input) => this._RTInput = input}
+                                 textInputRef='textInput'
+                                 iconName='md-person'
+                    />
+                    <RTTextInput placeholder="密码"
+                                 success={this.state.passwordSuccess}
+                                 successColor='#4ECBFC'
+                                 error={this.state.passwordError}
+                                 errorColor='red'
+                                 onChangeText={(text) =>this._passwordJudge(text)}
+                                 ref={(input) => this._RTInput = input}
+                                 textInputRef='textInput'
+                                 iconName='md-lock'
                     />
 
 
+                    <Text style={{marginTop:10}} onPress={()=>{
+                        this._RTInput.refs.textInput.clear();
+                    }}>点我清空</Text>
 
-                </Content>
-
-            </Container>
+            </View>
         );
     }
 }

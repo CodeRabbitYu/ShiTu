@@ -52,9 +52,7 @@ export default class GankListContainer extends Component {
             console.log('isRefresh?');
             return;
         }
-        if (this.isLoadMore){
-            return;
-        }
+        if (this.is)
         console.log(page);
 
         if (page !== 1){
@@ -100,7 +98,7 @@ export default class GankListContainer extends Component {
 
                     this.dataSource = this.dataSource.concat(results);
                 }else {
-                    this.isLoad = true;
+                    this.isLoad = false;
                     this.isRefresh = false;
                     this.page = 1;
                     this.dataSource = results;
