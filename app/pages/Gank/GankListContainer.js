@@ -52,7 +52,10 @@ export default class GankListContainer extends Component {
             console.log('isRefresh?');
             return;
         }
-        // console.log(page);
+        if (this.isLoadMore){
+            return;
+        }
+        console.log(page);
 
         if (page !== 1){
             this.isLoadMore = true;
@@ -60,7 +63,7 @@ export default class GankListContainer extends Component {
             this.isRefresh = true;
         }
 
-        console.log(url);
+        // console.log(url);
         return Request.get(url,(data)=>{
             // console.log(data);
             if (data &&data.success) {
@@ -103,7 +106,7 @@ export default class GankListContainer extends Component {
                     this.dataSource = results;
                 }
 
-                this.isRefresh = false;
+                // this.isRefresh = false;
             }
         },(error)=>{
             console.log(error);
@@ -111,9 +114,13 @@ export default class GankListContainer extends Component {
     };
 
     fetchMoreData = ()=> {
-        this.page = this.page + 1;
-        // console.log(this.page);
-        this.fetchData(this.page);
+        if (this.isLoadMore) {
+            return;
+        } else {
+            this.page = this.page + 1;
+            // console.log(this.page);
+            this.fetchData(this.page);
+        }
     };
 
     itemPress = (item) =>{

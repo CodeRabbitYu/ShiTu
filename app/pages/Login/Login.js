@@ -113,7 +113,8 @@ export default class Login extends Component {
                     <Form>
                         <Item success={this.state.accountSuccess}
                               error={this.state.accountError}
-                              style={{borderBottomColor:'blue'}}
+                              inlineLabel={false}
+                              //style={{borderBottomColor:'blue'}}
                               floatingLabel
                         >
                             <Icon name='md-contact' />
@@ -133,10 +134,21 @@ export default class Login extends Component {
                     <FormInput placeholder='账号'
                                onChangeText={(text)=>{}}
                                selectionColor='red'/>
+
+
+
+
+
                     <RTTextInput placeholder="密码"
-                                 selectionColor='green'
-                                 containerStyle={{borderBottomColor:'green'}}
+                                 containerRef='haha'
+                                 success={false}
+                                 successColor='orange'
+                                 error={true}
+                                 errorColor='red'
                     />
+
+
+
                 </Content>
 
             </Container>
