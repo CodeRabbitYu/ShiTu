@@ -15,7 +15,7 @@ class RTTextInput extends Component {
         this.refs[ref].blur();
     }
 
-    constructor
+    // constructor
     render() {
         let {
             containerStyle,
