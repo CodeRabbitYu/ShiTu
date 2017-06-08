@@ -10,8 +10,9 @@ import {
     StatusBar,
     findNodeHandle,
     NetInfo,
+    BackHandler
 } from 'react-native';
-
+import { toastShort } from '../../common/ToastUtils'
 import '../../common/Global'
 import NetWorkTool from '../../common/NetInfo'
 
@@ -91,6 +92,16 @@ class ShiTu extends Component {
     @observable
     viewRef = null;
 
+     onBackAndroid=()=>{
+        let lastClickTime = 0;
+        let now = new Date().getTime();
+        if (now - lastClickTime < 2500 ){
+            return false;
+        }
+        lastClickTime = now ;
+        toastShort('再按一次退出应用');
+        return true;
+    }
 
     handleMethod = (isConnected)=> {
         // 检测网络状态
@@ -122,7 +133,10 @@ class ShiTu extends Component {
     componentWillUnmount(){
         this.subscription.remove();
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
-    }
+    }   
+        if (Android){
+            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
+        }
 
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
@@ -161,7 +175,9 @@ class ShiTu extends Component {
         this.props.userToken();
 
         this.props.backImage();
-
+        if (Android){
+            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
+        }
         // console.log(this.props.ShiTuReducer);
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
