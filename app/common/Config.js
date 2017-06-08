@@ -4,7 +4,7 @@
 'use strict';
 
 const base = {
-    // baseURL : !__DEV__ ? iOS?'http://172.16.17.61:1234/api':'http://172.16.17.61:1234/api'
+    //baseURL : !__DEV__ ? iOS?'http://172.16.17.61:1234/api':'http://172.16.17.61:1234/api'
     //     : iOS?'http://localhost:3000/api':'http://10.0.2.2:1234/api'
     // baseURL:iOS?'http://localhost:1234/api':'http://10.0.2.2:1234/api',
 
