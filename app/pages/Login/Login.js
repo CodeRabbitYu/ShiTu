@@ -97,14 +97,14 @@ export default class Login extends Component {
     _usernameJudge = (text) => {
         if (/^1[34578]\d{9}$/.test(text)) {
             this.setState({
-                accountError: false,
-                accountSuccess: true,
+                usernameError: false,
+                usernameSuccess: true,
             })
 
         } else {
             this.setState({
-                accountError: true,
-                accountSuccess: false,
+                usernameError: true,
+                usernameSuccess: false,
             })
         }
     };
