@@ -17,7 +17,7 @@ export function userToken() {
 
             AsyncStorage.getItem(KEY,(Error,result)=>{
                 if (result === null){
-                    Request.get(Config.api.getUserToken,(data)=>{
+                    Request.get(Config.api.userToken,(data)=>{
                         // console.log(data);
                         if (data && data.success){
                             let token = data.token;

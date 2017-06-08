@@ -42,7 +42,7 @@ export default class Detail extends Component {
     constructor(props) {
         super(props);
         const {state: {params: {data}}} = this.props.navigation;
-        console.log(data);
+        // console.log(data);
         let url = "http://image.baidu.com/wiseshitu?guess=1&" +
             "uptype=upload_wise&queryImageUrl=http://oo6mt5wjj.bkt.clouddn.com/" +
             "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
