@@ -28,7 +28,7 @@ import * as User from '../../actions/ShiTuUserToken';
 import * as QiNiu from '../../actions/ShiTuQiNiu';
 
 // import {isNetworkConnected} from '../common/isNetInfo';
-
+let lastClickTime = 0;
 import {  View, Text, Image } from 'react-native-animatable';
 import Button from '../../component/Button';
 const { BlurView ,VibrancyView} = require('react-native-blur');
@@ -93,7 +93,7 @@ class ShiTu extends Component {
     viewRef = null;
 
      onBackAndroid=()=>{
-        let lastClickTime = 0;
+        
         let now = new Date().getTime();
         if (now - lastClickTime < 2500 ){
             return false;
@@ -122,7 +122,9 @@ class ShiTu extends Component {
             NetWorkTool.listenerNetworkState((isConnected)=>{
                 console.log(isConnected);
             });
-
+            if (Android){
+            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
+        }
 
         // console.log(this.props);
         // const {getQiNiuToken} = this.props;
@@ -175,9 +177,7 @@ class ShiTu extends Component {
         this.props.userToken();
 
         this.props.backImage();
-        if (Android){
-            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
-        }
+        
         // console.log(this.props.ShiTuReducer);
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
