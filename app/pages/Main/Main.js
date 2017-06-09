@@ -23,7 +23,7 @@ import AlertModal from '../../common/AlertModal';
 export default class Main extends Component {
 
     static navigationOptions = ({navigation,screenProps}) => ({
-        headerTitle:'HAHA',
+        headerTitle:navigation.state.params.title,
         // headerLeft:(
         //     <Text style={{color:'red'}} onPress={()=>navigation.state.params.navigatePress()}>我的</Text>
         // ),
@@ -34,7 +34,7 @@ export default class Main extends Component {
 
     navigatePress = () => {
         alert('点击headerRight');
-        console.log(this.props.navigation);
+
     }
 
     test(){
@@ -44,19 +44,10 @@ export default class Main extends Component {
     }
 
     async componentDidMount(){
-        // this.props.navigation.setParams({title:'hjaha '})
-        let t = await this.test();
-        // console.log(t);
-
-
-        let _loadPostion = () => {
-
-            return  AsyncStorage.getItem('USERTOKEN');
-        }
-
-        alert(await _loadPostion());
+        console.log(this.props.navigation);
 
         this.props.navigation.setParams({
+            title:'haha',
             navigatePress:this.navigatePress
         });
 

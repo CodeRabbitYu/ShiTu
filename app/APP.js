@@ -73,7 +73,7 @@ const GankStack = StackNavigator({
 const MainStack = StackNavigator({
     Main:{
         screen:Main,
-        navigationOptions: ()=> TabOptions('个人中心',MainIcon,MainIcon,'个人中心'),
+        // navigationOptions: ()=> TabOptions('个人中心',MainIcon,MainIcon,'个人中心'),
     },
     Login:{
         screen:Login,
