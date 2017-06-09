@@ -23,7 +23,7 @@ import AlertModal from '../../common/AlertModal';
 export default class Main extends Component {
 
     static navigationOptions = ({navigation,screenProps}) => ({
-        headerTitle:navigation.state.params.title,
+        // headerTitle:navigation.state.params.title,
         // headerLeft:(
         //     <Text style={{color:'red'}} onPress={()=>navigation.state.params.navigatePress()}>我的</Text>
         // ),
