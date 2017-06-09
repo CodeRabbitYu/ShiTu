@@ -37,8 +37,24 @@ export default class Main extends Component {
         console.log(this.props.navigation);
     }
 
+    test(){
+        let test = AsyncStorage.getItem('USERTOKEN');
+        // console.log(test);
+        return test;
+    }
+
     async componentDidMount(){
         // this.props.navigation.setParams({title:'hjaha '})
+        let t = await this.test();
+        // console.log(t);
+
+
+        let _loadPostion = () => {
+
+            return  AsyncStorage.getItem('USERTOKEN');
+        }
+
+        alert(await _loadPostion());
 
         this.props.navigation.setParams({
             navigatePress:this.navigatePress
