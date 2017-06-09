@@ -122,7 +122,7 @@ class ShiTu extends Component {
             NetWorkTool.listenerNetworkState((isConnected)=>{
                 console.log(isConnected);
             });
-            if (Android){
+        if (Android){
             BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
         }
 
@@ -135,10 +135,11 @@ class ShiTu extends Component {
     componentWillUnmount(){
         this.subscription.remove();
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
-    }   
         if (Android){
             BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
         }
+    }   
+
 
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
