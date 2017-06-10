@@ -153,6 +153,7 @@ class ShiTu extends Component {
                 imageUri=imageURL;
                 this.viewRef = 88;
             }
+            isUpload = false;
         }
 
         if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
@@ -331,10 +332,9 @@ class ShiTu extends Component {
 
     _onPress = () => {
         isUpload = true;
-        const { navigate } = this.props.navigation;
         const { userToken } = this.props.ShiTuReducer;
 
-        console.log(this.props);
+        // console.log(this.props);
 
         ImagePicker.showImagePicker(photoOptions, (response) => {
             // console.log('Response = ', response);
@@ -346,11 +346,12 @@ class ShiTu extends Component {
                 // imageUri = response.uri;
 
                 this.props.getBackImage(response.uri);
-                if (userToken.length > 0){
+                if (userToken){
                     this.props.qiNiuToken(response);
                 }
                 else{
                     console.log('没有获取到USERTOKEN');
+                    alert('没有获取到USERTOKEN');
                 }
             }
         });

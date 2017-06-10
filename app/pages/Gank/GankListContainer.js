@@ -41,14 +41,16 @@ export default class GankListContainer extends Component {
     isLoad = false;
     @observable
     isLoadMore = false;
-    componentWillMount() {
+
+    componentDidMount() {
         this.fetchData(this.page);
-    };
+    }
 
     fetchData=(page) =>{
         let type = encodeURIComponent(this.props.type);
 
         let url = `${Config.api.gank.listData}?page=${page}&count=${'20'}&type=${type}`;
+        console.log(url);
         if (this.isRefresh){
             console.log('isRefresh?');
             return;
@@ -64,7 +66,7 @@ export default class GankListContainer extends Component {
 
         // console.log(url);
         return Request.get(url,(data)=>{
-            // console.log(data);
+            console.log(data);
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
@@ -145,7 +147,9 @@ export default class GankListContainer extends Component {
 
         return (
         <FlatList
+            style={{backgroundColor:'#F5F5F5'}}
             data={this.dataSource}
+            initialNumToRender={5}
             keyExtractor={item => item._id}
             renderItem={({item})=>this.renderItem(item)}
             onRefresh={() => this.fetchData(1)}

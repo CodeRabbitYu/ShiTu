@@ -4,7 +4,7 @@
 /**
  * Created by Rabbit on 2017/4/19.
  */
-import React, {Component} from 'react';
+import React, {Component,PureComponent} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -21,9 +21,10 @@ import ProgressBar from '../../component/ProgressBar';
 import { NavigationActions } from 'react-navigation'
 
 import ActionButton from 'react-native-action-button';
+import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Container, Content, Button, Spinner, Fab,} from 'native-base';
+import { Container, Content, Spinner, Fab,} from 'native-base';
 
 const WEBVIEW_REF = 'webview';
 
@@ -38,11 +39,11 @@ const resetAction = NavigationActions.reset({
     ]
 });
 
-export default class Detail extends Component {
+export default class Detail extends PureComponent {
     constructor(props) {
         super(props);
         const {state: {params: {data}}} = this.props.navigation;
-        // console.log(data);
+        console.log(data);
         let url = "http://image.baidu.com/wiseshitu?guess=1&" +
             "uptype=upload_wise&queryImageUrl=http://oo6mt5wjj.bkt.clouddn.com/" +
             "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
@@ -85,12 +86,12 @@ export default class Detail extends Component {
     };
     _goForward = ()=> {
         console.log('去前面的页面');
-        this.refs[WEBVIEW_REF].goForward();
+        this.state.isForWard ? this.refs[WEBVIEW_REF].goForward() :null;
     };
 
     _goBack = ()=> {
         console.log('返回上级页面');
-        this.refs[WEBVIEW_REF].goBack();
+        this.state.isGoBack ? this.refs[WEBVIEW_REF].goBack() : null;
     };
 
     _close = ()=> {
@@ -129,12 +130,68 @@ export default class Detail extends Component {
                                    style={styles.actionItemStyle}>
                     <Icon name="ios-arrow-back-outline" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#9b59b6'
+                <ActionButton.Item buttonColor={'#9b59b6'}
                                    style={styles.actionItemStyle}
                                    onPress={this._close}>
                     <Icon name="md-close-circle" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
             </ActionButton>
+        )
+    }
+
+    _renderBottomView(){
+        return(
+            <View style={styles.bottomViewStyle}>
+                <Button isCustom={true}
+                        style={[styles.bottomButtonStyle,{backgroundColor:'#F8D168'}]}
+                        activeOpacity={1}
+                        underlayColor='#F8D168'
+                        customView={
+                            <Icon name="md-refresh"
+                                  size={25}
+                                  style={styles.bottomIconStyle}/>
+                        }
+                        onPress={this._reload}
+                />
+                <Button isCustom={true}
+                        style={[styles.bottomButtonStyle,
+                        {backgroundColor:this.state.isGoBack ?'#3498db' : '#dddddd'}]}
+                        disabled={!this.state.isGoBack}
+                        activeOpacity={1}
+                        underlayColor='#3498db'
+                        customView={
+                            <Icon name="md-arrow-round-back"
+                                  size={25}
+                                  style={styles.bottomIconStyle}/>
+                        }
+                        onPress={this._goBack}
+                />
+                <Button isCustom={true}
+                        style={[styles.bottomButtonStyle,
+                        {backgroundColor:this.state.isForWard ?'#1abc9c' : '#dddddd'}]}
+                        disabled={!this.state.isForWard}
+                        underlayColor='#1abc9c'
+                        activeOpacity={1}
+                        customView={
+                            <Icon name="md-arrow-round-forward"
+                                  size={25}
+                                  style={styles.bottomIconStyle}/>
+                        }
+                        onPress={this._goForward}
+                />
+                <Button isCustom={true}
+                        style={[styles.bottomButtonStyle,
+                        {backgroundColor:'#9b59b6'}]}
+                        activeOpacity={1}
+                        underlayColor='#9b59b6'
+                        customView={
+                            <Icon name="md-close"
+                                  size={25}
+                                  style={styles.bottomIconStyle}/>
+                        }
+                        onPress={this._close}
+                />
+            </View>
         )
     }
 
@@ -193,17 +250,14 @@ export default class Detail extends Component {
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
                 />
-                {this._renderActionButton()}
                 {
-
-
-                    !this.state.progress === 100
+                    iOS
                         ?
                         this._renderActionButton()
                         :
-                        null
-
+                        this._renderBottomView()
                 }
+
             </View>
         );
     }
@@ -229,6 +283,23 @@ const styles = StyleSheet.create({
     actionItemStyle:{
         height:40,
         width:40,
-
+    },
+    bottomViewStyle:{
+        position:'absolute',
+        bottom:0,
+        height:30,
+        width:SCREEN_WIDTH,
+        flexDirection:'row'
+    },
+    bottomButtonStyle:{
+        width:SCREEN_WIDTH/4,
+        height:30,
+        backgroundColor:'red'
+    },
+    bottomIconStyle:{
+        alignSelf:'center',
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:3
     }
 });

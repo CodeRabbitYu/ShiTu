@@ -20,7 +20,7 @@ export default function ShiTuReducer(state = initialState, action){
                 userToken: action.userToken,
             });
         case types.QINIU_UPLOAD_TOKEN:
-            console.log(action);
+            // console.log(action);
             return Object.assign({}, state, {
                 qiNiuData:action.qiNiuData,
             });
@@ -30,7 +30,7 @@ export default function ShiTuReducer(state = initialState, action){
                 webViewUrl:action.webViewUrl,
             });
         case types.BACKIMAGE_URL:
-            console.log(action.imageURL);
+            // console.log(action.imageURL);
             return Object.assign({}, state ,{
                 viewRef:action.viewRef,
                 imageURL:action.imageURL,

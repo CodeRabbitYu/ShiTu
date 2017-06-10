@@ -13,7 +13,7 @@ export function backImage() {
                 if (result === null){
                     dispatch(getBackImage('timg'));
                 }else {
-                    console.log('获取图片成功' + result);
+                    // console.log('获取图片成功' + result);
                     dispatch(getBackImage(result));
                 }
             });

@@ -2,13 +2,13 @@
  * Created by Rabbit on 2017/5/4.
  */
 
-import React, { Component } from 'react';
+import React, { Component,PureComponent } from 'react';
 import {
     AppRegistry,
     StyleSheet,
     Text,
     View,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 
 import Image from 'react-native-image-progress';
@@ -16,7 +16,7 @@ import * as Progress from 'react-native-progress';
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class GankListItem extends Component {
+export default class GankListItem extends PureComponent {
 
     static defaultProps = {
         navigate: React.PropTypes.object,
