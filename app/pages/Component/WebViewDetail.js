@@ -179,21 +179,31 @@ export default class Detail extends PureComponent {
                         }
                         onPress={this._goForward}
                 />
-                <Button isCustom={true}
-                        style={[styles.bottomButtonStyle,
-                        {backgroundColor:'#9b59b6'}]}
-                        activeOpacity={1}
-                        underlayColor='#9b59b6'
-                        customView={
-                            <Icon name="md-close"
-                                  size={25}
-                                  style={styles.bottomIconStyle}/>
-                        }
-                        onPress={this._close}
+                <Icon.Button name="md-close"
+                             backgroundColor="#9b59b6"
+                             onPress={this._close}
+                             iconStyle={styles.bottomIconStyle}
+                             borderRadius={0}
+                             size={25}
                 />
+
             </View>
         )
     }
+
+
+// <Button isCustom={true}
+//     style={[styles.bottomButtonStyle,
+// {backgroundColor:'#9b59b6'}]}
+// activeOpacity={1}
+// underlayColor='#9b59b6'
+// customView={
+//     <Icon name="md-close"
+// size={25}
+// style={styles.bottomIconStyle}/>
+// }
+// onPress={this._close}
+// />
 
     render() {
 
@@ -251,7 +261,7 @@ export default class Detail extends PureComponent {
                     }}
                 />
                 {
-                    iOS
+                    !iOS
                         ?
                         this._renderActionButton()
                         :
@@ -297,9 +307,12 @@ const styles = StyleSheet.create({
         backgroundColor:'red'
     },
     bottomIconStyle:{
-        alignSelf:'center',
-        alignItems:'center',
-        justifyContent:'center',
-        marginTop:3
+        // alignSelf:'center',
+        // alignItems:'center',
+        // justifyContent:'center',
+        // marginTop:3,
+        width:SCREEN_WIDTH/4,
+        margin:0,
+        padding:0
     }
 });

@@ -144,25 +144,24 @@ export default class GankListContainer extends Component {
     };
 
     render() {
-
         return (
-        <FlatList
-            style={{backgroundColor:'#F5F5F5'}}
-            data={this.dataSource}
-            initialNumToRender={5}
-            keyExtractor={item => item._id}
-            renderItem={({item})=>this.renderItem(item)}
-            onRefresh={() => this.fetchData(1)}
-            refreshing={this.isRefresh}
-            onEndReached={() => this.fetchMoreData()}
-            onEndReachedThreshold={0}
-            ListFooterComponent={()=>{
-                            return( !this.isRefresh &&
-                                <ActivityIndicator/>
-                            )
-                        }}
-        />
-    );
+            <FlatList
+                style={{backgroundColor:'#F5F5F5'}}
+                data={this.dataSource}
+                initialNumToRender={5}
+                keyExtractor={item => item._id}
+                renderItem={({item})=>this.renderItem(item)}
+                onRefresh={() => this.fetchData(1)}
+                refreshing={this.isRefresh}
+                onEndReached={() => this.fetchMoreData()}
+                onEndReachedThreshold={0}
+                ListFooterComponent={()=>{
+                                return( !this.isRefresh &&
+                                    <ActivityIndicator/>
+                                )
+                            }}
+            />
+        );
     }
 }
 
