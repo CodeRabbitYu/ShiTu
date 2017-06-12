@@ -167,7 +167,7 @@ const Button = props => {
 };
 
 Button.propTypes = {
-    buttonStyle: View.propTypes.style,
+    style: View.propTypes.style,
     title: PropTypes.string,
     onPress: PropTypes.any,
     icon: PropTypes.object,

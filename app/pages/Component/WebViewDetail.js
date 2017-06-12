@@ -137,60 +137,46 @@ export default class Detail extends PureComponent {
                 </ActionButton.Item>
             </ActionButton>
         )
-    }
+    };
 
-    _renderBottomView(){
+    _renderBottomView = () => {
         return(
             <View style={styles.bottomViewStyle}>
-                <Button isCustom={true}
-                        style={[styles.bottomButtonStyle,{backgroundColor:'#F8D168'}]}
-                        activeOpacity={1}
-                        underlayColor='#F8D168'
-                        customView={
-                            <Icon name="md-refresh"
-                                  size={25}
-                                  style={styles.bottomIconStyle}/>
-                        }
-                        onPress={this._reload}
-                />
-                <Button isCustom={true}
-                        style={[styles.bottomButtonStyle,
-                        {backgroundColor:this.state.isGoBack ?'#3498db' : '#dddddd'}]}
-                        disabled={!this.state.isGoBack}
-                        activeOpacity={1}
-                        underlayColor='#3498db'
-                        customView={
-                            <Icon name="md-arrow-round-back"
-                                  size={25}
-                                  style={styles.bottomIconStyle}/>
-                        }
-                        onPress={this._goBack}
-                />
-                <Button isCustom={true}
-                        style={[styles.bottomButtonStyle,
-                        {backgroundColor:this.state.isForWard ?'#1abc9c' : '#dddddd'}]}
-                        disabled={!this.state.isForWard}
-                        underlayColor='#1abc9c'
-                        activeOpacity={1}
-                        customView={
-                            <Icon name="md-arrow-round-forward"
-                                  size={25}
-                                  style={styles.bottomIconStyle}/>
-                        }
-                        onPress={this._goForward}
-                />
-                <Icon.Button name="md-close"
-                             backgroundColor="#9b59b6"
-                             onPress={this._close}
-                             iconStyle={styles.bottomIconStyle}
-                             borderRadius={0}
-                             size={25}
-                />
-
+                <TouchableOpacity style={[styles.bottomButtonStyle,{backgroundColor:'#F8D168'}]}
+                                  activeOpacity={1} onPress={this._reload}>
+                    <Icon name="md-refresh"
+                          backgroundColor="#3b5998"
+                          size={25}
+                          style={styles.bottomIconStyle}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.bottomButtonStyle,
+                {backgroundColor:this.state.isGoBack ?'#3498db' : '#dddddd'}]}
+                                  activeOpacity={1} onPress={this._goBack}>
+                    <Icon name="md-arrow-round-back"
+                          backgroundColor="#3b5998"
+                          size={25}
+                          style={styles.bottomIconStyle}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.bottomButtonStyle,
+                {backgroundColor:this.state.isForWard ?'#1abc9c' : '#dddddd'}]}
+                                  activeOpacity={1} onPress={this._goForward}>
+                    <Icon name="md-arrow-round-forward"
+                          size={25}
+                          style={styles.bottomIconStyle}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.bottomButtonStyle,{backgroundColor:'#3b5998'}]}
+                                  activeOpacity={1} onPress={this._close}>
+                    <Icon name="md-close"
+                          size={25}
+                          style={styles.bottomIconStyle}
+                    />
+                </TouchableOpacity>
             </View>
         )
     }
-
 
 // <Button isCustom={true}
 //     style={[styles.bottomButtonStyle,
@@ -261,7 +247,7 @@ export default class Detail extends PureComponent {
                     }}
                 />
                 {
-                    !iOS
+                    iOS
                         ?
                         this._renderActionButton()
                         :
@@ -299,20 +285,17 @@ const styles = StyleSheet.create({
         bottom:0,
         height:30,
         width:SCREEN_WIDTH,
-        flexDirection:'row'
+        flexDirection:'row',
+        flex :1,
     },
     bottomButtonStyle:{
         width:SCREEN_WIDTH/4,
         height:30,
-        backgroundColor:'red'
     },
     bottomIconStyle:{
-        // alignSelf:'center',
-        // alignItems:'center',
-        // justifyContent:'center',
-        // marginTop:3,
-        width:SCREEN_WIDTH/4,
-        margin:0,
-        padding:0
+        alignSelf:'center',
+        justifyContent:'center',
+        marginTop:3,
+
     }
 });
