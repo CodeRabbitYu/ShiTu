@@ -118,6 +118,7 @@ export default class GankListContainer extends Component {
         if (this.isLoadMore) {
             return;
         } else {
+            return;
             this.page = this.page + 1;
             // console.log(this.page);
             this.fetchData(this.page);
@@ -158,7 +159,9 @@ export default class GankListContainer extends Component {
                 onEndReachedThreshold={0}
                 ListFooterComponent={()=>{
                                 return( !this.isRefresh &&
-                                    <ActivityIndicator/>
+                                    <ActivityIndicator
+                                        style={styles.loadDataStyle}
+                                    />
                                 )
                             }}
             />
@@ -207,11 +210,16 @@ const GankItem = (navigate , itemData) => {
 
 const styles = StyleSheet.create({
     containerStyle:{
-        flex:1,
+        // flex:1,
+        height:SCREEN_HEIGHT - 49 - 64 - 44
     },
     itemTitleStyle:{
         fontSize:FONT_SIZE(16),
         padding:5
-    }
+    },
+    loadDataStyle: {
+        marginVertical:20,
+        marginTop:20
+    },
 });
 

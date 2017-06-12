@@ -120,7 +120,7 @@ export default class Main extends Component {
 
         const { navigate } = this.props.navigation;
         return (
-            <View style={{marginTop: 22}}>
+            <View style={{marginTop: 22,height:SCREEN_HEIGHT - 64}}>
                 <StatusBar
                     // backgroundColor="blue"
                     // barStyle="dark-content"
@@ -244,6 +244,7 @@ export default class Main extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',

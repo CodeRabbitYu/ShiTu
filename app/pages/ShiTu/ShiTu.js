@@ -506,7 +506,7 @@ const styles = StyleSheet.create({
     },
     iOSBlur:{
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT - 49 - 64,
+        height:SCREEN_HEIGHT - 64 - 49,
         alignItems:'center',
         justifyContent: 'center',
     },

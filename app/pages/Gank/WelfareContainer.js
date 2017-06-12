@@ -239,8 +239,8 @@ class WelfareContainer extends Component {
 const styles = StyleSheet.create({
     containerStyle:{
         backgroundColor:'green',
-        height:SCREEN_HEIGHT - 49 - 64 - 100,
-        // flex:1,
+        // height:SCREEN_HEIGHT - 49 - 64 - 100,
+        flex:1,
         // backgroundColor:'#F5F5F5',
     },
     loadDataStyle: {

@@ -19,7 +19,8 @@ import {
     Text,
     TouchableOpacity,
     View,
-    AsyncStorage
+    AsyncStorage,
+    Image
 } from 'react-native';
 
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
@@ -91,6 +92,7 @@ const CustomTabBar = ({
     navigation,
 }) => {
     const { routes} = navigation.state;
+    console.log(navigation.state)
     return (
         <View style={styles.tabContainer}>
             {routes.map(route => {
@@ -99,7 +101,7 @@ const CustomTabBar = ({
                     return(
                         <TouchableOpacity
                             onPress={() => navigation.navigate(route.routeName)}
-                            style={[styles.tab,{height:100}]}
+                            style={[styles.tab,{height:60}]}
                             key={route.routeName}
                         >
                             <Text>{route.routeName}</Text>
@@ -112,7 +114,10 @@ const CustomTabBar = ({
                             style={styles.tab}
                             key={route.routeName}
                         >
-                            <Text>{route.routeName}</Text>
+                            <Image
+                                source={require('./resources/ShiTu.png')}
+                                style={[{height:35,width:35 }]}
+                            />
                         </TouchableOpacity>
                     )
                 }
@@ -127,44 +132,9 @@ const CustomTabView = ({
 }) => {
     const {routes, index} = navigation.state;
     const ActiveScreen = router.getComponentForState(navigation.state);
-    console.log(routes);
-
-            routes.map(route => {
-                // console.log(route);
-                if(route.key == "ShiTu1"){
-                    return(
-                        <View style={[styles.container,{height:100}]}
-                              key={route.routeName}
-                        >
-                            <CustomTabBar navigation={navigation}/>
-                            <ActiveScreen
-                                navigation={addNavigationHelpers({
-                                      ...navigation,
-                                      state: routes[index],
-                                    })}
-                            />
-                        </View>
-                    )
-                }else {
-                    return (
-                        <View style={[styles.container]}
-                              key={route.routeName}
-                        >
-                            <CustomTabBar navigation={navigation}/>
-                            <ActiveScreen
-                                navigation={addNavigationHelpers({
-                                      ...navigation,
-                                      state: routes[index],
-                                    })}
-                            />
-                        </View>
-                    )
-                }
-            })
 
     return (
-        <View style={[styles.container]}
-        >
+        <View style={[styles.container]}>
             <CustomTabBar navigation={navigation}/>
             <ActiveScreen
                 navigation={addNavigationHelpers({
@@ -179,21 +149,21 @@ const CustomTabView = ({
 };
 
 const CustomTabRouter = TabRouter({
+    Gank: {
+        screen:Gank,
+        navigationOptions: ()=> TabOptions('干货集中营',ShiTuIcon,ShiTuIcon,'干货集中营'),
+    },
     ShiTu: {
         screen: ShiTu,
         navigationOptions: ()=> TabOptions('识兔',ShiTuIcon,ShiTuIcon,'识兔'),
     },
-    Gank: {
-        screen:Gank,
-        navigationOptions: ()=> TabOptions('识兔',ShiTuIcon,ShiTuIcon,'识兔'),
-    },
     Main:{
         screen:Main,
-        navigationOptions: ()=> TabOptions('识兔',ShiTuIcon,ShiTuIcon,'识兔'),
+        navigationOptions: ()=> TabOptions('我的',ShiTuIcon,ShiTuIcon,'我的'),
     },
 }, {
     // Change this to start on a different tab
-    // initialRouteName: 'Home',
+    initialRouteName: 'ShiTu',
     tabBarPosition: 'bottom',
     // tabBarComponent:TabBarBottom,
     swipeEnabled: true,
@@ -389,7 +359,7 @@ const LoginOptions = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        height:100,
+        height:SCREEN_HEIGHT - 64 ,
         // flex:1,
         // marginTop: Platform.OS === 'ios' ? 20 : 0,
         // position:'absolute',
@@ -403,13 +373,14 @@ const styles = StyleSheet.create({
         position:'absolute',
         bottom:0,
         width:375,
+        alignItems: 'flex-end',
     },
     tab: {
         // zIndex:99999,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 4,
+        height:49,
         borderWidth: 1,
         borderColor: '#ddd',
         borderRadius: 4,

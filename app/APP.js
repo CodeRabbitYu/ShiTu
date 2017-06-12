@@ -97,6 +97,7 @@ const MyTab = TabNavigator({
             header:null
         }
     },
+
     MainStack:{
         screen:MainStack,
         navigationOptions:{
