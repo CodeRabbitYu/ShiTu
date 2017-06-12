@@ -214,6 +214,7 @@ class WelfareContainer extends Component {
             <View style={styles.containerStyle}>
                 <FlatList
                     data={this.state.defaultData}
+                    style={{backgroundColor:'#F5F5F5',flex:1}}
                     keyExtractor={item => item._id}
                     numColumns={2}
                     onRefresh={()=>this.fetchData(1)}
@@ -237,8 +238,10 @@ class WelfareContainer extends Component {
 
 const styles = StyleSheet.create({
     containerStyle:{
-        flex:1,
-        backgroundColor:'#F5F5F5',
+        backgroundColor:'green',
+        height:SCREEN_HEIGHT - 49 - 64 - 100,
+        // flex:1,
+        // backgroundColor:'#F5F5F5',
     },
     loadDataStyle: {
         marginVertical:20,

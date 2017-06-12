@@ -133,7 +133,7 @@ class ShiTu extends Component {
     }
 
     componentWillUnmount(){
-        this.subscription.remove();
+        // this.subscription.remove();
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
         if (Android){
             BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
@@ -491,7 +491,7 @@ class ShiTu extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
     },
     image:{
@@ -506,7 +506,7 @@ const styles = StyleSheet.create({
     },
     iOSBlur:{
         width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT - 64 - 49,
+        height:SCREEN_HEIGHT - 49 - 64,
         alignItems:'center',
         justifyContent: 'center',
     },

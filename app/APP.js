@@ -86,29 +86,7 @@ const MainStack = StackNavigator({
 const MyTab = TabNavigator({
     ShiTuStack: {
         screen: ShiTuStack,
-        /**
-        navigationOptions:{
-            tabBarLabel: '识兔',
-            tabBarIcon: ({tintColor,focused}) => (
-                focused
-                    ?
-                    <Image
-                        source={{uri : '识兔'}}
-                        style={[tabBarIcon, {tintColor: tintColor}]}
-                    />
-                    :
-                    <Image
-                        source={{uri : '干货'}}
-                        style={[tabBarIcon, {tintColor: tintColor}]}
-                    />
-            ),
-            headerTitle:'识兔',
-            // header的title的style
-            headerTitleStyle:{fontSize:FONT_SIZE(20),color:'white'},
-            // header的style
-            headerStyle:{backgroundColor:'#4ECBFC'},
-        },
-        */
+
         navigationOptions:{
             header:null
         }

@@ -145,8 +145,9 @@ export default class GankListContainer extends Component {
 
     render() {
         return (
+            <View style={styles.containerStyle}>
             <FlatList
-                style={{backgroundColor:'#F5F5F5'}}
+                style={{backgroundColor:'#F5F5F5',flex:1}}
                 data={this.dataSource}
                 initialNumToRender={5}
                 keyExtractor={item => item._id}
@@ -161,6 +162,7 @@ export default class GankListContainer extends Component {
                                 )
                             }}
             />
+            </View>
         );
     }
 }
@@ -204,7 +206,9 @@ const GankItem = (navigate , itemData) => {
 };
 
 const styles = StyleSheet.create({
-
+    containerStyle:{
+        flex:1,
+    },
     itemTitleStyle:{
         fontSize:FONT_SIZE(16),
         padding:5

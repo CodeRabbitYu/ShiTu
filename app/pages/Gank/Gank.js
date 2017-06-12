@@ -91,13 +91,4 @@ export default class Gank extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-    },
-    page: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
 });
