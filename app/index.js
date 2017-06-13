@@ -12,7 +12,7 @@ const store = configureStore();
 
 
 import App from './APP';
-import TestDemo from './TestDemo';
+// import TestDemo from './TestDemo';
 
 if (!__DEV__) {
     global.console = {
@@ -41,7 +41,7 @@ export default class Root extends Component {
         return (
             !this.state.isLogin ?
                 <Provider store={store}>
-                    <TestDemo />
+                    <App />
                 </Provider>
                 :
                 <View style={{marginTop:30}}>

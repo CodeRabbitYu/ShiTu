@@ -66,7 +66,7 @@ export default class GankListContainer extends Component {
 
         // console.log(url);
         return Request.get(url,(data)=>{
-            console.log(data);
+            // console.log(data);
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {

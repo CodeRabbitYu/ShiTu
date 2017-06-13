@@ -81,7 +81,7 @@ class WelfareContainer extends Component {
     fetchData=(page) =>{
         let type = encodeURIComponent(this.props.type);
         // console.log(type);
-        let url = `${Config.api.gank.listData}?page=${page}&c ount=${'20'}&type=${type}`;
+        let url = `${Config.api.gank.listData}?page=${page}&count=${'20'}&type=${type}`;
         console.log(url);
         if (this.isRefresh){
             console.log('isRefresh?');
