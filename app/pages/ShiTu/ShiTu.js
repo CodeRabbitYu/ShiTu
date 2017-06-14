@@ -13,7 +13,7 @@ import {
     BackHandler
 } from 'react-native';
 import { toastShort } from '../../common/ToastUtils'
-import '../../common/Global'
+
 import NetWorkTool from '../../common/NetInfo'
 
 import { connect } from 'react-redux';

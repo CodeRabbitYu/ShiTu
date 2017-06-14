@@ -9,7 +9,7 @@ import {Provider}from 'react-redux';
 
 import configureStore from './store/ConfigureStore';
 const store = configureStore();
-
+import './common/Global'
 
 import App from './APP';
 // import TestDemo from './TestDemo';
