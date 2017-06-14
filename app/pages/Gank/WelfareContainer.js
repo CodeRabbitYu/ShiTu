@@ -241,7 +241,6 @@ const styles = StyleSheet.create({
         backgroundColor:'green',
         // height:SCREEN_HEIGHT - 49 - 64 - 100,
         flex:1,
-        // backgroundColor:'#F5F5F5',
     },
     loadDataStyle: {
         marginVertical:20,
