@@ -561,19 +561,19 @@ const styles = StyleSheet.create({
 //
 // export default connect(mapStateToProps,mapDispatchToUserToken,mapDispatchToQiNiuToken)(ShiTu)
 
-// export default connect((state) => {
-//     const { ShiTuReducer } = state;
-//     return {
-//         ShiTuReducer
-//     };
-// },{ userToken, qiNiuToken, backImage,getQiNiuToken,getBackImage})(ShiTu)
-
-//这里是绑定 一共2个参数 第一个是 state 第二个是 方法 方法有很多方式 我这样的是比较方便的 不需要引用dispatch来调方法
-//在别的页面想使用同样的 state 或者 调用相同的方法 改值 一样的connect
-//这个state 是整个 状态树 里面还有很多 取决于你的 reducers
 export default connect((state) => {
     const { ShiTuReducer } = state;
     return {
         ShiTuReducer
     };
-},  dispatch => bindActionCreators({userToken, qiNiuToken, backImage,getQiNiuToken}, dispatch),)(ShiTu)
+},{ userToken, qiNiuToken, backImage,getQiNiuToken,getBackImage})(ShiTu)
+
+//这里是绑定 一共2个参数 第一个是 state 第二个是 方法 方法有很多方式 我这样的是比较方便的 不需要引用dispatch来调方法
+//在别的页面想使用同样的 state 或者 调用相同的方法 改值 一样的connect
+//这个state 是整个 状态树 里面还有很多 取决于你的 reducers
+// export default connect((state) => {
+//     const { ShiTuReducer } = state;
+//     return {
+//         ShiTuReducer
+//     };
+// },  dispatch => bindActionCreators({userToken, qiNiuToken, backImage,getQiNiuToken}, dispatch),)(ShiTu)

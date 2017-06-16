@@ -157,6 +157,7 @@ export default class GankListContainer extends Component {
                 refreshing={this.isRefresh}
                 onEndReached={() => this.fetchMoreData()}
                 onEndReachedThreshold={0}
+                removeClippedSubviews={ false }
                 ListFooterComponent={()=>{
                                 return( !this.isRefresh &&
                                     <ActivityIndicator

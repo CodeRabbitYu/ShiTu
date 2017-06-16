@@ -43,7 +43,7 @@ let page = 1;
 
 
 @observer
-class WelfareContainer extends Component {
+export default class WelfareContainer extends Component {
     @observable
     dataSource = [];
     @observable
@@ -182,7 +182,7 @@ class WelfareContainer extends Component {
         // console.log(navigate);
 
         // 使用redux需要传递的参数,如果使用,需要将welfareData放在WelfareItem第二个参数的地方
-        let { welfareData } = this.props.GankReducer;
+        // let { welfareData } = this.props.GankReducer;
 
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
@@ -197,7 +197,7 @@ class WelfareContainer extends Component {
         isLoadMore = false;
         isRefreshing = true;
         page = 1;
-        this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
+        // this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
         isFirstLoad = false;
         // console.log(this.props.GankReducer);
     };
@@ -206,7 +206,7 @@ class WelfareContainer extends Component {
         console.log('render');
 
         // 利用redux管理页面的刷新
-        const { isRefreshing } = this.props.GankReducer;
+        // const { isRefreshing } = this.props.GankReducer;
 
 
         // console.log(welfareData);
@@ -276,10 +276,10 @@ const WelfareItem = (navigate,dataSource) => {
     }, this);
 };
 
-export default connect((state) => {
-    const { GankReducer } = state;
-    return {
-        GankReducer
-    };
-},{ welfareData })(WelfareContainer)
+// export default connect((state) => {
+//     const { GankReducer } = state;
+//     return {
+//         GankReducer
+//     };
+// },{ welfareData })(WelfareContainer)
 

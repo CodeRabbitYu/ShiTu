@@ -34,7 +34,6 @@ export default class Main extends Component {
 
     navigatePress = () => {
         alert('点击headerRight');
-
     }
 
     test(){

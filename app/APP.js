@@ -240,7 +240,7 @@ const LoginOptions = ({navigation}) => {
     let {state,goBack} = navigation;
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const headerTitle = '登录';
-    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),color:'white',fontWeight:'500'}
+    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),color:'white',fontWeight:'500',}
     const headerBackTitle = false;
     const headerLeft = (
         <Button
