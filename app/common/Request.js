@@ -92,7 +92,7 @@ const Request = {
     get:(url, successCallBack, failCallBack) =>{
         // console.log(url);
         return RNFetchBlob
-            .config(Request.PostConfig)
+            .config(Request.GetConfig)
             .fetch('GET',url,Request.Header)
             .then((response) => {
                 if (response.respInfo.status === 200){
