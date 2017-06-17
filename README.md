@@ -6,16 +6,21 @@
 ## [React-Native中的数据持久化方式](http://www.jianshu.com/p/22cbb0124158)
 ## [Redux "使用"教程](http://www.jianshu.com/p/525c39bd672a)
 
+#### 我将本地环境部署到线上了，可以直接使用，但用的是免费的服务器，所以可能有的时候不能连接上。
 
-#### 我已经将识兔的本地服务器开源
-https://github.com/RabbitDream/ShiTuServer
+~~#### 我已经将识兔的本地服务器开源~~
+~~https://github.com/RabbitDream/ShiTuServer~~
 
-下载项目后,在根目录通过`npm install`
-然后,`node index`
-#### 运行node之前需要配置一些七牛云的参数才能正常使用.
-#### 如果还是没有弄明白可以加QQ群:397885169询问
+~~下载项目后,在根目录通过`npm install`
+然后,`node index`~~
+~~#### 运行node之前需要配置一些七牛云的参数才能正常使用.
+~~ ~~#### 如果还是没有弄明白可以加QQ群:397885169询问~~~
 
 ![识兔效果图](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔.gif)
+
+![安卓版下载二维码](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔安卓版.png)
+
+##### 安卓密码123，是放在蒲公英上的。
 
 ![项目首页](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/%E8%AF%86%E5%85%94%E9%A6%96%E9%A1%B5.png)
 ![搜索详情](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/%E6%90%9C%E7%B4%A2%E8%AF%A6%E6%83%85.png)
