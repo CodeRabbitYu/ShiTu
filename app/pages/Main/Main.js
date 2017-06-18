@@ -110,7 +110,7 @@ export default class Main extends Component {
         this.setState({modalVisible: false});
     }
     render() {
-        // console.log('Main');
+        console.log('Main');
 
         console.log (this.props.navigation.state);
         if (this.state.data){
