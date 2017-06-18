@@ -1,7 +1,7 @@
 /**
  * Created by Rabbit on 2017/5/26.
  */
-import * as types from '../constant/ActionTypes';
+import * as types from '../../constant/ActionTypes';
 
 import {
     AsyncStorage,
@@ -21,11 +21,12 @@ export function backImage(userToken) {
         //  }
         try {
             let result = await AsyncStorage.getItem(KEY);
-            console.log(result);
-            dispatch(getBackImage(result))
+            dispatch(getBackImage(result));
+            userToken();
         } catch (e) {
-            console.log(e);
-            dispatch(getBackImage('timg'))
+            console.log('没有获得图片'+e);
+
+            // dispatch(getBackImage('timg'))
         }
     }
 };

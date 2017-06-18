@@ -23,7 +23,7 @@ import Button from '../../component/Button';
 
 // 使用Redux需要调用的状态
 import { connect } from 'react-redux';
-import { welfareData } from '../../actions/GankWelfareData';
+import { welfareData } from '../../actions/Gank/GankWelfareData';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';

@@ -1,10 +1,10 @@
 /**
  * Created by Rabbit on 2017/5/23.
  */
-import * as types from '../constant/ActionTypes';
-import Config from '../common/Config';
+import * as types from '../../constant/ActionTypes';
+import Config from '../../common/Config';
 
-import Request from '../common/Request';
+import Request from '../../common/Request';
 
 import {
     AsyncStorage,

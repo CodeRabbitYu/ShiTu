@@ -1,10 +1,10 @@
 /**
  * Created by Rabbit on 2017/6/2.
  */
-import * as types from '../constant/ActionTypes';
-import Config from '../common/Config';
+import * as types from '../../constant/ActionTypes';
+import Config from '../../common/Config';
 
-import Request from '../common/Request';
+import Request from '../../common/Request';
 let dataSource = [];
 export function welfareData(page, type, isLoading, isLoadMore, isRefreshing) {
     return dispatch => {

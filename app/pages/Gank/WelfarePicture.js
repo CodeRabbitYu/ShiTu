@@ -20,8 +20,8 @@ import { observer } from 'mobx-react/native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { backImage,getBackImage } from '../../actions/ShiTuBackImage';
-import { qiNiuToken, getQiNiuToken } from '../../actions/ShiTuQiNiu';
+import { backImage,getBackImage } from '../../actions/ShiTu/BackImage';
+import { qiNiuToken, getQiNiuToken } from '../../actions/ShiTu/SearchPicture';
 
 
 import Button from '../../component/Button';

@@ -1,13 +1,25 @@
 /**
  * Created by Rabbit on 2017/5/24.
  */
-import * as types from '../constant/ActionTypes';
-import Config from '../common/Config';
+import * as types from '../../constant/ActionTypes';
+import Config from '../../common/Config';
 
-import Request from '../common/Request';
+import Request from '../../common/Request';
 import RNFetchBlob from 'react-native-fetch-blob';
 
+import Realm from 'realm';
 
+const HistorySchema = {
+    name: 'History',
+    primaryKey: 'id',
+    properties: {
+        id:         'string',
+        imageURL:   'string',
+        timestamp:  'int',
+    }
+};
+
+let realm = new Realm({schema: [HistorySchema]});
 
 export function qiNiuToken(response) {
     return dispatch => {
@@ -66,7 +78,6 @@ export function qiNiuToken(response) {
 
                             dispatch(getQiNiuToken(data));
 
-                            /**
                             realm.write(() => {
                                 realm.create('History', {
                                     id: response.key.replace('.jpeg', ''),
@@ -75,17 +86,6 @@ export function qiNiuToken(response) {
                                 });
                             });
 
-                            if (this.perent === 1) {
-                                navigate('WebViewDetail', {
-                                    data: data.data.webURL,
-                                    isVisible:true
-                                });
-                                InteractionManager.runAfterInteractions(() => {
-                                    this.isUpload = false;
-                                    this.hintText = '是否是您寻找的答案呢?'
-                                });
-                            }
-                             */
                         }
                         catch (e) {
                             // err = "上传失败";

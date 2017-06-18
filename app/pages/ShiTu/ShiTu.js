@@ -19,13 +19,13 @@ import NetWorkTool from '../../common/NetInfo'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userToken } from '../../actions/ShiTuUserToken';
+import { userToken } from '../../actions/Common/UserToken';
 
-import { qiNiuToken, getQiNiuToken } from '../../actions/ShiTuQiNiu';
-import { backImage,getBackImage } from '../../actions/ShiTuBackImage';
+import { qiNiuToken, getQiNiuToken } from '../../actions/ShiTu/SearchPicture';
+import { backImage,getBackImage } from '../../actions/ShiTu/BackImage';
 
-import * as User from '../../actions/ShiTuUserToken';
-import * as QiNiu from '../../actions/ShiTuQiNiu';
+import * as User from '../../actions/Common/UserToken';
+import * as QiNiu from '../../actions/ShiTu/SearchPicture';
 
 // import {isNetworkConnected} from '../common/isNetInfo';
 let lastClickTime = 0;
@@ -36,21 +36,11 @@ import ImagePicker from 'react-native-image-picker';
 import * as Progress from 'react-native-progress';
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
-import Realm from 'realm';
+
 
 import RNFetchBlob from 'react-native-fetch-blob';
 
-const HistorySchema = {
-    name: 'History',
-    primaryKey: 'id',
-    properties: {
-        id:         'string',
-        imageURL:   'string',
-        timestamp:  'int',
-    }
-};
 
-let realm = new Realm({schema: [HistorySchema],});
 
 import Request from '../../common/Request';
 import Config from '../../common/Config';
@@ -177,9 +167,11 @@ class ShiTu extends Component {
     componentDidMount(){
         console.log('componentDidMount');
 
-        this.props.backImage();
+        this.props.backImage(()=>{
+            this.props.userToken();
+        });
 
-        this.props.userToken();
+
 
         // console.log(this.props.ShiTuReducer);
 
