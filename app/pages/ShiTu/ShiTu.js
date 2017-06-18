@@ -176,10 +176,11 @@ class ShiTu extends Component {
 
     componentDidMount(){
         console.log('componentDidMount');
-        this.props.userToken();
 
         this.props.backImage();
-        
+
+        this.props.userToken();
+
         // console.log(this.props.ShiTuReducer);
 
         // NetWorkTool.checkNetworkState((isConnected)=>{
