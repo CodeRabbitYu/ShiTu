@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, PixelRatio, Platform } from 'react-native';
 import FontSize from '../component/TextSize';
 import Colors from '../component/Colors';
+import { px2dp } from './Tool';
+
 
 let {height, width} = Dimensions.get('window');
 
@@ -24,6 +26,7 @@ global.COLORS = Colors;
 global.FONT_SIZE = FontSize;
 // 用户登录状态
 global.TOKEN = false;
+global.px2dp = px2dp;
 // TabBarIcon图标大小
 global.TabBarIcon = {
     width:35,
