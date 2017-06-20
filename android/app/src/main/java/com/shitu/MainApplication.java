@@ -3,6 +3,8 @@ package com.shitu;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
+import cn.jpush.reactnativejpush.JPushPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import io.realm.react.RealmReactPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -29,6 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImageResizerPackage(),
+            new JPushPackage(),
             new ReactVideoPackage(),
             new RealmReactPackage(),
             new ImagePickerPackage(),

@@ -12,6 +12,7 @@ import {
     AppRegistry,
     StyleSheet,
     FlatList,
+    TouchableOpacity
 } from 'react-native';
 
 import {  View, Text, Image } from 'react-native-animatable';
@@ -117,6 +118,7 @@ export default class SearchHistory extends Component {
     };
 
     renderItem = (item)=> {
+        const { navigate } = this.props.navigation;
         return(
             <Button
                 isCustom={true}

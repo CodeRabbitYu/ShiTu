@@ -140,6 +140,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-resizer')
+    compile project(':jpush-react-native')
     compile project(':react-native-video')
     compile project(':realm')
     compile project(':react-native-image-picker')

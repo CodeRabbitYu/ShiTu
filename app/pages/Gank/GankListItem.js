@@ -16,6 +16,8 @@ import * as Progress from 'react-native-progress';
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import ImageResizer  from 'react-native-image-resizer';
+
 export default class GankListItem extends PureComponent {
 
     static defaultProps = {
@@ -28,6 +30,9 @@ export default class GankListItem extends PureComponent {
         super(props);
         this.state = {
             isFullImage:false,
+            resizedImageUri:'',
+            newDate:'',
+            imageFullHeight:'',
         }
     };
 
@@ -41,9 +46,10 @@ export default class GankListItem extends PureComponent {
     };
 
 
-    render() {
+    componentDidMount(){
         let imageHeight,imageWidth;
         let {itemData} = this.props;
+        // console.log(itemData.images[0]);
         if (itemData.imageHeight && itemData.imageWidth){
             // console.log('图片默认宽度:'+itemData.imageWidth);
             // console.log('图片默认高度:'+itemData.imageHeight);
@@ -64,29 +70,49 @@ export default class GankListItem extends PureComponent {
         timestamp2 = timestamp2 / 1000;
         let newDate = new Date();
         newDate.setTime(timestamp2 * 1000);
+        newDate = newDate.toLocaleDateString();
 
+        let image = itemData.images? itemData.images[0]:'';
+        // console.log(image);
+
+        ImageResizer.createResizedImage(image, 600, 600, 'PNG', 50)
+            .then((resizedImageUri) => {
+            console.log(resizedImageUri);
+                this.setState({
+                    resizedImageUri : resizedImageUri,
+                    newDate:newDate,
+                    imageFullHeight:imageFullHeight,
+                });
+            }).catch((err) => {
+            console.log(err);
+            return alert('Unable to resize the photo',
+                'Check the console for full the error message');
+        });
+    }
+
+    render() {
+        let {itemData} = this.props;
+        // console.log(this.state.resizedImageUri);
         return (
             <TouchableOpacity style={{marginTop:5,backgroundColor:'white'}} onPress={this.props.itemPress} activeOpacity={0.9}>
                 <Text style={styles.itemTitleStyle}>{itemData.desc}</Text>
                 {
                     itemData.isImage > 0
                         ?
-                        <Button
-                            isCustom={true}
-                            customView={
-                                <Image source={{uri:itemData.images[0]}}
-                                     style={[{width:imageWidth},imageFullHeight]}
-                                     // onLayout={this._onLayout}
-                                     //indicator={Progress.CircleSnail}
-                                     // onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
-                                />
-                            }
-                            onPress={()=>{
+                        <TouchableOpacity onPress={()=>{
                                 this.setState({
                                     isFullImage: !this.state.isFullImage,
                                 })
-                            }}
-                        />
+                            }}>
+                            {this.state.resizedImageUri ?
+                            <Image source={{uri:this.state.resizedImageUri}}
+                                   style={[{width:SCREEN_WIDTH},this.state.imageFullHeight]}
+                                // onLayout={this._onLayout}
+                                //indicator={Progress.CircleSnail}
+                                // onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
+                            />:null
+                            }
+                        </TouchableOpacity>
 
                         : null
 
@@ -98,7 +124,7 @@ export default class GankListItem extends PureComponent {
                     </Text>
                     <Icon name="md-time" style={{marginLeft:5}} size={25}/>
                     <Text style={[styles.itemTitleStyle,{fontSize:FONT_SIZE(14)}]}>
-                        {newDate.toLocaleDateString()}
+                        {this.state.newDate}
                     </Text>
                 </View>
 

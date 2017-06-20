@@ -7,6 +7,8 @@ import FontSize from '../component/TextSize';
 import Colors from '../component/Colors';
 import { px2dp } from './Tool';
 
+// import ImageResizer from 'react-native-image-resizer';
+
 
 let {height, width} = Dimensions.get('window');
 
@@ -26,7 +28,10 @@ global.COLORS = Colors;
 global.FONT_SIZE = FontSize;
 // 用户登录状态
 global.TOKEN = false;
+// 屏幕适配
 global.px2dp = px2dp;
+// 图片压缩
+// global.ImageResizer = ImageResizer;
 // TabBarIcon图标大小
 global.TabBarIcon = {
     width:35,

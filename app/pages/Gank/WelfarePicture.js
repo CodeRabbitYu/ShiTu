@@ -102,6 +102,7 @@ class WelfarePicture extends Component {
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         if(i===2){
+
             AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
                 if (error){
                     console.log('存储失败' + error);

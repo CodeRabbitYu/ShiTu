@@ -26,6 +26,7 @@
     "react-native-fetch-blob": "^0.10.4",
     "react-native-image-picker": "^0.26.3",
     "react-native-image-progress": "^0.6.0",
+    "react-native-image-resizer": "^0.1.1",
     "react-native-progress": "^3.2.0",
     "react-native-progress-bar-classic": "^1.2.0",
     "react-native-root-toast": "^1.1.2",
