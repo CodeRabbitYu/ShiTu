@@ -62,7 +62,7 @@ let photoOptions = {
 
 
 let perent = '';
-let isUpload = false;
+// let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
 let imageUri = 'timg';
 @observer
@@ -75,8 +75,8 @@ class ShiTu extends Component {
     // @observable
     // perent='';
     // // 是否正在查找中
-    // @observable
-    // isUpload=false;
+    @observable
+    isUpload=false;
     // @observable
     // hintText= '点击按钮,搜索你想知道的图片哦!';
     @observable
@@ -143,7 +143,7 @@ class ShiTu extends Component {
                 imageUri=imageURL;
                 this.viewRef = 88;
             }
-            isUpload = false;
+            this.isUpload = false;
         }
 
         if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
@@ -154,7 +154,7 @@ class ShiTu extends Component {
                         data: webURL,
                         isVisible: true
                     });
-                    isUpload = false;
+                    this.isUpload = false;
                     hintText = '是否是您寻找的答案呢?'
                 }
             }
@@ -324,7 +324,7 @@ class ShiTu extends Component {
     };
 
     _onPress = () => {
-        isUpload = true;
+
         const { userToken } = this.props.ShiTuReducer;
 
         // console.log(this.props);
@@ -336,10 +336,10 @@ class ShiTu extends Component {
                 return;
             }
             if(!response.error){
-                // imageUri = response.uri;
 
                 this.props.getBackImage(response.uri);
                 if (userToken){
+                    this.isUpload = true;
                     this.props.qiNiuToken(response);
                 }
                 else{
@@ -469,7 +469,7 @@ class ShiTu extends Component {
                         barStyle="light-content"
                     />
                     {
-                        !isUpload
+                        !this.isUpload
                             ?
                             this._defaultView()
                             :

@@ -9,6 +9,7 @@ const initialState = {
     webViewUrl: '',
     qiNiuData: null,
     viewRef:null,
+    isUpload:false,
 };
 export default function ShiTuReducer(state = initialState, action){
     // console.log(action);

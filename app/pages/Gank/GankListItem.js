@@ -76,9 +76,9 @@ export default class GankListItem extends PureComponent {
                             customView={
                                 <Image source={{uri:itemData.images[0]}}
                                      style={[{width:imageWidth},imageFullHeight]}
-                                     onLayout={this._onLayout}
-                                     indicator={Progress.CircleSnail}
-                                     onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
+                                     // onLayout={this._onLayout}
+                                     //indicator={Progress.CircleSnail}
+                                     // onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
                                 />
                             }
                             onPress={()=>{
