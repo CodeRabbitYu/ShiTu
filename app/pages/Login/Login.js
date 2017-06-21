@@ -111,6 +111,8 @@ export default class Login extends Component {
 
     _login = () => {
         console.log('登录');
+        this.props.navigation.navigate('Test');
+
         let body = {
             username:'13130281857',
             password:'123456',

@@ -363,9 +363,9 @@ class ShiTu extends Component {
     _defaultView() {
         return(
             iOS ?
-                <BlurView blurType="light"
+                <BlurView style={styles.iOSBlur}
+                          blurType="light"
                           blurAmount={5}
-                          style={styles.iOSBlur}
                 >
                     <Text style={styles.textStyle}>
                         {hintText}

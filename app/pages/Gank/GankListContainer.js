@@ -11,7 +11,8 @@ import {
     FlatList,
     Image,
     ActivityIndicator,
-    InteractionManager
+    InteractionManager,
+    TouchableOpacity
 } from 'react-native';
 
 import Request from '../../common/Request';
@@ -41,15 +42,17 @@ export default class GankListContainer extends Component {
     isLoad = false;
     @observable
     isLoadMore = false;
+    @observable
+    resizedImageUri = null;
 
     componentDidMount() {
         this.fetchData(this.page);
     }
 
-    fetchData=(page) =>{
+    fetchData = (page) =>{
         let type = encodeURIComponent(this.props.type);
 
-        let url = `${Config.api.gank.listData}?page=${page}&count=${'20'}&type=${type}`;
+        let url = `${Config.api.gank.listData}?page=${page}&count=${'10'}&type=${type}`;
         console.log(url);
         if (this.isRefresh){
             console.log('isRefresh?');
@@ -65,31 +68,66 @@ export default class GankListContainer extends Component {
         }
 
         // console.log(url);
-        return Request.get(url,(data)=>{
+         return Request.get(url,(data)=>{
             // console.log(data);
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
-                    let imageWidth = SCREEN_WIDTH / 2 - 15;
-                    let imageHeight = imageWidth * 1.15;
-                    imageHeight = parseInt(Math.random() * 100 + imageHeight);
-                    item.imageHeight = imageHeight;
-                    item.imageWidth = imageWidth;
+                    // let imageWidth = SCREEN_WIDTH / 2 - 15;
+                    // let imageHeight = imageWidth * 1.15;
+                    // imageHeight = parseInt(Math.random() * 100 + imageHeight);
+                    // item.imageHeight = imageHeight;
+                    // item.imageWidth = imageWidth;
+
+                    // 处理后台返回的时间
+                    let timestamp2 = Date.parse(new Date(item.publishedAt));
+                    timestamp2 = timestamp2 / 1000;
+                    let newDate = new Date();
+                    newDate.setTime(timestamp2 * 1000);
+                    item.newDate = newDate.toLocaleDateString();
+
                     if (item.images) {
                         item.isImage = true;
-                        for (let i = 0 ;i <item.images.length ; i++){
-                            let image = item.images[i];
-                            Image.getSize(image, (width, height) => {
-                                item.imageWidth = width;
-                                item.imageHeight = height;
-                                // console.log(width);
-                                // console.log(height);
-                            });
-                        }
+                        let image = item.images[0];
+
+                        item.imageURL = `${image}?imageView2/0/w/${SCREEN_WIDTH}/format/jpg/interlace/0/q/100`;
+
+                        // Image.getSize(image, (width, height)=>{
+                        //     item.imageWidth = width;
+                        //     item.imageHeight = height;
+                        //     item.imageUrl = image;
+                        // });
+
+                        // ImageResizer.createResizedImage(image, SCREEN_WIDTH, 600, 'PNG', 90)
+                        //     .then((resizedImageUri) => {
+                        //         // console.log(resizedImageUri);
+                        //
+                        //
+                        //
+                        //         // this.resizedImageUri = resizedImageUri;
+                        //         // item.imageUrl = this.resizedImageUri;
+                        //
+                        //         console.log(resizedImageUri);
+                        //     }).catch((err) => {
+                        //         console.log(err);
+                        //     // return alert('Unable to resize the photo',
+                        //     //     'Check the console for full the error message');
+                        // });
+
+
+
+                        // for (let i = 0 ;i <item.images.length ; i++){
+                        //     let image = item.images[i];
+                        //     Image.getSize(image, (width, height) => {
+                        //         item.imageWidth = width;
+                        //         item.imageHeight = height;
+                        //         // console.log(width);
+                        //         // console.log(height);
+                        //     });
+                        // }
                     }else {
                         item.isImage = false;
                     }
-
                 });
                 // console.log(results.length);
 
@@ -98,7 +136,6 @@ export default class GankListContainer extends Component {
 
                     this.isLoadMore = false;
                     this.isRefresh = false;
-
                     this.dataSource = this.dataSource.concat(results);
                 }else {
                     this.isLoad = false;
@@ -118,7 +155,7 @@ export default class GankListContainer extends Component {
         if (this.isLoadMore) {
             return;
         } else {
-            return;
+            // return;
             this.page = this.page + 1;
             // console.log(this.page);
             this.fetchData(this.page);
@@ -190,9 +227,17 @@ const GankItem = (navigate , itemData) => {
             <Text style={styles.itemTitleStyle}>{itemData.desc}</Text>
             {
                 itemData.isImage > 0
-                    ? <Image source={{uri:itemData.images[0]}}
-                             style={{height:imageHeight,width:imageWidth,resizeMode:'contain'}}
-                    />
+                    ?
+                    <TouchableOpacity activeOpacity={0.9}
+                                      onPress={()=>{
+                                        {/*this.setState({*/}
+                                            {/*isFullImage: !this.state.isFullImage,*/}
+                                        {/*})*/}
+                                    }}>
+                        <Image source={{uri:itemData.images[0]}}
+                                 style={{height:imageHeight,width:imageWidth,resizeMode:'contain'}}
+                        />
+                    </TouchableOpacity>
                     : null
 
             }

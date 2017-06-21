@@ -9,6 +9,7 @@ import {
     Text,
     View,
     TouchableOpacity,
+
 } from 'react-native';
 
 import Image from 'react-native-image-progress';
@@ -16,14 +17,15 @@ import * as Progress from 'react-native-progress';
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import ImageResizer  from 'react-native-image-resizer';
+// import ImageResizer  from 'react-native-image-resizer';
 
-export default class GankListItem extends PureComponent {
+
+export default class GankListItem extends Component {
 
     static defaultProps = {
         navigate: React.PropTypes.object,
         itemData: React.PropTypes.object,
-        itemPress:React.PropTypes.object,
+        itemPress:React.PropTypes.func,
     };
 
     constructor(props){
@@ -32,7 +34,7 @@ export default class GankListItem extends PureComponent {
             isFullImage:false,
             resizedImageUri:'',
             newDate:'',
-            imageFullHeight:'',
+            imageHeight:'',
         }
     };
 
@@ -46,7 +48,7 @@ export default class GankListItem extends PureComponent {
     };
 
 
-    componentDidMount(){
+    _componentDidMount(){
         let imageHeight,imageWidth;
         let {itemData} = this.props;
         // console.log(itemData.images[0]);
@@ -62,9 +64,7 @@ export default class GankListItem extends PureComponent {
             }
             // console.log(`裁剪后:${imageHeight}`);
         }
-        let imageFullHeight = this.state.isFullImage ?
-            {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'contain'} :
-            {height:imageHeight,resizeMode:'contain'};
+
 
         let timestamp2 = Date.parse(new Date(itemData.publishedAt));
         timestamp2 = timestamp2 / 1000;
@@ -72,46 +72,73 @@ export default class GankListItem extends PureComponent {
         newDate.setTime(timestamp2 * 1000);
         newDate = newDate.toLocaleDateString();
 
-        let image = itemData.images? itemData.images[0]:'';
+        let imageUri = itemData.images? itemData.images[0]:'';
         // console.log(image);
 
-        ImageResizer.createResizedImage(image, 600, 600, 'PNG', 50)
+        this.setState({
+            newDate:newDate,
+            imageHeight:imageHeight,
+        });
+
+        ImageResizer.createResizedImage(imageUri, 600, 600, 'PNG', 90)
             .then((resizedImageUri) => {
-            console.log(resizedImageUri);
+            // console.log(resizedImageUri);
+            // console.log(imageHeight);
                 this.setState({
-                    resizedImageUri : resizedImageUri,
-                    newDate:newDate,
-                    imageFullHeight:imageFullHeight,
+                    //resizedImageUri : resizedImageUri,
                 });
             }).catch((err) => {
             console.log(err);
-            return alert('Unable to resize the photo',
-                'Check the console for full the error message');
+            // return alert('Unable to resize the photo',
+            //     'Check the console for full the error message');
         });
     }
 
     render() {
         let {itemData} = this.props;
+
+        // itemData.isImage
+        //     ?
+        //     ImageResizer.createResizedImage(itemData.images[0], SCREEN_WIDTH, 600, 'PNG', 90)
+        //         .then((resizedImageUri) => {
+        //             // console.log(resizedImageUri);
+        //             // this.resizedImageUri = resizedImageUri;
+        //             itemData.imageUrl = resizedImageUri;
+        //
+        //             // console.log(resizedImageUri);
+        //         }).catch((err) => {
+        //         console.log(err);
+        //         // return alert('Unable to resize the photo',
+        //         //     'Check the console for full the error message');
+        //     })
+        //     :null;
+        // console.log(itemData);
+        // let imageFullHeight = this.state.isFullImage ?
+        //     {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'contain'} :
+        //     {height:this.state.imageHeight,resizeMode:'contain'};
+
         // console.log(this.state.resizedImageUri);
         return (
             <TouchableOpacity style={{marginTop:5,backgroundColor:'white'}} onPress={this.props.itemPress} activeOpacity={0.9}>
                 <Text style={styles.itemTitleStyle}>{itemData.desc}</Text>
                 {
-                    itemData.isImage > 0
+                    itemData.isImage
                         ?
-                        <TouchableOpacity onPress={()=>{
+                        <TouchableOpacity activeOpacity={0.9}
+                            onPress={()=>{
                                 this.setState({
                                     isFullImage: !this.state.isFullImage,
                                 })
                             }}>
-                            {this.state.resizedImageUri ?
-                            <Image source={{uri:this.state.resizedImageUri}}
-                                   style={[{width:SCREEN_WIDTH},this.state.imageFullHeight]}
-                                // onLayout={this._onLayout}
-                                //indicator={Progress.CircleSnail}
+
+
+                            <Image source={{uri:itemData.imageURL}}
+                                   style={[{width:SCREEN_WIDTH,height:300}]}
+                                   onLayout={this._onLayout}
+                                   indicator={Progress.CircleSnail}
                                 // onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
-                            />:null
-                            }
+                            />
+
                         </TouchableOpacity>
 
                         : null
@@ -124,7 +151,7 @@ export default class GankListItem extends PureComponent {
                     </Text>
                     <Icon name="md-time" style={{marginLeft:5}} size={25}/>
                     <Text style={[styles.itemTitleStyle,{fontSize:FONT_SIZE(14)}]}>
-                        {this.state.newDate}
+                        {itemData.newDate}
                     </Text>
                 </View>
 

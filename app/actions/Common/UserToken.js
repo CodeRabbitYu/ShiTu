@@ -13,8 +13,7 @@ import {
 let KEY = 'USERTOKEN';
 export function userToken() {
     return dispatch => {
-        return Request.get(Config.api.userToken,(data)=>{
-            AsyncStorage.getItem(KEY,(Error,result)=>{
+        return AsyncStorage.getItem(KEY,(Error,result)=>{
                 if (result === null){
                     Request.get(Config.api.userToken,(data)=>{
                         // console.log(data);
@@ -31,6 +30,7 @@ export function userToken() {
                         }
                     },(error)=>{
                         console.log(error);
+                        // dispatch(getUserToken(data));
                         // TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
                     })
                 }else {
@@ -39,12 +39,7 @@ export function userToken() {
                     dispatch(getUserToken(result));
                 }
             });
-
-        },(error)=>{
-            console.log(error);
-            dispatch({type: types.USER_TOKEN_ERROR, error: error});
-        });
-    }
+        }
 };
 
 
