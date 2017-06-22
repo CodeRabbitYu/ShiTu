@@ -40,13 +40,15 @@ const resetAction = NavigationActions.reset({
 });
 
 export default class Detail extends PureComponent {
+
+    static navigationOptions = ({navigation,screenProps}) => ({
+        // headerTitle:navigation.state.params?navigation.state.params.title:null,
+        gesturesEnabled:false,
+    });
     constructor(props) {
         super(props);
         const {state: {params: {data}}} = this.props.navigation;
         console.log(data);
-        let url = "http://image.baidu.com/wiseshitu?guess=1&" +
-            "uptype=upload_wise&queryImageUrl=http://oo6mt5wjj.bkt.clouddn.com/" +
-            "ba4ae069-b6fa-4d3c-9a75-d5ce59a3973d.jpeg&querySign=&simid=";
         this.state = {
             progress: 0,
             active:true,
@@ -97,7 +99,7 @@ export default class Detail extends PureComponent {
     _close = ()=> {
         console.log('关闭');
         const {goBack} = this.props.navigation;
-        goBack();
+        goBack(null);
     };
 
     _renderActionButton = () =>{

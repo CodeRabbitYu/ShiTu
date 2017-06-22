@@ -9,17 +9,26 @@ import {
     Text,
     View,
     AsyncStorage,
-    Button
+    Button,
+    InteractionManager
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation'
+
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routes:[{index:'0'}]})
+        NavigationActions.navigate({ routeName: 'MyTab' })
     ]
 });
 
+const navigateAction = NavigationActions.navigate({
+    routeName: 'Gank',
+
+    params: {title:'hahaha'},
+
+    action: NavigationActions.navigate({ routeName: 'Gank'})
+})
 
 export default class Login extends Component {
 
@@ -30,29 +39,49 @@ export default class Login extends Component {
     componentDidMount(){
     }
 
-    _registerPress(){
-        console.log('注册');
-        // this.props.navigate('SearchHistory',{
-        //     title:'搜索历史',
-        // });
+
+    _navigatePress = ()=> {
+        this.props.navigation.dispatch(navigateAction)
+    }
+
+    _pushPress = () => {
+        this.props.navigation.navigate('Test');
     }
 
     _resetPress () {
         console.log('重置');
-        this.props.navigation.dispatch(resetAction)
+
+
+
+        // this.props.navigation.dispatch(navigateAction);
+
+        // this.props.navigation.navigate('Test');
+
+        // this.props.navigation.navigate('GankStack');
+        InteractionManager.runAfterInteractions(()=>{
+            this.props.navigation.dispatch(resetAction)
+        });
+
+        this.props.navigation.dispatch(navigateAction)
+
+        InteractionManager.runAfterInteractions(()=>{
+
+
+        });
+
+
 
     }
 
-    _closePress (){
-        this.props.navigation.goBack();
+    _closePress= ()=>{
+        this.props.navigation.goBack("SearchHistory");
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Button title='保存' onPress={()=>this._savePress()} />
-                <Button title='获取' onPress={()=>this._getPress()} />
-                <Button title='注册' onPress={()=>this._registerPress()} />
+                <Button title='跳转' onPress={()=>this._pushPress()} />
+                <Button title='参数跳转' onPress={()=>this._navigatePress()} />
                 <Button title='reset' onPress={()=>this._resetPress()} />
                 <Button title='关闭' onPress={()=>this._closePress()} />
             </View>

@@ -222,7 +222,7 @@ const StackOptions = ({navigation}) => {
                                 style={{marginLeft:12}}
                             />
                         }
-            onPress={()=>{goBack()}}
+            onPress={()=>{goBack(null)}}
         />
     );
     let headerRight;
@@ -253,7 +253,7 @@ const LoginOptions = ({navigation}) => {
                                 style={{marginLeft:13}}
                             />
                         }
-            onPress={()=>{goBack()}}
+            onPress={()=>{goBack(null)}}
         />
     );
     let headerRight;

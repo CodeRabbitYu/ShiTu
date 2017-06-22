@@ -9,10 +9,10 @@ import {
     Text,
     View,
     TouchableOpacity,
-
+    Image,
 } from 'react-native';
 
-import Image from 'react-native-image-progress';
+import ImageProgress from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -32,9 +32,6 @@ export default class GankListItem extends Component {
         super(props);
         this.state = {
             isFullImage:false,
-            resizedImageUri:'',
-            newDate:'',
-            imageHeight:'',
         }
     };
 
@@ -49,9 +46,11 @@ export default class GankListItem extends Component {
 
 
     _componentDidMount(){
-        let imageHeight,imageWidth;
         let {itemData} = this.props;
-        // console.log(itemData.images[0]);
+
+
+
+        /*
         if (itemData.imageHeight && itemData.imageWidth){
             // console.log('图片默认宽度:'+itemData.imageWidth);
             // console.log('图片默认高度:'+itemData.imageHeight);
@@ -65,59 +64,28 @@ export default class GankListItem extends Component {
             // console.log(`裁剪后:${imageHeight}`);
         }
 
-
-        let timestamp2 = Date.parse(new Date(itemData.publishedAt));
-        timestamp2 = timestamp2 / 1000;
-        let newDate = new Date();
-        newDate.setTime(timestamp2 * 1000);
-        newDate = newDate.toLocaleDateString();
+        */
 
         let imageUri = itemData.images? itemData.images[0]:'';
         // console.log(image);
 
-        this.setState({
-            newDate:newDate,
-            imageHeight:imageHeight,
-        });
+        // this.setState({
+        //     newDate:newDate,
+        //     imageHeight:imageHeight,
+        // });
 
-        ImageResizer.createResizedImage(imageUri, 600, 600, 'PNG', 90)
-            .then((resizedImageUri) => {
-            // console.log(resizedImageUri);
-            // console.log(imageHeight);
-                this.setState({
-                    //resizedImageUri : resizedImageUri,
-                });
-            }).catch((err) => {
-            console.log(err);
-            // return alert('Unable to resize the photo',
-            //     'Check the console for full the error message');
-        });
+
+
+
     }
 
     render() {
         let {itemData} = this.props;
+        let imageFullHeight = this.state.isFullImage ?
+            {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'contain'} :
+            {height:SCREEN_WIDTH,resizeMode:'contain'};
 
-        // itemData.isImage
-        //     ?
-        //     ImageResizer.createResizedImage(itemData.images[0], SCREEN_WIDTH, 600, 'PNG', 90)
-        //         .then((resizedImageUri) => {
-        //             // console.log(resizedImageUri);
-        //             // this.resizedImageUri = resizedImageUri;
-        //             itemData.imageUrl = resizedImageUri;
-        //
-        //             // console.log(resizedImageUri);
-        //         }).catch((err) => {
-        //         console.log(err);
-        //         // return alert('Unable to resize the photo',
-        //         //     'Check the console for full the error message');
-        //     })
-        //     :null;
-        // console.log(itemData);
-        // let imageFullHeight = this.state.isFullImage ?
-        //     {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'contain'} :
-        //     {height:this.state.imageHeight,resizeMode:'contain'};
 
-        // console.log(this.state.resizedImageUri);
         return (
             <TouchableOpacity style={{marginTop:5,backgroundColor:'white'}} onPress={this.props.itemPress} activeOpacity={0.9}>
                 <Text style={styles.itemTitleStyle}>{itemData.desc}</Text>
@@ -131,10 +99,9 @@ export default class GankListItem extends Component {
                                 })
                             }}>
 
-
-                            <Image source={{uri:itemData.imageURL}}
-                                   style={[{width:SCREEN_WIDTH,height:300}]}
-                                   onLayout={this._onLayout}
+                            <ImageProgress source={{uri:itemData.imageURL}}
+                                   style={[{width:SCREEN_WIDTH,},imageFullHeight]}
+                                // onLayout={this._onLayout}
                                    indicator={Progress.CircleSnail}
                                 // onProgress={(e)=>this._onProgress(e.nativeEvent.loaded,e.nativeEvent.total)}
                             />
@@ -154,7 +121,6 @@ export default class GankListItem extends Component {
                         {itemData.newDate}
                     </Text>
                 </View>
-
             </TouchableOpacity>
         );
     }

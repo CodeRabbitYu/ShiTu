@@ -366,6 +366,7 @@ class ShiTu extends Component {
                 <BlurView style={styles.iOSBlur}
                           blurType="light"
                           blurAmount={5}
+
                 >
                     <Text style={styles.textStyle}>
                         {hintText}

@@ -18,12 +18,6 @@ import {
 import Request from '../../common/Request';
 import Config from '../../common/Config';
 
-import { fetch, header } from '../../common/Fetch';
-import RNFetch from 'react-native-fetch-blob';
-
-
-// import { fetch } from '../../common/XMLRequest';
-
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 import GankListItem from './GankListItem';
@@ -44,6 +38,10 @@ export default class GankListContainer extends Component {
     isLoadMore = false;
     @observable
     resizedImageUri = null;
+    state = {
+        imageHeight:'',
+        imageWidth:'',
+    }
 
     componentDidMount() {
         this.fetchData(this.page);
@@ -89,14 +87,8 @@ export default class GankListContainer extends Component {
                     if (item.images) {
                         item.isImage = true;
                         let image = item.images[0];
-
-                        item.imageURL = `${image}?imageView2/0/w/${SCREEN_WIDTH}/format/jpg/interlace/0/q/100`;
-
-                        // Image.getSize(image, (width, height)=>{
-                        //     item.imageWidth = width;
-                        //     item.imageHeight = height;
-                        //     item.imageUrl = image;
-                        // });
+                        // item.imageURL = image;
+                        item.imageURL = `${image}?imageView2/0/w/${SCREEN_WIDTH}/format/jpg/interlace/1/q/100`;
 
                         // ImageResizer.createResizedImage(image, SCREEN_WIDTH, 600, 'PNG', 90)
                         //     .then((resizedImageUri) => {
@@ -127,6 +119,7 @@ export default class GankListContainer extends Component {
                         // }
                     }else {
                         item.isImage = false;
+                        item.imageURL = '';
                     }
                 });
                 // console.log(results.length);
