@@ -247,6 +247,9 @@ export default class Detail extends PureComponent {
                         });
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
+                    onError={()=>{
+                        alert('加载失败');
+                    }}
                 />
                 {
                     iOS
@@ -267,7 +270,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     webView: {
-        height: SCREEN_HEIGHT - 20,
+        height: Android ? SCREEN_HEIGHT - 40 : SCREEN_HEIGHT,
         width: SCREEN_WIDTH,
 
     },
@@ -285,19 +288,19 @@ const styles = StyleSheet.create({
     bottomViewStyle:{
         position:'absolute',
         bottom:0,
-        height:30,
+        height:40,
         width:SCREEN_WIDTH,
         flexDirection:'row',
         flex :1,
     },
     bottomButtonStyle:{
         width:SCREEN_WIDTH/4,
-        height:30,
+        height:40,
     },
     bottomIconStyle:{
         alignSelf:'center',
         justifyContent:'center',
-        marginTop:3,
+        marginTop:5,
 
     }
 });

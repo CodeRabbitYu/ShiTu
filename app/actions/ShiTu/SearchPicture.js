@@ -114,6 +114,14 @@ export function qiNiuToken(response) {
     }
 };
 
+
+export function getPerent(perent){
+    return{
+        type: types.UPLOAD_PERENT,
+        perent
+    }
+}
+
 export function getQiNiuToken(qiNiuData){
     return{
         type: types.QINIU_UPLOAD_TOKEN,

@@ -66,17 +66,11 @@ export default class GankListContainer extends Component {
         }
 
         // console.log(url);
-         return Request.get(url,(data)=>{
+         Request.get(url,(data)=>{
             // console.log(data);
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
-                    // let imageWidth = SCREEN_WIDTH / 2 - 15;
-                    // let imageHeight = imageWidth * 1.15;
-                    // imageHeight = parseInt(Math.random() * 100 + imageHeight);
-                    // item.imageHeight = imageHeight;
-                    // item.imageWidth = imageWidth;
-
                     // 处理后台返回的时间
                     let timestamp2 = Date.parse(new Date(item.publishedAt));
                     timestamp2 = timestamp2 / 1000;
@@ -90,33 +84,6 @@ export default class GankListContainer extends Component {
                         // item.imageURL = image;
                         item.imageURL = `${image}?imageView2/0/w/${SCREEN_WIDTH}/format/jpg/interlace/1/q/100`;
 
-                        // ImageResizer.createResizedImage(image, SCREEN_WIDTH, 600, 'PNG', 90)
-                        //     .then((resizedImageUri) => {
-                        //         // console.log(resizedImageUri);
-                        //
-                        //
-                        //
-                        //         // this.resizedImageUri = resizedImageUri;
-                        //         // item.imageUrl = this.resizedImageUri;
-                        //
-                        //         console.log(resizedImageUri);
-                        //     }).catch((err) => {
-                        //         console.log(err);
-                        //     // return alert('Unable to resize the photo',
-                        //     //     'Check the console for full the error message');
-                        // });
-
-
-
-                        // for (let i = 0 ;i <item.images.length ; i++){
-                        //     let image = item.images[i];
-                        //     Image.getSize(image, (width, height) => {
-                        //         item.imageWidth = width;
-                        //         item.imageHeight = height;
-                        //         // console.log(width);
-                        //         // console.log(height);
-                        //     });
-                        // }
                     }else {
                         item.isImage = false;
                         item.imageURL = '';
@@ -186,7 +153,7 @@ export default class GankListContainer extends Component {
                 onRefresh={() => this.fetchData(1)}
                 refreshing={this.isRefresh}
                 onEndReached={() => this.fetchMoreData()}
-                onEndReachedThreshold={0}
+                onEndReachedThreshold={1}
                 removeClippedSubviews={ false }
                 ListFooterComponent={()=>{
                                 return( !this.isRefresh &&

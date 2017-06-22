@@ -15,6 +15,8 @@ export const QINIU_UPLOAD = 'QINIU_UPLOAD';
 export const WEBVIEW_URL = 'WEBVIEW_URL';
 // 首页背景图片
 export const BACKIMAGE_URL = 'BACKIMAGE_URL';
+// 获取上传进度
+export const UPLOAD_PERENT = 'UPLOAD_PERENT'
 
 // 干货集中营数据
 // 加载福利状态

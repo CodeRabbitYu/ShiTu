@@ -21,7 +21,7 @@ import { bindActionCreators } from 'redux';
 
 import { userToken } from '../../actions/Common/UserToken';
 
-import { qiNiuToken, getQiNiuToken } from '../../actions/ShiTu/SearchPicture';
+import { qiNiuToken, getQiNiuToken, getPerent } from '../../actions/ShiTu/SearchPicture';
 import { backImage,getBackImage } from '../../actions/ShiTu/BackImage';
 
 import * as User from '../../actions/Common/UserToken';
@@ -252,6 +252,7 @@ class ShiTu extends Component {
                     // 搜索进度打印
                     // console.log(perent);
                     this.perent = perent;
+
                     this.isUpload = true;
                 }
             }
@@ -336,6 +337,7 @@ class ShiTu extends Component {
                 return;
             }
             if(!response.error){
+                this.props.getPerent();
 
                 this.props.getBackImage(response.uri);
                 if (userToken){
@@ -561,7 +563,7 @@ export default connect((state) => {
     return {
         ShiTuReducer
     };
-},{ userToken, qiNiuToken, backImage,getQiNiuToken,getBackImage})(ShiTu)
+},{ userToken, qiNiuToken, backImage,getQiNiuToken,getPerent,getBackImage})(ShiTu)
 
 //这里是绑定 一共2个参数 第一个是 state 第二个是 方法 方法有很多方式 我这样的是比较方便的 不需要引用dispatch来调方法
 //在别的页面想使用同样的 state 或者 调用相同的方法 改值 一样的connect

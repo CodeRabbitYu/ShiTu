@@ -85,7 +85,6 @@ export default class GankListItem extends Component {
             {height:SCREEN_HEIGHT - 64-49-44,resizeMode:'contain'} :
             {height:SCREEN_WIDTH,resizeMode:'contain'};
 
-
         return (
             <TouchableOpacity style={{marginTop:5,backgroundColor:'white'}} onPress={this.props.itemPress} activeOpacity={0.9}>
                 <Text style={styles.itemTitleStyle}>{itemData.desc}</Text>

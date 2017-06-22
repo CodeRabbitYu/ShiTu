@@ -10,6 +10,7 @@ const initialState = {
     qiNiuData: null,
     viewRef:null,
     isUpload:false,
+    perent:0,
 };
 export default function ShiTuReducer(state = initialState, action){
     // console.log(action);
@@ -35,6 +36,10 @@ export default function ShiTuReducer(state = initialState, action){
             return Object.assign({}, state ,{
                 viewRef:action.viewRef,
                 imageURL:action.imageURL,
+            });
+        case types.UPLOAD_PERENT:
+            return Object.assign({}, state, {
+                perent:action.perent,
             });
         default:
             return state;
