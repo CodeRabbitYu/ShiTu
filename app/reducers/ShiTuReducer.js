@@ -4,7 +4,7 @@
 import * as types from '../constant/ActionTypes';
 
 const initialState = {
-    imageURL: 'timg',
+    imageURL: '',
     userToken: '',
     webViewUrl: '',
     qiNiuData: null,

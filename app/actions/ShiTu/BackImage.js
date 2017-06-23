@@ -26,7 +26,7 @@ export function backImage(userToken) {
         } catch (e) {
             console.log('没有获得图片'+e);
 
-            // dispatch(getBackImage('timg'))
+            dispatch(getBackImage('timg'))
         }
     }
 };

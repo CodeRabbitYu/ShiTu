@@ -65,7 +65,7 @@ let photoOptions = {
 let perent = '';
 // let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
-let imageUri = 'timg';
+let imageUri = '';
 @observer
 class ShiTu extends Component {
 

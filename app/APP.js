@@ -253,7 +253,7 @@ const LoginOptions = ({navigation}) => {
                                 style={{marginLeft:13}}
                             />
                         }
-            onPress={()=>{goBack(null)}}
+            onPress={()=>{goBack()}}
         />
     );
     let headerRight;
