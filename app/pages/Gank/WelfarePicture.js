@@ -11,7 +11,8 @@ import {
     Image,
     TouchableOpacity,
     AsyncStorage,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    InteractionManager
 } from 'react-native';
 
 import { observable, runInAction, autorun } from 'mobx';
@@ -102,17 +103,19 @@ class WelfarePicture extends Component {
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
         if(i===2){
+            InteractionManager.runAfterInteractions(()=>{
+                AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
+                    if (error){
+                        console.log('存储失败' + error);
+                    }else {
+                        console.log('存储成功');
+                        // 之前的做法是这里发送通知到首页
+                        // DeviceEventEmitter.emit('SHITUIMAGE',url);
+                        // this.props.getQiNiuToken();
 
-            AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
-                if (error){
-                    console.log('存储失败' + error);
-                }else {
-                    console.log('存储成功');
-                    // 之前的做法是这里发送通知到首页
-                    // DeviceEventEmitter.emit('SHITUIMAGE',url);
-                    // this.props.getQiNiuToken();
-                    this.props.getBackImage(url);
-                }
+                        this.props.getBackImage(url);
+                    }
+                })
             })
         }
     }

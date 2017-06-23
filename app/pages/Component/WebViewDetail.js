@@ -13,7 +13,8 @@ import {
     Image,
     TouchableOpacity,
     WebView,
-    InteractionManager
+    InteractionManager,
+    Alert
 } from 'react-native';
 
 import ProgressBar from '../../component/ProgressBar';
@@ -248,7 +249,15 @@ export default class Detail extends PureComponent {
                         this.setIntervar && clearInterval(this.setIntervar);
                     }}
                     onError={()=>{
-                        alert('加载失败');
+                        Alert.alert(
+                            '加载失败',
+                            null,
+                            [
+                                {text: '刷新', onPress: () => this._reload(),style: 'destructive'},
+                                {text: '取消', onPress: () => console.log('Cancel'), style: 'cancel'},
+                            ],
+                            { cancelable: false }
+                        )
                     }}
                 />
                 {

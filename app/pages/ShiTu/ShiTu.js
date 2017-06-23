@@ -10,7 +10,8 @@ import {
     StatusBar,
     findNodeHandle,
     NetInfo,
-    BackHandler
+    BackHandler,
+    Alert
 } from 'react-native';
 import { toastShort } from '../../common/ToastUtils'
 
@@ -178,8 +179,6 @@ class ShiTu extends Component {
         this.props.backImage(()=>{
             this.props.userToken();
         });
-
-
 
         // console.log(this.props.ShiTuReducer);
 

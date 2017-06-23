@@ -13,7 +13,8 @@ import {
     RefreshControl,
     // Image,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    VirtualizedList
 } from 'react-native';
 
 import Request from '../../common/Request';
@@ -212,7 +213,7 @@ export default class WelfareContainer extends React.PureComponent {
         // console.log(welfareData);
         return (
             <View style={styles.containerStyle}>
-                <FlatList
+                <VirtualizedList
                     data={this.state.defaultData}
                     style={{backgroundColor:'#F5F5F5',flex:1}}
                     keyExtractor={item => item._id}
