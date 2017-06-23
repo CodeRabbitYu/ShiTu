@@ -61,6 +61,8 @@ export function qiNiuToken(response) {
             Request.upload(Config.qiniu.upload,body,(perent)=>{
                 // this.perent = perent;
                 // this.isUpload = true;
+                dispatch(getPerent(perent));
+
             },(response)=>{
                 let body = {
                     token: response.key,

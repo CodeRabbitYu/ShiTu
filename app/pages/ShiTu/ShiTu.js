@@ -72,8 +72,8 @@ class ShiTu extends Component {
     // @observable
     // imageUri='';
     // // 进度条
-    // @observable
-    // perent='';
+    @observable
+    perent=0;
     // // 是否正在查找中
     @observable
     isUpload=false;
@@ -135,7 +135,10 @@ class ShiTu extends Component {
         console.log('componentWillReceiveProps');
 
         const { navigate } = this.props.navigation;
-        const { imageURL, qiNiuData } = nextProps.ShiTuReducer;
+        const { imageURL, qiNiuData, perent } = nextProps.ShiTuReducer;
+
+        console.log(this.props);
+        console.log('perent:' + perent);
 
         if (this.props.ShiTuReducer.imageURL !== imageURL){
             if (imageURL) {
@@ -148,12 +151,16 @@ class ShiTu extends Component {
 
         if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
             if (qiNiuData) {
+                this.perent = 1;
                 const { webURL } = qiNiuData.data;
                 if (webURL) {
+
+                    this.setIntervar && clearInterval(this.setIntervar);
                     navigate('WebViewDetail', {
                         data: webURL,
                         isVisible: true
                     });
+
                     this.isUpload = false;
                     hintText = '是否是您寻找的答案呢?'
                 }
@@ -330,6 +337,8 @@ class ShiTu extends Component {
 
         // console.log(this.props);
 
+
+
         ImagePicker.showImagePicker(photoOptions, (response) => {
             // console.log('Response = ', response);
             if (response.didCancel) {
@@ -337,11 +346,17 @@ class ShiTu extends Component {
                 return;
             }
             if(!response.error){
-                this.props.getPerent();
+                // this.props.getPerent();
+
+
 
                 this.props.getBackImage(response.uri);
                 if (userToken){
                     this.isUpload = true;
+
+                    this.setIntervar = setInterval(()=>{
+                        this.perent = this.perent + 0.005
+                    });
                     this.props.qiNiuToken(response);
                 }
                 else{
