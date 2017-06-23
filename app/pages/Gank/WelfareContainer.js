@@ -43,7 +43,7 @@ let page = 1;
 
 
 @observer
-export default class WelfareContainer extends Component {
+export default class WelfareContainer extends React.PureComponent {
     @observable
     dataSource = [];
     @observable
@@ -98,6 +98,7 @@ export default class WelfareContainer extends Component {
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
+
                     let imageWidth = SCREEN_WIDTH / 2 - 15;
                     let imageHeight = imageWidth * 1.15;
                     imageHeight = parseInt(Math.random() * 100 + imageHeight);
@@ -183,10 +184,9 @@ export default class WelfareContainer extends Component {
 
         // 使用redux需要传递的参数,如果使用,需要将welfareData放在WelfareItem第二个参数的地方
         // let { welfareData } = this.props.GankReducer;
-
         return(
             <AutoResponisve {...this.getAutoResponsiveProps()}>
-               { WelfareItem(navigate,this.state.dataSource)}
+                { WelfareItem(navigate,this.state.dataSource)}
             </AutoResponisve>
         )
     };
@@ -217,11 +217,13 @@ export default class WelfareContainer extends Component {
                     style={{backgroundColor:'#F5F5F5',flex:1}}
                     keyExtractor={item => item._id}
                     numColumns={2}
+                    initialNumToRender={6}
                     onRefresh={()=>this.fetchData(1)}
                     refreshing={this.isRefresh}
                     renderItem={this.renderItem}
                     onEndReached={()=>this.fetchMoreData()}
                     onEndReachedThreshold={1}
+                    removeClippedSubviews={false}
                     ListFooterComponent={()=>{
                         // 如果使用redux,this.isRefresh要改成isRefreshing
                             return( !this.isRefresh &&

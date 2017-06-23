@@ -103,6 +103,7 @@ class ShiTu extends Component {
     componentWillMount(){
         console.log('componentWillMount');
         // this.props.dispatch(userToken());
+        // alert(PixelRatio)
         iOS
             ?
             NetWorkTool.listenerNetworkState(()=>{
@@ -151,7 +152,7 @@ class ShiTu extends Component {
 
         if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
             if (qiNiuData) {
-                this.perent = 1;
+
                 const { webURL } = qiNiuData.data;
                 if (webURL) {
 
@@ -162,6 +163,7 @@ class ShiTu extends Component {
                     });
 
                     this.isUpload = false;
+                    this.perent = 0;
                     hintText = '是否是您寻找的答案呢?'
                 }
             }
@@ -173,7 +175,6 @@ class ShiTu extends Component {
 
     componentDidMount(){
         console.log('componentDidMount');
-
         this.props.backImage(()=>{
             this.props.userToken();
         });
@@ -355,7 +356,7 @@ class ShiTu extends Component {
                     this.isUpload = true;
 
                     this.setIntervar = setInterval(()=>{
-                        this.perent = this.perent + 0.005
+                        this.perent = this.perent + 0.01
                     });
                     this.props.qiNiuToken(response);
                 }
