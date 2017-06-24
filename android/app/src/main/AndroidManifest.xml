@@ -31,6 +31,10 @@
      <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         </intent-filter>
       </activity>
+
+    <meta-data android:name="JPUSH_CHANNEL" android:value="${APP_CHANNEL}"/>
+    <meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY}"/>
+
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 

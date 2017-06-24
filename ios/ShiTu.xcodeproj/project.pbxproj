@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -59,7 +58,7 @@
 		62B0CB5BC31C4D58A2AAE463 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABA9FFE4981470B9591D72A /* libRNImagePicker.a */; };
 		683EDEAD527C440DA9E6934E /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C03D45DA384F45A3B3172023 /* FontAwesome.ttf */; };
 		6B3158A8C2C944D08E8F17BC /* Arial Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0D0262C40B944CB8810FB22 /* Arial Black.ttf */; };
-		721DFA2B0CBE4673A4F8CDA8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943F10DE69534ADC8FC175E9 /* UserNotifications.framework */; };
+		721DFA2B0CBE4673A4F8CDA8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943F10DE69534ADC8FC175E9 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		74FEF1213DD141F586687076 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A77FBA088B25416CB27DDD95 /* Ionicons.ttf */; };
 		76844E258E4D4BDC83B81270 /* SanFranciscoBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DCAD52F39544EFABCE07859 /* SanFranciscoBold.ttf */; };
 		7BA48F1AFE564AA5B4368A5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987520426355464995DD8801 /* CoreGraphics.framework */; };
@@ -394,6 +393,7 @@
 		2D02E47B1E0B4A5D006451C7 /* ShiTu-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShiTu-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* ShiTu-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ShiTu-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		330EBA0F1EAB24AF00712D99 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
+		3397EFC11EFDF596005BDF48 /* ShiTu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ShiTu.entitlements; path = ShiTu/ShiTu.entitlements; sourceTree = "<group>"; };
 		37B112C9B087439DAD1DC28B /* CFNetwork.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		38572B351DB54087BFB06834 /* Rubik-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BlackItalic.ttf"; path = "../node_modules/native-base/Fonts/Rubik-BlackItalic.ttf"; sourceTree = "<group>"; };
 		39E38097093B4B2F98078D3B /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -613,6 +613,7 @@
 		13B07FAE1A68108700A75B9A /* ShiTu */ = {
 			isa = PBXGroup;
 			children = (
+				3397EFC11EFDF596005BDF48 /* ShiTu.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -952,6 +953,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = A5VC72964Y;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1570,6 +1576,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShiTu/ShiTu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = A5VC72964Y;
@@ -1600,6 +1607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShiTu/ShiTu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = A5VC72964Y;
 				HEADER_SEARCH_PATHS = (

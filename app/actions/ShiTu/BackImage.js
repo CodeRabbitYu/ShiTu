@@ -10,25 +10,26 @@ let KEY = 'SHITUIMAGEKEY';
 
 export function backImage(userToken) {
     return async dispatch => {
-        // let result = await AsyncStorage.getItem(KEY,(Error,result)=>{
-        //          if (result === null){
-        //              // dispatch(getBackImage('timg'));
-        //          }else {
-        //              // console.log('获取图片成功' + result);
-        //              dispatch(getBackImage(result));
-        //          }
-        //      });
-        //  }
-        try {
-            let result = await AsyncStorage.getItem(KEY);
-            dispatch(getBackImage(result));
-            userToken();
-        } catch (e) {
-            console.log('没有获得图片'+e);
-
-            dispatch(getBackImage('timg'))
-        }
-    }
+        await AsyncStorage.getItem(KEY,(Error,result)=>{
+                 if (result === null){
+                     dispatch(getBackImage('timg'));
+                 }else {
+                     // console.log('获取图片成功' + result);
+                     dispatch(getBackImage(result));
+                 }
+             });
+         }
+        // try {
+        //     let result = await AsyncStorage.getItem(KEY);
+        //     dispatch(getBackImage(result));
+        //     userToken();
+        // } catch (e) {
+        //     console.log('没有获得图片'+e);
+        //     dispatch(getBackImage('timg'))
+        // } finally {
+        //     // dispatch(getBackImage('timg'))
+        // }
+    // }
 };
 
 

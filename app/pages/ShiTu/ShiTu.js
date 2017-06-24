@@ -39,9 +39,7 @@ import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 
 
-import RNFetchBlob from 'react-native-fetch-blob';
-
-
+import JPushModule from 'jpush-react-native';
 
 import Request from '../../common/Request';
 import Config from '../../common/Config';
@@ -100,6 +98,37 @@ class ShiTu extends Component {
         NetInfo.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE, this.handleMethod);
     };
 
+    componentDidMount(){
+        console.log('componentDidMount');
+        this.props.backImage(()=>{
+            console.log('aaa');
+            this.props.userToken();
+        });
+        JPushModule.initPush();
+        JPushModule.addReceiveNotificationListener((map) => {
+            console.log("alertContent: " + map.alertContent);
+            console.log("extras: " + map.extras);
+
+            alert(map);
+            // var extra = JSON.parse(map.extras);
+            // console.log(extra.key + ": " + extra.value);
+        });
+
+        JPushModule.addReceiveCustomMsgListener((message) => {
+
+            //这是默认的通知消息
+            alert(message);
+            //  this.setState({pushMsg:message});
+
+        });
+
+        // console.log(this.props.ShiTuReducer);
+
+        // NetWorkTool.checkNetworkState((isConnected)=>{
+        //     console.log(isConnected);
+        // });
+
+    };
 
     componentWillMount(){
         console.log('componentWillMount');
@@ -174,59 +203,7 @@ class ShiTu extends Component {
         // }
     }
 
-    componentDidMount(){
-        console.log('componentDidMount');
-        this.props.backImage(()=>{
-            this.props.userToken();
-        });
 
-        // console.log(this.props.ShiTuReducer);
-
-        // NetWorkTool.checkNetworkState((isConnected)=>{
-        //     console.log(isConnected);
-        // });
-
-        // console.log(list);
-
-        /**
-         * 没有使用redux之前获取USERTOKEN的方法
-        let KEY = 'USERTOKEN';
-        AsyncStorage.getItem(KEY,(Error,result)=>{
-            if (result === null){
-                Request.get(Config.api.getUserToken,(data)=>{
-                    console.log(data);
-                    if (data && data.success){
-                        let token = data.token;
-                        AsyncStorage.setItem(KEY,token,(error)=>{
-                            if (error){
-                                console.log('存储失败' + error);
-                            }else {
-                                console.log('存储成功');
-                                USERTOKEN = token;
-                            }
-                        })
-                    }
-                },(error)=>{
-                    console.log(error);
-                    // TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
-                })
-            }else {
-                console.log('获取成功' + result);
-                // TOKEN = '0ddc64eb-48e3-4d4c-a83c-a61caa2450d4';
-                USERTOKEN = result;
-            }
-        });
-
-        this.subscription = DeviceEventEmitter.addListener('SHITUIMAGE', (params)=>{
-            // this.imageUri = params;
-            this.setState({
-                imageUri:params,
-            });
-            // console.log(params);
-        });
-         */
-
-    };
 
     constructor(props){
         super(props);

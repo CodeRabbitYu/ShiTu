@@ -32,7 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new ImageResizerPackage(),
-            new JPushPackage(),
+            new JPushPackage(false,false),
             new ReactVideoPackage(),
             new RealmReactPackage(),
             new ImagePickerPackage(),
@@ -53,4 +53,5 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
+
 }
