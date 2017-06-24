@@ -5,6 +5,7 @@
 ## [react-native-image-picker在iOS上闪退的解决办法](http://www.jianshu.com/p/977bc5eea1b1)
 ## [React-Native中的数据持久化方式](http://www.jianshu.com/p/22cbb0124158)
 ## [Redux "使用"教程](http://www.jianshu.com/p/525c39bd672a)
+## [react-native 实现上传功能](http://www.jianshu.com/p/97442b727a28)
 
 #### 我将本地环境部署到线上了，可以直接使用，但用的是免费的服务器，所以可能有的时候不能连接上。
 
@@ -18,7 +19,7 @@
 
 ![识兔效果图](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔.gif)
 
-![安卓版下载二维码](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔安卓版.png)
+![安卓版下载二维码](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔二维码.png)
 
 ##### 安卓密码123，是放在蒲公英上的。
 
