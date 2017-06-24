@@ -265,8 +265,8 @@ const WelfareItem = (navigate,dataSource) => {
                                   }}
             >
                 <Image
-                    source={{uri:item.url}}
                     indicator={Progress.CircleSnail}
+                    source={{uri:item.url}}
                     style={{
                               height:item.imageHeight,
                               width:item.imageWidth,

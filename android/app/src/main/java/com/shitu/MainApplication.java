@@ -21,6 +21,10 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+  private boolean SHUTDOWN_TOAST = false; //false代表打开
+
+  private boolean SHUTDOWN_LOG = false;
+
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
@@ -32,7 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new ImageResizerPackage(),
-            new JPushPackage(false,false),
+            new JPushPackage(SHUTDOWN_TOAST,SHUTDOWN_LOG),
             new ReactVideoPackage(),
             new RealmReactPackage(),
             new ImagePickerPackage(),

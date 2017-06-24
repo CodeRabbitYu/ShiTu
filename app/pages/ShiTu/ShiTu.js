@@ -104,23 +104,39 @@ class ShiTu extends Component {
             console.log('aaa');
             this.props.userToken();
         });
-        JPushModule.initPush();
-        JPushModule.addReceiveNotificationListener((map) => {
-            console.log("alertContent: " + map.alertContent);
-            console.log("extras: " + map.extras);
+        //Android?JPushModule.initPush():null;
+        Android?JPushModule.notifyJSDidLoad():null;
 
-            alert(map);
-            // var extra = JSON.parse(map.extras);
-            // console.log(extra.key + ": " + extra.value);
+        // JPushModule.addReceiveNotificationListener((map) => {
+        //     // console.log("alertContent: " + map.alertContent);
+        //     // console.log("extras: " + map.extras);
+        //     // this.setState({pushMsg:map});
+        //     console.log(map);
+        //     alert(map.alertContent);
+        //     // var extra = JSON.parse(map.extras);
+        //     // console.log(extra.key + ": " + extra.value);
+        // });
+
+        Request.get(Config.api.test.test,(data)=>{
+            console.log(data);
+        },(error)=>{
+            console.log(error);
         });
+
 
         JPushModule.addReceiveCustomMsgListener((message) => {
-
+            console.log(message);
             //这是默认的通知消息
-            alert(message);
-            //  this.setState({pushMsg:message});
+            alert(message.alertContent);
+            // this.setState({pushMsg:message});
 
         });
+
+        JPushModule.addReceiveOpenNotificationListener((message)=>{
+            console.log(message);
+            alert(message.alertContent);
+        })
+
 
         // console.log(this.props.ShiTuReducer);
 
@@ -166,10 +182,9 @@ class ShiTu extends Component {
         console.log('componentWillReceiveProps');
 
         const { navigate } = this.props.navigation;
-        const { imageURL, qiNiuData, perent } = nextProps.ShiTuReducer;
+        const { imageURL, qiNiuData } = nextProps.ShiTuReducer;
 
-        console.log(this.props);
-        console.log('perent:' + perent);
+        // console.log(this.props);
 
         if (this.props.ShiTuReducer.imageURL !== imageURL){
             if (imageURL) {
