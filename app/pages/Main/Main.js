@@ -12,7 +12,8 @@ import {
     TouchableOpacity,
     Alert,
     StatusBar,
-    InteractionManager
+    InteractionManager,
+    Share
 } from 'react-native';
 import Button from '../../component/Button';
 import Login from '../Login/Login';
@@ -178,6 +179,27 @@ export default class Main extends Component {
                     <Text style={{fontSize:20}}>弹出View</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => {
+                    Share.share({
+                      message: 'A framework for building native apps using React',
+                      url: 'http://facebook.github.io/react-native/',
+                      title: 'React Native'
+                    },{
+                      dialogTitle: 'Share React Native website',
+                      excludedActivityTypes: [
+                        'com.apple.UIKit.activity.PostToTwitter'
+                      ],
+                      tintColor: 'green'
+                    })
+                    .then(this._showResult)
+                    .catch((error) => {
+                        console.log(error);
+                        alert(error)
+                    });
+                }} style={{marginTop:30}}>
+                    <Text style={{fontSize:20}}>分享</Text>
+                </TouchableOpacity>
+
                 {this.state.viewVisible ?
                     <View style={{height:300,width:'100%',backgroundColor:'red'}}
                           animation="bounceInUp"
@@ -228,6 +250,21 @@ export default class Main extends Component {
             </View>
         );
     }
+
+    _showResult= (result) =>{
+        if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+                this.setState({result: 'shared with an activityType: ' + result.activityType});
+            } else {
+                this.setState({result: 'shared'});
+            }
+            alert(result.activityType);
+        } else if (result.action === Share.dismissedAction) {
+            this.setState({result: 'dismissed'});
+            alert('dismissed')
+        }
+    }
+
     showModal(){
         this.setState({
             modalVisible:true
