@@ -37,8 +37,8 @@ class RTTextInput extends Component {
                 ref={containerRef}
                 style={[styles.container,
                 success ? { borderBottomColor : successColor } :
-                error ? { borderBottomColor : errorColor}:
-                containerStyle && containerStyle ] }
+                error ? { borderBottomColor : errorColor} :
+                null] }
             >
                 <Icon name={iconName}
                       size = {30}

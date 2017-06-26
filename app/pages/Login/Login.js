@@ -61,6 +61,8 @@ export default class Login extends Component {
             usernameError:false,
             passwordSuccess:true,
             passwordError:false,
+            quickClick:true,
+            normalClick:false,
         }
     }
 
@@ -124,44 +126,70 @@ export default class Login extends Component {
         });
     };
 
+    _renderAccount = ()=> {
+        return(
+            <View style={{marginTop:30}}>
+                <RTTextInput placeholder="用户名"
+                             success={this.state.usernameSuccess}
+                             successColor='#4ECBFC'
+                             error={this.state.usernameError}
+                             errorColor='red'
+                             onChangeText={(text) =>this._usernameJudge(text)}
+                             ref={(input) => this._usernameInput = input}
+                             textInputRef='textInput'
+                             iconName='md-person'
+                />
+                <RTTextInput placeholder="密码"
+                             success={this.state.passwordSuccess}
+                             successColor='#4ECBFC'
+                             error={this.state.passwordError}
+                             errorColor='red'
+                             onChangeText={(text) => this._passwordJudge(text)}
+                             ref={(input) => this._passwordInput = input}
+                             textInputRef='textInput'
+                             iconName='md-lock'
+                />
+
+                <Text style={{marginTop:10}} onPress={()=>{
+                        this._passwordInput.refs.textInput.clear();
+                    }}>点我清空</Text>
+
+                <Text style={styles.loginStyle}
+                      onPress={this._login}
+                >
+                    登录
+                </Text>
+            </View>
+        )
+    }
+
+    _renderLogin = ()=>{
+        return(
+            <View style={{flexDirection:'row',height:44,backgroundColor:'red'}}>
+                <TouchableOpacity style={styles.quickLoginStyle}
+
+                >
+                    <Text>快捷登录</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.normalLoginStyle}>
+                    <Text style={styles.normalText}>普通登录</Text>
+                </TouchableOpacity>
+
+            </View>
+        )
+    }
+
     render() {
         let { state } = this.props.navigation;
         console.log('render');
         return (
-            <View>
-
-                    <RTTextInput placeholder="用户名"
-                                 success={this.state.usernameSuccess}
-                                 successColor='#4ECBFC'
-                                 error={this.state.usernameError}
-                                 errorColor='red'
-                                 onChangeText={(text) =>this._usernameJudge(text)}
-                                 ref={(input) => this._usernameInput = input}
-                                 textInputRef='textInput'
-                                 iconName='md-person'
-                    />
-                    <RTTextInput placeholder="密码"
-                                 success={this.state.passwordSuccess}
-                                 successColor='#4ECBFC'
-                                 error={this.state.passwordError}
-                                 errorColor='red'
-                                 onChangeText={(text) => this._passwordJudge(text)}
-                                 ref={(input) => this._passwordInput = input}
-                                 textInputRef='textInput'
-                                 iconName='md-lock'
-                    />
-
-
-                    <Text style={{marginTop:10}} onPress={()=>{
-                        this._passwordInput.refs.textInput.clear();
-                    }}>点我清空</Text>
-
-                    <Text style={styles.loginStyle}
-                          onPress={this._login}
-                    >
-                        登录
-                    </Text>
-
+            <View style={styles.container}>
+                {this._renderLogin()}
+                {this.state.quickClick ?
+                     this._renderAccount()
+                    : null
+                }
             </View>
         );
     }
@@ -179,6 +207,28 @@ const styles = StyleSheet.create({
         backgroundColor:'#4ECBFC',
         textAlign:'center',
         alignSelf:'center'
+    },
+    quickLoginStyle:{
+        width:SCREEN_WIDTH/2,
+        alignSelf:'center',
+        alignItems:'center'
+    },
+    normalLoginStyle:{
+        width:SCREEN_WIDTH/2,
+        alignSelf:'center',
+        alignItems:'center'
+    },
+    quickButton:{
+
+    },
+    quickText:{
+
+    },
+    normalButton:{
+
+    },
+    normalText:{
+
     }
 
 });
