@@ -30,6 +30,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Login from './pages/Login/Login';
 import Test from './pages/Component/test';
+import Test2 from './pages/Component/Test2';
 
 const ShiTuIcon = require('./resources/ShiTu.png');
 const GankIcon = require('./resources/Gank.png');
@@ -104,6 +105,12 @@ const MyTab = TabNavigator({
             header:null
         }
     },
+        // Test2:{
+        //     screen:Test2,
+        //     navigationOptions:{
+        //         headerTitle:'Test2',
+        //     }
+        // }
 },
     {
     tabBarPosition: 'bottom',
@@ -170,8 +177,13 @@ const MyApp = StackNavigator({
         navigationOptions:{
             headerTitle:'Test',
         }
+    },
+    Test2:{
+        screen:Test2,
+        navigationOptions:{
+            headerTitle:'Test2',
+        }
     }
-
 }, {
     headerMode: 'screen',
     transitionConfig:()=>({

@@ -23,22 +23,21 @@ class RTTextInput extends Component {
             textInputRef,
             containerRef,
             selectionColor,
-            success,
             successColor,
-            error,
             errorColor,
             iconName,
+            status,
             ...attributes
         } = this.props;
-        success ? selectionColor = successColor || '#4ECBFC' : selectionColor = '#4ECBFC';
-        error ? selectionColor = errorColor || 'red' : null;
+        // success ? selectionColor = successColor || '#4ECBFC' : selectionColor = '#4ECBFC';
+        // error ? selectionColor = errorColor || 'red' : selectionColor = '#4ECBFC';
+        //alert(status);
+        status ? selectionColor = successColor || '#4ECBFC' : selectionColor = errorColor || 'red';
         return (
             <View
                 ref={containerRef}
                 style={[styles.container,
-                success ? { borderBottomColor : successColor } :
-                error ? { borderBottomColor : errorColor} :
-                null] }
+                { borderBottomColor : selectionColor}] }
             >
                 <Icon name={iconName}
                       size = {30}
@@ -65,10 +64,9 @@ RTTextInput.propTypes = {
     selectionColor: PropTypes.string,
     textInputRef: PropTypes.string,
     containerRef: PropTypes.string,
-    success:PropTypes.bool,
     successColor:PropTypes.string,
-    error:PropTypes.bool,
     errorColor:PropTypes.string,
+    status:PropTypes.bool,
 };
 
 const styles = StyleSheet.create({

@@ -117,12 +117,13 @@ class ShiTu extends Component {
         //     // console.log(extra.key + ": " + extra.value);
         // });
 
+        /*
         Request.get(Config.api.test.test,(data)=>{
             console.log(data);
         },(error)=>{
             console.log(error);
         });
-
+        */
 
         JPushModule.addReceiveCustomMsgListener((message) => {
             console.log(message);

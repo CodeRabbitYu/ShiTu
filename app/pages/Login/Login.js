@@ -57,18 +57,18 @@ export default class Login extends Component {
         let { state } = this.props.navigation;
         this.state = {
             title: state.title,
-            usernameSuccess:true,
-            usernameError:false,
-            passwordSuccess:true,
-            passwordError:false,
-            quickClick:true,
-            normalClick:false,
+            userNameStatus:true,
+            passWordStatus:true,
+            loginMode:true,
+            numberColor:'#4ECBFC',
+            normalColor:'black',
+
         }
     }
 
     componentDidMount(){
         // this.props.navigation.setParams({callback:'hahaha'})
-        console.log(this.props.navigation);
+        // console.log(this.props.navigation);
     }
 
     _closePress=()=> {
@@ -84,30 +84,27 @@ export default class Login extends Component {
     _passwordJudge = (text) => {
         if (text.length <= 5) {
             this.setState({
-                passwordError: true,
-                passwordSuccess: false,
+                passWordStatus: false,
             })
 
         } else {
             this.setState({
-                passwordError: false,
-                passwordSuccess: true,
+                passWordStatus: true,
             })
         }
     };
 
     _usernameJudge = (text) => {
-        if (/^1[34578]\d{9}$/.test(text)) {
+        console.log(text);
+        if (/^1[34578]\d{9}$/.test(text) || text === '') {
             this.setState({
-                usernameError: false,
-                usernameSuccess: true,
+                userNameStatus: true,
             })
-
         } else {
             this.setState({
-                usernameError: true,
-                usernameSuccess: false,
+                userNameStatus: false,
             })
+
         }
     };
 
@@ -128,27 +125,66 @@ export default class Login extends Component {
 
     _renderAccount = ()=> {
         return(
-            <View style={{marginTop:30}}>
+            <View style={{marginTop:10}}>
                 <RTTextInput placeholder="用户名"
-                             success={this.state.usernameSuccess}
-                             successColor='#4ECBFC'
-                             error={this.state.usernameError}
-                             errorColor='red'
+                             //success={this.state.usernameSuccess}
+                             //successColor='orange'
+                             //error={this.state.usernameError}
+                             //errorColor='green'
+                             status={this.state.userNameStatus}
+                             onChangeText={(text) =>this._usernameJudge(text)}
+                             ref={(input) => this._usernameInput = input}
+                             textInputRef='textInput'
+                             iconName='md-person'
+                             //statusColor='orange'
+                />
+
+                    <RTTextInput placeholder="密码"
+                                 status={this.state.passWordStatus}
+                                 onChangeText={(text) => this._passwordJudge(text)}
+                                 ref={(input) => this._passwordInput = input}
+                                 textInputRef='textInput'
+                                 iconName='md-lock'
+                    />
+
+                <Text style={{marginTop:10}} onPress={()=>{
+                        this._passwordInput.refs.textInput.clear();
+                    }}>点我清空</Text>
+
+                <Text style={styles.loginStyle}
+                      onPress={this._login}
+                >
+                    登录
+                </Text>
+            </View>
+        )
+    };
+
+    _renderNumber = () => {
+        return(
+            <View style={{marginTop:10}}>
+                <RTTextInput placeholder="手机号"
+                             status={this.state.userNameStatus}
                              onChangeText={(text) =>this._usernameJudge(text)}
                              ref={(input) => this._usernameInput = input}
                              textInputRef='textInput'
                              iconName='md-person'
                 />
-                <RTTextInput placeholder="密码"
-                             success={this.state.passwordSuccess}
-                             successColor='#4ECBFC'
-                             error={this.state.passwordError}
-                             errorColor='red'
-                             onChangeText={(text) => this._passwordJudge(text)}
-                             ref={(input) => this._passwordInput = input}
-                             textInputRef='textInput'
-                             iconName='md-lock'
-                />
+                <View style={{flexDirection:'row'}}>
+                    <RTTextInput placeholder="验证码"
+                                 status={this.state.passWordStatus}
+                                 onChangeText={(text) => this._passwordJudge(text)}
+                                 ref={(input) => this._passwordInput = input}
+                                 textInputRef='textInput'
+                                 iconName='md-lock'
+                    />
+                    <TouchableOpacity style={{backgroundColor:'red',height:30,width:100,
+                                  position:'absolute',right:5,top:7,alignItems:'center',
+                                  justifyContent:'center'
+                    }}>
+                        <Text>获取验证码</Text>
+                    </TouchableOpacity>
+                </View>
 
                 <Text style={{marginTop:10}} onPress={()=>{
                         this._passwordInput.refs.textInput.clear();
@@ -164,16 +200,32 @@ export default class Login extends Component {
     }
 
     _renderLogin = ()=>{
+        let textColor = this.state.loginMode ?
+                        {color:'white'}
+                        : {color:this.state.textColor};
+        if (this.state.loginMode){
+            textColor =  {color:'white'};
+        }
         return(
-            <View style={{flexDirection:'row',height:44,backgroundColor:'red'}}>
+            <View style={styles.loginViewStyle}>
                 <TouchableOpacity style={styles.quickLoginStyle}
-
+                                  onPress={()=>this.setState({
+                                      loginMode:true,
+                                      numberColor:'#4ECBFC',
+                                      normalColor:'black',
+                                  })}
                 >
-                    <Text>快捷登录</Text>
+                    <Text style={[styles.quickText,{color:this.state.numberColor}]}>快捷登录</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.normalLoginStyle}>
-                    <Text style={styles.normalText}>普通登录</Text>
+                <TouchableOpacity style={styles.normalLoginStyle}
+                                  onPress={()=>this.setState({
+                                      loginMode:false,
+                                      numberColor:'black',
+                                      normalColor:'#4ECBFC',
+                                  })}
+                >
+                    <Text style={[styles.normalText,{color:this.state.normalColor}]}>普通登录</Text>
                 </TouchableOpacity>
 
             </View>
@@ -186,9 +238,9 @@ export default class Login extends Component {
         return (
             <View style={styles.container}>
                 {this._renderLogin()}
-                {this.state.quickClick ?
-                     this._renderAccount()
-                    : null
+                {this.state.loginMode ?
+                     this._renderNumber()
+                    : this._renderAccount()
                 }
             </View>
         );
@@ -208,6 +260,13 @@ const styles = StyleSheet.create({
         textAlign:'center',
         alignSelf:'center'
     },
+    loginViewStyle:{
+        flexDirection:'row',
+        height:44,
+        backgroundColor:'#f0f0f0',
+        borderBottomColor:'#ededed',
+        borderBottomWidth:1,
+    },
     quickLoginStyle:{
         width:SCREEN_WIDTH/2,
         alignSelf:'center',
@@ -222,13 +281,13 @@ const styles = StyleSheet.create({
 
     },
     quickText:{
-
+        fontSize:FONT_SIZE(16)
     },
     normalButton:{
 
     },
     normalText:{
-
+        fontSize:FONT_SIZE(16)
     }
 
 });
