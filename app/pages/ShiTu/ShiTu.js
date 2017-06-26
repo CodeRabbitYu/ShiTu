@@ -117,13 +117,13 @@ class ShiTu extends Component {
         //     // console.log(extra.key + ": " + extra.value);
         // });
 
-        /*
+
         Request.get(Config.api.test.test,(data)=>{
             console.log(data);
         },(error)=>{
             console.log(error);
         });
-        */
+
 
         JPushModule.addReceiveCustomMsgListener((message) => {
             console.log(message);
@@ -172,6 +172,7 @@ class ShiTu extends Component {
 
     componentWillUnmount(){
         // this.subscription.remove();
+        this.setIntervar && clearInterval(this.setIntervar);
         NetWorkTool.removeEventListener(NetWorkTool.TAG_NETWORK_CHANGE,this.handleMethod);
         if (Android){
             BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)

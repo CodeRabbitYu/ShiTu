@@ -62,24 +62,20 @@ export default class Login extends Component {
             loginMode:true,
             numberColor:'#4ECBFC',
             normalColor:'black',
-
+            verifyText : '获取验证码',
+            phoneNumber:'',
+            verifyNumber:'',
+            info:{
+                name:'测试',
+            }
         }
     }
+
 
     componentDidMount(){
         // this.props.navigation.setParams({callback:'hahaha'})
         // console.log(this.props.navigation);
     }
-
-    _closePress=()=> {
-        console.log(this.props.navigation);
-        // this.props.navigation.dispatch(setParamsAction);
-        // console.log(this.props.navigation);
-
-        let { state , goBack} = this.props.navigation;
-        state.params.callback('hahaha');
-        goBack();
-    };
 
     _passwordJudge = (text) => {
         if (text.length <= 5) {
@@ -90,31 +86,44 @@ export default class Login extends Component {
         } else {
             this.setState({
                 passWordStatus: true,
+                verifyNumber:text,
             })
         }
     };
 
     _usernameJudge = (text) => {
-        console.log(text);
         if (/^1[34578]\d{9}$/.test(text) || text === '') {
             this.setState({
                 userNameStatus: true,
+                phoneNumber:text,
             })
         } else {
             this.setState({
                 userNameStatus: false,
             })
-
         }
     };
 
     _login = () => {
         console.log('登录');
-        this.props.navigation.navigate('Test');
+        let phoneNumber;
+        let verifyNumber;
+        if (this.state.phoneNumber){
+            phoneNumber = this.state.phoneNumber;
+        }else {
+            alert('手机号为空或者错误，请重新输入');
+            return;
+        }
+        if (this.state.verifyNumber){
+            verifyNumber=this.state.verifyNumber;
+        }else {
+            alert('密码为空或者错误，请重新输入');
+            return;
+        }
 
         let body = {
-            username:'13130281857',
-            password:'123456',
+            username:phoneNumber,
+            verifyNumber:verifyNumber,
         };
         Request.post(Config.api.user.login,body,(data)=>{
             console.log(data);
@@ -125,7 +134,7 @@ export default class Login extends Component {
 
     _renderAccount = ()=> {
         return(
-            <View style={{marginTop:10}}>
+            <View style={{marginTop:0}}>
                 <RTTextInput placeholder="用户名"
                              //success={this.state.usernameSuccess}
                              //successColor='orange'
@@ -160,15 +169,37 @@ export default class Login extends Component {
         )
     };
 
+    _renderVerify = ()=> {
+        // alert('验证');
+        let hint = 10;
+        this.setIntervar = setInterval(()=>{
+            hint = --hint;
+            if (hint == 0){
+                this.setState({
+                    verifyText:'获取验证码',
+                });
+                this.setIntervar && clearInterval(this.setIntervar);
+            }else {
+                this.setState({
+                    verifyText: '剩余:' + hint,
+                    verifyNumber:'875858',
+                    phoneNumber:'17123456789',
+                })
+            }
+        },1000);
+
+    }
+
     _renderNumber = () => {
         return(
-            <View style={{marginTop:10}}>
+            <View style={{marginTop:0}}>
                 <RTTextInput placeholder="手机号"
                              status={this.state.userNameStatus}
                              onChangeText={(text) =>this._usernameJudge(text)}
                              ref={(input) => this._usernameInput = input}
                              textInputRef='textInput'
                              iconName='md-person'
+                             defaultValue={this.state.phoneNumber}
                 />
                 <View style={{flexDirection:'row'}}>
                     <RTTextInput placeholder="验证码"
@@ -177,38 +208,34 @@ export default class Login extends Component {
                                  ref={(input) => this._passwordInput = input}
                                  textInputRef='textInput'
                                  iconName='md-lock'
+                                 defaultValue={this.state.verifyNumber}
                     />
-                    <TouchableOpacity style={{backgroundColor:'red',height:30,width:100,
-                                  position:'absolute',right:5,top:7,alignItems:'center',
-                                  justifyContent:'center'
-                    }}>
-                        <Text>获取验证码</Text>
+                    <TouchableOpacity style={styles.verifyView}
+                                      activeOpacity={0.7}
+                                      onPress={this._renderVerify}
+                    >
+                        <Text>{this.state.verifyText}</Text>
                     </TouchableOpacity>
                 </View>
 
                 <Text style={{marginTop:10}} onPress={()=>{
                         this._passwordInput.refs.textInput.clear();
                     }}>点我清空</Text>
+                <TouchableOpacity style={styles.loginStyle} onPress={this._login}>
+                    <Text style={{fontSize:FONT_SIZE(17)}}>
+                        登录
+                    </Text>
+                </TouchableOpacity>
 
-                <Text style={styles.loginStyle}
-                      onPress={this._login}
-                >
-                    登录
-                </Text>
             </View>
         )
     }
 
     _renderLogin = ()=>{
-        let textColor = this.state.loginMode ?
-                        {color:'white'}
-                        : {color:this.state.textColor};
-        if (this.state.loginMode){
-            textColor =  {color:'white'};
-        }
         return(
             <View style={styles.loginViewStyle}>
                 <TouchableOpacity style={styles.quickLoginStyle}
+                                  activeOpacity={0.9}
                                   onPress={()=>this.setState({
                                       loginMode:true,
                                       numberColor:'#4ECBFC',
@@ -219,6 +246,7 @@ export default class Login extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.normalLoginStyle}
+                                  activeOpacity={0.9}
                                   onPress={()=>this.setState({
                                       loginMode:false,
                                       numberColor:'black',
@@ -257,8 +285,8 @@ const styles = StyleSheet.create({
         width:SCREEN_WIDTH,
         height:44,
         backgroundColor:'#4ECBFC',
-        textAlign:'center',
-        alignSelf:'center'
+        justifyContent:'center',
+        alignItems:'center'
     },
     loginViewStyle:{
         flexDirection:'row',
@@ -266,28 +294,38 @@ const styles = StyleSheet.create({
         backgroundColor:'#f0f0f0',
         borderBottomColor:'#ededed',
         borderBottomWidth:1,
+
     },
     quickLoginStyle:{
         width:SCREEN_WIDTH/2,
         alignSelf:'center',
-        alignItems:'center'
+        alignItems:'center',
+        justifyContent:'center',
+        borderRightWidth:1,
+        borderRightColor:'#4ECBFC',
+        height:30,
+
     },
     normalLoginStyle:{
         width:SCREEN_WIDTH/2,
         alignSelf:'center',
         alignItems:'center'
     },
-    quickButton:{
-
-    },
     quickText:{
-        fontSize:FONT_SIZE(16)
-    },
-    normalButton:{
-
+        fontSize:FONT_SIZE(15)
     },
     normalText:{
-        fontSize:FONT_SIZE(16)
+        fontSize:FONT_SIZE(15)
+    },
+    verifyView:{
+        backgroundColor:'#4ECBFC',
+        height:35,
+        width:80,
+        position:'absolute',
+        right:5,
+        top:5,
+        alignItems:'center',
+        justifyContent:'center'
     }
 
 });

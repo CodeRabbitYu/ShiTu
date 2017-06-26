@@ -123,7 +123,6 @@ export default class GankListContainer extends Component {
     };
 
     itemPress = (item) =>{
-        console.log(item);
         const {navigate} = this.props;
         InteractionManager.runAfterInteractions(() => {
             navigate('WebViewDetail', {

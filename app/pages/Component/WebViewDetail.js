@@ -29,17 +29,6 @@ import { Container, Content, Spinner, Fab,} from 'native-base';
 
 const WEBVIEW_REF = 'webview';
 
-const resetAction = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({
-            routeName: 'SearchHistory', params: {
-                isVisible: false,
-            }
-        })
-    ]
-});
-
 export default class Detail extends PureComponent {
 
     static navigationOptions = ({navigation,screenProps}) => ({
@@ -49,7 +38,7 @@ export default class Detail extends PureComponent {
     constructor(props) {
         super(props);
         const {state: {params: {data}}} = this.props.navigation;
-        console.log(data);
+        // console.log(data);
         this.state = {
             progress: 0,
             active:true,
@@ -68,6 +57,15 @@ export default class Detail extends PureComponent {
     }
 
     _onNavigationStateChange = (navState) => {
+        // console.log(navState);
+        // 可以跳转新页面，但这个只是测试代码
+        // if(navState.url !== this.state.url){
+        //     // this.props.navigation.navigate('')
+        //     this.props.navigation.navigate('WebViewDetail', {
+        //         data: navState.url,
+        //         isVisible: true
+        //     });
+        // }
         this.setState({
             isGoBack: navState.canGoBack,
             isForWard: navState.canGoForward,
