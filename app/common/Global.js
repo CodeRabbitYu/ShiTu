@@ -2,7 +2,7 @@
  * Created by Rabbit on 2017/4/20.
  */
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, PixelRatio, Platform } from 'react-native';
+import { Dimensions, StyleSheet, PixelRatio, Platform, Alert } from 'react-native';
 import FontSize from '../component/TextSize';
 import Colors from '../component/Colors';
 import { px2dp } from './Tool';
@@ -33,11 +33,7 @@ global.TOKEN = false;
 global.px2dp = px2dp;
 // 图片压缩
 global.ImageResizer = ImageResizer;
-// TabBarIcon图标大小
-global.TabBarIcon = {
-    width:35,
-    height:35,
-};
-
+// 弹出框
+global.Alert = Alert;
 
 

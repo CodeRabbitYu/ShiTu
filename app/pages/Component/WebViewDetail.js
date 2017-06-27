@@ -80,7 +80,6 @@ export default class Detail extends PureComponent {
 // <TouchableOpacity onPress={()=>this.props.navigation.dispatch(setParamsAction)}>
 // <Text>1111</Text>
 // </TouchableOpacity>
-
     _reload = ()=> {
         console.log('刷新');
         this.refs[WEBVIEW_REF].reload();

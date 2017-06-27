@@ -30,7 +30,8 @@ export default class Main extends Component {
         // ),
         tabBarLabel:({focused})=>(
             <Text style={{color: focused?'red':'green'}}>我的</Text>
-        )
+        ),
+        // tabBarVisible:false
     });
 
     navigatePress = () => {
@@ -131,7 +132,6 @@ export default class Main extends Component {
 
                 <AlertModal
                     ref={AlertModal => this.AlertModal = AlertModal}
-
                     message='这是一个自定义弹窗'
                     rightButtonText='确定'
                     leftButtonText='取消'

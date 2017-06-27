@@ -14,18 +14,20 @@ import {
 
 import { NavigationActions } from 'react-navigation';
 // import Icon from 'react-native-vector-icons/Ionicons';
-import Button from '../../component/Button';
 import RTTextInput from '../../component/RTTextInput';
 
 import Request from '../../common/Request';
 import Config from '../../common/Config';
 
-import { FormLabel, FormInput } from 'react-native-elements'
-
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
 
-import { Container, Content, Form, Item, Input,Label,Icon} from 'native-base';
+// const resetAction = NavigationActions.reset({
+//     index: 0,
+//     actions: [
+//         NavigationActions.navigate({ routeName: 'MyTab' })
+//     ]
+// });
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -76,13 +78,20 @@ export default class Login extends Component {
         // this.props.navigation.setParams({callback:'hahaha'})
         // console.log(this.props.navigation);
     }
+    componentWillUnmount(){
+        this.setIntervar && clearInterval(this.setIntervar);
+    }
 
     _passwordJudge = (text) => {
-        if (text.length <= 5) {
+        if (text.length <= 5 || text === '') {
             this.setState({
                 passWordStatus: false,
             })
-
+        }else if(text.length > 6 ){
+            this.setState({
+                passWordStatus: false,
+            });
+            Alert.alert('输出长度错误');
         } else {
             this.setState({
                 passWordStatus: true,
@@ -111,13 +120,13 @@ export default class Login extends Component {
         if (this.state.phoneNumber){
             phoneNumber = this.state.phoneNumber;
         }else {
-            alert('手机号为空或者错误，请重新输入');
+            Alert.alert('手机号为空或者输入错误，请重新输入');
             return;
         }
         if (this.state.verifyNumber){
             verifyNumber=this.state.verifyNumber;
         }else {
-            alert('密码为空或者错误，请重新输入');
+            Alert.alert('密码为空或者错误，请重新输入');
             return;
         }
 
@@ -127,8 +136,16 @@ export default class Login extends Component {
         };
         Request.post(Config.api.user.login,body,(data)=>{
             console.log(data);
+            if (data && data.success){
+                // this.props.navigation.dispatch(resetAction);
+            }else{
+
+                Alert.alert(data.data.message);
+            }
+
         },(error)=>{
             console.log(error);
+            Alert.alert('登录失败，请稍后重试');
         });
     };
 
@@ -136,16 +153,11 @@ export default class Login extends Component {
         return(
             <View style={{marginTop:0}}>
                 <RTTextInput placeholder="用户名"
-                             //success={this.state.usernameSuccess}
-                             //successColor='orange'
-                             //error={this.state.usernameError}
-                             //errorColor='green'
                              status={this.state.userNameStatus}
                              onChangeText={(text) =>this._usernameJudge(text)}
                              ref={(input) => this._usernameInput = input}
                              textInputRef='textInput'
                              iconName='md-person'
-                             //statusColor='orange'
                 />
 
                     <RTTextInput placeholder="密码"
@@ -160,11 +172,11 @@ export default class Login extends Component {
                         this._passwordInput.refs.textInput.clear();
                     }}>点我清空</Text>
 
-                <Text style={styles.loginStyle}
-                      onPress={this._login}
-                >
-                    登录
-                </Text>
+                <TouchableOpacity style={styles.loginStyle} onPress={this._login}>
+                    <Text style={{fontSize:FONT_SIZE(17)}}>
+                        登录
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     };
@@ -182,8 +194,10 @@ export default class Login extends Component {
             }else {
                 this.setState({
                     verifyText: '剩余:' + hint,
-                    verifyNumber:'875858',
+                    // verifyNumber:'875858',
                     phoneNumber:'17123456789',
+                    verifyNumber:'875858',
+                    // phoneNumber:'17123456781',
                 })
             }
         },1000);
@@ -209,6 +223,8 @@ export default class Login extends Component {
                                  textInputRef='textInput'
                                  iconName='md-lock'
                                  defaultValue={this.state.verifyNumber}
+                                 keyboardType={'decimal-pad'}
+                                 returnKeyType={'go'}
                     />
                     <TouchableOpacity style={styles.verifyView}
                                       activeOpacity={0.7}
