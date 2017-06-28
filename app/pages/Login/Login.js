@@ -16,8 +16,10 @@ import { NavigationActions } from 'react-navigation';
 // import Icon from 'react-native-vector-icons/Ionicons';
 import RTTextInput from '../../component/RTTextInput';
 
-import Request from '../../common/Request';
+// import Request from '../../common/Request';
 import Config from '../../common/Config';
+
+// import { Post } from '../../common/Fetch';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
@@ -83,9 +85,9 @@ export default class Login extends Component {
     }
 
     _passwordJudge = (text) => {
-        if (text.length <= 5 || text === '') {
+        if (text.length === 6 || text === '') {
             this.setState({
-                passWordStatus: false,
+                passWordStatus: true,
             })
         }else if(text.length > 6 ){
             this.setState({
@@ -94,7 +96,7 @@ export default class Login extends Component {
             Alert.alert('输出长度错误');
         } else {
             this.setState({
-                passWordStatus: true,
+                passWordStatus: false,
                 verifyNumber:text,
             })
         }
@@ -134,19 +136,24 @@ export default class Login extends Component {
             username:phoneNumber,
             verifyNumber:verifyNumber,
         };
-        Request.post(Config.api.user.login,body,(data)=>{
+
+        Fetch.post(Config.api.user.login,body,(data)=>{
             console.log(data);
-            if (data && data.success){
-                // this.props.navigation.dispatch(resetAction);
-            }else{
-
-                Alert.alert(data.data.message);
-            }
-
+            // this.props.navigation.dispatch(resetAction);
         },(error)=>{
             console.log(error);
-            Alert.alert('登录失败，请稍后重试');
-        });
+            Alert.alert(error.message);
+        })
+
+        // Request.post(Config.api.user.login,body,(data)=>{
+        //     console.log(data);
+        //
+        //
+        //
+        // },(error)=>{
+        //     console.log(error);
+        //     Alert.alert(error.error);
+        // });
     };
 
     _renderAccount = ()=> {
@@ -196,7 +203,7 @@ export default class Login extends Component {
                     verifyText: '剩余:' + hint,
                     // verifyNumber:'875858',
                     phoneNumber:'17123456789',
-                    verifyNumber:'875858',
+                    verifyNumber:'875851',
                     // phoneNumber:'17123456781',
                 })
             }

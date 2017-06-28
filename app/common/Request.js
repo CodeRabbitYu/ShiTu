@@ -52,7 +52,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
  *
  * */
 
-const Request = {
+const  Request = {
     // 框架可以用过cancel 取消某个网络请求
     /**
      * 设置Header请求头
@@ -98,7 +98,7 @@ const Request = {
                 if (response.respInfo.status === 200){
                     return response.json();
                 }else {
-                    return failCallBack(response);
+                    return failCallBack(response.json());
                 }
             })
             .then((response)=>{
@@ -120,43 +120,28 @@ const Request = {
     post:(url, body, successCallBack, failCallBack) =>{
 
         Request.Header.body = JSON.stringify(body);
-        console.log(Request.Header);
 
-        // let header = {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(body)
-        // };
-        //
-        // console.log(header);
-        // return fetch(url,header)
-        //     .then((response) => response.json())
-        //     .then((response)=>{
-        //         console.log(response);
-        //         successCallBack(response);
-        //     })
-        //     .catch((error)=>{
-        //         console.log(error);
-        //         failCallBack(error);
-        //     })
+
+
+
 
         return RNFetchBlob
             .config(Request.PostConfig)
             .fetch('POST',url,Request.Header)
             .then((response) => {
                 if (response.respInfo.status === 200){
+                console.log(response);
                     return response.json();
                 }else {
-                    return failCallBack(response);
+                    return failCallBack(response.json());
                 }
             })
             .then((response)=>{
+                console.log(response);
                 successCallBack(response);
             })
             .catch((error)=>{
+                console.log(error);
                 failCallBack(error);
             })
     },
@@ -198,5 +183,7 @@ const Request = {
             });
     }
 };
+
+
 
 module.exports = Request;

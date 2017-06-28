@@ -7,6 +7,9 @@ import FontSize from '../component/TextSize';
 import Colors from '../component/Colors';
 import { px2dp } from './Tool';
 
+import * as Fetch from './Fetch';
+
+
 import ImageResizer from 'react-native-image-resizer';
 
 let {height, width} = Dimensions.get('window');
@@ -35,5 +38,7 @@ global.px2dp = px2dp;
 global.ImageResizer = ImageResizer;
 // 弹出框
 global.Alert = Alert;
+// 网络请求
+global.Fetch = Fetch;
 
 

@@ -32,7 +32,6 @@ import { observer } from 'mobx-react/native';
 import Image from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 
-
 /**
  * redux初始化状态
  */
@@ -55,6 +54,10 @@ export default class WelfareContainer extends React.PureComponent {
     page = 1;
     @observable
     isLoadMore = false;
+
+    static navigationOptions = ({navigation,screenProps}) => ({
+
+    });
 
     constructor(props){
         super(props);
