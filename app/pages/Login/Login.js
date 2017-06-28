@@ -117,27 +117,20 @@ export default class Login extends Component {
 
     _login = () => {
         console.log('登录');
-        console.log(this.state.phoneNumber);
-        let phoneNumber = this.state.phoneNumber
-                            ? this.state.phoneNumber
-                            : Alert.alert('手机号为空或者输入错误，请重新输入')
-                            return;
-        let verifyNumber = this.state.verifyNumber
-                    ? this.state.verifyNumber
-                    : (Alert.alert('密码为空或者错误，请重新输入')) return
-
-        // if (this.state.phoneNumber){
-        //     phoneNumber = this.state.phoneNumber;
-        // }else {
-        //     Alert.alert('手机号为空或者输入错误，请重新输入');
-        //     return;
-        // }
-        // if (this.state.verifyNumber){
-        //     verifyNumber=this.state.verifyNumber;
-        // }else {
-        //     Alert.alert('密码为空或者错误，请重新输入');
-        //     return;
-        // }
+        let phoneNumber;
+        let verifyNumber;
+        if (this.state.phoneNumber){
+            phoneNumber = this.state.phoneNumber;
+        }else {
+            Alert.alert('手机号为空或者输入错误，请重新输入');
+            return;
+        }
+        if (this.state.verifyNumber){
+            verifyNumber=this.state.verifyNumber;
+        }else {
+            Alert.alert('密码为空或者错误，请重新输入');
+            return;
+        }
 
         let body = {
             username:phoneNumber,
