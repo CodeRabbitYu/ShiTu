@@ -21,7 +21,7 @@
 
 ![安卓版下载二维码](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔二维码.png)
 
-##### 安卓密码123，是放在蒲公英上的。
+##### 安卓密码1，是放在蒲公英上的。正在完善
 
 ![项目首页](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/%E8%AF%86%E5%85%94%E9%A6%96%E9%A1%B5.png)
 ![搜索详情](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/%E6%90%9C%E7%B4%A2%E8%AF%A6%E6%83%85.png)
