@@ -90,9 +90,13 @@ class WelfarePicture extends Component {
         //     isShow: !this.state.isShow
         // });
 
-        this.isShow = !this.isShow;
-        // console.log(this.isShow);
-        this.props.navigation.setParams({isVisible:this.isShow});
+        console.log(this.props.routes);
+        const { routes } = this.props;
+        this.props.navigation.goBack(routes[1].key)
+
+        // this.isShow = !this.isShow;
+        // // console.log(this.isShow);
+        // this.props.navigation.setParams({isVisible:this.isShow});
     };
 
     _onLongPress = ()=>{
@@ -162,8 +166,10 @@ const styles = StyleSheet.create({
 
 export default connect((state) => {
     const { ShiTuReducer } = state;
+    const routes  = state.nav.routes;
     return {
-        ShiTuReducer
+        ShiTuReducer,
+        routes
     };
 },{  backImage,getBackImage,getQiNiuToken})(WelfarePicture)
 

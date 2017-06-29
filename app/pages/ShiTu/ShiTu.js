@@ -95,6 +95,9 @@ class ShiTu extends Component {
             this.props.userToken();
         });
 
+        const {routes} = this.props;
+
+        console.log(routes);
         console.log(this.props);
 
         //Android?JPushModule.initPush():null;
@@ -553,8 +556,10 @@ const styles = StyleSheet.create({
 
 export default connect((state) => {
     const { ShiTuReducer } = state;
+    const routes  = state.nav.routes;
     return {
-        ShiTuReducer
+        ShiTuReducer,
+        routes
     };
 },{ userToken, qiNiuToken, backImage,getQiNiuToken,getPerent,getBackImage})(ShiTu)
 
