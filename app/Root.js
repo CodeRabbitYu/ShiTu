@@ -1,15 +1,19 @@
 /**
  * Created by Rabbit on 2017/4/19.
  */
+
+
 import { AppRegistry,View,Text ,} from 'react-native';
 
 import React, { Component } from 'react';
 
+
 import {Provider}from 'react-redux';
+
+import './common/Global'
 
 import configureStore from './store/ConfigureStore';
 const store = configureStore();
-import './common/Global'
 
 import App from './APP';
 // import TestDemo from './TestDemo';
@@ -37,7 +41,6 @@ export default class Root extends Component {
     
 
     render() {
-        
         return (
             !this.state.isLogin ?
                 <Provider store={store}>

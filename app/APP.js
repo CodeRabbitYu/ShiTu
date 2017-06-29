@@ -5,6 +5,7 @@
 import {
     StackNavigator,
     TabNavigator,
+    addNavigationHelpers
 } from 'react-navigation';
 
 import React from 'react';
@@ -18,17 +19,22 @@ import {
 
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
 
+import {connect} from 'react-redux'
+
 import ShiTu from './pages/ShiTu/ShiTu';
 import Gank from './pages/Gank/Gank';
-import WebViewDetail from './pages/Component/WebViewDetail';
 import Main from './pages/Main/Main';
+
+import WebViewDetail from './pages/Component/WebViewDetail';
 import SearchHistory from './pages/Main/SearchHistory';
 import WelfarePicture from './pages/Gank/WelfarePicture';
+
+import Login from './pages/Login/Login';
+import Register from './pages/Login/Register';
 
 import Button from './component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Login from './pages/Login/Login';
 import Test from './pages/Component/test';
 import Test2 from './pages/Component/Test2';
 
@@ -54,7 +60,6 @@ const ShiTuStack = StackNavigator({
 },{
     mode:'modal',
 });
-
 // 为了实现登录的modal效果,所以将Gank页面单独拆分出来.
 const GankStack = StackNavigator({
     Gank:{
@@ -113,6 +118,7 @@ const MyTab = TabNavigator({
         // }
 },
     {
+        // initialRouteName:'MainStack',
     tabBarPosition: 'bottom',
     // tabBarComponent:TabBarBottom,
     swipeEnabled:false,
@@ -155,7 +161,7 @@ const MyTab = TabNavigator({
     }
 });
 
-const MyApp = StackNavigator({
+export const MyApp = StackNavigator({
     MyTab: {
         screen: MyTab,
     },
@@ -278,6 +284,23 @@ const LoginOptions = ({navigation}) => {
     }
     const gesturesEnabled = false;
     return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight,gesturesEnabled}
-}
+};
 
-export default MyApp;
+const AppWithNavigationState = ({ dispatch, nav }) => (
+    <MyApp navigation={addNavigationHelpers({ dispatch, state: nav })}/>
+);
+
+const mapStateToProps = state => ({
+    nav: state.nav,
+});
+
+export default connect(mapStateToProps)(AppWithNavigationState);
+
+
+// export default connect((state)=>{
+//     return {
+//         nav:state.nav
+//     }
+// })(StackReducer);
+
+// export default MyApp;

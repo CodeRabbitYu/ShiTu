@@ -18,15 +18,11 @@ import { toastShort } from '../../common/ToastUtils'
 import NetWorkTool from '../../common/NetInfo'
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { userToken } from '../../actions/Common/UserToken';
 
 import { qiNiuToken, getQiNiuToken, getPerent } from '../../actions/ShiTu/SearchPicture';
 import { backImage,getBackImage } from '../../actions/ShiTu/BackImage';
-
-import * as User from '../../actions/Common/UserToken';
-import * as QiNiu from '../../actions/ShiTu/SearchPicture';
 
 // import {isNetworkConnected} from '../common/isNetInfo';
 let lastClickTime = 0;
@@ -98,6 +94,8 @@ class ShiTu extends Component {
         this.props.backImage(()=>{
             this.props.userToken();
         });
+
+        console.log(this.props);
 
         //Android?JPushModule.initPush():null;
         Android?JPushModule.notifyJSDidLoad():null;
@@ -178,7 +176,6 @@ class ShiTu extends Component {
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
 
-
         const { navigate } = this.props.navigation;
         const { imageURL, qiNiuData} = nextProps.ShiTuReducer;
 
@@ -207,11 +204,6 @@ class ShiTu extends Component {
                 }
             }
         }
-        console.log(this.props.ShiTuReducer);
-
-
-        // if (this.props.ShiTuReducer !== nextProps.ShiTuReducer) {
-        // }
     }
 
 
@@ -324,8 +316,6 @@ class ShiTu extends Component {
         const { userToken } = this.props.ShiTuReducer;
 
         // console.log(this.props);
-
-
 
         ImagePicker.showImagePicker(photoOptions, (response) => {
             // console.log('Response = ', response);
