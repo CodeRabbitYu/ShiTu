@@ -13,10 +13,12 @@ export function backImage(userToken) {
         await AsyncStorage.getItem(KEY,(Error,result)=>{
                  if (result === null){
                      dispatch(getBackImage('timg'));
+
                  }else {
                      // console.log('获取图片成功' + result);
                      dispatch(getBackImage(result));
                  }
+                userToken();
              });
          }
         // try {

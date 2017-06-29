@@ -202,9 +202,7 @@ export default class Login extends Component {
                                  iconName='md-lock'
                     />
 
-                <Text style={{marginTop:10}} onPress={()=>{
-                        this._passwordInput.refs.textInput.clear();
-                    }}>点我清空</Text>
+                <Text style={{marginTop:10}}>注册</Text>
 
                 <TouchableOpacity style={styles.loginStyle} onPress={this._login}>
                     <Text style={{fontSize:FONT_SIZE(17)}}>
@@ -215,7 +213,7 @@ export default class Login extends Component {
         )
     };
 
-    _renderVerify = ()=> {
+    _sendVerify = ()=> {
         // alert('验证');
         let hint = 10;
         this.setIntervar = setInterval(()=>{
@@ -235,7 +233,7 @@ export default class Login extends Component {
                 })
             }
         },1000);
-    }
+    };
 
     _renderNumber = () => {
         return(
@@ -258,12 +256,14 @@ export default class Login extends Component {
                     />
                     <TouchableOpacity style={styles.verifyView}
                                       activeOpacity={0.7}
-                                      onPress={this._renderVerify}
+                                      onPress={this._sendVerify}
                     >
                         <Text>{this.state.verifyText}</Text>
                     </TouchableOpacity>
                 </View>
-
+                <Text style={{marginTop:10}}  onPress={()=>{
+                        this._passwordInput.refs.textInput.clear();
+                    }}/>
                 <TouchableOpacity style={styles.loginStyle} onPress={this._login}>
                     <Text style={{fontSize:FONT_SIZE(17)}}>
                         登录

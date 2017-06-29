@@ -59,21 +59,16 @@ let photoOptions = {
     }
 };
 
-
-let perent = '';
-// let isUpload = false;
 let hintText = '点击按钮,搜索你想知道的图片哦!';
 let imageUri = '';
+
 @observer
 class ShiTu extends Component {
 
-    // // 背景图片地址
-    // @observable
-    // imageUri='';
-    // // 进度条
+    // 进度条
     @observable
     perent=0;
-    // // 是否正在查找中
+    // 是否正在查找中
     @observable
     isUpload=false;
     // @observable
@@ -101,9 +96,9 @@ class ShiTu extends Component {
     componentDidMount(){
         console.log('componentDidMount');
         this.props.backImage(()=>{
-            console.log('aaa');
             this.props.userToken();
         });
+
         //Android?JPushModule.initPush():null;
         Android?JPushModule.notifyJSDidLoad():null;
 
@@ -118,11 +113,11 @@ class ShiTu extends Component {
         // });
 
 
-        Request.get(Config.api.test.test,(data)=>{
-            console.log(data);
-        },(error)=>{
-            console.log(error);
-        });
+        // Request.get(Config.api.test.test,(data)=>{
+        //     console.log(data);
+        // },(error)=>{
+        //     console.log(error);
+        // });
 
 
         JPushModule.addReceiveCustomMsgListener((message) => {
@@ -183,10 +178,9 @@ class ShiTu extends Component {
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps');
 
-        const { navigate } = this.props.navigation;
-        const { imageURL, qiNiuData } = nextProps.ShiTuReducer;
 
-        // console.log(this.props);
+        const { navigate } = this.props.navigation;
+        const { imageURL, qiNiuData} = nextProps.ShiTuReducer;
 
         if (this.props.ShiTuReducer.imageURL !== imageURL){
             if (imageURL) {
@@ -199,10 +193,8 @@ class ShiTu extends Component {
 
         if (this.props.ShiTuReducer.qiNiuData !== qiNiuData){
             if (qiNiuData) {
-
                 const { webURL } = qiNiuData.data;
                 if (webURL) {
-
                     this.setIntervar && clearInterval(this.setIntervar);
                     navigate('WebViewDetail', {
                         data: webURL,
@@ -215,6 +207,8 @@ class ShiTu extends Component {
                 }
             }
         }
+        console.log(this.props.ShiTuReducer);
+
 
         // if (this.props.ShiTuReducer !== nextProps.ShiTuReducer) {
         // }
@@ -377,7 +371,6 @@ class ShiTu extends Component {
                 <BlurView style={styles.iOSBlur}
                           blurType="light"
                           blurAmount={5}
-
                 >
                     <Text style={styles.textStyle}>
                         {hintText}
