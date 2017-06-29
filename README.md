@@ -9,12 +9,14 @@
 
 #### 我将本地环境部署到线上了，可以直接使用，但用的是免费的服务器，所以可能有的时候不能连接上。
 
+下载识兔项目后，需要`npm install` 和 `react-native link`
+
 ~~#### 我已经将识兔的本地服务器开源~~
 ~~https://github.com/RabbitDream/ShiTuServer~~
 
 ~~下载项目后,在根目录通过`npm install`
 然后,`node index`~~
-~~#### 运行node之前需要配置一些七牛云的参数才能正常使用.
+~~#### 运行node之前需要配置一些七牛云的参数才能正常使用.~~
 ~~ ~~#### 如果还是没有弄明白可以加QQ群:397885169询问~~~
 
 ![识兔效果图](https://github.com/RabbitDream/ShiTu/blob/master/screenshots/识兔.gif)

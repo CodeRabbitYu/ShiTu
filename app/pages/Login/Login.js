@@ -63,6 +63,7 @@ export default class Login extends Component {
             title: state.title,
             userNameStatus:true,
             passWordStatus:true,
+            verifyStatus:true,
             loginMode:true,
             numberColor:'#4ECBFC',
             normalColor:'black',
@@ -102,6 +103,26 @@ export default class Login extends Component {
         }
     };
 
+    _verifyJudge = (text) => {
+        if (text.length === 6 || text === '') {
+            this.setState({
+                verifyStatus: true,
+                verifyNumber:text,
+            })
+        } else {
+            this.setState({
+                verifyStatus: false,
+            })
+            // Alert.alert('验证码错误');
+        }
+        // else if(text.length > 6 ){
+        //     this.setState({
+        //         passWordStatus: false,
+        //     });
+        //     Alert.alert('输出长度错误');
+        // }
+    }
+
     _usernameJudge = (text) => {
         if (/^1[34578]\d{9}$/.test(text) || text === '') {
             this.setState({
@@ -119,6 +140,7 @@ export default class Login extends Component {
         console.log('登录');
         let phoneNumber;
         let verifyNumber;
+
         if (this.state.phoneNumber){
             phoneNumber = this.state.phoneNumber;
         }else {
@@ -128,14 +150,19 @@ export default class Login extends Component {
         if (this.state.verifyNumber){
             verifyNumber=this.state.verifyNumber;
         }else {
-            Alert.alert('密码为空或者错误，请重新输入');
+            Alert.alert('验证码为空或者错误，请重新输入');
             return;
         }
+
+
+
 
         let body = {
             username:phoneNumber,
             verifyNumber:verifyNumber,
         };
+
+        console.log(body);
 
         Fetch.post(Config.api.user.login,body,(data)=>{
             console.log(data);
@@ -203,12 +230,11 @@ export default class Login extends Component {
                     verifyText: '剩余:' + hint,
                     // verifyNumber:'875858',
                     phoneNumber:'17123456789',
-                    verifyNumber:'875851',
+                    // verifyNumber:'875851',
                     // phoneNumber:'17123456781',
                 })
             }
         },1000);
-
     }
 
     _renderNumber = () => {
@@ -224,14 +250,11 @@ export default class Login extends Component {
                 />
                 <View style={{flexDirection:'row'}}>
                     <RTTextInput placeholder="验证码"
-                                 status={this.state.passWordStatus}
-                                 onChangeText={(text) => this._passwordJudge(text)}
-                                 ref={(input) => this._passwordInput = input}
-                                 textInputRef='textInput'
+                                 status={this.state.verifyStatus}
+                                 onChangeText={(text) => this._verifyJudge(text)}
                                  iconName='md-lock'
                                  defaultValue={this.state.verifyNumber}
-                                 keyboardType={'decimal-pad'}
-                                 returnKeyType={'go'}
+                                 keyboardType={'numeric'}
                     />
                     <TouchableOpacity style={styles.verifyView}
                                       activeOpacity={0.7}
@@ -241,9 +264,6 @@ export default class Login extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <Text style={{marginTop:10}} onPress={()=>{
-                        this._passwordInput.refs.textInput.clear();
-                    }}>点我清空</Text>
                 <TouchableOpacity style={styles.loginStyle} onPress={this._login}>
                     <Text style={{fontSize:FONT_SIZE(17)}}>
                         登录

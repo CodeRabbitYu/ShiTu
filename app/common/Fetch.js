@@ -44,7 +44,7 @@ export async function post(url, body, successCallBack, failCallBack) {
         if (data.respInfo.status === 200){
             return successCallBack(await data.json());
         }else {
-            // console.log(data.json());
+            console.log(data);
             return failCallBack(data.json());
         }
     } catch (error){
