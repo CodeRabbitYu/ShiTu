@@ -90,13 +90,13 @@ class WelfarePicture extends Component {
         //     isShow: !this.state.isShow
         // });
 
-        console.log(this.props.routes);
-        const { routes } = this.props;
-        this.props.navigation.goBack(routes[1].key)
+        // console.log(this.props.routes);
+        // const { routes } = this.props;
+        // this.props.navigation.goBack(routes[1].key)
 
-        // this.isShow = !this.isShow;
-        // // console.log(this.isShow);
-        // this.props.navigation.setParams({isVisible:this.isShow});
+        this.isShow = !this.isShow;
+        // console.log(this.isShow);
+        this.props.navigation.setParams({isVisible:this.isShow});
     };
 
     _onLongPress = ()=>{
