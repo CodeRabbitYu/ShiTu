@@ -178,6 +178,10 @@ export const MyApp = StackNavigator({
         screen:WelfarePicture,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
+    Register:{
+        screen:Register,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
     Test:{
         screen:Test,
         navigationOptions:{
@@ -225,7 +229,7 @@ const StackOptions = ({navigation}) => {
     // }
 
     const headerStyle = {backgroundColor:'#4ECBFC'};
-    const headerTitle = state.params.title;
+    const headerTitle = state.params ? state.params.title : state.routeName;
     const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),
         color:'white',fontWeight:'500',alignSelf:'center'}
     const headerBackTitle = false;
@@ -244,11 +248,11 @@ const StackOptions = ({navigation}) => {
         />
     );
     let headerRight;
-    if (state.params.headerRight){
+    if (state.params?state.params.headerRight:null){
         headerRight = state.params.headerRight;
     }
     let header;
-    if (state.params.isVisible === true){
+    if (state.params ? state.params.isVisible === true : null){
         header = null;
     }
     return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,header,headerLeft,headerRight}

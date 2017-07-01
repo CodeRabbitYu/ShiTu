@@ -16,31 +16,10 @@ import { NavigationActions } from 'react-navigation';
 // import Icon from 'react-native-vector-icons/Ionicons';
 import RTTextInput from '../../component/RTTextInput';
 
-// import Request from '../../common/Request';
 import Config from '../../common/Config';
-
-// import { Post } from '../../common/Fetch';
 
 import { observable, runInAction, autorun } from 'mobx';
 import { observer } from 'mobx-react/native';
-
-// const resetAction = NavigationActions.reset({
-//     index: 0,
-//     actions: [
-//         NavigationActions.navigate({ routeName: 'MyTab' })
-//     ]
-// });
-
-const resetAction = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'Main'})
-    ]
-});
-const setParamsAction = NavigationActions.setParams({
-    params: { title: 'Hello' },
-    key: 'screen-123',
-});
 
 
 @observer
@@ -171,16 +150,6 @@ export default class Login extends Component {
             console.log(error);
             Alert.alert(error.message);
         })
-
-        // Request.post(Config.api.user.login,body,(data)=>{
-        //     console.log(data);
-        //
-        //
-        //
-        // },(error)=>{
-        //     console.log(error);
-        //     Alert.alert(error.error);
-        // });
     };
 
     _renderAccount = ()=> {
@@ -194,15 +163,17 @@ export default class Login extends Component {
                              iconName='md-person'
                 />
 
-                    <RTTextInput placeholder="密码"
-                                 status={this.state.passWordStatus}
-                                 onChangeText={(text) => this._passwordJudge(text)}
-                                 ref={(input) => this._passwordInput = input}
-                                 textInputRef='textInput'
-                                 iconName='md-lock'
-                    />
+                <RTTextInput placeholder="密码"
+                             status={this.state.passWordStatus}
+                             onChangeText={(text) => this._passwordJudge(text)}
+                             ref={(input) => this._passwordInput = input}
+                             textInputRef='textInput'
+                             iconName='md-lock'
+                />
 
-                <Text style={{marginTop:10}}>注册</Text>
+                <Text style={styles.register} onPress={()=>{
+                    this.props.navigation.navigate('Register');
+                }}>注册</Text>
 
                 <TouchableOpacity style={styles.loginStyle} onPress={this._login}>
                     <Text style={{fontSize:FONT_SIZE(17)}}>
@@ -310,7 +281,7 @@ export default class Login extends Component {
             <View style={styles.container}>
                 {this._renderLogin()}
                 {this.state.loginMode ?
-                     this._renderNumber()
+                    this._renderNumber()
                     : this._renderAccount()
                 }
             </View>
@@ -369,6 +340,10 @@ const styles = StyleSheet.create({
         top:5,
         alignItems:'center',
         justifyContent:'center'
+    },
+    register:{
+        marginTop:10,
+        marginLeft:10,
     }
 
 });

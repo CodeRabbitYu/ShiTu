@@ -200,6 +200,12 @@ export default class Main extends Component {
                     <Text style={{fontSize:20}}>分享</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('Register');
+                }} style={{marginTop:30}}>
+                    <Text style={{fontSize:20}}>注册</Text>
+                </TouchableOpacity>
+
                 {this.state.viewVisible ?
                     <View style={{height:300,width:'100%',backgroundColor:'red'}}
                           animation="bounceInUp"

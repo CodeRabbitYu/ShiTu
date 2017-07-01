@@ -10,14 +10,16 @@ import {
     View,
     AsyncStorage,
     Button,
-    InteractionManager
+    InteractionManager,
+    TouchableOpacity
 } from 'react-native';
 
+import RTTextInput from '../../component/RTTextInput';
 
-export default class Login extends Component {
+export default class Register extends Component {
 
     static navigationOptions = {
-
+        headerTitle:'注册'
     }
 
     componentDidMount(){
@@ -26,7 +28,20 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-
+                <RTTextInput placeholder="账号"
+                             //status={this.state.userNameStatus}
+                             onChangeText={(text) =>this._usernameJudge(text)}
+                             ref={(input) => this._usernameInput = input}
+                             textInputRef='textInput'
+                             iconName='md-person'
+                />
+                <RTTextInput placeholder="密码"
+                             //status={this.state.userNameStatus}
+                             onChangeText={(text) =>this._usernameJudge(text)}
+                             ref={(input) => this._usernameInput = input}
+                             textInputRef='textInput'
+                             iconName='md-person'
+                />
             </View>
         );
     }
@@ -35,25 +50,9 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: 'white',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
 
-Login.PropTypes = {
-    navigate:React.PropTypes.object,
-    closeClick:React.PropTypes.object,
-};
+});
 
 
