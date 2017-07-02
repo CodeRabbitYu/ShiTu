@@ -25,26 +25,34 @@ export default class Register extends Component {
     componentDidMount(){
     }
 
+    constructor(props){
+        super(props);
+        this.state = {
+            accountStatus:true,
+            passWordStatus:true,
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <RTTextInput placeholder="账号"
-                             //status={this.state.userNameStatus}
+                             status={this.state.accountStatus}
                              onChangeText={(text) =>this._usernameJudge(text)}
                              ref={(input) => this._usernameInput = input}
                              textInputRef='textInput'
                              iconName='md-person'
                 />
                 <RTTextInput placeholder="密码"
-                             //status={this.state.userNameStatus}
+                             status={this.state.passWordStatus}
                              onChangeText={(text) =>this._usernameJudge(text)}
                              ref={(input) => this._usernameInput = input}
                              textInputRef='textInput'
-                             iconName='md-person'
+                             iconName='md-lock'
                 />
             </View>
         );
-    }
+    }   
 }
 
 const styles = StyleSheet.create({
