@@ -41,4 +41,3 @@ global.Alert = Alert;
 // 网络请求
 global.Fetch = Fetch;
 
-
