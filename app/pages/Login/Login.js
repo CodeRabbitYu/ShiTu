@@ -185,7 +185,6 @@ export default class Login extends Component {
     };
 
     _sendVerify = ()=> {
-        // alert('验证');
         let hint = 10;
         this.setIntervar = setInterval(()=>{
             hint = --hint;
