@@ -28,6 +28,7 @@ import Main from './pages/Main/Main';
 import WebViewDetail from './pages/Component/WebViewDetail';
 import SearchHistory from './pages/Main/SearchHistory';
 import WelfarePicture from './pages/Gank/WelfarePicture';
+import Collection from './pages/Main/Collection';
 
 import Login from './pages/Login/Login';
 import Register from './pages/Login/Register';
@@ -180,6 +181,10 @@ export const MyApp = StackNavigator({
     },
     Register:{
         screen:Register,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Collection:{
+        screen:Collection,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     Test:{

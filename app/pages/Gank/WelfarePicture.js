@@ -73,7 +73,7 @@ class WelfarePicture extends Component {
         //     goBackPress:this.goBackPress
         // });
 
-        console.log(this.props.navigation);
+        console.log(this.props);
     }
 
     constructor(props){
