@@ -125,7 +125,7 @@ const MyTab = TabNavigator({
     swipeEnabled:false,
     animationEnabled:false,
     backBehavior:'none',
-    lazy:true,
+    lazy:iOS?true:false,
     tabBarOptions: {
         // tabbar上label的style
         labelStyle: {
