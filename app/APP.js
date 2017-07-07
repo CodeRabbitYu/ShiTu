@@ -87,7 +87,11 @@ const MainStack = StackNavigator({
         navigationOptions: ({navigation}) => LoginOptions({navigation})
     }
 },{
-    mode:'modal',
+    // mode:'modal',
+    headerMode: 'screen',
+    transitionConfig:()=>({
+        screenInterpolator:CardStackStyleInterpolator.forVertical,
+    })
 });
 
 const MyTab = TabNavigator({
@@ -232,9 +236,11 @@ const StackOptions = ({navigation}) => {
     // if (!state.params.isVisible){
     //     return;
     // }
-
+    // alert(state.routeName)
     const headerStyle = {backgroundColor:'#4ECBFC'};
+
     const headerTitle = state.params ? state.params.title : state.routeName;
+
     const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),
         color:'white',fontWeight:'500',alignSelf:'center'}
     const headerBackTitle = false;

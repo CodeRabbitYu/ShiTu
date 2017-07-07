@@ -39,14 +39,14 @@ const actionTitle = '选择';
 
 @observer
 class WelfarePicture extends Component {
-    static navigationOptions = ({ navigation, screenProps }) => ({
-        // title: navigation.state.params.title + "'s Profile!",
+    // static navigationOptions = ({ navigation, screenProps }) => ({
+        // headerTitle: navigation.state.params.title + "'s Profile!",
         // headerRight:(
         //     <Text onPress={navigation.state.params.goBackPress}>
         //         返回
         //     </Text>
         // )
-    });
+    // });
 
     goBackPress = () => {
         alert('haha');
@@ -69,7 +69,7 @@ class WelfarePicture extends Component {
     componentWillMount(){
 
         // this.props.navigation.setParams({
-        //     title:'hahaha',
+        //     // title:'hahaha',
         //     goBackPress:this.goBackPress
         // });
 
