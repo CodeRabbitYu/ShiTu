@@ -6,6 +6,8 @@
 ## [React-Native中的数据持久化方式](http://www.jianshu.com/p/22cbb0124158)
 ## [Redux "使用"教程](http://www.jianshu.com/p/525c39bd672a)
 ## [react-native 实现上传功能](http://www.jianshu.com/p/97442b727a28)
+## [react-native组件的拆分技巧](http://www.jianshu.com/p/4fefb48fa8c8)
+## [群友的文章](http://www.jianshu.com/p/c6991a241b4f)
 
 #### 我将本地环境部署到线上了，可以直接使用，但用的是免费的服务器，所以可能有的时候不能连接上。
 
