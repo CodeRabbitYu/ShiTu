@@ -43,12 +43,9 @@ export default class GankListItem extends Component {
         // console.log(loaded);
         // console.log(total);
     };
-
-
+    
     _componentDidMount(){
         let {itemData} = this.props;
-
-
 
         /*
         if (itemData.imageHeight && itemData.imageWidth){
