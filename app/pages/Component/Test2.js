@@ -10,6 +10,8 @@ import {
     AppState
 } from 'react-native';
 
+import TestItem from './TestItem';
+
 export  default  class App extends Component {
     constructor(props){
         super(props);
@@ -31,6 +33,7 @@ export  default  class App extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.item}>监听中...{this.state.currentAppState}</Text>
+                <TestItem title={'哈哈'} press={()=>alert('111')}/>
             </View>
         );
     }

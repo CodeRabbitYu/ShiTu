@@ -207,7 +207,7 @@ export default class Main extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {
-                    this.props.navigation.navigate('Collection');
+                    this.props.navigation.navigate('Test2');
                 }} style={{marginTop:30}}>
                     <Text style={{fontSize:20}}>收藏</Text>
                 </TouchableOpacity>
