@@ -130,7 +130,6 @@ const  Request = {
             .fetch('POST',url,Request.Header)
             .then((response) => {
                 if (response.respInfo.status === 200){
-                console.log(response);
                     return response.json();
                 }else {
                     return failCallBack(response.json());
@@ -160,11 +159,12 @@ const  Request = {
             'Content-Type' : 'multipart/form-data',
         },body)
             .uploadProgress((written, total) => {
+                // 搜索进度打印
+                console.log('搜索进度:'+written / total);
             })
             .progress((received, total) => {
                 let perent = received / total;
-                // 搜索进度打印
-                console.log(perent);
+                console.log('上传进度:' + perent);
                 uploadProgress(perent);
             })
             .then((response)=>{

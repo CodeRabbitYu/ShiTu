@@ -95,10 +95,10 @@ class ShiTu extends Component {
             this.props.userToken();
         });
 
-        const {routes} = this.props;
+        // const {routes} = this.props;
+        // console.log(routes);
 
-        console.log(routes);
-        console.log(this.props);
+        // console.log(this.props);
 
         //Android?JPushModule.initPush():null;
         Android?JPushModule.notifyJSDidLoad():null;
@@ -184,7 +184,7 @@ class ShiTu extends Component {
 
         if (this.props.ShiTuReducer.imageURL !== imageURL){
             if (imageURL) {
-                console.log(imageURL);
+                // console.log(imageURL);
                 imageUri=imageURL;
                 this.viewRef = 88;
             }
@@ -238,10 +238,10 @@ class ShiTu extends Component {
         if (xhr.upload){
             xhr.upload.onprogress = (event)=>{
                 if (event.lengthComputable){
-                    let perent = event.loaded / event.total.toFixed(2);
+                    // let perent = event.loaded / event.total.toFixed(2);
                     // 搜索进度打印
                     // console.log(perent);
-                    this.perent = perent;
+                    // this.perent = perent;
 
                     this.isUpload = true;
                 }
@@ -289,6 +289,10 @@ class ShiTu extends Component {
                     });
                     data.data.title = '搜索详情';
 
+                    // if(this.perent === 1){
+                    //     console.log(this.perent);
+                    //
+                    // }
                     if (this.perent === 1){
                         InteractionManager.runAfterInteractions(()=> {
                             // navigate('Detail', {
@@ -296,8 +300,6 @@ class ShiTu extends Component {
                             //     title:'搜索详情',
                             //     isVisible:true
                             // });
-
-
                             this.isUpload = false;
                             this.hintText = '是否是您寻找的答案呢?'
                         });
@@ -329,16 +331,21 @@ class ShiTu extends Component {
             if(!response.error){
                 // this.props.getPerent();
 
-
-
                 this.props.getBackImage(response.uri);
                 if (userToken){
                     this.isUpload = true;
 
                     this.setIntervar = setInterval(()=>{
-                        this.perent = this.perent + 0.01
+                        this.perent = this.perent + 0.01;
+                        // console.log(this.perent);
+                        if (this.perent >= 1.0){
+                            this.setIntervar && clearInterval(this.setIntervar);
+                        }
                     });
+
                     this.props.qiNiuToken(response);
+                    // this.setIntervar && clearInterval(this.setIntervar);
+
                 }
                 else{
                     console.log('没有获取到USERTOKEN');

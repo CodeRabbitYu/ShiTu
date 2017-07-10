@@ -232,6 +232,9 @@ export default class Detail extends PureComponent {
                             this.setState({
                                 progress:this.state.progress + 0.1,
                             });
+                            if (this.state.progress >= 100){
+                                this.setIntervar && clearInterval(this.setIntervar);
+                            }
                         });
                     }}
                     onLoad={()=>{
@@ -251,7 +254,7 @@ export default class Detail extends PureComponent {
                             null,
                             [
                                 {text: '刷新', onPress: () => this._reload(),style: 'destructive'},
-                                {text: '取消', onPress: () => console.log('Cancel'), style: 'cancel'},
+                                {text: '取消', onPress: () => this.props.navigation.goBack(), style: 'cancel'},
                             ],
                             { cancelable: false }
                         )
