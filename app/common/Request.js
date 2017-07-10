@@ -160,11 +160,11 @@ const  Request = {
         },body)
             .uploadProgress((written, total) => {
                 // 搜索进度打印
-                console.log('搜索进度:'+written / total);
+                // console.log('搜索进度:'+written / total);
             })
             .progress((received, total) => {
                 let perent = received / total;
-                console.log('上传进度:' + perent);
+                // console.log('上传进度:' + perent);
                 uploadProgress(perent);
             })
             .then((response)=>{
