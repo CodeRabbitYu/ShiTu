@@ -14,7 +14,7 @@ import {
     TouchableOpacity,
     WebView,
     InteractionManager,
-    Alert
+    BackHandler
 } from 'react-native';
 
 import ProgressBar from '../../component/ProgressBar';
@@ -25,11 +25,14 @@ import ActionButton from 'react-native-action-button';
 import Button from '../../component/Button';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { connect } from 'react-redux';
+
+
 import { Container, Content, Spinner, Fab,} from 'native-base';
 
 const WEBVIEW_REF = 'webview';
 
-export default class Detail extends PureComponent {
+class Detail extends PureComponent {
 
     static navigationOptions = ({navigation,screenProps}) => ({
         // headerTitle:navigation.state.params?navigation.state.params.title:null,
@@ -48,11 +51,28 @@ export default class Detail extends PureComponent {
         }
     }
 
+    onBackAndroid = ()=> {
+
+        const {routes} = this.props;
+        console.log(routes);
+        // alert(routes)
+        if (routes.length > 1) {
+            this.props.navigation.goBack();
+            return true;
+        }
+    }
+
     componentDidMount() {
         // console.log(this.props.navigation);
+
+        const { routeName } = this.props.navigation.state;
+        console.log(this.props.navigation.state);
+
+        BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
     }
 
     componentWillUnmount() {
+        BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
         this.setIntervar && clearInterval(this.setIntervar);
     }
 
@@ -313,3 +333,10 @@ const styles = StyleSheet.create({
 
     }
 });
+
+export default connect((state) => {
+    const routes  = state.nav.routes;
+    return {
+        routes
+    };
+})(Detail)

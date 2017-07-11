@@ -14,7 +14,8 @@ import {
     // Image,
     TouchableOpacity,
     ActivityIndicator,
-    VirtualizedList
+    VirtualizedList,
+    BackHandler
 } from 'react-native';
 
 import Request from '../../common/Request';
@@ -40,7 +41,6 @@ let isLoadMore = false;
 let isRefreshing = false;
 let isFirstLoad = true;
 let page = 1;
-
 
 @observer
 export default class WelfareContainer extends React.PureComponent {
@@ -77,7 +77,6 @@ export default class WelfareContainer extends React.PureComponent {
     componentDidMount(){
         console.log('componentDidMount');
         this.fetchData(this.page);
-
         // 使用redux获取数据
         //this.props.welfareData(page, this.props.type, isLoading, isLoadMore, isRefreshing);
     }

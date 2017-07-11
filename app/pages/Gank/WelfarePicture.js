@@ -31,6 +31,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import ActionSheet from 'react-native-actionsheet'
 
+
 const CANCEL_INDEX = 0;
 const DESTRUCTIVE_INDEX = 4;
 const options = [ '取消','收藏图片','设为主屏幕' ];
@@ -80,34 +81,22 @@ class WelfarePicture extends Component {
     onBackAndroid = ()=> {
 
         const {routes} = this.props;
-        console.log(routes);
-
-        // return false;
         if (routes.length > 1) {
             this.props.navigation.goBack();
             return true;
-        }else {
-                // let now = new Date().getTime();
-                // if (now - lastClickTime < 2500 ){
-                //     return false;
-                // }
-                // lastClickTime = now ;
-                // toastShort('再按一次退出应用');
-                // return true;
-
         }
     }
     componentDidMount(){
         const {routes} = this.props;
         console.log(routes);
-        // if (Android){
+        if (Android){
             BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
-        // }
+        }
     }
     componentWillUnmount(){
-        // if (Android){
+        if (Android){
             BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
-        // }
+        }
     }
 
     constructor(props){

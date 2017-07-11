@@ -75,38 +75,16 @@ class ShiTu extends Component {
      onBackAndroid=()=>{
 
         const {routes} = this.props;
-        // console.log(routes);
-        //  alert(routes.length);
-        //  if (routes.length > 1) {
-        //      this.props.navigation.goBack();
-        //      console.log(this.props.navigation);
-        //      return false;
-        //  }
-         // else{
-         //     let now = new Date().getTime();
-         //     if (now - lastClickTime < 2500 ){
-         //         return false;
-         //     }
-         //     lastClickTime = now ;
-         //     toastShort('再按一次退出应用');
-         //     return true;
-         // }
-            console.log(routes);
-         // if (routes[0].routeName === "MyTab"){
-         //     alert(routes[0].routeName);
-         //
-         // }
 
-         if (routes.length == 1){
-             let now = new Date().getTime();
-             if (now - lastClickTime < 2500 ){
-                 return false;
-             }
-             lastClickTime = now ;
-             toastShort('再按一次退出应用');
-             return true;
+         console.log(routes);
+
+         let now = new Date().getTime();
+         if (now - lastClickTime < 2500 ){
+             return false;
          }
-
+         lastClickTime = now ;
+         toastShort('再按一次退出应用');
+         return true;
 
     }
 
@@ -118,6 +96,7 @@ class ShiTu extends Component {
     };
 
     componentDidMount(){
+
         console.log('componentDidMount');
         this.props.backImage(()=>{
             this.props.userToken();
@@ -130,7 +109,7 @@ class ShiTu extends Component {
         // console.log(this.props);
 
         //Android?JPushModule.initPush():null;
-        Android?JPushModule.notifyJSDidLoad():null;
+        // Android?JPushModule.notifyJSDidLoad():null;
 
         // JPushModule.addReceiveNotificationListener((map) => {
         //     // console.log("alertContent: " + map.alertContent);
