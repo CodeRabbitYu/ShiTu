@@ -22,7 +22,7 @@ export function userToken() {
                             AsyncStorage.setItem(KEY,token,(error)=>{
                                 if (error){
                                     console.log('存储失败' + error);
-                                    Alert.alert('获取失败，请稍后重试');
+                                    // Alert.alert('获取失败，请稍后重试');
                                 }else {
                                     console.log('存储成功');
                                     dispatch(getUserToken(token));

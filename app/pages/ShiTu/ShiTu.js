@@ -73,16 +73,44 @@ class ShiTu extends Component {
     viewRef = null;
 
      onBackAndroid=()=>{
-        
-        let now = new Date().getTime();
-        if (now - lastClickTime < 2500 ){
-            return false;
-        }
-        lastClickTime = now ;
-        toastShort('再按一次退出应用');
-        return true;
+
+        const {routes} = this.props;
+        // console.log(routes);
+        //  alert(routes.length);
+        //  if (routes.length > 1) {
+        //      this.props.navigation.goBack();
+        //      console.log(this.props.navigation);
+        //      return false;
+        //  }
+         // else{
+         //     let now = new Date().getTime();
+         //     if (now - lastClickTime < 2500 ){
+         //         return false;
+         //     }
+         //     lastClickTime = now ;
+         //     toastShort('再按一次退出应用');
+         //     return true;
+         // }
+            console.log(routes);
+         // if (routes[0].routeName === "MyTab"){
+         //     alert(routes[0].routeName);
+         //
+         // }
+
+         if (routes.length == 1){
+             let now = new Date().getTime();
+             if (now - lastClickTime < 2500 ){
+                 return false;
+             }
+             lastClickTime = now ;
+             toastShort('再按一次退出应用');
+             return true;
+         }
+
+
     }
 
+    // 检测网络状态
     handleMethod = (isConnected)=> {
         // 检测网络状态
         // console.log('ShiTu', (isConnected ? 'online' : 'offline'));
@@ -95,8 +123,9 @@ class ShiTu extends Component {
             this.props.userToken();
         });
 
-        // const {routes} = this.props;
-        // console.log(routes);
+        const {routes} = this.props;
+        console.log(routes);
+        // alert(routes.length)
 
         // console.log(this.props);
 
@@ -119,6 +148,10 @@ class ShiTu extends Component {
         // },(error)=>{
         //     console.log(error);
         // });
+
+        if (Android){
+            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
+        }
 
 
         JPushModule.addReceiveCustomMsgListener((message) => {
@@ -156,9 +189,7 @@ class ShiTu extends Component {
             NetWorkTool.listenerNetworkState((isConnected)=>{
                 console.log(isConnected);
             });
-        if (Android){
-            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
-        }
+
 
         // console.log(this.props);
         // const {getQiNiuToken} = this.props;

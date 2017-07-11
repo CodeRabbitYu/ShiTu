@@ -12,7 +12,8 @@ import {
     TouchableOpacity,
     AsyncStorage,
     DeviceEventEmitter,
-    InteractionManager
+    InteractionManager,
+    BackHandler
 } from 'react-native';
 
 import { observable, runInAction, autorun } from 'mobx';
@@ -74,6 +75,39 @@ class WelfarePicture extends Component {
         // });
 
         console.log(this.props);
+    }
+
+    onBackAndroid = ()=> {
+
+        const {routes} = this.props;
+        console.log(routes);
+
+        // return false;
+        if (routes.length > 1) {
+            this.props.navigation.goBack();
+            return true;
+        }else {
+                // let now = new Date().getTime();
+                // if (now - lastClickTime < 2500 ){
+                //     return false;
+                // }
+                // lastClickTime = now ;
+                // toastShort('再按一次退出应用');
+                // return true;
+
+        }
+    }
+    componentDidMount(){
+        const {routes} = this.props;
+        console.log(routes);
+        // if (Android){
+            BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
+        // }
+    }
+    componentWillUnmount(){
+        // if (Android){
+            BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
+        // }
     }
 
     constructor(props){
