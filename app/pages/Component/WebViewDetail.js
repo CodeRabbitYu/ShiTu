@@ -65,14 +65,11 @@ class Detail extends PureComponent {
     componentDidMount() {
         // console.log(this.props.navigation);
 
-        const { routeName } = this.props.navigation.state;
-        console.log(this.props.navigation.state);
-
-        BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
+        BackHandler.addEventListener('handlerBackDetail',this.onBackAndroid)
     }
 
     componentWillUnmount() {
-        BackHandler.addEventListener('handwareBackDetail',this.onBackAndroid)
+        BackHandler.addEventListener('handlerBackDetail',this.onBackAndroid)
         this.setIntervar && clearInterval(this.setIntervar);
     }
 

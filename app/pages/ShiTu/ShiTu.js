@@ -72,19 +72,25 @@ class ShiTu extends Component {
     @observable
     viewRef = null;
 
-     onBackAndroid=()=>{
+    static navigationOptions = ({navigation,screenProps}) => ({
+        onTabPress:(()=>{
+            alert('aaa');
+        })
+    });
+
+    onBackAndroid=()=>{
 
         const {routes} = this.props;
 
-         console.log(routes);
+        console.log(routes);
 
-         let now = new Date().getTime();
-         if (now - lastClickTime < 2500 ){
-             return false;
-         }
-         lastClickTime = now ;
-         toastShort('再按一次退出应用');
-         return true;
+        let now = new Date().getTime();
+        if (now - lastClickTime < 2500 ){
+            return false;
+        }
+        lastClickTime = now ;
+        toastShort('再按一次退出应用');
+        return true;
 
     }
 
