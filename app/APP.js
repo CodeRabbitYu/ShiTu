@@ -65,6 +65,7 @@ const ShiTuStack = StackNavigator({
 const GankStack = StackNavigator({
     Gank:{
         screen:Gank,
+        path:'/Gank',
         navigationOptions: ()=> TabOptions('干货',GankIcon,GankIcon,'干货集中营'),
     },
     Login:{
@@ -90,20 +91,21 @@ const MainStack = StackNavigator({
     // mode:'modal',
     headerMode: 'screen',
     transitionConfig:()=>({
-        screenInterpolator:CardStackStyleInterpolator.forVertical,
+        screenInterpolator:CardStackStyleInterpolator.forInitial,
     })
 });
 
 const MyTab = TabNavigator({
     ShiTuStack: {
         screen: ShiTuStack,
-
+        path:'ShiTu',
         navigationOptions:{
             header:null
         }
     },
     GankStack: {
         screen:GankStack,
+        path:'/Gank',
         navigationOptions:{
             header:null
         }
@@ -172,6 +174,7 @@ export const MyApp = StackNavigator({
     },
     WebViewDetail: {
         screen: WebViewDetail,
+        path:'W/:n',
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     SearchHistory:{

@@ -108,6 +108,8 @@ class ShiTu extends Component {
             this.props.userToken();
         });
 
+        this.props.navigation.navigate('WEB')
+
         const {routes} = this.props;
         console.log(routes);
         // alert(routes.length)

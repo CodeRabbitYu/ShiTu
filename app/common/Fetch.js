@@ -3,10 +3,6 @@
  */
 'use strict';
 import RNFetchBlob from 'react-native-fetch-blob';
-/***
- * import { fetch } from '../Fetch';
- *
- */
 
 const Header = {
     'Accept': 'application/json',

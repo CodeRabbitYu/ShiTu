@@ -8,7 +8,7 @@ import GankReducer from './GankReducer';
 // 很神奇的事情。。。除了叫nav，其他的都报错
 import nav from './StackReducer';
 
-import { MyApp } from '../APP';
+// import { MyApp } from '../APP';
 
 // function nav(state, action) {
 //     let nextState;
