@@ -88,11 +88,11 @@ const MainStack = StackNavigator({
         navigationOptions: ({navigation}) => LoginOptions({navigation})
     }
 },{
-    // mode:'modal',
-    headerMode: 'screen',
-    transitionConfig:()=>({
-        screenInterpolator:CardStackStyleInterpolator.forInitial,
-    })
+    mode:'modal',
+    // headerMode: 'screen',
+    // transitionConfig:()=>({
+    //     screenInterpolator:CardStackStyleInterpolator.forHorizontal,
+    // })
 });
 
 const MyTab = TabNavigator({

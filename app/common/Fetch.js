@@ -26,7 +26,7 @@ export async function get(url, successCallBack, failCallBack) {
 
 export async function post(url, body, successCallBack, failCallBack) {
 
-    Header.body = JSON.stringify(body);
+    // Header.body = JSON.stringify(body);
 
     // let Header={
     //     'Accept': 'application/json',
@@ -36,7 +36,7 @@ export async function post(url, body, successCallBack, failCallBack) {
     // RNFetchBlob.config(Request.PostConfig);
 
     try {
-        let data = await RNFetchBlob.fetch('POST',url,Header);
+        let data = await RNFetchBlob.fetch('POST',url,Header,JSON.stringify(body));
         if (data.respInfo.status === 200){
             return successCallBack(await data.json());
         }else {
