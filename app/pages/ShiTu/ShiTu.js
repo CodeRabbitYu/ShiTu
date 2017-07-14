@@ -488,7 +488,8 @@ class ShiTu extends Component {
                 />
 
                     <StatusBar
-                        backgroundColor="blue"
+                        backgroundColor="#4ECBFC"
+                        translucent={true}
                         barStyle="light-content"
                     />
                     {
