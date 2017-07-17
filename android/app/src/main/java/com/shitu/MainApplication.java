@@ -3,6 +3,7 @@ package com.shitu;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import cn.jpush.reactnativejpush.JPushPackage;
 import com.brentvatne.react.ReactVideoPackage;
@@ -10,7 +11,6 @@ import io.realm.react.RealmReactPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.cmcewen.blurview.BlurViewPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -35,14 +35,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
             new ImageResizerPackage(),
             new JPushPackage(SHUTDOWN_TOAST,SHUTDOWN_LOG),
             new ReactVideoPackage(),
             new RealmReactPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
-            new BlurViewPackage(),
-            new RNFetchBlobPackage()
+            new BlurViewPackage()
       );
     }
   };

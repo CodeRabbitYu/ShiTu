@@ -47,7 +47,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>App需要您的同意,才能访问相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>App需要您的同意,才能访问音频</string>
 	<key>NSPhotoLibraryUsageDescription</key>

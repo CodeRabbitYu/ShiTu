@@ -148,7 +148,7 @@ export default class Login extends Component {
             // this.props.navigation.dispatch(resetAction);
         },(error)=>{
             console.log(error);
-            Alert.alert(error.message);
+            // Alert.alert(error.message);
         })
     };
 
@@ -196,7 +196,7 @@ export default class Login extends Component {
             }else {
                 this.setState({
                     verifyText: '剩余:' + hint,
-                    // verifyNumber:'875858',
+                    verifyNumber:'875858',
                     phoneNumber:'17123456789',
                     // verifyNumber:'875851',
                     // phoneNumber:'17123456781',

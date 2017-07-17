@@ -5,9 +5,8 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 
 const Header = {
-    'Accept': 'application/json',
+    // 'Accept': 'application/json',
     'Content-Type': 'application/json',
-
 };
 
 export async function get(url, successCallBack, failCallBack) {
@@ -34,6 +33,13 @@ export async function post(url, body, successCallBack, failCallBack) {
     //     body:body
     // }
     // RNFetchBlob.config(Request.PostConfig);
+
+
+    // let header = JSON.stringify(Header);
+    // header.body = '111';
+
+    console.log(JSON.stringify(body));
+    // console.log(header);
 
     try {
         let data = await RNFetchBlob.fetch('POST',url,Header,JSON.stringify(body));
