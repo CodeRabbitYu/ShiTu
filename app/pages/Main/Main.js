@@ -45,12 +45,12 @@ export default class Main extends Component {
     }
 
     async componentDidMount(){
-        console.log(this.props.navigation);
+        // console.log(this.props.navigation);
 
-        this.props.navigation.setParams({
-            title:'haha',
-            navigatePress:this.navigatePress
-        });
+        // this.props.navigation.setParams({
+        //     title:'haha',
+        //     navigatePress:this.navigatePress
+        // });
 
         // this.props.navigation.setParams({
         //     title:'hahaha',
@@ -114,7 +114,7 @@ export default class Main extends Component {
     render() {
         // console.log('Main');
 
-        console.log (this.props.navigation.state);
+        // console.log (this.props.navigation.state);
         if (this.state.data){
             console.log('获得数据');
         }
@@ -210,6 +210,12 @@ export default class Main extends Component {
                     this.props.navigation.navigate('Test2');
                 }} style={{marginTop:30}}>
                     <Text style={{fontSize:20}}>收藏</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('Gestures');
+                }} style={{marginTop:30}}>
+                    <Text style={{fontSize:20}}>手势</Text>
                 </TouchableOpacity>
 
                 {this.state.viewVisible ?

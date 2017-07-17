@@ -13,7 +13,8 @@ import {
     AsyncStorage,
     DeviceEventEmitter,
     InteractionManager,
-    BackHandler
+    BackHandler,
+    CameraRoll
 } from 'react-native';
 
 import { observable, runInAction, autorun } from 'mobx';
@@ -129,22 +130,36 @@ class WelfarePicture extends Component {
     handlePress(url,i) {
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
-        if(i===2){
-            InteractionManager.runAfterInteractions(()=>{
-                AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
-                    if (error){
-                        console.log('存储失败' + error);
-                    }else {
-                        console.log('存储成功');
-                        // 之前的做法是这里发送通知到首页
-                        // DeviceEventEmitter.emit('SHITUIMAGE',url);
-                        // this.props.getQiNiuToken();
+        switch (i){
+            case 1 :
+                CameraRoll.saveToCameraRoll(url, 'photo')
+                    .then((data)=>{
+                        console.log(data)
+                    })
+                    .catch((error)=>{
+                        console.log(error);
+                    });
+            break;
+            case 2:
+                InteractionManager.runAfterInteractions(()=>{
+                    AsyncStorage.setItem(SHITUIMAGEKEY,url,(error)=>{
+                        if (error){
+                            console.log('存储失败' + error);
+                        }else {
+                            console.log('存储成功');
+                            // 之前的做法是这里发送通知到首页
+                            // DeviceEventEmitter.emit('SHITUIMAGE',url);
+                            // this.props.getQiNiuToken();
 
-                        this.props.getBackImage(url);
-                    }
-                })
-            })
+                            this.props.getBackImage(url);
+                        }
+                    })
+                });
+            break;
         }
+        // if(i===2){
+        //
+        // }
     }
 
     render() {

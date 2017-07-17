@@ -38,6 +38,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Test from './pages/Component/test';
 import Test2 from './pages/Component/Test2';
+import Gestures from './pages/Component/Gestures';
 
 const ShiTuIcon = require('./resources/ShiTu.png');
 const GankIcon = require('./resources/Gank.png');
@@ -204,6 +205,12 @@ export const MyApp = StackNavigator({
         screen:Test2,
         navigationOptions:{
             headerTitle:'Test2',
+        }
+    },
+    Gestures:{
+        screen:Gestures,
+        navigationOptions:{
+            headerTitle:'手势',
         }
     }
 }, {
