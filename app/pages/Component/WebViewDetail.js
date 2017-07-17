@@ -65,11 +65,11 @@ class Detail extends PureComponent {
     componentDidMount() {
         // console.log(this.props.navigation);
 
-        BackHandler.addEventListener('handlerBackDetail',this.onBackAndroid)
+        BackHandler.addEventListener('handlerBackDetail',this.onBackAndroid);
     }
 
     componentWillUnmount() {
-        BackHandler.addEventListener('handlerBackDetail',this.onBackAndroid)
+        BackHandler.addEventListener('handlerBackDetail',this.onBackAndroid);
         this.setIntervar && clearInterval(this.setIntervar);
     }
 
@@ -83,6 +83,8 @@ class Detail extends PureComponent {
         //         isVisible: true
         //     });
         // }
+
+        console.log('onNavigationStateChange');
         this.setState({
             isGoBack: navState.canGoBack,
             isForWard: navState.canGoForward,
@@ -208,6 +210,11 @@ class Detail extends PureComponent {
 // onPress={this._close}
 // />
 
+    _onShouldStartLoadWithRequest = (data)=>{
+        console.log(data);
+        return true;
+    }
+
     render() {
 
         // console.log(this.props.navigation);
@@ -236,6 +243,7 @@ class Detail extends PureComponent {
                     onNavigationStateChange={this._onNavigationStateChange}
                     renderLoading={this.renderLoading}
                     startInLoadingState={true}
+                    onShouldStartLoadWithRequest={()=>this._onShouldStartLoadWithRequest()}
                     onLoadStart={()=>{
                         console.log('开始加载');
                         this.setState({
@@ -259,11 +267,12 @@ class Detail extends PureComponent {
                     }}
                     onLoadEnd={()=>{
                         console.log('加载结束，成功或失败都会走到这里');
+                        this.setIntervar && clearInterval(this.setIntervar);
                         this.setState({
                             progress:100,
                             // active:true
                         });
-                        this.setIntervar && clearInterval(this.setIntervar);
+
                     }}
                     onError={()=>{
                         Alert.alert(

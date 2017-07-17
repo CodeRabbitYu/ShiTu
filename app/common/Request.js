@@ -58,7 +58,7 @@ const  Request = {
      * 设置Header请求头
      */
     Header:{
-        'Accept': 'application/json',
+        // 'Accept': 'application/json',
         'Content-Type': 'application/json',
     },
     /**
@@ -119,7 +119,7 @@ const  Request = {
      */
     post:(url, body, successCallBack, failCallBack) =>{
 
-        Request.Header.body = JSON.stringify(body);
+        // Request.Header.body = JSON.stringify(body);
 
 
 
@@ -127,7 +127,7 @@ const  Request = {
 
         return RNFetchBlob
             .config(Request.PostConfig)
-            .fetch('POST',url,Request.Header)
+            .fetch('POST',url,Request.Header,JSON.stringify(body))
             .then((response) => {
                 if (response.respInfo.status === 200){
                     return response.json();

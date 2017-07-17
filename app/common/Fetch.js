@@ -38,7 +38,7 @@ export async function post(url, body, successCallBack, failCallBack) {
     // let header = JSON.stringify(Header);
     // header.body = '111';
 
-    console.log(JSON.stringify(body));
+    // console.log(JSON.stringify(body));
     // console.log(header);
 
     try {
