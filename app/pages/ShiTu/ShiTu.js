@@ -485,6 +485,7 @@ class ShiTu extends Component {
                        animation="fadeIn"
                        ref={image => this.backgroundImage = image}
                        onLoadEnd={() => this._imageOnLoaded()}
+                       //blurRadius={100}
                 />
 
                     <StatusBar
