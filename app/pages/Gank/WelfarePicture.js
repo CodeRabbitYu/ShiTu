@@ -35,7 +35,7 @@ import ActionSheet from 'react-native-actionsheet'
 
 const CANCEL_INDEX = 0;
 const DESTRUCTIVE_INDEX = 4;
-const options = [ '取消','收藏图片','设为主屏幕' ];
+const options = [ '取消','保存图片','设为主屏幕' ];
 const actionTitle = '选择';
 
 // const { state } = this.props.navigation;
@@ -59,28 +59,11 @@ class WelfarePicture extends Component {
     @observable
     isShow = true;
 
-    fetch = async (url) => {
-        try {
-            let data = await fetch(url);
-            data = await data.json();
-            console.log(data);
-        }catch (e){
-            console.log(e);
-        }
-    }
-
     componentWillMount(){
-
-        // this.props.navigation.setParams({
-        //     // title:'hahaha',
-        //     goBackPress:this.goBackPress
-        // });
-
         console.log(this.props);
     }
 
     onBackAndroid = ()=> {
-
         const {routes} = this.props;
         if (routes.length > 1) {
             this.props.navigation.goBack();
@@ -168,7 +151,7 @@ class WelfarePicture extends Component {
         let style ;
         this.isShow ?
             style={width:SCREEN_WIDTH, height:SCREEN_HEIGHT}
-            : style={width:SCREEN_WIDTH, height:SCREEN_HEIGHT-64}
+            : style={width:SCREEN_WIDTH, height:Android?SCREEN_HEIGHT-56:SCREEN_HEIGHT-49}
 
         return (
             <View>

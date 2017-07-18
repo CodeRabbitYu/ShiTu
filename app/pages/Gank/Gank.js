@@ -56,10 +56,6 @@ export default class Gank extends Component {
                 {
                     this.state.typeArr.map((item, i) => {
                        if (i===0){
-                           {/*console.log('true');*/}
-                           // 198.37499999999997
-                           // 220.79999999999998
-                           // 166.75
                            return (
                                <WelfareContainer key={i}
                                                  tabLabel={item.title}
@@ -68,12 +64,9 @@ export default class Gank extends Component {
                                />
                            );
                        }
-                        {/*let text = Math.round(Math.random()*100);*/}
-
-                        let imageWidth  = SCREEN_WIDTH / 2 - 15;
-                        let imageHeight = imageWidth * 1.15;
-                        {/*console.log(imageHeight);*/}
-                        let text = parseInt(Math.random()*100 + imageHeight);
+                        {/*let imageWidth  = SCREEN_WIDTH / 2 - 15;*/}
+                        {/*let imageHeight = imageWidth * 1.15;*/}
+                        {/*let text = parseInt(Math.random()*100 + imageHeight);*/}
                             return (
                                 <GankListContainer key={i}
                                                    tabLabel={item.title}

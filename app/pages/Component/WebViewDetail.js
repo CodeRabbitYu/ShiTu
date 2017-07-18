@@ -32,7 +32,7 @@ import { Container, Content, Spinner, Fab,} from 'native-base';
 
 const WEBVIEW_REF = 'webview';
 
-class Detail extends PureComponent {
+class WebViewDetailDetail extends PureComponent {
 
     static navigationOptions = ({navigation,screenProps}) => ({
         // headerTitle:navigation.state.params?navigation.state.params.title:null,
@@ -94,20 +94,22 @@ class Detail extends PureComponent {
 
     _renderLoading = () => {
         return(
-            <ProgressBar
-                progress={this.state.progress}
-                style={{
-                                height:iOS?20:5,
-                                width:SCREEN_WIDTH,
-                                borderWidth:0,
-                                borderRadius:0,
-                                backgroundColor:'gray',
-                            }}
-                //filledColor='#4ECBFC'
-                //unfilledColor='#F5FCFF'
-                filledColor="red"
-                unfilledColor="green"
-            />
+            Android?
+                <ProgressBar
+                    progress={this.state.progress}
+                    style={{
+                                    height:iOS?20:5,
+                                    width:SCREEN_WIDTH,
+                                    borderWidth:0,
+                                    borderRadius:0,
+                                    backgroundColor:'gray',
+                                }}
+                    //filledColor='#4ECBFC'
+                    //unfilledColor='#F5FCFF'
+                    filledColor="#C9DE00"
+                    unfilledColor="white"
+                />
+                :null
         )
     };
 
@@ -243,10 +245,9 @@ class Detail extends PureComponent {
                                     borderRadius:0,
                                     backgroundColor:'gray',
                                 }}
-                            //filledColor='#4ECBFC'
-                            //unfilledColor='#F5FCFF'
-                            filledColor="red"
-                            unfilledColor="green"
+                            filledColor='#4ECBFC'
+                            unfilledColor='#F5FCFF'
+
                         />
                     :null
                 }
@@ -327,9 +328,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     webView: {
-        height: Android ? SCREEN_HEIGHT - 100 : SCREEN_HEIGHT,
+        height: Android ? 200: SCREEN_HEIGHT,
         width: SCREEN_WIDTH,
-        marginTop:25,
+        marginTop:Android?24:0,
+        // marginBottom:40,
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -367,4 +369,4 @@ export default connect((state) => {
     return {
         routes
     };
-})(Detail)
+})(WebViewDetailDetail)

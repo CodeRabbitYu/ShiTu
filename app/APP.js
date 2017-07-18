@@ -235,8 +235,6 @@ const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
     const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(23),
                                 color:'white',
                                 alignSelf:'center',
-                                alignItems:'center',
-                                justifyContent:'center',
                                 paddingTop:Android? 17: null,
                             };
     // header的style
@@ -257,8 +255,8 @@ const StackOptions = ({navigation}) => {
 
     const headerTitle = state.params ? state.params.title : state.routeName;
 
-    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),
-        color:'white',fontWeight:'500',alignSelf:'center'}
+    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(23),
+        color:'white',fontWeight:'500',alignSelf:'center',paddingTop:Android? 17: null,}
     const headerBackTitle = false;
     const headerLeft = (
         <Button
@@ -268,7 +266,7 @@ const StackOptions = ({navigation}) => {
                                 name='ios-arrow-back'
                                 size={30}
                                 color='white'
-                                style={{marginLeft:12}}
+                                style={{marginLeft:12,paddingTop:Android? 17: null}}
                             />
                         }
             onPress={()=>{goBack()}}
@@ -289,7 +287,8 @@ const LoginOptions = ({navigation}) => {
     let {state,goBack} = navigation;
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const headerTitle = '登录';
-    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),color:'white',fontWeight:'500',}
+    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(23),color:'white',
+                        fontWeight:'500',paddingTop:Android? 17: null,alignSelf:'center'}
     const headerBackTitle = false;
     const headerLeft = (
         <Button
@@ -299,7 +298,7 @@ const LoginOptions = ({navigation}) => {
                                 name='md-close'
                                 size={30}
                                 color='white'
-                                style={{marginLeft:13}}
+                                style={{marginLeft:13,paddingTop:Android? 17: null}}
                             />
                         }
             onPress={()=>{goBack()}}
