@@ -41,7 +41,7 @@ class Detail extends PureComponent {
     constructor(props) {
         super(props);
         const {state: {params: {data}}} = this.props.navigation;
-        // console.log(data);
+        console.log(data);
         this.state = {
             progress: 0,
             active:true,
@@ -92,13 +92,25 @@ class Detail extends PureComponent {
         });
     };
 
-    renderLoading = () => {
-
+    _renderLoading = () => {
+        return(
+            <ProgressBar
+                progress={this.state.progress}
+                style={{
+                                height:iOS?20:5,
+                                width:SCREEN_WIDTH,
+                                borderWidth:0,
+                                borderRadius:0,
+                                backgroundColor:'gray',
+                            }}
+                //filledColor='#4ECBFC'
+                //unfilledColor='#F5FCFF'
+                filledColor="red"
+                unfilledColor="green"
+            />
+        )
     };
 
-// <TouchableOpacity onPress={()=>this.props.navigation.dispatch(setParamsAction)}>
-// <Text>1111</Text>
-// </TouchableOpacity>
     _reload = ()=> {
         console.log('刷新');
         this.refs[WEBVIEW_REF].reload();
@@ -220,17 +232,24 @@ class Detail extends PureComponent {
         // console.log(this.props.navigation);
         return (
             <View style={styles.container}>
-                <ProgressBar
-                    progress={this.state.progress}
-                    style={{
-                                height:20,
-                                width:SCREEN_WIDTH,
-                                borderWidth:0,
-                                borderRadius:0,
-                            }}
-                    filledColor='#4ECBFC'
-                    unfilledColor='#F5FCFF'
-                />
+                {
+                    iOS?
+                        <ProgressBar
+                            progress={this.state.progress}
+                            style={{
+                                    height:iOS?20:5,
+                                    width:SCREEN_WIDTH,
+                                    borderWidth:0,
+                                    borderRadius:0,
+                                    backgroundColor:'gray',
+                                }}
+                            //filledColor='#4ECBFC'
+                            //unfilledColor='#F5FCFF'
+                            filledColor="red"
+                            unfilledColor="green"
+                        />
+                    :null
+                }
 
                 <WebView
                     ref={WEBVIEW_REF}
@@ -241,7 +260,7 @@ class Detail extends PureComponent {
                     scalesPageToFit={true}
                     automaticallyAdjustContentInsets={false}
                     onNavigationStateChange={this._onNavigationStateChange}
-                    renderLoading={this.renderLoading}
+                    renderLoading={this._renderLoading}
                     startInLoadingState={true}
                     onShouldStartLoadWithRequest={()=>this._onShouldStartLoadWithRequest()}
                     onLoadStart={()=>{
@@ -257,9 +276,11 @@ class Detail extends PureComponent {
                             this.setState({
                                 progress:this.state.progress + 0.1,
                             });
+
                             if (this.state.progress >= 100){
                                 this.setIntervar && clearInterval(this.setIntervar);
                             }
+                            console.log(this.state.progress);
                         });
                     }}
                     onLoad={()=>{
@@ -286,6 +307,7 @@ class Detail extends PureComponent {
                         )
                     }}
                 />
+
                 {
                     iOS
                         ?
@@ -305,9 +327,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     webView: {
-        height: Android ? SCREEN_HEIGHT - 40 : SCREEN_HEIGHT,
+        height: Android ? SCREEN_HEIGHT - 100 : SCREEN_HEIGHT,
         width: SCREEN_WIDTH,
-
+        marginTop:25,
     },
     actionButtonIcon: {
         fontSize: 20,

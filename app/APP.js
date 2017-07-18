@@ -232,7 +232,13 @@ const TabOptions = (tabBarTitle,normalImage,selectedImage,navTitle) => {
         )
     });
     const headerTitle = navTitle;
-    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(24),color:'white',alignSelf:'center'};
+    const headerTitleStyle = {fontSize:iOS?FONT_SIZE(20):FONT_SIZE(23),
+                                color:'white',
+                                alignSelf:'center',
+                                alignItems:'center',
+                                justifyContent:'center',
+                                paddingTop:Android? 17: null,
+                            };
     // header的style
     const headerStyle = {backgroundColor:'#4ECBFC'};
     const tabBarVisible = true;
