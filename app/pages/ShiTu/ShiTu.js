@@ -69,8 +69,6 @@ class ShiTu extends Component {
     isUpload=false;
     // @observable
     // hintText= '点击按钮,搜索你想知道的图片哦!';
-    @observable
-    viewRef = null;
 
     static navigationOptions = ({navigation,screenProps}) => ({
         onTabPress:(()=>{
@@ -204,7 +202,6 @@ class ShiTu extends Component {
             if (imageURL) {
                 // console.log(imageURL);
                 imageUri=imageURL;
-                this.viewRef = 88;
             }
             this.isUpload = false;
         }
@@ -236,102 +233,6 @@ class ShiTu extends Component {
             // viewRef: null,
             // imageUri:'timg',
         }
-    };
-
-    _upload = (body) => {
-        // 开启XMLHttpRequest服务
-        let xhr = new XMLHttpRequest();
-
-        console.log(body);
-
-        /** 上传到七牛云的地址 */
-        let url = Config.qiniu.upload;
-
-        // 开启post上传
-        xhr.open('POST',url);
-
-        const { navigate } = this.props.navigation;
-
-        // 如果正在上传,将上传返回的onprogress
-        if (xhr.upload){
-            xhr.upload.onprogress = (event)=>{
-                if (event.lengthComputable){
-                    // let perent = event.loaded / event.total.toFixed(2);
-                    // 搜索进度打印
-                    // console.log(perent);
-                    // this.perent = perent;
-
-                    this.isUpload = true;
-                }
-            }
-        }
-
-        // 上传过成功的返回
-        xhr.onload = ()=>{
-            // console.log(xhr.status);
-            // 状态码如果不等于200就代表错误
-            if (xhr.status !== 200){
-                alert('请求失败');
-                console.log(xhr.responseText);
-                return;
-            }
-            if (!xhr.responseText){
-                alert('请求失败');
-                console.log(xhr.responseText);
-                return;
-            }
-            // 服务器最后返回的数据
-            let response;
-            try{
-                // 将返回数据还原
-                response = JSON.parse(xhr.response);
-                // console.log(response);
-
-                let body = {
-                    token:response.key,
-                };
-
-                Request.post(Config.api.postWebUrl,body,(data)=>{
-                    console.log('getWebUrl');
-                    console.log(data);
-
-                    let imageURL = data.data.imageURL;
-                    let timestamp = Date.parse(new Date());
-
-                    realm.write(() => {
-                        realm.create('History', {
-                             id:      response.key.replace('.jpeg',''),
-                             imageURL:   imageURL,
-                             timestamp:  timestamp
-                        });
-                    });
-                    data.data.title = '搜索详情';
-
-                    // if(this.perent === 1){
-                    //     console.log(this.perent);
-                    //
-                    // }
-                    if (this.perent === 1){
-                        InteractionManager.runAfterInteractions(()=> {
-                            // navigate('Detail', {
-                            //     data: data.data.webURL,
-                            //     title:'搜索详情',
-                            //     isVisible:true
-                            // });
-                            this.isUpload = false;
-                            this.hintText = '是否是您寻找的答案呢?'
-                        });
-                    }
-                },(error) =>{
-                    console.log(error);
-                });
-            }
-            catch (e){
-                console.log(e);
-            }
-        };
-
-        xhr.send(body);
     };
 
     _onPress = () => {
@@ -373,23 +274,11 @@ class ShiTu extends Component {
         });
     };
 
-    _imageOnLoaded = ()=> {
-        Android && InteractionManager.runAfterInteractions(() => {
-            setTimeout(() => {
-                // this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
-                this.viewRef = findNodeHandle(this.backgroundImage);
-            }, 0);
 
-        });
-    };
-
-    _defaultView() {
+    _uploadView(){
         return(
-            iOS ?
-                <BlurView style={styles.iOSBlur}
-                          blurType="light"
-                          blurAmount={5}
-                >
+            !this.isUpload ?
+                <View style={styles.blurViewStyle}>
                     <Text style={styles.textStyle}>
                         {hintText}
                     </Text>
@@ -401,106 +290,62 @@ class ShiTu extends Component {
                         animationType="bounceInLeft"
                         onPress = {this._onPress}
                     />
-                </BlurView>
+                </View>
                 :
-                <View style={styles.blurViewStyle}>
-                    {this.viewRef &&
-                    <BlurView blurType="light"
-                              blurAmount={5}
-                              style={styles.AndroidBlur}
-                              viewRef={this.viewRef}
-                    />}
-                        <Text style={styles.textStyle}>
-                            {hintText}
-                        </Text>
-                        <Button
-                            backgroundColor={COLORS.appColor}
-                            raised
-                            borderRadius={5}
-                            title='点我寻找!'
-                            animationType="bounceInLeft"
-                            onPress = {this._onPress}
-                        />
+                <View>
+                    <Progress.Circle
+                        showsText={true}
+                        color = {COLORS.appColor}
+                        progress={this.perent}
+                        size={130}
+                        formatText={()=>{
+                                            return(
+                                                <Text style={{fontSize:FONT_SIZE(17)}}>
+                                                    正在查找
+                                                </Text>
+                                            )
+                                        }}
+                    />
                 </View>
         )
     }
 
-    _findView () {
+    _renderBlurView = () => {
         return(
-            iOS
-                ?
-                <BlurView blurType="light"
+            <BlurView style={styles.blurViewStyle}
+                      blurType="light"
                       blurAmount={5}
-                      style={styles.iOSBlur}
-                >
-                    <Progress.Circle
-                        showsText={true}
-                        color = {COLORS.appColor}
-                        progress={this.perent}
-                        size={130}
-                        formatText={()=>{
-                                            return(
-                                                <Text style={{fontSize:FONT_SIZE(17)}}>
-                                                    正在查找
-                                                </Text>
-                                            )
-                                        }}
-                    />
-                </BlurView>
-                :
-                <View style={styles.blurViewStyle}>
-                    {this.viewRef &&
-                    <BlurView blurType="light"
-                              blurAmount={5}
-                              style={styles.AndroidBlur}
-                              viewRef={this.viewRef}
-                    />}
-                    <Progress.Circle
-                        showsText={true}
-                        color = {COLORS.appColor}
-                        progress={this.perent}
-                        size={130}
-                        style={styles.progressStyle}
-                        formatText={()=>{
-                                            return(
-                                                <Text style={{fontSize:FONT_SIZE(17)}}>
-                                                    正在查找
-                                                </Text>
-                                            )
-                                        }}
-                    />
+            >
+                {this._uploadView()}
+            </BlurView>
+        )
+    }
 
-                </View>
+    _renderBlurRadius(){
+        return(
+            <View style={styles.blurViewStyle}>
+                {this._uploadView()}
+            </View>
         )
     }
 
     render() {
         console.log('render');
-
         return (
             <View style={styles.container}>
-                <Image
-                       source={{uri:imageUri}}
-                       style={[styles.image]}
-                       animation="fadeIn"
-                       ref={image => this.backgroundImage = image}
-                       onLoadEnd={() => this._imageOnLoaded()}
-                       //blurRadius={100}
+                <StatusBar
+                    backgroundColor="#4ECBFC"
+                    translucent={true}
+                    barStyle="light-content"
                 />
-
-                    <StatusBar
-                        backgroundColor="#4ECBFC"
-                        translucent={true}
-                        barStyle="light-content"
-                    />
-                    {
-                        !this.isUpload
-                            ?
-                            this._defaultView()
-                            :
-                            this._findView()
-                    }
-
+                <Image
+                    source={{uri:imageUri}}
+                    style={[styles.image]}
+                    animation="fadeIn"
+                    blurRadius={Android?5:null}
+                >
+                    {iOS ? this._renderBlurView() : this._renderBlurRadius()}
+                </Image>
             </View>
         );
     };
@@ -515,27 +360,15 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
     },
     image:{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        bottom: -1,
-        right: 0,
-        // resizeMode: 'cover',
-        width: null,
-        height: null,
-    },
-    iOSBlur:{
-        width:SCREEN_WIDTH,
-        height:SCREEN_HEIGHT - 64 - 49,
-        alignItems:'center',
-        justifyContent: 'center',
-    },
-    AndroidBlur:{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        bottom: 0,
-        right: 0,
+        // position: 'absolute',
+        // left: 0,
+        // top: 0,
+        // bottom: -1,
+        // right: 0,
+        // resizeMode: 'stretch',
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
+        // marginTop:100
     },
     blurViewStyle:{
         width:SCREEN_WIDTH,

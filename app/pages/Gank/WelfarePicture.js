@@ -113,14 +113,18 @@ class WelfarePicture extends Component {
     handlePress(url,i) {
 
         let SHITUIMAGEKEY = 'SHITUIMAGEKEY';
+
+        let AndroidURL = 'file:///storage/emulated/0/Pictures/image.jpg'
         switch (i){
             case 1 :
-                CameraRoll.saveToCameraRoll(url, 'photo')
+                CameraRoll.saveToCameraRoll(iOS ? url : AndroidURL,'photo')
                     .then((data)=>{
                         console.log(data)
+                        // alert(data);
                     })
                     .catch((error)=>{
                         console.log(error);
+                        // alert(error);
                     });
             break;
             case 2:

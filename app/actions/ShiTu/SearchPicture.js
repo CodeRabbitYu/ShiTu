@@ -67,6 +67,7 @@ export function qiNiuToken(response) {
                 let body = {
                     token: response.key,
                 };
+                console.log(response);
                 Request.post(Config.api.shitu.detailURL, body, (data) => {
                     console.log('getWebUrl');
 

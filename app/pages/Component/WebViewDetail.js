@@ -281,7 +281,6 @@ class WebViewDetailDetail extends PureComponent {
                             if (this.state.progress >= 100){
                                 this.setIntervar && clearInterval(this.setIntervar);
                             }
-                            console.log(this.state.progress);
                         });
                     }}
                     onLoad={()=>{
