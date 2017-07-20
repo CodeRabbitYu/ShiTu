@@ -106,7 +106,7 @@ const MyTab = TabNavigator({
     },
     GankStack: {
         screen:GankStack,
-        path:'/Gank',
+        path:'Gank',
         navigationOptions:{
             header:null
         }
@@ -197,6 +197,7 @@ export const MyApp = StackNavigator({
     },
     Test:{
         screen:Test,
+        path:'test',
         navigationOptions:{
             headerTitle:'Test',
         }
@@ -316,8 +317,12 @@ const LoginOptions = ({navigation}) => {
     return {headerStyle,headerTitle,headerTitleStyle,headerBackTitle,headerLeft,header,headerRight,gesturesEnabled}
 };
 
+const prefix = 'ShiTu://';
+
+const MainApp = () => <MyApp uriPrefix={prefix} />;
+
 const AppWithNavigationState = ({ dispatch, nav }) => (
-    <MyApp navigation={addNavigationHelpers({ dispatch, state: nav })}/>
+    <MainApp navigation={addNavigationHelpers({ dispatch, state: nav })}/>
 );
 
 const mapStateToProps = state => ({
