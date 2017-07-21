@@ -72,9 +72,13 @@ class ShiTu extends Component {
 
     static navigationOptions = ({navigation,screenProps}) => ({
         onTabPress:(()=>{
-            alert('aaa');
+            navigation.state.params?navigation.state.params.tabPress():null
         })
     });
+
+    _tabPress = () => {
+        // alert('aaa');
+    }
 
     onBackAndroid=()=>{
 
@@ -107,6 +111,10 @@ class ShiTu extends Component {
         });
 
         this.props.navigation.navigate('WEB')
+
+        this.props.navigation.setParams({
+            tabPress:this._tabPress
+        })
 
         const {routes} = this.props;
         console.log(routes);

@@ -22,7 +22,6 @@ import {  View } from 'react-native-animatable';
 import AlertModal from '../../common/AlertModal';
 
 export default class Main extends Component {
-
     static navigationOptions = ({navigation,screenProps}) => ({
         headerTitle:navigation.state.params?navigation.state.params.title:null,
         // headerLeft:(
@@ -31,6 +30,9 @@ export default class Main extends Component {
         tabBarLabel:({focused})=>(
             <Text style={{color: focused?'red':'green'}}>我的</Text>
         ),
+        onTabPress:(()=>{
+            // alert('aaa');
+        })
         // tabBarVisible:false
     });
 
