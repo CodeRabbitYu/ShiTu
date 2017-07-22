@@ -33,6 +33,7 @@ export  default  class App extends Component {
 
     componentWillMount(){
         this._panResponder = PanResponder.create({
+            // onStartShouldSetResponder
             onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder,
             onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,
             onPanResponderGrant: this._handlePanResponderGrant,
@@ -107,10 +108,10 @@ export  default  class App extends Component {
 
         if (e.nativeEvent.changedTouches.length <= 1) {
             // 单指移动 or 翻页
-            alert('单指');
+            // alert('单指');
         } else {
             // 双指缩放
-            alert('双指');
+            // alert('双指');
         }
 
         this._updateNativeStyles();
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 0,
+        backgroundColor:'red',
     },
     container: {
         flex: 1,

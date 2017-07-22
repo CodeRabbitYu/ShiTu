@@ -155,7 +155,7 @@ class WelfarePicture extends Component {
         let style ;
         this.isShow ?
             style={width:SCREEN_WIDTH, height:SCREEN_HEIGHT}
-            : style={width:SCREEN_WIDTH, height:Android?SCREEN_HEIGHT-56:SCREEN_HEIGHT-49}
+            : style={width:SCREEN_WIDTH, height:Android?SCREEN_HEIGHT-56:SCREEN_HEIGHT - 64}
 
         return (
             <View>
@@ -165,7 +165,8 @@ class WelfarePicture extends Component {
                 >
                     <Image
                         source={{uri:url}}
-                        style={style}
+                        style={[{},style]}
+                        resizeMode="cover"
                     />
 
                 </TouchableOpacity>
