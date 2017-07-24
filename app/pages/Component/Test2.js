@@ -7,12 +7,20 @@ import {
     StyleSheet,
     Text,
     View,
-    AppState
+    AppState,
+    Image,
+    TextInput,
 } from 'react-native';
 
 import TestItem from './TestItem';
 
 export  default  class App extends Component {
+
+    static navigationOptions = {
+        tabBarVisible:false,
+        // header:null,
+    }
+
     constructor(props){
         super(props);
         this.state = {
@@ -32,8 +40,18 @@ export  default  class App extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.item}>监听中...{this.state.currentAppState}</Text>
-                <TestItem title={'哈哈'} press={()=>alert('111')}/>
+                <View style={{width:SCREEN_WIDTH,height:50,backgroundColor:'#f7f7f7',flexDirection:'row'}}>
+                    <Text>11111</Text>
+                    <Image style={{height:40,width:40,backgroundColor:'red',
+                    //alignSelf:'center',
+                    justifyContent:'space-between',
+                    //alignItems:'flex-end',
+                    alignContent:'space-between'
+                    }}/>
+                </View>
+                <TextInput
+
+                />
             </View>
         );
     }

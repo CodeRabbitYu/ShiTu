@@ -57,7 +57,7 @@ export default class Login extends Component {
 
 
     componentDidMount(){
-        // this.props.navigation.setParams({callback:'hahaha'})
+        this.props.navigation.setParams({callback:'hahaha'})
         // console.log(this.props.navigation);
     }
     componentWillUnmount(){
