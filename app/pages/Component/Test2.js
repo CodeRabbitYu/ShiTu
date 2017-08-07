@@ -14,6 +14,7 @@ import {
 
 import TestItem from './TestItem';
 
+
 export  default  class App extends Component {
 
     static navigationOptions = {
@@ -25,6 +26,7 @@ export  default  class App extends Component {
         super(props);
         this.state = {
             currentAppState: AppState.currentState,
+            defaultTitle:'未修改的值',
         };
     }
 
@@ -49,9 +51,14 @@ export  default  class App extends Component {
                     alignContent:'space-between'
                     }}/>
                 </View>
-                <TextInput
+                <Text>{this.state.defaultTitle}</Text>
+                <TestItem title="点我呀" callBackPress= {(data)=>{
 
-                />
+                        this.setState({
+                            defaultTitle:data
+                        })
+
+                    }}/>
             </View>
         );
     }
