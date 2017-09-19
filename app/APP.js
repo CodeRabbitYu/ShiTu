@@ -118,12 +118,12 @@ const MyTab = TabNavigator({
             header:null
         }
     },
-        Test2:{
-            screen:Test2,
-            navigationOptions:{
-                headerTitle:'Test2',
-            }
-        }
+        // Test2:{
+        //     screen:Test2,
+        //     navigationOptions:{
+        //         headerTitle:'Test2',
+        //     }
+        // }
 },
     {
         // initialRouteName:'MainStack',
