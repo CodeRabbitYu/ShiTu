@@ -101,8 +101,8 @@ export default class WelfareContainer extends React.PureComponent {
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
-                    console.log(item);
-
+                    // console.log(item);
+                    item.largeUrl = item.url;
                     let url = this._handleImageToSmallSize(item.url);
 
                     let imageWidth = SCREEN_WIDTH / 2 - 15;
@@ -111,6 +111,7 @@ export default class WelfareContainer extends React.PureComponent {
                     item.imageHeight = imageHeight;
                     item.imageWidth = imageWidth;
                     item.url = url;
+
                     // console.log(item);
                 });
 
@@ -263,13 +264,14 @@ const styles = StyleSheet.create({
 
 const WelfareItem = (navigate,dataSource) => {
     return dataSource.map((item, i) => {
+        console.log(item);
         return (
             <TouchableOpacity key = {i}
                               style={{height:item.imageHeight,width:item.imageWidth}}
                               onPress={()=>{
                                       navigate('WelfarePicture',{
                                             title:'图片详情',
-                                            url:item.url,
+                                            url:item.largeUrl,
                                             isVisible:true
                                         });
                                   }}

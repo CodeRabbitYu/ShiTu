@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -650,6 +651,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2F07A4541F72509200D03409 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				FB5BCFB119894A41B8980832 /* libRNBlur.a */,
+				B1A90C1ED59F4BDE817BAB93 /* libRNVectorIcons.a */,
+				CABA9FFE4981470B9591D72A /* libRNImagePicker.a */,
+				C09F9F214CAE4EE48661C2CC /* libRealmReact.a */,
+				D674DA2CAA084C53B6A7FFE3 /* libRCTVideo.a */,
+				1B3512103FB64F6EBA2A560E /* libRCTJPushModule.a */,
+				3A0921833CF641E0AC6CA5B8 /* libRCTImageResizer.a */,
+				1FCCA69C105C4F4085E57B18 /* libRNFetchBlob.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		33056DAB1F1EECC400730171 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -794,6 +810,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				BB17788FDE0B4815AF692D77 /* Resources */,
 				EFD21062EB6F480C904052E9 /* Frameworks */,
+				2F07A4541F72509200D03409 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
