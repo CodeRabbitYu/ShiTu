@@ -10,21 +10,25 @@ import {
     AppState,
     Image,
     TextInput,
+    FlatList
 } from 'react-native';
 
 import TestItem from './TestItem';
 
 export  default  class App extends Component {
 
+    // http://shitu.leanapp.cn/api/gank/listData?page=1&count=10&type=iOS
+
     static navigationOptions = {
         tabBarVisible:false,
-        // header:null,
+        header:null,
     }
 
     constructor(props){
         super(props);
         this.state = {
             currentAppState: AppState.currentState,
+            dataSource:[]
         };
     }
 
@@ -37,22 +41,30 @@ export  default  class App extends Component {
         AppState.removeEventListener('change', this._handleAppStateChange);
     }
 
+    componentDidMount() {
+        Fetch.get('http://shitu.leanapp.cn/api/gank/listData?page=1&count=10&type=iOS',(data)=>{
+            console.log(data);
+
+            let results = data.data.results;
+
+            this.setState({
+                dataSource : results,
+            })
+
+        }, (error)=>{
+            console.log(error);
+        })
+    }
+
     render() {
         return (
-            <View style={styles.container}>
-                <View style={{width:SCREEN_WIDTH,height:50,backgroundColor:'#f7f7f7',flexDirection:'row'}}>
-                    <Text>11111</Text>
-                    <Image style={{height:40,width:40,backgroundColor:'red',
-                    //alignSelf:'center',
-                    justifyContent:'space-between',
-                    //alignItems:'flex-end',
-                    alignContent:'space-between'
-                    }}/>
-                </View>
-                <TextInput
-
+                <FlatList
+                    style={{backgroundColor:'#F5F5F5'}}
+                    data={this.state.dataSource}
+                    keyExtractor={item => item._id}
+                    removeClippedSubviews={ false }
+                    renderItem={({item})=><Text style={{height:100,width:SCREEN_WIDTH,backgroundColor:'red'}}>1231313</Text>}
                 />
-            </View>
         );
     }
 
@@ -75,8 +87,8 @@ export  default  class App extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
-        marginTop:25
+        // flex: 1,
+        // marginTop:25
     },
     item:{
         marginTop:10,

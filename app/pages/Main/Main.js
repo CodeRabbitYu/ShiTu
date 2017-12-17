@@ -21,6 +21,8 @@ import Login from '../Login/Login';
 import {  View } from 'react-native-animatable';
 import AlertModal from '../../common/AlertModal';
 
+import data from './data';
+
 export default class Main extends Component {
     static navigationOptions = ({navigation,screenProps}) => ({
         headerTitle:navigation.state.params?navigation.state.params.title:null,
@@ -32,9 +34,22 @@ export default class Main extends Component {
         ),
         onTabPress:(()=>{
             // alert('aaa');
-        })
+        }),
+        header:null,
         // tabBarVisible:false
     });
+
+    _navigateView = () => {
+        return(
+            <View style={{flexDirection:'row',alignItems:'center',width:SCREEN_WIDTH,height:64,backgroundColor:'blue'}}>
+                <Image style={{height:30,width:30,backgroundColor:'red',marginLeft:5}} />
+                <View style={{justifyContent:'center',alignItems:'center',width:SCREEN_WIDTH-70,backgroundColor:'green'}}>
+                    <Text style={{fontSize:22}}>登录</Text>
+                </View>
+
+            </View>
+        )
+    }
 
     navigatePress = () => {
         alert('点击headerRight');
@@ -61,18 +76,43 @@ export default class Main extends Component {
 
         // console.log(this.props);
 
-        let data = await AsyncStorage.getItem('TOKEN');
+
+
         // console.log(data);
-        if (data === null){
-            // console.log('false');
-            return(
-                // Alert.alert('尚未登录')
-                null
-            )
-        }else {
-            console.log('true');
-            return true;
-        }
+        
+
+        let singleResult = data.singleResult;
+
+        let categoriesAllInfo = singleResult.categoriesAllInfo;
+
+        let array = [];
+
+        categoriesAllInfo.map((value,index)=>{
+            // console.log(value);
+
+            let dic = {};
+            dic.value = value.purchaseAmountRate;
+            dic.name = value.categoryThirdName;
+
+            array.push(dic);
+            
+        })
+
+        console.log(array);
+
+
+        // let data = await AsyncStorage.getItem('TOKEN');
+        // // console.log(data);
+        // if (data === null){
+        //     // console.log('false');
+        //     return(
+        //         // Alert.alert('尚未登录')
+        //         null
+        //     )
+        // }else {
+        //     console.log('true');
+        //     return true;
+        // }
 
 
     }
@@ -129,6 +169,7 @@ export default class Main extends Component {
                     // barStyle="dark-content"
                     showHideTransition="slide"
                 />
+                {this._navigateView()}
 
                 {/*<LoginModal isVisible={this.state.modalVisible}/>*/}
 

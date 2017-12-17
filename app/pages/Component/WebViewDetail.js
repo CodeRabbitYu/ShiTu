@@ -263,7 +263,7 @@ class WebViewDetailDetail extends PureComponent {
                     onNavigationStateChange={this._onNavigationStateChange}
                     renderLoading={this._renderLoading}
                     startInLoadingState={true}
-                    onShouldStartLoadWithRequest={()=>this._onShouldStartLoadWithRequest()}
+                    onShouldStartLoadWithRequest={(e)=>this._onShouldStartLoadWithRequest(e)}
                     onLoadStart={()=>{
                         console.log('开始加载');
                         this.setState({
