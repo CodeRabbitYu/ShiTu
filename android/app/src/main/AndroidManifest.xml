@@ -1,14 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shitu"
+    package="com.newshitu"
     android:versionCode="1"
     android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -24,20 +20,12 @@
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustPan|adjustResize">
+        android:windowSoftInputMode="adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         </intent-filter>
       </activity>
-
-    <meta-data android:name="JPUSH_CHANNEL" android:value="${APP_CHANNEL}"/>
-    <meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY}"/>
-
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 

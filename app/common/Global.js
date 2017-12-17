@@ -1,18 +1,27 @@
-/**
- * Created by Rabbit on 2017/4/20.
- */
-import React, { Component } from 'react';
-import { Dimensions, StyleSheet, PixelRatio, Platform, Alert } from 'react-native';
-import FontSize from '../component/TextSize';
-import Colors from '../component/Colors';
+
+import { Dimensions, AsyncStorage, PixelRatio, Platform, Alert } from 'react-native';
+
+// 项目中的图片可以通过Images.xxx 获取
+// import { Images } from '../Resources/index';
+
+// 统一管理项目中的路由
+import { Actions } from "react-native-router-flux";
+
+// 处理安卓，iOS字体不同的类，使用方法 fontSize:FONT_SIZE(20)
+import FontSize from './FontSize';
+// 处理安卓，iOS宽高的区别，使用方法 width:px2dp(20)
 import { px2dp } from './Tool';
 
-import * as Fetch from './Fetch';
+// teaset中提供的一些常用方法
+import { Theme, Toast } from 'teaset';
 
+// 基于react-native-fetch-blob封装的网络请求
+import RTRequest from './Request';
+// 配置文件，可以放网络请求等
+import Config from './Config';
 
-import ImageResizer from 'react-native-image-resizer';
-
-let {height, width} = Dimensions.get('window');
+// 通过系统API获得屏幕宽高
+let { height, width } = Dimensions.get('window');
 
 // 系统是iOS
 global.iOS = (Platform.OS === 'ios');
@@ -26,18 +35,25 @@ global.SCREEN_HEIGHT = height;
 global.PixelRatio = PixelRatio.get();
 // 最小线宽
 global.pixel = 1 / PixelRatio;
-// 常用颜色
-global.COLORS = Colors;
 // 适配字体
 global.FONT_SIZE = FontSize;
-// 用户登录状态
-global.TOKEN = false;
 // 屏幕适配
 global.px2dp = px2dp;
-// 图片压缩
-global.ImageResizer = ImageResizer;
+// 主题
+global.Theme = Theme;
+// 网络请求
+global.RTRequest = RTRequest;
+// 配置
+global.Config = Config;
+// router跳转的方法
+global.Actions = Actions;
+// 图片加载
+// global.Images = Images;
 // 弹出框
 global.Alert = Alert;
-// 网络请求
-global.Fetch = Fetch;
+// 存储
+global.AsyncStorage = AsyncStorage;
+// 弹框Toast
+global.Toast = Toast;
+
 
