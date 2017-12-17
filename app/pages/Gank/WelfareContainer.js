@@ -101,12 +101,17 @@ export default class WelfareContainer extends React.PureComponent {
             if (data &&data.success) {
                 let results = data.data.results;
                 results.map((item, i) => {
+                    // console.log(item);
+                    item.largeUrl = item.url;
+                    let url = this._handleImageToSmallSize(item.url);
 
                     let imageWidth = SCREEN_WIDTH / 2 - 15;
                     let imageHeight = imageWidth * 1.15;
                     imageHeight = parseInt(Math.random() * 100 + imageHeight);
                     item.imageHeight = imageHeight;
                     item.imageWidth = imageWidth;
+                    item.url = url;
+
                     // console.log(item);
                 });
 
@@ -145,6 +150,10 @@ export default class WelfareContainer extends React.PureComponent {
             console.log(error);
         });
     };
+
+    _handleImageToSmallSize(url){
+        return url.replace('large','bmiddle');
+    }
 
     refreshData = async ()=>{
         // 正常使用fetch请求,用这个方法应该是没有问题的.我现在的封装会有点小问题,以后解决
@@ -255,13 +264,14 @@ const styles = StyleSheet.create({
 
 const WelfareItem = (navigate,dataSource) => {
     return dataSource.map((item, i) => {
+        console.log(item);
         return (
             <TouchableOpacity key = {i}
                               style={{height:item.imageHeight,width:item.imageWidth}}
                               onPress={()=>{
                                       navigate('WelfarePicture',{
                                             title:'图片详情',
-                                            url:item.url,
+                                            url:item.largeUrl,
                                             isVisible:true
                                         });
                                   }}

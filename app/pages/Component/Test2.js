@@ -15,6 +15,7 @@ import {
 
 import TestItem from './TestItem';
 
+
 export  default  class App extends Component {
 
     // http://shitu.leanapp.cn/api/gank/listData?page=1&count=10&type=iOS
@@ -28,7 +29,11 @@ export  default  class App extends Component {
         super(props);
         this.state = {
             currentAppState: AppState.currentState,
+<<<<<<< HEAD
             dataSource:[]
+=======
+            defaultTitle:'未修改的值',
+>>>>>>> master
         };
     }
 
@@ -58,6 +63,7 @@ export  default  class App extends Component {
 
     render() {
         return (
+<<<<<<< HEAD
                 <FlatList
                     style={{backgroundColor:'#F5F5F5'}}
                     data={this.state.dataSource}
@@ -65,6 +71,27 @@ export  default  class App extends Component {
                     removeClippedSubviews={ false }
                     renderItem={({item})=><Text style={{height:100,width:SCREEN_WIDTH,backgroundColor:'red'}}>1231313</Text>}
                 />
+=======
+            <View style={styles.container}>
+                <View style={{width:SCREEN_WIDTH,height:50,backgroundColor:'#f7f7f7',flexDirection:'row'}}>
+                    <Text>11111</Text>
+                    <Image style={{height:40,width:40,backgroundColor:'red',
+                    //alignSelf:'center',
+                    justifyContent:'space-between',
+                    //alignItems:'flex-end',
+                    alignContent:'space-between'
+                    }}/>
+                </View>
+                <Text>{this.state.defaultTitle}</Text>
+                <TestItem title="点我呀" callBackPress= {(data)=>{
+
+                        this.setState({
+                            defaultTitle:data
+                        })
+
+                    }}/>
+            </View>
+>>>>>>> master
         );
     }
 

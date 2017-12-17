@@ -651,6 +651,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2F07A4541F72509200D03409 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				FB5BCFB119894A41B8980832 /* libRNBlur.a */,
+				B1A90C1ED59F4BDE817BAB93 /* libRNVectorIcons.a */,
+				CABA9FFE4981470B9591D72A /* libRNImagePicker.a */,
+				C09F9F214CAE4EE48661C2CC /* libRealmReact.a */,
+				D674DA2CAA084C53B6A7FFE3 /* libRCTVideo.a */,
+				1B3512103FB64F6EBA2A560E /* libRCTJPushModule.a */,
+				3A0921833CF641E0AC6CA5B8 /* libRCTImageResizer.a */,
+				1FCCA69C105C4F4085E57B18 /* libRNFetchBlob.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		33056DAB1F1EECC400730171 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,7 +825,11 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				BB17788FDE0B4815AF692D77 /* Resources */,
 				EFD21062EB6F480C904052E9 /* Frameworks */,
+<<<<<<< HEAD
 				33835BF01FA360C90036057B /* Recovered References */,
+=======
+				2F07A4541F72509200D03409 /* Recovered References */,
+>>>>>>> master
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -988,7 +1007,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = A5VC72964Y;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1611,9 +1630,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShiTu/ShiTu.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = A5VC72964Y;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-blur/ios",
@@ -1633,6 +1653,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = ShiTu;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1643,8 +1664,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShiTu/ShiTu.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = A5VC72964Y;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-blur/ios",
@@ -1664,6 +1686,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = ShiTu;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

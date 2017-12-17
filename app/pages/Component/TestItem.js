@@ -15,14 +15,23 @@ import {
 export default class TestItem extends React.Component {
     static propTypes = {
         title: PropTypes.string,
-        press: PropTypes.object,
+        callBackPress: PropTypes.object,
     };
+
+    state = {
+        title:this.props.title
+    }
+    
+    onPress = () => {
+        if(this.props.callBackPress){
+            this.props.callBackPress('使用Callback修改父状态，有返回值');
+        }
+    }
 
     render() {
         return (
             <View>
-                <Text>{this.props.title}</Text>
-                <Button onPress={this.props.press} title='点击我' />
+                <Button onPress={this.onPress} title={this.props.title} />
             </View>
         );
     }
