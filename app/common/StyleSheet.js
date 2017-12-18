@@ -23,7 +23,7 @@ class _StyleSheet {
                 arr.map((item) => {
                     if (item === property){
                         _new = px2dp(styleSheets[key][property]);
-                        console.log(delete px2dp(styleSheets[key][property]));
+                        // console.log(property , px2dp(styleSheets[key][property]));
                     }
                 });
                 styleSheets[key][property] = _new;

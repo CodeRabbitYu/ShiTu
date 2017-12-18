@@ -12,6 +12,10 @@ import FontSize from './FontSize';
 // 处理安卓，iOS宽高的区别，使用方法 width:px2dp(20)
 import { px2dp } from './Tool';
 
+// 自定义的StyleSheet
+import { StyleSheet } from './StyleSheet'
+
+
 // teaset中提供的一些常用方法
 import { Theme, Toast } from 'teaset';
 
@@ -55,5 +59,6 @@ global.Alert = Alert;
 global.AsyncStorage = AsyncStorage;
 // 弹框Toast
 global.Toast = Toast;
-
+// 自定义StyleSheet
+global.StyleSheet = StyleSheet;
 

@@ -5,6 +5,9 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 import queryString from 'query-string';
 
+import Immutable from 'immutable';
+
+
 import {
     AsyncStorage
 } from 'react-native';
@@ -23,7 +26,7 @@ const Request = {
      */
     config:{
         // 指示器,iOS专属
-        indicator:true,
+            indicator:true,
         // 超时
         timeout:3000
         // 缓存
@@ -40,20 +43,24 @@ const Request = {
      * @param method            请求方式GET, POST, PUT, DELETE
      * @param url               请求网址
      * @param params            请求参数
-     * @param successCallBack   正确数据的返回
-     * @param failCallBack      错误数据的返回
      * @param config            网络配置文件
      * @param header            请求头
+     * @param successCallBack   正确数据的返回
+     * @param failCallBack      错误数据的返回
      * @returns {Promise.<TResult>}
      */
-    fetch: async(method, url, params, successCallBack, failCallBack, config, header ) => {
-        let _method = method.toUpperCase();
+    fetch: async( { method, url, params, config, header } , successCallBack, failCallBack ) => {
+        let _method ;
 
         let _params;
 
         let _config = Request.config;
+        let _header = Request.Header;
 
-        // let userData = await AsyncStorage.getItem('USER_TOKEN');
+        let userData = await AsyncStorage.getItem('USER_TOKEN');
+
+        if (!method) _method = 'GET';
+        else _method  = method.toUpperCase();
 
         if (_method === 'GET' && params) {
             url += '?' + queryString.stringify(params);
@@ -63,17 +70,24 @@ const Request = {
             _params =  JSON.stringify(params);
         }
 
+
+
         if (config) {
-            _config.config = config;
+            _config = config ;
+        }
+
+        if (header) {
+            _header = header;
         }
 
         console.log('url:', url);
         console.log('_config:', _config);
         console.log('_method:', _method);
+        console.log('_header:', _header);
 
         return RNFetchBlob
             .config(_config)
-            .fetch(_method ,url ,Request.Header, _params )
+            .fetch(_method ,url , _header, _params )
             .then((response) => {
                 // console.log(response);
                 if (response.respInfo.status === 200){

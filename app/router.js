@@ -24,7 +24,9 @@ import {
 // import TabIcon from './Component/TabIcon';
 // import TabMiddleIcon from './Component/TabMiddleIcon'
 
-import { ShiTuContainer, GankContainer } from './components';
+import { ShiTuContainer } from './components/shitu';
+
+import { GankContainer } from './components/gank';
 
 
 
@@ -40,7 +42,7 @@ const reducerCreate = params => {
 };
 
 const getSceneStyle = () => ({
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     // shadowOpacity: 1,
     // shadowRadius: 3,
 });
