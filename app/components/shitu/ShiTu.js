@@ -36,8 +36,15 @@ export default class ShiTu extends Component {
             // console.log(k);
         }).join();
 
+        const map1 = Immutable.Map({ a: 1, b: 2, c: 3 })
+        const clone = map1;
+        console.log(clone);
 
 
+        const myObject = { a: 1, b: 2, c: 3 }
+        Immutable.Seq(myObject).map(x =>
+            x * x
+        ).toObject();  
 
         // console.log(JSON.stringify(alpha));
 
