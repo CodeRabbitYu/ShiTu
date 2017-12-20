@@ -32,24 +32,28 @@ export default class ShiTu extends Component {
         console.log(alpha)
         alpha.map((v, k) =>{
             k.toUpperCase()
-            console.log(k);
+            // console.log(k);
             // console.log(k);
         }).join();
 
-        const map1 = Immutable.Map({ a: 1, b: 2, c: 3 })
-        const clone = map1;
-        console.log(clone);
+        // const map1 = Immutable.Map({ a: 1, b: 2, c: 3 })
+        // const clone = map1;
+        // console.log(clone);
 
 
-        const myObject = { a: 1, b: 2, c: 3 }
-        Immutable.Seq(myObject).map(x =>
-            x * x
-        ).toObject();  
+        // const myObject = { a: 1, b: 2, c: 3 }
+        // Immutable.Seq(myObject).map(x =>
+        //     x * x
+        // ).toObject();
 
         // console.log(JSON.stringify(alpha));
 
 
         let url = 'https://api.shunliandongli.com/v1/home/all.json';
+
+        // url = 'http://shitu.leanapp.cn/api/userToken'
+
+        url = 'http://39.106.51.210/laravel5.5/public/test'
 
         let config = {
             timeout: 9999,
@@ -63,7 +67,20 @@ export default class ShiTu extends Component {
             'X-Ip' : '192.168.1.1',
         }
 
-        // RTRequest.fetch( {url, method:'get', header:Header, config}, (data)=>{
+        // let params = {
+        //     a:'1',
+        // };
+
+
+        RTRequest.fetch({url, method:'get', header:Header, config})
+            .then(data=>{
+              console.log(data)
+            })
+            .catch(error=>{
+                console.log(error.msg);
+            })
+
+        // RTRequest.fetch( {url, method:'post', header:Header, config, params}, (data)=>{
         //     console.log(data);
         // }, (error)=>{
         //     console.log(error)

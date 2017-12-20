@@ -3,32 +3,63 @@
  */
 'use strict';
 import RNFetchBlob from 'react-native-fetch-blob';
-import queryString from 'query-string';
-
-import Immutable from 'immutable';
-
 
 import {
     AsyncStorage
 } from 'react-native';
+
+// 处理url
+const encodeQuery = (url,  params = {}) => {
+    let _url = url;
+    if (!params || !Object.keys(params).length) {
+        return _url
+    };
+
+    _url = _url.indexOf("?") === -1 ? `${_url}?` : `${_url}&`;
+
+    const query = Object.keys(params)
+        .map(key => `${key}=${params[key]}`)
+        .join("&");
+
+    return `${_url}${query}`;
+};
+
+// 处理错误请求
+const throwError = (json) => {
+    const error = new Error(json)
+    error.msg = json.msg;
+    error.status = json.status;
+    throw error;
+};
+
+
+const checkStatus = (resp, json) => {
+    // console.log(resp, json);
+    if (resp.respInfo.status === 200 && json.status === 0){
+        return json;
+    }else{
+        throwError(json);
+    };
+    return json;
+};
 
 const Request = {
     // 框架可以用过cancel 取消某个网络请求
     /**
      * 设置Header请求头
      */
-    Header:{
+    header:{
         // 'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
     },
     /**
      * Config参数
      */
     config:{
         // 指示器,iOS专属
-            indicator:true,
+        // indicator:true,
         // 超时
-        timeout:3000
+        // timeout:3000
         // 缓存
         // fileCache : bool,
         // 缓存地址
@@ -49,13 +80,12 @@ const Request = {
      * @param failCallBack      错误数据的返回
      * @returns {Promise.<TResult>}
      */
-    fetch: async( { method, url, params, config, header } , successCallBack, failCallBack ) => {
-        let _method ;
-
+    fetch: async( { method, url, params = {}, config = {}, header = {} } ) => {
+        let _method;
         let _params;
-
-        let _config = Request.config;
-        let _header = Request.Header;
+        let _url = url;
+        let _config = { indicator:true, timeout:3000,  ...config, };;
+        let _header = { 'Content-Type': 'application/json', ...header };;
 
         let userData = await AsyncStorage.getItem('USER_TOKEN');
 
@@ -63,45 +93,29 @@ const Request = {
         else _method  = method.toUpperCase();
 
         if (_method === 'GET' && params) {
-            url += '?' + queryString.stringify(params);
+            _url = encodeQuery(url, params);
         }
 
         if (_method === 'POST' && params) {
             _params =  JSON.stringify(params);
         }
 
-
-
-        if (config) {
-            _config = config ;
-        }
-
-        if (header) {
-            _header = header;
-        }
-
-        console.log('url:', url);
-        console.log('_config:', _config);
+        console.log('_url:', _url);
+        // console.log('_config:', _config);
         console.log('_method:', _method);
-        console.log('_header:', _header);
+        // console.log('_header:', _header);
 
         return RNFetchBlob
             .config(_config)
-            .fetch(_method ,url , _header, _params )
-            .then((response) => {
-                // console.log(response);
-                if (response.respInfo.status === 200){
-                    return response.json();
-                }else {
-                    return failCallBack(response.json());
-                }
+            .fetch(_method ,_url , _header, _params )
+            .then(resp => {
+                return checkStatus(resp, resp.json());
             })
             .then((response)=>{
-                successCallBack(response);
+                return response;
             })
             .catch((error)=>{
-                console.log(error);
-                failCallBack(error);
+                throw error
             })
     },
 
@@ -117,8 +131,8 @@ const Request = {
         return RNFetchBlob
             .config(Request.config)
             .fetch('POST',url,{
-            'Content-Type' : 'multipart/form-data',
-        },body)
+                'Content-Type' : 'multipart/form-data',
+            },body)
             .uploadProgress((written, total) => {
                 // 搜索进度打印
                 // console.log('搜索进度:'+written / total);
