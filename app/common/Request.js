@@ -100,10 +100,14 @@ const Request = {
             _params =  JSON.stringify(params);
         }
 
-        console.log('_url:', _url);
-        // console.log('_config:', _config);
-        console.log('_method:', _method);
-        // console.log('_header:', _header);
+        if (!__DEV__){
+            console.log('_url:', _url);
+            console.log('_config:', _config);
+            console.log('_method:', _method);
+            console.log('_header:', _header);
+        }
+
+
 
         return RNFetchBlob
             .config(_config)
