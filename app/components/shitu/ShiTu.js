@@ -53,14 +53,14 @@ export default class ShiTu extends Component {
 
         // url = 'http://shitu.leanapp.cn/api/userToken'
 
-        url = 'http://39.106.51.210/laravel5.5/public/test'
+        url = 'http://39.106.51.210/laravel5.5/public/test';
 
         let config = {
             timeout: 9999,
             // indicator: true,
         };
 
-        let Header = {
+        let header = {
             'User-Agent' : 'ShunLian iPhone 9.0.1/1.0.0',
             'X-Device-ID' : 'FC1D511A-70FA-4ABC-8E7A-F1AACCBF9BAA',
             'Accept-Encoding' : 'gzip,deflate',
@@ -72,13 +72,22 @@ export default class ShiTu extends Component {
         // };
 
 
-        RTRequest.fetch({url, method:'get', header:Header, config})
-            .then(data=>{
-              console.log(data)
+        RTRequest.get( url, null, header )
+            .then((data)=>{
+                console.log(data);
             })
-            .catch(error=>{
+            .catch((error)=>{
                 console.log(error.msg);
             })
+
+
+        // RTRequest.fetch({url, method:'get', header:Header, config})
+        //     .then(data=>{
+        //       console.log(data)
+        //     })
+        //     .catch(error=>{
+        //         console.log(error.msg);
+        //     })
 
         // RTRequest.fetch( {url, method:'post', header:Header, config, params}, (data)=>{
         //     console.log(data);

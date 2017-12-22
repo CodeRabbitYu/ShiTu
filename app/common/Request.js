@@ -76,18 +76,17 @@ const Request = {
      * @param params            请求参数
      * @param config            网络配置文件
      * @param header            请求头
-     * @param successCallBack   正确数据的返回
-     * @param failCallBack      错误数据的返回
      * @returns {Promise.<TResult>}
+     *
      */
     fetch: async( { method, url, params = {}, config = {}, header = {} } ) => {
         let _method;
         let _params;
         let _url = url;
-        let _config = { indicator:true, timeout:3000,  ...config, };;
+        let _config = { indicator:true, timeout:3000,  ...config};;
         let _header = { 'Content-Type': 'application/json', ...header };;
 
-        let userData = await AsyncStorage.getItem('USER_TOKEN');
+        // let userData = await AsyncStorage.getItem('USER_TOKEN');
 
         if (!method) _method = 'GET';
         else _method  = method.toUpperCase();
@@ -100,18 +99,16 @@ const Request = {
             _params =  JSON.stringify(params);
         }
 
-        if (!__DEV__){
+        if (__DEV__){
             console.log('_url:', _url);
             console.log('_config:', _config);
             console.log('_method:', _method);
             console.log('_header:', _header);
         }
 
-
-
         return RNFetchBlob
             .config(_config)
-            .fetch(_method ,_url , _header, _params )
+            .fetch(_method ,_url, _header, _params)
             .then(resp => {
                 return checkStatus(resp, resp.json());
             })
@@ -124,12 +121,48 @@ const Request = {
     },
 
     /**
+     *
+     * @param url       请求网址
+     * @param params    参数
+     * @param header    请求头
+     * @param config    fetchblob配置
+     * @returns
+     *
+     */
+    get:( url, params = {}, header = {}, config = {} ) => {
+
+        return RTRequest.fetch({method:'get', url, params, header, config })
+            .then((data)=>{
+                // console.log(data);
+                return data;
+            })
+            .catch((error)=>{
+                // console.log(error.msg);
+                throw error;
+            })
+    },
+
+    post:( url, params = {}, header = {}, config = {} ) => {
+
+        return RTRequest.fetch({method:'post', url, params, header, config })
+            .then((data)=>{
+                // console.log(data);
+                return data;
+            })
+            .catch((error)=>{
+                // console.log(error.msg);
+                throw error;
+            })
+    },
+
+    /**
      * @param url               请求网址
      * @param body              要上传的信息,会自动转码
      * @param uploadProgress    上传进度
      * @param successCallBack   返回正确的值
      * @param failCallBack      返回错误的值
      * @returns
+     *
      */
     upload:(url,body,uploadProgress,successCallBack,failCallBack) => {
         return RNFetchBlob
