@@ -24,9 +24,9 @@ import {
 // import TabIcon from './Component/TabIcon';
 // import TabMiddleIcon from './Component/TabMiddleIcon'
 
-import { ShiTuContainer } from './components/shitu';
+import { ShiTuContainer } from './containers/shitu';
 
-import { GankContainer } from './components/gank';
+import { GankContainer } from './containers/gank';
 
 
 
@@ -57,7 +57,7 @@ const router = (...props) => (
         >
             <Stack hideNavBar headerMode='screen' key="root">
                 <Tabs
-                    key="tabbar"        // 唯一标识
+                    key="TabBar"        // 唯一标识
                     wrap={true}         // 自动使用自己的导航栏包装每个场景
                     showLabel={true}   // 显示文字
                     tabBarStyle={styles.tabBarStyle} // tabBar的样式

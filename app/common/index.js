@@ -7,7 +7,7 @@ import FontSize from './FontSize';
 import Global from './Global';
 import Request from './Request';
 import Tool from './Tool';
-import SetTheme from './SetTheme';
+import SetTheme from './Theme';
 
 import StyleSheet from './StyleSheet';
 

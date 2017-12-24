@@ -15,7 +15,6 @@ import { px2dp } from './Tool';
 // 自定义的StyleSheet
 import { StyleSheet } from './StyleSheet'
 
-
 // teaset中提供的一些常用方法
 import { Theme, Toast } from 'teaset';
 

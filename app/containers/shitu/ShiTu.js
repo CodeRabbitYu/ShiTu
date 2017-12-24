@@ -4,15 +4,24 @@
 
 import React, { Component } from 'react';
 import {
-    // StyleSheet,
+    StyleSheet,
     Text,
     View,
     Image,
+    ImageBackground
 } from 'react-native';
 
 
 import Immutable from 'immutable';
 
+import { Button, Label } from 'teaset';
+
+import * as Animatable from 'react-native-animatable';
+AnimatableButton = Animatable.createAnimatableComponent(View);
+AnimatableText = Animatable.createAnimatableComponent(Text);
+
+
+import FastImage from 'react-native-fast-image'
 
 // import { StyleSheet } from '../../common/StyleSheet'
 
@@ -122,23 +131,42 @@ export default class ShiTu extends Component {
     }
 
     render() {
-        return [
-            <View style={styles.container} key={'top'}>
-                <View style={styles.viewStyle} onLayout={({nativeEvent:e})=>this.layout(e)} />
+        return (
+            <ImageBackground style={styles.container}
+                             source={require('../../resources/timg.jpeg')}
+                             blurRadius={10}
+            >
+                {/*<View style={styles.viewStyle} onLayout={({nativeEvent:e})=>this.layout(e)} />*/}
                 {this._immutable()}
-            </View>,
-            <View style={{height:100,width:100,backgroundColor:'green',marginTop:200}} key={'bottom'}/>
 
-        ]
-    }
+                <FastImage
+                    style={{height:300,width:300}}
+                    source={{
+                        uri: 'https://unsplash.it/400/400?image=1',
+                        headers:{ Authorization: 'someAuthToken' },
+                        priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.center}
+                />
+                    <Label text={'123123'}/>
+                    <AnimatableButton animation="bounceInLeft"
+                                      useNativeDriver
+                    >
+                        <Button onPress={()=>alert('123')} title={'点我'}
+                                style={{backgroundColor:'red',width:200,height:44}}
+                        />
+                    </AnimatableButton>
+
+            </ImageBackground>
+    )}
 }
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        height:100,
-        backgroundColor:'red'
-        // width:30
+        flex: 1,
+        alignItems:'center',
+        justifyContent:'center',
+
     },
     viewStyle:{
         height:300,

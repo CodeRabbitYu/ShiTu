@@ -4,7 +4,8 @@
 
 import {
     AsyncStorage,
-    Platform
+    Platform,
+    PixelRatio
 } from 'react-native';
 
 export default {
@@ -28,5 +29,7 @@ export default {
 let basePx = Platform.OS === 'ios' ? 750 : 720;
 
 exports.px2dp = function px2dp(px: number): number {
-    return px / basePx * SCREEN_WIDTH;
+    return PixelRatio.roundToNearestPixel(px) / 2;
+
+    // return px / basePx * SCREEN_WIDTH;
 };

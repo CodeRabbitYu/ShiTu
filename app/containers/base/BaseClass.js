@@ -9,6 +9,12 @@ import {
     Image,
 } from 'react-native';
 
+const normal = [
+    {title:'A', selected:false},
+    {title:'B', selected:false},
+    {title:'C', selected:false},
+];
+
 export default class BaseClass extends Component {
     constructor(props) {
         super(props);
