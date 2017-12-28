@@ -23,12 +23,20 @@ AnimatableText = Animatable.createAnimatableComponent(Text);
 
 import FastImage from 'react-native-fast-image'
 
-// import { StyleSheet } from '../../common/StyleSheet'
+import { observer } from 'mobx-react';
 
+import { observable, autorun, computed, action, whyRun  } from 'mobx'
+
+
+@observer
 export default class ShiTu extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentWillReact() {
+        console.log("I will re-render, since the todo has changed!");
     }
 
     layout=(e)=>{
@@ -37,13 +45,13 @@ export default class ShiTu extends Component {
 
     componentDidMount() {
 
-        const alpha = Immutable.Map({ a: 1, b: 2, c: 3, d: 4 });
-        console.log(alpha)
-        alpha.map((v, k) =>{
-            k.toUpperCase()
-            // console.log(k);
-            // console.log(k);
-        }).join();
+        // const alpha = Immutable.Map({ a: 1, b: 2, c: 3, d: 4 });
+        // console.log(alpha)
+        // alpha.map((v, k) =>{
+        //     k.toUpperCase()
+        //     // console.log(k);
+        //     // console.log(k);
+        // }).join();
 
         // const map1 = Immutable.Map({ a: 1, b: 2, c: 3 })
         // const clone = map1;
@@ -81,13 +89,13 @@ export default class ShiTu extends Component {
         // };
 
 
-        RTRequest.get( url, null, header )
-            .then((data)=>{
-                console.log(data);
-            })
-            .catch((error)=>{
-                console.log(error.msg);
-            })
+        // RTRequest.get( url, null, header )
+        //     .then((data)=>{
+        //         console.log(data);
+        //     })
+        //     .catch((error)=>{
+        //         console.log(error.msg);
+        //     })
 
 
         // RTRequest.fetch({url, method:'get', header:Header, config})
@@ -130,6 +138,72 @@ export default class ShiTu extends Component {
 
     }
 
+
+
+    @action _mobx = () => {
+        var person = observable({
+            // observable 属性:
+            name: "John",
+            age: 42,
+            showAge: true,
+
+            // 计算属性:
+            get labelText() {
+                return this.showAge ? `${this.name} (age: ${this.age})` : this.name;
+            },
+
+            // 动作:
+            setAge: action(function (age) {
+                this.age = age;
+            })
+        });
+
+
+// 对象属性没有暴露 'observe' 方法,
+// 但不用担心, 'mobx.autorun' 功能更加强大
+        autorun(() => console.log(person.labelText));
+
+        person.name = "Dave";
+// 输出: 'Dave'
+
+        person.setAge(21);
+
+        // boxDemo
+
+        const cityName = observable("Vienna");
+
+        console.log(cityName.get());
+// 输出 'Vienna'
+
+        cityName.observe(function (change) {
+            console.log(change)
+            console.log(change.oldValue, "->", change.newValue);
+        });
+
+        cityName.set("Amsterdam");
+
+        // 追踪属性访问，而不是值
+
+        let message = observable({
+            title: "Foo",
+            author: {
+                name: "Michel"
+            },
+            likes: [
+                "John", "Sara"
+            ]
+        })
+
+        autorun(() => {
+            console.log(message.title)
+            whyRun()
+        })
+        message.title = "Bar"
+
+    }
+
+
+
     render() {
         return (
             <ImageBackground style={styles.container}
@@ -138,6 +212,8 @@ export default class ShiTu extends Component {
             >
                 {/*<View style={styles.viewStyle} onLayout={({nativeEvent:e})=>this.layout(e)} />*/}
                 {this._immutable()}
+
+                {this._mobx()}
 
                 <FastImage
                     style={{height:300,width:300}}
