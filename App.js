@@ -15,6 +15,16 @@ import {
 import Router from './app/router'
 
 export default class App extends Component<{}> {
+
+
+    onBackPress() {
+        if (Actions.state.index === 0) {
+            return false
+        }
+        Actions.pop()
+        return true
+    }
+
   render() {
     return (
       <Router />

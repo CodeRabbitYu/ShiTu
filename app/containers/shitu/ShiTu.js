@@ -27,7 +27,6 @@ import { observer } from 'mobx-react';
 
 import { observable, autorun, computed, action, whyRun  } from 'mobx'
 
-
 @observer
 export default class ShiTu extends Component {
     constructor(props) {
@@ -228,7 +227,7 @@ export default class ShiTu extends Component {
                     <AnimatableButton animation="bounceInLeft"
                                       useNativeDriver
                     >
-                        <Button onPress={()=>alert('123')} title={'点我'}
+                        <Button onPress={()=>Actions.Test1()} title={'点我'}
                                 style={{backgroundColor:'red',width:200,height:44}}
                         />
                     </AnimatableButton>
