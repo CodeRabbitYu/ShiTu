@@ -5,7 +5,7 @@
 import Config from './Config';
 import FontSize from './FontSize';
 import Global from './Global';
-import Request from './Request';
+import Request from '../Request/Fetch';
 import Tool from './Tool';
 import SetTheme from './Theme';
 

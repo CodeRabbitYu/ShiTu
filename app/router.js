@@ -93,7 +93,7 @@ const router = (...props) => (
                           // image={Images.ShiTu}
                           // selectedImage={Images.ShiTu}
                     >
-                        <Scene component={ShiTuContainer} key="ShiTu_key"/>
+                        <Scene component={Test1} key="ShiTu_key"/>
                     </Stack>
                     <Stack key="Gank"
                            title={'干货'}

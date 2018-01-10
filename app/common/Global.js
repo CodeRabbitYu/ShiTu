@@ -19,7 +19,7 @@ import { StyleSheet } from './StyleSheet'
 import { Theme, Toast } from 'teaset';
 
 // 基于react-native-fetch-blob封装的网络请求
-import RTRequest from './Request';
+import RTRequest from '../Request/Fetch';
 // 配置文件，可以放网络请求等
 import Config from './Config';
 
