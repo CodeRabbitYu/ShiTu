@@ -1,6 +1,14 @@
 # ShiTu
 ## "识兔"是一款识别图片功能的开源项目.
 #### 识图功能使用的是百度识图的公共API,项目中用到了flatList,自定义的react-navigation,上传,瀑布流,Mobx,realm,各种小动画等,更多细节等你发现
+
+#### npm版本5.0以上版本请使用`yarn`安装
+
+###### 执行 `yarn`，再执行`react-native link`
+
+##### 低于5.0，可以直接使用`npm install`，但推荐还是使用yarn，速度更快。
+
+
 ## [react-navigation使用技巧](http://www.jianshu.com/p/2f575cc35780)
 ## [react-native-image-picker在iOS上闪退的解决办法](http://www.jianshu.com/p/977bc5eea1b1)
 ## [React-Native中的数据持久化方式](http://www.jianshu.com/p/22cbb0124158)
