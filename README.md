@@ -8,6 +8,8 @@
 
 ##### 低于5.0，可以直接使用`npm install`，但推荐还是使用yarn，速度更快。
 
+### 本项目正准备重写，并且有配套视频，欢迎加入397885169群，询问进度。
+
 
 ## [react-navigation使用技巧](http://www.jianshu.com/p/2f575cc35780)
 ## [react-native-image-picker在iOS上闪退的解决办法](http://www.jianshu.com/p/977bc5eea1b1)
