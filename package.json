@@ -7,11 +7,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
+    "query-string": "^6.0.0",
     "react": "16.3.1",
     "react-native": "0.55.2",
     "react-native-animatable": "^1.2.4",
+    "react-native-fetch-blob": "github:wkh237/react-native-fetch-blob-package",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11",
     "teaset": "^0.5.6"

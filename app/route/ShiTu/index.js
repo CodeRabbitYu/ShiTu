@@ -11,13 +11,13 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import { Images } from '../../resource';
-import { Button, Theme } from '../../components';
-
 import * as Animatable from 'react-native-animatable';
-import {System} from "../../utils";
 const AnimationButton = Animatable.createAnimatableComponent(Button);
 const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
+
+import { Images } from '../../resource';
+import { Button, Theme } from '../../components';
+import { System } from "../../utils";
 
 type Props = {};
 export class ShiTu extends Component<Props> {
