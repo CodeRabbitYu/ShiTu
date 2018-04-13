@@ -3524,7 +3524,7 @@ lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
@@ -4412,6 +4412,14 @@ react-native-safe-area-view@^0.7.0:
   resolved "https://codeload.github.com/react-navigation/react-native-tab-view/tar.gz/36ebd834d78b841fc19778c966465d02fd1213bb"
   dependencies:
     prop-types "^15.6.0"
+
+react-native-vector-icons@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.6.0.tgz#e4014311ffa6de397d914ffc31b7097a874cc8d5"
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.5.10"
+    yargs "^8.0.2"
 
 react-native@0.55.2:
   version "0.55.2"
@@ -5670,6 +5678,24 @@ yargs@^10.0.3:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^8.1.0"
+
+yargs@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.2.tgz#6299a9055b1cefc969ff7e79c1d918dceb22c360"
+  dependencies:
+    camelcase "^4.1.0"
+    cliui "^3.2.0"
+    decamelize "^1.1.1"
+    get-caller-file "^1.0.1"
+    os-locale "^2.0.0"
+    read-pkg-up "^2.0.0"
+    require-directory "^2.1.1"
+    require-main-filename "^1.0.1"
+    set-blocking "^2.0.0"
+    string-width "^2.0.0"
+    which-module "^2.0.0"
+    y18n "^3.2.1"
+    yargs-parser "^7.0.0"
 
 yargs@^9.0.0:
   version "9.0.1"

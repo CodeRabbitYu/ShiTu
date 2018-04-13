@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import { Images } from '../../resource';
-import { Button } from '../../components';
+import { Button, Theme } from '../../components';
 
 import * as Animatable from 'react-native-animatable';
 import {System} from "../../utils";
@@ -21,6 +21,9 @@ const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackg
 
 type Props = {};
 export class ShiTu extends Component<Props> {
+
+  componentDidMount() {
+  }
 
   render() {
     return (
