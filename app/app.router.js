@@ -32,6 +32,8 @@ const MyTab = TabNavigator({
     navigationOptions: ()=> TabOptions('我的', 'Main', '我的'),
   },
 },{
+
+  initialRouteName: 'Gank',
   tabBarPosition: 'bottom',
   tabBarComponent: TabBarBottom,
   swipeEnabled: false,
@@ -68,7 +70,7 @@ const TabOptions = (tabBarTitle, tabBarIconName, navTitle) => {
   });
   const headerTitle = navTitle;
   const headerTitleStyle = {
-    fontSize: 20,
+    fontSize: System.iOS ? 23 : 20,
     color: 'white',
     alignSelf: 'center',
     paddingTop: System.Android ? 17 : null,
