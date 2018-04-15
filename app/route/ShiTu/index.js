@@ -9,6 +9,7 @@ import {
   Text,
   View,
   ImageBackground,
+  StatusBar
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
@@ -32,6 +33,7 @@ export class ShiTu extends Component<Props> {
                                 source={Images.default}
                                 blurRadius={System.Android ? 5 : 8}
       >
+        <StatusBar translucent={true} backgroundColor={Theme.mainColor}/>
         <AnimationButton title={'点我寻找!'}
                          animation="bounceInLeft"
                          useNativeDriver

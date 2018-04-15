@@ -8,6 +8,7 @@ import React from 'react';
 import {
   StackNavigator,
   TabNavigator,
+  TabBarBottom
 } from 'react-navigation';
 
 import { System } from './utils';
@@ -31,21 +32,21 @@ const MyTab = TabNavigator({
     navigationOptions: ()=> TabOptions('我的', 'Main', '我的'),
   },
 },{
+  tabBarPosition: 'bottom',
+  tabBarComponent: TabBarBottom,
+  swipeEnabled: false,
+  animationEnabled: false,
+  backBehavior: 'none',
+  lazy: true,
   tabBarOptions: {
-    // tabbar上label的style
-    labelStyle: {
-    },
     // tabbar的style
     style: {
       height:49,
       backgroundColor:'white'
     },
-    showIcon:true,
+    showIcon: true,
     // 是否显示label，默认为true
     showLabel: System.iOS && false,
-    // 不透明度为按选项卡(iOS和Android < 5.0)
-    pressOpacity:0.3,
-
     indicatorStyle :{
       height:0, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了,
     }
@@ -67,7 +68,7 @@ const TabOptions = (tabBarTitle, tabBarIconName, navTitle) => {
   });
   const headerTitle = navTitle;
   const headerTitleStyle = {
-    fontSize: System.iOS ? 20 : 23,
+    fontSize: 20,
     color: 'white',
     alignSelf: 'center',
     paddingTop: System.Android ? 17 : null,

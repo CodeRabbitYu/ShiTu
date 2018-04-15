@@ -19,7 +19,7 @@ export class Gank extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Gank</Text>
+        <Text>Gank 11111 </Text>
 
         <Button title={'123'}
                 onPress={()=>alert('123')}
