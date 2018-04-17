@@ -39,7 +39,7 @@ export class ShiTu extends Component<Props> {
                          useNativeDriver
                          style={styles.button}
                          titleStyle={styles.buttonTitle}
-                         onPress={()=>alert('寻找！')}
+                         onPress={()=>this.props.navigation.navigate('Sample')}
         />
       </AnimationImageBackground>
     );
@@ -57,6 +57,14 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#4ECBFC',
     borderRadius: 5,
+    shadowColor: 'rgba(0, 0, 0, 0.15)',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowRadius: 3,
+    shadowOpacity: 1,
+    elevation: 2
   },
   buttonTitle: {
     color: 'white',

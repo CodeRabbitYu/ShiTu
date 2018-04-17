@@ -9,8 +9,12 @@ import {
   AsyncStorage
 } from 'react-native';
 
+interface RTBody {
+  [key: string]: string | number | boolean;
+}
+
 // 处理url
-const encodeQuery = (url,  params = {}) => {
+function encodeQuery(url,  params = {}){
   let _url = url;
   if (!params || !Object.keys(params).length) {
     return _url
@@ -19,19 +23,16 @@ const encodeQuery = (url,  params = {}) => {
   const query = Object.keys(params).map(key => `${key}=${params[key]}`).join("&");
   return `${_url}${query}`;
 };
-
 // 处理错误请求
-const throwError = (json) => {
+function throwError(json){
   const error = new Error(json)
   error.msg = json.msg;
   error.status = json.status;
   throw error;
 };
-
-
-const checkStatus = (resp, json) => {
+function checkStatus (resp, json){
   // console.log(resp, json);
-  if (resp.respInfo.status === 200 && json.status === 0){
+  if (resp.respInfo.status === 200 && json.error === false){
     return json;
   }else{
     throwError(json);
@@ -39,15 +40,15 @@ const checkStatus = (resp, json) => {
   return json;
 };
 
-const Request = {
+class Request {
   // 框架可以用过cancel 取消某个网络请求
   /**
    * 设置Header请求头
    */
-  header:{
+  header: {
     // 'Accept': 'application/json',
     // 'Content-Type': 'application/json',
-  },
+  }
   /**
    * Config参数
    */
@@ -63,7 +64,7 @@ const Request = {
     // appendExt : string,
     // session : string,
     // addAndroidDownloads : any,
-  },
+  }
 
   /**
    *
@@ -75,11 +76,11 @@ const Request = {
    * @returns {Promise.<TResult>}
    *
    */
-  fetch: async( { method, url, params = {}, config = {}, header = {} } ) => {
+  static fetch<T>({method, url, params = {}, config = {}, header = {}}) : Promise<T> {
     let _method;
     let _params;
     let _url = url;
-    let _config = { indicator:true, timeout:3000,  ...config};;
+    let _config = { indicator:true, timeout: 30000,  ...config};;
     let _header = { 'Content-Type': 'application/json', ...header };;
 
     // let userData = await AsyncStorage.getItem('USER_TOKEN');
@@ -114,7 +115,7 @@ const Request = {
       .catch((error)=>{
         throw error
       })
-  },
+  }
 
   /**
    *
@@ -125,9 +126,9 @@ const Request = {
    * @returns
    *
    */
-  get:( url, params = {}, header = {}, config = {} ) => {
+  static get<T>( url, params = {}, header = {}, config = {}): Promise<T>{
 
-    return RTRequest.fetch({method:'get', url, params, header, config })
+    return Request.fetch({method:'get', url, params, header, config })
       .then((data)=>{
         // console.log(data);
         return data;
@@ -136,11 +137,10 @@ const Request = {
         // console.log(error.msg);
         throw error;
       })
-  },
+  }
 
-  post:( url, params = {}, header = {}, config = {} ) => {
-
-    return RTRequest.fetch({method:'post', url, params, header, config })
+  post( url, params = {}, header = {}, config = {} ): Promise {
+    return Request.fetch({method:'post', url, params, header, config })
       .then((data)=>{
         // console.log(data);
         return data;
@@ -149,47 +149,7 @@ const Request = {
         // console.log(error.msg);
         throw error;
       })
-  },
-
-  /**
-   * @param url               请求网址
-   * @param body              要上传的信息,会自动转码
-   * @param uploadProgress    上传进度
-   * @param successCallBack   返回正确的值
-   * @param failCallBack      返回错误的值
-   * @returns
-   *
-   */
-  upload:(url,body,uploadProgress,successCallBack,failCallBack) => {
-    return RNFetchBlob
-      .config(Request.config)
-      .fetch('POST',url,{
-        'Content-Type' : 'multipart/form-data',
-      },body)
-      .uploadProgress((written, total) => {
-        // 搜索进度打印
-        // console.log('搜索进度:'+written / total);
-      })
-      .progress((received, total) => {
-        let perent = received / total;
-        // console.log('上传进度:' + perent);
-        uploadProgress(perent);
-      })
-      .then((response)=>{
-        if (response.respInfo.status === 200){
-          return response.json();
-        }else {
-          return failCallBack(response);
-        }
-      })
-      .then((response)=> {
-        // console.log(response);
-        successCallBack(response);
-      })
-      .catch((error)=>{
-        failCallBack(error);
-      });
   }
 };
 
-export default Request;
+export { Request };

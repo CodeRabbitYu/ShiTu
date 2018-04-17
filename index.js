@@ -8,8 +8,6 @@ Theme.set(DefaultTheme);
 
 import App from './app/index';
 
-// import SampleSSS from './app/sampleSSS';
-
 console.ignoredYellowBox = [ 'Warning: isMounted(...)' ];
 
 AppRegistry.registerComponent('ShiTu', () => App);

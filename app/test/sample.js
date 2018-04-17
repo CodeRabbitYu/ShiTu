@@ -15,7 +15,7 @@ import {
   LargeListSample4
 } from "./samples";
 
-export default class SampleSSS extends React.Component {
+export default class Sample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

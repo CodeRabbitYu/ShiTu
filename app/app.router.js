@@ -18,6 +18,8 @@ import { ShiTu } from './route/ShiTu';
 import { Gank } from "./route/Gank";
 import { Main } from "./route/Main";
 
+import Sample from './test/sample';
+
 const MyTab = TabNavigator({
   ShiTu: {
     screen: ShiTu,
@@ -56,7 +58,10 @@ const MyTab = TabNavigator({
 });
 export const MyApp = StackNavigator({
   MyTab: {
-    screen: MyTab
+    screen: MyTab,
+  },
+  Sample: {
+    screen: Sample,
   }
 });
 

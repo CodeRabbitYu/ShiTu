@@ -9,16 +9,31 @@ import {
   Text,
   View,
   Image,
+  FlatList
 } from 'react-native';
+import { LargeList } from "react-native-largelist";
 
 type Props = {};
 export class Main extends Component<Props> {
-
-
   render() {
     return (
       <View style={styles.container}>
         <Text>Main</Text>
+        {/*<LargeList*/}
+          {/*style={{ flex: 1, backgroundColor:'orange' }}*/}
+          {/*bounces={true}*/}
+          {/*ref={ref => (this.largeList = ref)}*/}
+          {/*refreshing={this.state.refreshing}*/}
+          {/*onRefresh={() => {*/}
+            {/*this.fetchData()*/}
+          {/*}}*/}
+          {/*// safeMargin={600}*/}
+          {/*numberOfRowsInSection={() => this.state.data.length}*/}
+          {/*// numberOfSections={()=>this.props.numberOfSections}*/}
+          {/*renderCell={this.renderItem.bind(this)}*/}
+          {/*heightForCell={() => 44}*/}
+          {/*renderItemSeparator={()=><View/>}*/}
+        {/*/>*/}
       </View>
     );
   }
