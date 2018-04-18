@@ -5,7 +5,6 @@ import { Image, Dimensions } from 'react-native';
 import Task from 'data.task';
 
 const { width, height } = Dimensions.get('window');
-
 // resolveImage :: String -> Task(Error, Image)
 export const handleImageSize = (data, columns) => {
   return new Task((reject, resolve) => Image.getSize(data, (width, height) => resolve({
@@ -17,16 +16,12 @@ export const handleImageSize = (data, columns) => {
 
 function resizeImage(ImageWidth, ImageHeight, columns) {
 
-  // const { height, width } = parentDimensions;
-
   // The gutter is 1% of the available view width
   const gutterBase = width / 100;
   const gutterSize = gutterBase * 2;
 
   // Column gutters are shared between right and left image
   const columnWidth = (width / columns) - (gutterSize / 2);
-  // console.log(columnWidth);
-
   const divider = ImageWidth / columnWidth;
 
   const newWidth = ImageWidth / divider;

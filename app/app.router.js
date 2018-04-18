@@ -21,14 +21,15 @@ import { Main } from "./route/Main";
 import Sample from './test/sample';
 
 const MyTab = TabNavigator({
-  ShiTu: {
-    screen: ShiTu,
-    navigationOptions: ()=> TabOptions('识兔', 'ShiTu', '识兔'),
-  },
   Gank: {
     screen: Gank,
     navigationOptions: ()=> TabOptions('干货', 'Gank', '干货'),
   },
+  ShiTu: {
+    screen: ShiTu,
+    navigationOptions: ()=> TabOptions('识兔', 'ShiTu', '识兔'),
+  },
+
   Main:{
     screen: Main,
     navigationOptions: ()=> TabOptions('我的', 'Main', '我的'),

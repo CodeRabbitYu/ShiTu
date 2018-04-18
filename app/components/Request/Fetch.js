@@ -96,7 +96,7 @@ class Fetch {
       _params =  JSON.stringify(params);
     }
 
-    if (__DEV__){
+    if (!__DEV__){
       console.log('_url:', _url);
       console.log('_config:', _config);
       console.log('_method:', _method);
