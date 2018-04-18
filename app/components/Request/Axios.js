@@ -107,4 +107,6 @@ const Axios = {
   }
 }
 
-export default Axios;
+export {
+  Axios
+};

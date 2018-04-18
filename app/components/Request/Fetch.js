@@ -40,7 +40,7 @@ function checkStatus (resp, json){
   return json;
 };
 
-class Request {
+class Fetch {
   // 框架可以用过cancel 取消某个网络请求
   /**
    * 设置Header请求头
@@ -128,19 +128,19 @@ class Request {
    */
   static get<T>( url, params = {}, header = {}, config = {}): Promise<T>{
 
-    return Request.fetch({method:'get', url, params, header, config })
-      .then((data)=>{
-        // console.log(data);
-        return data;
-      })
-      .catch((error)=>{
-        // console.log(error.msg);
-        throw error;
-      })
+    return Fetch.fetch({method:'get', url, params, header, config })
+      // .then((data)=>{
+      //   // console.log(data);
+      //   return data;
+      // })
+      // .catch((error)=>{
+      //   // console.log(error.msg);
+      //   throw error;
+      // })
   }
 
   post( url, params = {}, header = {}, config = {} ): Promise {
-    return Request.fetch({method:'post', url, params, header, config })
+    return Fetch.fetch({method:'post', url, params, header, config })
       .then((data)=>{
         // console.log(data);
         return data;
@@ -152,4 +152,4 @@ class Request {
   }
 };
 
-export { Request };
+export { Fetch };

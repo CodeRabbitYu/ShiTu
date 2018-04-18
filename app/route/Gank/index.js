@@ -10,77 +10,107 @@ import {
   View,
   Image,
   Button,
-  FlatList
+  FlatList, TouchableOpacity
 } from 'react-native';
 
 import { LargeList } from "react-native-largelist";
 
-import { System } from '../../utils';
+import { System, handleImageSize } from '../../utils';
+import AutoResponsive from 'autoresponsive-react-native';
+
 
 import FastImage  from 'react-native-fast-image';
 
 const height = parseInt(Math.random() * 20 + 12) * 10;
 
 import { loadGankData } from '../../servers/gank';
-import Masonry from "react-native-masonry";
+import Masonry, {_insertIntoColumn} from "react-native-masonry";
+import GankMobx  from '../../mobx/Gank';
+import { observer } from 'mobx-react';
 
 type Props = {};
+@observer
 export class Gank extends Component<Props> {
 
 
   constructor(props){
     super(props);
-    this.state = {
-      data: [],
-      refreshing: true
-    }
+
+    this.GankMobx = new GankMobx();
+
+
+    // this.state = {
+    //   data: [],
+    //   defaultData : [],
+    //   refreshing: true
+    // }
   }
 
-  componentDidMount() {
-    loadGankData().then(data=>{
-      console.log(data.results)
-      // this.setState({data: data.results})
-
-      let urls = [];
+   componentDidMount() {
 
 
-      data.results.map((item, index)=>{
-        let url = {};
-        url.uri = item.url;
-        url.onPress = () => alert(item.url);
-        urls.push(url);
+    this.GankMobx.fetchGankData();
+
+    // console.log('componentDidMount');
+    // this.fetchData();
+
+    // loadGankData().then(data=>{
+    //   // console.log(data.results)
+    //   // this.setState({data: data.results})
+    //
+    //   let urls = [];
+    //
+    //
+    //   data.results.map((item) => handleImageSize(item, 2))
+    //     .map(task => task.fork(
+    //             (err) => console.warn('Image failed to load'),
+    //             (gank) => {
+    //               // console.log(gank);
+    //               this.setState({data: gank})
+    //             })
+    //         )
+    //
+    //
+    //   // data.results.map((item, index)=>{
+    //   //   let url = {};
+    //   //   url.uri = item.url;
+    //   //   urls.push(url);
+    //   // })
+    //
+    //   // console.log(urls);
+    //   // this.setState({data: urls})
+    //
+    // })
+    //   .catch(e=>{
+    //     console.log(e);
+    //   })
+
+  }
+
+  fetchData = () => {
+
+    loadGankData().then(data => {
+      let datas = [];
+      data.results.map((item) => handleImageSize(item, 2))
+        .map(task => task.fork(
+          (err) => console.warn('Image failed to load'),
+          (gank) => {
+            // console.log(gank);
+            datas.push(gank);
+          })
+        )
+      console.log(datas);
+      this.setState({
+        data: datas,
+        refreshing: false,
+        defaultData: [{
+          _id: 'test'
+        }],
       })
-
-
-
-      console.log(urls);
-      this.setState({data: urls})
-
     })
       .catch(e=>{
         console.log(e);
       })
-
-    // this.fetchData()
-  }
-
-  fetchData = () => {
-    let url = 'http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/1';
-    url = 'http://gank.io/api/data/iOS/20/1';
-
-    // fetch(url)
-    //   .then(res=>res.json())
-    //   .then( data => {
-    //     console.log(data)
-    //     this.setState({
-    //       data: data.results,
-    //       refreshing: false
-    //     });
-    //     // this.largeList.reloadData()
-    //   })
-    //   .catch(error =>{
-    //     console.log(error);
-    //   })
   }
 
   largeList(data) {
@@ -101,56 +131,95 @@ export class Gank extends Component<Props> {
     )
   }
 
+  getAutoResponsiveProps() {
+    return {
+      itemMargin: 4,
+    };
+  };
 
-  static renderItem({item}){
-    // console.log(msg.url);
+  renderItem = () => {
+    const { navigate } = this.props.navigation;
+    const { gankData } = this.GankMobx;
+
+    console.log(gankData.slice());
+
+    // data.map((item, i) => {
+    //   console.log(item);
+    //   return (
+    //     <Image
+    //       key={i}
+    //       source={{uri: item.url}}
+    //       style={{
+    //         height: item.resizeSize.height,
+    //         width: item.resizeSize.width,
+    //         // marginHorizontal: 10,
+    //         // marginVertical: 10,
+    //       }}
+    //     />
+    //   );
+    // }, this);
+
     return(
-        <Text style={{width: System.SCREEN_WIDTH / 2, backgroundColor:'red', marginTop: 10}}>
-          {item.publishedAt}
-        </Text>
+      <AutoResponsive {...this.getAutoResponsiveProps()}>
+        { WelfareItem(navigate, gankData)}
+      </AutoResponsive>
     )
-
   }
 
-
   render() {
-    const { data } = this.state;
     return (
       <View style={styles.container}>
 
-        {/*<FastImage source={{uri:'https://ws1.sinaimg.cn/large/610dc034ly1fp9qm6nv50j20u00miacg.jpg'}}*/}
-                   {/*style={{height:100, width: 100}}*/}
-        {/*/>*/}
-        {data.length > 0 ?
-          <Masonry
-            sorted
-            bricks={this.state.data}
-            columns={2}
-            customImageComponent={FastImage}
-            spacing={2}
-          />
-          :null
-        }
+        {/*{data.length > 0 ?*/}
+          {/*<Masonry*/}
+            {/*sorted*/}
+            {/*bricks={this.state.data}*/}
+            {/*columns={2}*/}
+            {/*customImageComponent={FastImage}*/}
+            {/*spacing={2}*/}
+          {/*/>*/}
+          {/*:null*/}
+        {/*}*/}
         
 
-        {/*<FlatList*/}
-          {/*data={this.state.data}*/}
-          {/*style={{backgroundColor:'#F5F5F5',flex:1}}*/}
-          {/*keyExtractor={item => item._id}*/}
-          {/*numColumns={2}*/}
-          {/*initialNumToRender={6}*/}
-          {/*onRefresh={this.fetchData}*/}
-          {/*refreshing={this.state.refreshing}*/}
-          {/*renderItem={Gank.renderItem}*/}
-          {/*onEndReached={this.fetchData}*/}
-          {/*onEndReachedThreshold={1}*/}
-          {/*removeClippedSubviews={false}*/}
+        <FlatList
+          data={this.GankMobx.defaultData}
+          style={{backgroundColor:'#F5F5F5', flex:1}}
+          keyExtractor={item => item._id}
+          numColumns={2}
+          onRefresh={this.GankMobx.fetchGankData}
+          refreshing={this.GankMobx.refreshing}
+          renderItem={this.renderItem}
+          // onEndReached={this.fetchData}
+          // onEndReachedThreshold={1}
+          // removeClippedSubviews={true}
 
-        {/*/>*/}
+        />
       </View>
     );
   }
 }
+
+const WelfareItem = (navigate, dataSource) => {
+
+  console.log(dataSource.slice());
+
+  return dataSource.map((item, i) => {
+    console.log(item);
+    return (
+        <Image
+          key={i}
+          source={{uri: item.url}}
+          style={{
+            height: item.resizeSize.height,
+            width: item.resizeSize.width,
+            // marginHorizontal: 10,
+            // marginVertical: 10,
+          }}
+        />
+    );
+  }, this);
+};
 
 const styles = StyleSheet.create({
   container: {

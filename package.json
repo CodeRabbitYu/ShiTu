@@ -7,7 +7,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "autoresponsive-react-native": "^1.0.9",
     "axios": "^0.18.0",
+    "data.task": "^3.1.1",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
     "query-string": "^6.0.0",

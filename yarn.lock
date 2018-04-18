@@ -656,6 +656,17 @@ atob@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.0.tgz#ab2b150e51d7b122b9efc8d7340c06b6c41076bc"
 
+autoresponsive-common@~1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/autoresponsive-common/-/autoresponsive-common-1.0.1.tgz#6213e798a6879e6b6340d6127a6133a369c0cb9d"
+
+autoresponsive-react-native@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/autoresponsive-react-native/-/autoresponsive-react-native-1.0.9.tgz#11aea77a1e4ceae172257f75b9138f39608a62fb"
+  dependencies:
+    autoresponsive-common "~1.0.0"
+    react-native ">=0.19.0"
+
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -4557,7 +4568,7 @@ react-native-vector-icons@^4.6.0:
     prop-types "^15.5.10"
     yargs "^8.0.2"
 
-react-native@0.55.2:
+react-native@0.55.2, react-native@>=0.19.0:
   version "0.55.2"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.55.2.tgz#80d26a3f4193ebd1fd49a4859011c501b0ca3bab"
   dependencies:

@@ -3,7 +3,7 @@
  * Created by Rabbit on 2018/4/16.
  */
 
-import { Request } from '../../tools'
+import { Fetch } from "../../components";
 
 export interface RGank {
   _id: string;
@@ -34,7 +34,7 @@ export async function loadGankData(): Promise<RGankResult> {
   let url = 'http://gank.io/api/data/iOS/20/1';
   url = 'http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/1';
 
-  const Gank: RGankResult = await Request.get(url);
+  const Gank: RGankResult[] = await Fetch.get(url);
 
   return Gank;
 
