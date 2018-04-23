@@ -29,13 +29,12 @@ export interface RGankResult {
 //   return  books || [];
 // }
 
-export async function loadGankData(): Promise<RGankResult> {
+export async function loadGankData(page): Promise<RGankResult> {
 
-  let url = 'http://gank.io/api/data/iOS/20/1';
-  url = 'http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/1';
+  let url = `http://gank.io/api/data/iOS/20/${page}`;
+  // url = `http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/${page}`;
 
   const Gank: RGankResult[] = await Fetch.get(url);
-
   return Gank;
 
 

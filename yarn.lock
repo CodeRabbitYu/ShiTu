@@ -4560,6 +4560,10 @@ react-native-safe-area-view@^0.7.0:
   dependencies:
     prop-types "^15.6.0"
 
+react-native-ultimate-listview@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-ultimate-listview/-/react-native-ultimate-listview-3.3.0.tgz#92fd0dbe5b291681fc679c1016a180f2da805334"
+
 react-native-vector-icons@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.6.0.tgz#e4014311ffa6de397d914ffc31b7097a874cc8d5"

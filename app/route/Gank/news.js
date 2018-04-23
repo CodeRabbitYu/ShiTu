@@ -1,10 +1,10 @@
 /**
  * @flow
- * Created by Rabbit on 2018/4/12.
+ * Created by Rabbit on 2018/4/21.
  */
 
 import React, {Component} from 'react';
-import {FlatList, ScrollView, StyleSheet} from 'react-native';
+import {FlatList, ScrollView, StyleSheet, Text, View} from 'react-native';
 
 import {LargeList} from "react-native-largelist";
 
@@ -23,7 +23,7 @@ const height = parseInt(Math.random() * 20 + 12) * 10;
 
 type Props = {};
 @observer
-export class Gank extends Component<Props> {
+export class News extends Component<Props> {
 
 
   constructor(props){
@@ -32,7 +32,7 @@ export class Gank extends Component<Props> {
   }
 
   async componentDidMount() {
-    // await this.GankMobx.fetchGankData();
+    await this.GankMobx.fetchGankData();
   }
 
   fetchData = () => {
@@ -114,15 +114,23 @@ export class Gank extends Component<Props> {
     };
   };
 
-  renderItem(){
-    const { navigate } = this.props.navigation;
-    const { gankData } = this.GankMobx;
+  renderItem({item}){
+    // const { navigate } = this.props.navigation;
+    // const { gankData } = this.GankMobx;
+
     return(
-      <AutoResponsive {...Gank.getAutoResponsiveProps()}>
-        { WelfareItem(navigate, gankData) }
-        {/*<WelfareItem navigate={navigate} dataSource={gankData} style={{width: System.SCREEN_WIDTH, height: System.SCREEN_HEIGHT}}/>*/}
-      </AutoResponsive>
+      <View style={{backgroundColor: 'green', width: System.SCREEN_WIDTH / 2, height: 88,}}>
+        <Text>{item.desc}</Text>
+      </View>
     )
+
+
+    // return(
+    //   <AutoResponsive {...News.getAutoResponsiveProps()}>
+    //     { WelfareItem(navigate, gankData) }
+    //     {/*<WelfareItem navigate={navigate} dataSource={gankData} style={{width: System.SCREEN_WIDTH, height: System.SCREEN_HEIGHT}}/>*/}
+    //   </AutoResponsive>
+    // )
   }
 
   @action.bound
@@ -143,8 +151,8 @@ export class Gank extends Component<Props> {
         keyExtractor={item => item._id}
         numColumns={2}
         refreshing={isRefreshing}
-        // onRefresh={fetchGankData}
-        renderItem={()=>this.renderItem()}
+        onRefresh={this.refreshList}
+        renderItem={this.renderItem}
         onEndReached={fetchGankData}
         onEndReachedThreshold={0.01}
         // removeClippedSubviews={true}
