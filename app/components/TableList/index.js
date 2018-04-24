@@ -20,30 +20,37 @@ import {
 const { width, height } = Dimensions.get('window')
 
 const PaginationStatus = {
-  firstLoad: 0,
-  waiting: 1,
-  allLoaded: 2
+  FIRST_LOAD: 0,
+  WAITING: 1,
+  ALL_LOADED: 2
 }
+
+export const BookStatus = {
+  DownloadError: -1, /*下载失败*/
+  NotAddToBookrack: 0, /*还没有加到书架*/
+  NotDownload: 2, /*还没下载*/
+  Downloading: 3, /*下载中*/
+  DownloadSuccess: 1, /*下载成功*/
+};
 
 type Props = {};
 export default class index extends Component<Props> {
   static defaultProps = {
     initialNumToRender: 10,
     horizontal: false,
+    keyExtractor: null,
+
+    renderItem: null,
 
     firstLoader: true,
     scrollEnabled: true,
     onFetch: null,
-    enableEmptySections: true,
 
     // Custom View
-    header: null,
-    item: null,
     paginationFetchingView: null,
     paginationAllLoadedView: null,
     paginationWaitingView: null,
     emptyView: null,
-    separator: null,
 
     // Refreshable
     refreshable: true,
@@ -69,20 +76,19 @@ export default class index extends Component<Props> {
   static propTypes = {
     initialNumToRender: PropTypes.number,
     horizontal: PropTypes.bool,
+    keyExtractor: PropTypes.func,
+
+    renderItem: PropTypes.func,
 
     firstLoader: PropTypes.bool,
     scrollEnabled: PropTypes.bool,
     onFetch: PropTypes.func,
-    enableEmptySections: PropTypes.bool,
 
     // Custom ListView
-    header: PropTypes.func,
-    item: PropTypes.func,
     paginationFetchingView: PropTypes.func,
     paginationAllLoadedView: PropTypes.func,
     paginationWaitingView: PropTypes.func,
     emptyView: PropTypes.func,
-    separator: PropTypes.func,
 
     // Refreshable
     refreshable: PropTypes.bool,
@@ -113,7 +119,7 @@ export default class index extends Component<Props> {
     this.state = {
       dataSource: [],
       isRefreshing: false,
-      paginationStatus: PaginationStatus.firstLoad
+      paginationStatus: PaginationStatus.FIRST_LOAD
     }
   }
 
@@ -131,25 +137,23 @@ export default class index extends Component<Props> {
   onRefresh = () => {
     console.log('onRefresh()')
     if (this.mounted) {
-      this.setState({
-        isRefreshing: true
-      })
+      this.setState({ isRefreshing: true })
       this.setPage(1)
       this.props.onFetch(this.getPage(), this.postRefresh, this.endFetch)
     }
   }
 
   onPaginate = () => {
-    if (this.state.paginationStatus !== PaginationStatus.allLoaded && !this.state.isRefreshing) {
+    if (this.state.paginationStatus !== PaginationStatus.ALL_LOADED && !this.state.isRefreshing) {
       console.log('onPaginate()')
-      this.setState({ paginationStatus: PaginationStatus.waiting })
+      this.setState({ paginationStatus: PaginationStatus.WAITING })
       this.props.onFetch(this.getPage() + 1, this.postPaginate, this.endFetch)
     }
   }
 
   onEndReached = () => {
     // console.log('onEndReached()');
-    if (this.props.pagination && this.props.autoPagination && this.state.paginationStatus === PaginationStatus.waiting) {
+    if (this.props.pagination && this.props.autoPagination && this.state.paginationStatus === PaginationStatus.WAITING) {
       this.onPaginate()
     }
   }
@@ -186,9 +190,9 @@ export default class index extends Component<Props> {
 
   postRefresh = (rows = [], pageLimit) => {
     if (this.mounted) {
-      let paginationStatus = PaginationStatus.waiting
+      let paginationStatus = PaginationStatus.WAITING
       if (rows.length < pageLimit) {
-        paginationStatus = PaginationStatus.allLoaded
+        paginationStatus = PaginationStatus.ALL_LOADED
       }
       this.updateRows(rows, paginationStatus)
     }
@@ -199,10 +203,10 @@ export default class index extends Component<Props> {
     let mergedRows
     let paginationStatus
     if (rows.length === 0) {
-      paginationStatus = PaginationStatus.allLoaded
+      paginationStatus = PaginationStatus.ALL_LOADED
     } else {
       mergedRows = this.getRows().concat(rows)
-      paginationStatus = PaginationStatus.waiting
+      paginationStatus = PaginationStatus.WAITING
     }
 
     this.updateRows(mergedRows, paginationStatus)
@@ -227,7 +231,7 @@ export default class index extends Component<Props> {
   }
 
   endFetch = () => {
-    // console.log('endRefresh()');
+    console.log('endRefresh()');
     if (this.mounted) {
       this.setState({ isRefreshing: false })
     }
@@ -238,6 +242,13 @@ export default class index extends Component<Props> {
     this.setState({
       dataSource: rows
     })
+  }
+
+  keyExtractor = (item, index) => {
+    if (this.props.keyExtractor) {
+      return this.props.keyExtractor(item, index)
+    }
+    return `index-${index}`
   }
 
   paginationFetchingView = () => {
@@ -292,34 +303,9 @@ export default class index extends Component<Props> {
     return null
   }
 
-  renderHeader = () => {
-    if (this.props.header) {
-      return this.props.header()
-    }
-    return null
-  }
-
-  renderItem = ({ item, index, separators }) => {
-    if (this.props.item) {
-      return this.props.item(item, index, separators)
-    }
-    return null
-  }
-
-  renderSeparator = () => {
-    if (this.props.separator) {
-      if (this.props.numColumns > 1) {
-        return null
-      }
-
-      return this.props.separator()
-    }
-
-    return null
-  }
 
   renderEmptyView = () => {
-    if (this.state.paginationStatus !== PaginationStatus.firstLoad && this.props.emptyView) {
+    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && this.props.emptyView) {
       return this.props.emptyView()
     }
 
@@ -327,13 +313,13 @@ export default class index extends Component<Props> {
   }
 
   renderFooter = () => {
-    if (this.state.paginationStatus === PaginationStatus.firstLoad) {
+    if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
       return this.paginationFetchingView()
-    } else if (this.state.paginationStatus === PaginationStatus.waiting && this.props.autoPagination === false) {
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
       return this.paginationWaitingView(this.onPaginate)
-    } else if (this.state.paginationStatus === PaginationStatus.waiting && this.props.autoPagination === true) {
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
       return this.paginationWaitingView()
-    } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.allLoaded) {
+    } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
       return this.paginationAllLoadedView()
     }
 
@@ -367,21 +353,76 @@ export default class index extends Component<Props> {
         {...this.props}
         ref={ref => this._flatList = ref}
         data={this.state.dataSource}
-        renderItem={this.renderItem}
         ItemSeparatorComponent={this.renderSeparator}
-        ListHeaderComponent={this.renderHeader}
         ListFooterComponent={this.renderFooter}
         ListEmptyComponent={this.renderEmptyView}
         onEndReached={this.onEndReached}
         refreshControl={this.renderRefreshControl()}
         numColumns={numColumns}
+        keyExtractor={this.keyExtractor}
       />
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  fetchingView: {
+    width,
+    height,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
+  paginationView: {
+    flex: 0,
+    width,
+    height: 55,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  paginationViewText: {
+    fontSize: 16
+  },
+  paginationViewSpinner: {
+    marginRight: 5
+  },
+  paginationBtn: {
+    backgroundColor: 'tomato',
+    margin: 10,
+    borderRadius: 20,
+    flex: 1,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  paginationBtnText: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  separator: {
+    height: 0.5,
+    marginLeft: 15,
+    marginRight: 15,
+    backgroundColor: 'lightgray'
+  },
+  emptyView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  allLoadedText: {
+    alignSelf: 'center',
+    color: '#bfbfbf'
+  },
+  gridItem: {
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  gridView: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap'
+  }
 });

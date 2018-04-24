@@ -5,7 +5,8 @@
 import { Theme } from 'teaset';
 import Button from './Button';
 import Icon from './Icon';
+import TableList from './TableList';
 
 import { Fetch, Axios } from "./Request";
 
-export { Button, Icon, Theme, Fetch, Axios };
+export { Button, Icon, Theme, Fetch, Axios, TableList };

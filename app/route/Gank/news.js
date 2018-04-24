@@ -10,7 +10,7 @@ import {LargeList} from "react-native-largelist";
 
 import {handleImageSize, System} from '../../utils';
 import AutoResponsive from 'autoresponsive-react-native';
-import {Button} from '../../components'
+import {Button, Fetch, TableList} from '../../components'
 
 import FastImage from 'react-native-fast-image';
 import {loadGankData} from '../../servers/Gank';
@@ -18,6 +18,7 @@ import {loadGankData} from '../../servers/Gank';
 import GankMobx from '../../mobx/Gank';
 import {observer} from 'mobx-react';
 import {action} from 'mobx';
+import {Gank} from "./index";
 
 const height = parseInt(Math.random() * 20 + 12) * 10;
 
@@ -28,85 +29,16 @@ export class News extends Component<Props> {
 
   constructor(props){
     super(props);
-    this.GankMobx = new GankMobx();
+    // this.GankMobx = new GankMobx();
+    this.state = {
+      data: [],
+    }
   }
 
   async componentDidMount() {
-    await this.GankMobx.fetchGankData();
+    // await this.GankMobx.fetchGankData();
   }
 
-  fetchData = () => {
-
-    loadGankData().then(data => {
-      let datas = [];
-      data.results.map((item) => handleImageSize(item, 2))
-        .map(task => task.fork(
-          (err) => console.warn('Image failed to load'),
-          (gank) => {
-            // console.log(gank);
-            datas.push(gank);
-
-            // console.log(datas);
-
-          },
-
-          this.setState({
-            refreshing: false,
-            gankData: datas,
-            defaultData: [{_id : 'test'}],
-          })
-
-          )
-        )
-
-      // console.log(datas);
-      // this.setState({
-      //   refreshing: false,
-      //   gankData: datas,
-      //   defaultData: [{_id : 'test'}],
-      // })
-
-      // console.log(datas);
-      // this.setState({
-      //   data: datas,
-      //   refreshing: false,
-      //   defaultData: [{
-      //     _id: 'test'
-      //   }],
-      // })
-
-      let urls = [];
-      data.results.map((item, index)=>{
-        let url = {};
-        url.uri = item.url;
-        urls.push(url);
-      })
-      this.setState({data: urls})
-
-
-    })
-      .catch(e=>{
-        console.log(e);
-      })
-  }
-
-  largeList(data) {
-    return(
-      <LargeList
-        style={{ flex: 1, backgroundColor:'orange' }}
-        bounces={true}
-        refreshing={this.state.refreshing}
-        onRefresh={() => {
-          this.fetchData()
-        }}
-        // safeMargin={600}
-        numberOfRowsInSection={()=>this.state.data.length}
-        // numberOfSections={()=>this.props.numberOfSections}
-        renderCell={this.renderItem.bind(this)}
-        heightForCell={() => 88}
-      />
-    )
-  }
 
   static getAutoResponsiveProps() {
     return {
@@ -115,33 +47,66 @@ export class News extends Component<Props> {
   };
 
   renderItem({item}){
-    // const { navigate } = this.props.navigation;
     // const { gankData } = this.GankMobx;
+
+    // const { data } = this.state;
+    console.log(item.data);
+
+    // return (
+    //   <AutoResponsive {...News.getAutoResponsiveProps()}>
+    //     { WelfareItem(item.data) }
+    //   </AutoResponsive>
+    // )
 
     return(
       <View style={{backgroundColor: 'green', width: System.SCREEN_WIDTH / 2, height: 88,}}>
         <Text>{item.desc}</Text>
       </View>
     )
-
-
-    // return(
-    //   <AutoResponsive {...News.getAutoResponsiveProps()}>
-    //     { WelfareItem(navigate, gankData) }
-    //     {/*<WelfareItem navigate={navigate} dataSource={gankData} style={{width: System.SCREEN_WIDTH, height: System.SCREEN_HEIGHT}}/>*/}
-    //   </AutoResponsive>
-    // )
   }
 
-  @action.bound
-  async refreshList() {
-    this.GankMobx.clearList();
-    await this.GankMobx.fetchGankData();
-  }
+  onFetch = async (page = 1, startFetch, abortFetch) => {
+    let url = `http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/${page}`;
+    url = `http://gank.io/api/data/iOS/20/${page}`;
+    // let data = await loadGankData(page)
 
+    let data = await Fetch.get(url);
+
+    let imageData = [];
+
+    data.results.map((item) => handleImageSize(item, 2))
+      .map(task => task.fork(
+        (err) => console.warn('Image failed to load'),
+        (gank) => {
+          // console.log(gank);
+          imageData.push(gank);
+
+          // startFetch([{_id: '123', data: imageData}], 20)
+          // startFetch(data.results, 20)
+
+        })
+      )
+    console.log(imageData)
+    // this.setState({data: data.results})
+
+    console.log(data);
+
+    startFetch(page, 20)
+
+  }
 
   render() {
-    const { defaultData, fetchGankData, fetchMoreData, isRefreshing, refreshList } = this.GankMobx;
+    // const { defaultData, fetchGankData, fetchMoreData, isRefreshing, refreshList } = this.GankMobx;
+
+    return(
+      <TableList
+        onFetch={this.onFetch}
+        renderItem={this.renderItem}
+        numColumns={2}
+        keyExtractor={(item, index) => item._id}
+
+      />
+    )
 
     // const { refreshing, defaultData } = this.state;
     return (
@@ -187,7 +152,7 @@ class WelfareItem1 extends React.PureComponent{
   }
 }
 
-const WelfareItem = (navigate, dataSource) => {
+const WelfareItem = (dataSource) => {
   // console.log(dataSource.length);
   // const { navigate, dataSource } = props;
   return dataSource.map((item, i) => {
