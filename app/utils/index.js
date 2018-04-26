@@ -4,6 +4,6 @@
 
 import { handleImageSize } from "./handleImageSize";
 
-export { default as System } from './utils.system'
+export { default as System } from './System'
 
 export { handleImageSize } ;

@@ -17,13 +17,12 @@ import { Icon, Theme } from './components';
 import { ShiTu } from './route/ShiTu';
 import { Gank } from "./route/Gank";
 import { Main } from "./route/Main";
-import { News } from "./route/Gank/news";
 
 import Sample from './test/sample';
 
 const MyTab = TabNavigator({
   Gank: {
-    screen: News,
+    screen: Gank,
     navigationOptions: ()=> TabOptions('干货', 'Gank', '干货'),
   },
   ShiTu: {
@@ -37,7 +36,7 @@ const MyTab = TabNavigator({
   },
 },{
 
-  initialRouteName: 'Gank',
+  // initialRouteName: 'Gank',
   tabBarPosition: 'bottom',
   tabBarComponent: TabBarBottom,
   swipeEnabled: false,

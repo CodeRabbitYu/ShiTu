@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { MyApp } from "./app.router";
+import { MyApp } from "./router";
 
 export default class index extends React.Component<any> {
   render() {

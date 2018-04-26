@@ -23,34 +23,15 @@ export interface RGankResult {
   results: RGank[];
 }
 
-// export async function getRecommendBooks(): Promise<ISimplifyBook[]> {
-//   const path = '/searchedBooks/recommend';
-//   const books: ISimplifyBook[] | null = await apiRequest.get<ISimplifyBook[]>(path);
-//   return  books || [];
-// }
+type RGankType = 'iOS' | 'Android' | '福利'
 
-export async function loadGankData(page): Promise<RGankResult> {
+export async function loadGankData(page: number, type: RGankType, count: number = 20): Promise<RGankResult> {
 
-  let url = `http://gank.io/api/data/iOS/20/${page}`;
-  url = `http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/${page}`;
+  type = encodeURIComponent(type);
+
+  let url = `http://gank.io/api/data/${type}/${count}/${page}`;
 
   const Gank: RGankResult[] = await Fetch.get(url);
   return Gank;
 
-
-  // Request.get(url)
-  //   .then((data) => {
-  //     console.log(data);
-  //
-  //     console.log(data.results);
-  //
-  //     data.results.map((gank, index) => {
-  //       console.log(gank.who);
-  //       console.log(gank.url);
-  //     })
-  //
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   })
 }
