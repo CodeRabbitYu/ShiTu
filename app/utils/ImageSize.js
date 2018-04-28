@@ -6,7 +6,7 @@ import Task from 'data.task';
 
 const { width, height } = Dimensions.get('window');
 // resolveImage :: String -> Task(Error, Image)
-export const handleImageSize = (data, columns) => {
+export const imageSize = (data, columns) => {
   return new Task((reject, resolve) => Image.getSize(data, (width, height) => resolve({
     ...data,
     imageSize: { width, height },

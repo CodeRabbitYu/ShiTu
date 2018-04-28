@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import {handleImageSize, System} from '../../utils';
+import {imageSize, System} from '../../utils';
 import AutoResponsive from 'autoresponsive-react-native';
 import {Button, TableList, FastImage} from '../../components'
 
@@ -34,7 +34,7 @@ export class Gank extends React.Component<any> {
     try {
       let data = await loadGankData(page, '福利', 1000);
       let imageData = [];
-      data.results.map((item) => handleImageSize(item, 2))
+      data.results.map((item) => imageSize(item, 2))
         .map(task => task.fork(
           (err) => {
             console.warn('Image failed to load')

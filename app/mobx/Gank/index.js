@@ -3,7 +3,7 @@
  */
 
 import {observable, computed, action, runInAction, autorun} from 'mobx'
-import { handleImageSize } from "../../utils";
+import { imageSize } from "../../utils";
 import { loadGankData } from "../../servers/Gank";
 
 
@@ -204,7 +204,7 @@ class GankMobx {
   }
 
   @action.bound handleData(results) {
-    results.map((item) => handleImageSize(item, 2))
+    results.map((item) => imageSize(item, 2))
       .map(task => task.fork(
         (err) => console.warn('Image failed to load', err),
         (gank: RGank) => {
