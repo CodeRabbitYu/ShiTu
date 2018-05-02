@@ -1,8 +1,9 @@
 /**
+ * @flow
  * Created by Rabbit on 2018/4/23.
  */
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types'
 
 import {
@@ -10,10 +11,10 @@ import {
   Dimensions,
   FlatList,
   RefreshControl,
-  ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
+  VirtualizedList
 } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
@@ -23,9 +24,68 @@ const PaginationStatus = {
   WAITING: 1,
   ALL_LOADED: 2
 }
+// type paginationStatus = 'FIRST_LOAD' | 'WAITING' | 'ALL_LOADED';
 
-type Props = {};
-export default class index extends Component<Props> {
+type IndicatorSize = number | 'small' | 'large';
+
+export type Props = {
+  initialNumToRender?: number,
+  horizontal?: boolean,
+  keyExtractor?: (item: any, index: number) => string,
+
+  renderItem: ({ item: any, index: number }) => ?React.Element<any>,
+  ListHeaderComponent?: ?React.ComponentType<any>,
+  ListEmptyComponent?: ?React.ComponentType<any>,
+  ListFooterComponent?: ?React.ComponentType<any>,
+  ListEmptyComponent?: ?React.ComponentType<any>,
+
+  firstLoader?: boolean,
+  scrollEnabled?: boolean,
+  onFetch: (page: number, postRefresh: any, endFetch: any) => void,
+
+  // Custom View
+  PaginationFetchingView?: any,
+  PaginationAllLoadedView?: any,
+  PaginationWaitingView?: any,
+
+  SeparatorComponent?: ?React.ComponentType<any>,
+
+  // Refreshable
+  refreshable: boolean,
+
+  // RefreshControl
+  refreshableTitle: string,
+  refreshableColors: Array<string>,
+  refreshableProgressBackgroundColor: ?string,
+  refreshableSize: ?number,
+  refreshableTintColor: ?string,
+
+  // Pagination
+  pagination: ?boolean,
+  autoPagination: ?boolean,
+  allLoadedText: ?string,
+
+  // Spinner
+  spinnerColor: ?string,
+  fetchingSpinnerSize: ?number,
+  waitingSpinnerSize: IndicatorSize,
+  waitingSpinnerText: ?string,
+
+  // Pagination Button
+  paginationBtnText: ?string,
+
+  // GridView
+  numColumns: number
+};
+
+
+type State = {
+  dataSource: Array<any>,
+  isRefreshing: boolean,
+  paginationStatus: number,
+}
+
+export default class index extends React.Component<Props, State> {
   static defaultProps = {
     initialNumToRender: 10,
     horizontal: false,
@@ -38,13 +98,19 @@ export default class index extends Component<Props> {
     onFetch: null,
 
     // Custom View
-    paginationFetchingView: null,
-    paginationAllLoadedView: null,
-    paginationWaitingView: null,
-    emptyView: null,
+    PaginationFetchingView: null,
+    PaginationAllLoadedView: null,
+    PaginationWaitingView: null,
 
     // Refreshable
     refreshable: true,
+
+    // RefreshControl
+    refreshableTitle: '',
+    refreshableColors: ['dimgray', 'tomato', 'limegreen'],
+    refreshableProgressBackgroundColor: 'white',
+    refreshableSize: 'small',
+    refreshableTintColor: 'lightgray',
 
     // Pagination
     pagination: true,
@@ -64,6 +130,7 @@ export default class index extends Component<Props> {
     numColumns: 1
   }
 
+  /*
   static propTypes = {
     initialNumToRender: PropTypes.number,
     horizontal: PropTypes.bool,
@@ -84,6 +151,14 @@ export default class index extends Component<Props> {
     // Refreshable
     refreshable: PropTypes.bool,
 
+    // RefreshControl
+    refreshableTitle: PropTypes.string,
+    refreshableColors: PropTypes.array,
+    refreshableProgressBackgroundColor: PropTypes.string,
+    refreshableSize: PropTypes.string,
+    refreshableTintColor: PropTypes.string,
+    customRefreshControl: PropTypes.func,
+
     // Pagination
     pagination: PropTypes.bool,
     autoPagination: PropTypes.bool,
@@ -101,8 +176,15 @@ export default class index extends Component<Props> {
     // GridView
     numColumns: PropTypes.number
   }
+  */
 
-  constructor(props) {
+  mounted: boolean
+  rows: Array<any>
+  page: number
+  _flatList: ?React.ElementRef<any> = null;
+
+
+  constructor(props: Props) {
     super(props)
     this.setPage(1)
     this.setRows([])
@@ -149,37 +231,37 @@ export default class index extends Component<Props> {
     }
   }
 
-  setPage = page => this.page = page
+  setPage = (page: number) => this.page = page
 
   getPage = () => this.page
 
-  setRows = rows => this.rows = rows
+  setRows = (rows: Array<any>) => {
+    this.rows = rows
+  }
 
   getRows = () => this.rows
-
-  sleep = time => new Promise(resolve => setTimeout(() => resolve(), time))
 
   refresh = () => {
     this.onRefresh()
   }
 
-  scrollToOffset = (option) => {
-    this._flatList.scrollToOffset(option)
-  }
+  // scrollToOffset = (option) => {
+  //   this._flatList.scrollToOffset(option)
+  // }
+  //
+  // scrollToIndex = (option) => {
+  //   this._flatList.scrollToIndex(option)
+  // }
+  //
+  // scrollToItem = (option) => {
+  //   this._flatList.scrollToItem(option)
+  // }
+  //
+  // scrollToEnd = (option) => {
+  //   this._flatList.scrollToEnd(option)
+  // }
 
-  scrollToIndex = (option) => {
-    this._flatList.scrollToIndex(option)
-  }
-
-  scrollToItem = (option) => {
-    this._flatList.scrollToItem(option)
-  }
-
-  scrollToEnd = (option) => {
-    this._flatList.scrollToEnd(option)
-  }
-
-  postRefresh = (rows = [], pageLimit) => {
+  postRefresh = (rows: Array<any> = [], pageLimit: number) => {
     if (this.mounted) {
       let paginationStatus = PaginationStatus.WAITING
       if (rows.length < pageLimit) {
@@ -189,9 +271,9 @@ export default class index extends Component<Props> {
     }
   }
 
-  postPaginate = (rows = [], pageLimit) => {
+  postPaginate = (rows: Array<any> = []) => {
     this.setPage(this.getPage() + 1)
-    let mergedRows
+    let mergedRows = []
     let paginationStatus
     if (rows.length === 0) {
       paginationStatus = PaginationStatus.ALL_LOADED
@@ -203,7 +285,7 @@ export default class index extends Component<Props> {
     this.updateRows(mergedRows, paginationStatus)
   }
 
-  updateRows = (rows, paginationStatus) => {
+  updateRows = (rows: Array<any>, paginationStatus: number) => {
     if (rows) {
       this.setRows(rows)
       this.setState({
@@ -228,23 +310,23 @@ export default class index extends Component<Props> {
     }
   }
 
-  updateDataSource(rows = []) {
+  updateDataSource(rows: Array<any> = []) {
     this.setRows(rows)
     this.setState({
       dataSource: rows
     })
   }
 
-  keyExtractor = (item, index) => {
+  keyExtractor = (item: any, index: number) => {
     if (this.props.keyExtractor) {
       return this.props.keyExtractor(item, index)
     }
     return `index-${index}`
   }
 
-  paginationFetchingView = () => {
-    if (this.props.paginationFetchingView) {
-      return this.props.paginationFetchingView()
+  PaginationFetchingView = () => {
+    if (this.props.PaginationFetchingView) {
+      return this.props.PaginationFetchingView()
     }
 
     return (
@@ -254,10 +336,10 @@ export default class index extends Component<Props> {
     )
   }
 
-  paginationAllLoadedView = () => {
+  PaginationAllLoadedView = () => {
     if (this.props.pagination) {
-      if (this.props.paginationAllLoadedView) {
-        return this.props.paginationAllLoadedView()
+      if (this.props.PaginationAllLoadedView) {
+        return this.props.PaginationAllLoadedView()
       }
 
       return (
@@ -272,11 +354,12 @@ export default class index extends Component<Props> {
     return null
   }
 
-  paginationWaitingView = (paginateCallback) => {
+  PaginationWaitingView = (paginateCallback: any) => {
     if (this.props.pagination) {
       if (this.props.autoPagination) {
-        if (this.props.paginationWaitingView) {
-          return this.props.paginationWaitingView(paginateCallback)
+        if (this.props.PaginationWaitingView) {
+          // return <paginationWaitingView />
+          return this.props.PaginationWaitingView(paginateCallback)
         }
 
         return (
@@ -284,7 +367,8 @@ export default class index extends Component<Props> {
             <ActivityIndicator color={this.props.spinnerColor} size={this.props.waitingSpinnerSize} />
             <Text
               style={[styles.paginationViewText, { marginLeft: 5 }]}
-            >{this.props.waitingSpinnerText}
+            >
+              {this.props.waitingSpinnerText}
             </Text>
           </View>
         )
@@ -294,40 +378,20 @@ export default class index extends Component<Props> {
     return null
   }
 
-  renderSeparator = () => {
-    if (this.props.separator) {
-      if (this.props.numColumns > 1) {
-        return null
-      }
-
-      return this.props.separator()
-    }
-
-    return null
-  }
-
-  renderEmptyView = () => {
-    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && this.props.emptyView) {
-      return this.props.emptyView()
-    }
-
-    return null
-  }
-
   renderFooter = () => {
+
     if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
-      return this.paginationFetchingView()
+      return this.PaginationFetchingView()
     } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
-      return this.paginationWaitingView(this.onPaginate)
+      return this.PaginationWaitingView(this.onPaginate)
     } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
-      return this.paginationWaitingView()
+      return this.PaginationWaitingView()
     } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
-      return this.paginationAllLoadedView()
+      return this.PaginationAllLoadedView()
     }
 
     return null
   }
-
 
   renderRefreshControl = () => {
     if (this.props.refreshable) {
@@ -347,7 +411,13 @@ export default class index extends Component<Props> {
   }
 
   render() {
-    const { numColumns } = this.props
+    const { numColumns, ListEmptyComponent } = this.props
+
+    let emptyView
+    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && ListEmptyComponent){
+      emptyView = <ListEmptyComponent />
+    }
+
     return (
       <FlatList
         key={numColumns}
@@ -355,9 +425,8 @@ export default class index extends Component<Props> {
         {...this.props}
         ref={ref => this._flatList = ref}
         data={this.state.dataSource}
-        ItemSeparatorComponent={this.renderSeparator}
         ListFooterComponent={this.renderFooter}
-        ListEmptyComponent={this.renderEmptyView}
+        ListEmptyComponent={emptyView}
         onEndReached={this.onEndReached}
         refreshControl={this.renderRefreshControl()}
         numColumns={numColumns}

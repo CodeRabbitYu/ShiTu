@@ -72,13 +72,8 @@ export class News extends Component<any> {
     // let url = `http://gank.io/api/data/iOS/30/${page}`;
     let url = `http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/${page}`;
 
-    // console.log('page', page);
     try {
-
-
-
       let data = await Fetch.get(url);
-      let imageData = [];
 
       let results = data.results;
 
@@ -91,7 +86,6 @@ export class News extends Component<any> {
         item.url = item.url;
       });
 
-      console.log(results);
 
       setTimeout(()=> {
         if (page !== 1) {
@@ -131,6 +125,12 @@ export class News extends Component<any> {
     this.fetchData(1)
   };
 
+  renderItem = ({ item, index, column }) => {
+    return(
+      <Cell item={item} index={column} />
+    )
+  }
+
   render() {
 
     return (
@@ -138,7 +138,7 @@ export class News extends Component<any> {
         onRefresh={this._refreshRequest}
         refreshing={this.state.isRefreshing}
         data={this.state.dataSource}
-        renderItem={({ item, index, column }) => <Cell item={item} index={column} />}
+        renderItem={this.renderItem}
         getHeightForItem={({ item }) => item.height + 2}
         numColumns={2}
         keyExtractor={item => item._id}
@@ -156,8 +156,20 @@ export class News extends Component<any> {
   }
 }
 
+const Cell = (props) => {
+  // console.log(props);
+  const { item } = props;
+  return(
+    <Image source={{uri: item.url}}
+           style={[
+             styles.cell,
+             { height: item.height, backgroundColor: 'red'},
+           ]}
+    />
+  )
+}
 
-class Cell extends PureComponent<any> {
+class Cell1 extends PureComponent<any> {
   componentDidMount() {
     // console.warn('mount cell');
   }
