@@ -14,8 +14,10 @@ import {
   StyleSheet,
   Text,
   View,
-  VirtualizedList
+  VirtualizedList,
+  ScrollView
 } from 'react-native'
+import type {Props as VirtualizedListProps} from "react-native/Libraries/Lists/VirtualizedList";
 
 const { width, height } = Dimensions.get('window')
 
@@ -28,20 +30,37 @@ const PaginationStatus = {
 
 type IndicatorSize = number | 'small' | 'large';
 
-export type Props = {
+export type SeparatorsObj = {
+  highlight: () => void,
+  unhighlight: () => void,
+  updateProps: (select: 'leading' | 'trailing', newProps: Object) => void,
+};
+
+type RequiredProps<ItemT> = {
+  renderItem: (info: {
+    item: ItemT,
+    index: number,
+    separators: SeparatorsObj,
+  }) => React.Element<any>,
+
+  // onFetch: (page: number, postRefresh: any, endFetch: any) => void,
+  onFetch: any,
+
+  keyExtractor: (item: ItemT | Array<ItemT>, index: number) => string,
+}
+
+type OptionalProps<ItemT> = {
+
   initialNumToRender?: number,
   horizontal?: boolean,
-  keyExtractor?: (item: any, index: number) => string,
 
-  renderItem: ({ item: any, index: number }) => ?React.Element<any>,
   ListHeaderComponent?: ?React.ComponentType<any>,
   ListEmptyComponent?: ?React.ComponentType<any>,
   ListFooterComponent?: ?React.ComponentType<any>,
   ListEmptyComponent?: ?React.ComponentType<any>,
 
-  firstLoader?: boolean,
-  scrollEnabled?: boolean,
-  onFetch: (page: number, postRefresh: any, endFetch: any) => void,
+  firstLoader?: ?boolean,
+  scrollEnabled?: ?boolean,
 
   // Custom View
   PaginationFetchingView?: any,
@@ -51,140 +70,91 @@ export type Props = {
   SeparatorComponent?: ?React.ComponentType<any>,
 
   // Refreshable
-  refreshable: boolean,
+  refreshable?: ?boolean,
 
   // RefreshControl
-  refreshableTitle: string,
-  refreshableColors: Array<string>,
-  refreshableProgressBackgroundColor: ?string,
-  refreshableSize: ?number,
-  refreshableTintColor: ?string,
+  refreshableTitle?: string,
+  refreshableColors?: Array<string>,
+  refreshableProgressBackgroundColor?: ?string,
+  refreshableSize?: ?number,
+  refreshableTintColor?: ?string,
 
   // Pagination
-  pagination: ?boolean,
-  autoPagination: ?boolean,
-  allLoadedText: ?string,
+  pagination?: ?boolean,
+  autoPagination?: ?boolean,
+  allLoadedText?: ?string,
 
   // Spinner
-  spinnerColor: ?string,
-  fetchingSpinnerSize: ?number,
-  waitingSpinnerSize: IndicatorSize,
-  waitingSpinnerText: ?string,
+  spinnerColor?: ?string,
+  fetchingSpinnerSize?: ?number,
+  waitingSpinnerSize?: IndicatorSize,
+  waitingSpinnerText?: ?string,
 
   // Pagination Button
-  paginationBtnText: ?string,
+  paginationBtnText?: ?string,
 
   // GridView
-  numColumns: number
-};
+  numColumns?: number
+}
 
+export type Props<ItemT> = RequiredProps<ItemT> & OptionalProps<ItemT> & VirtualizedListProps;
 
-type State = {
-  dataSource: Array<any>,
+type State<ItemT> = {
+  dataSource: Array<ItemT>,
   isRefreshing: boolean,
   paginationStatus: number,
 }
 
-export default class index extends React.Component<Props, State> {
-  static defaultProps = {
-    initialNumToRender: 10,
-    horizontal: false,
-    keyExtractor: null,
+const defaultProps = {
+  ...VirtualizedList.defaultProps,
+  numColumns: 1,
 
-    renderItem: null,
+  firstLoader: true,
+  scrollEnabled: true,
 
-    firstLoader: true,
-    scrollEnabled: true,
-    onFetch: null,
+  // Refreshable
+  refreshable: true,
 
-    // Custom View
-    PaginationFetchingView: null,
-    PaginationAllLoadedView: null,
-    PaginationWaitingView: null,
+  // RefreshControl
+  refreshableTitle: '',
+  refreshableColors: ['dimgray', 'tomato', 'limegreen'],
+  refreshableProgressBackgroundColor: 'white',
+  refreshableSize: 'small',
+  refreshableTintColor: 'lightgray',
 
-    // Refreshable
-    refreshable: true,
 
-    // RefreshControl
-    refreshableTitle: '',
-    refreshableColors: ['dimgray', 'tomato', 'limegreen'],
-    refreshableProgressBackgroundColor: 'white',
-    refreshableSize: 'small',
-    refreshableTintColor: 'lightgray',
+  // Pagination
+  pagination: true,
+  autoPagination: true,
+  allLoadedText: 'End of List',
 
-    // Pagination
-    pagination: true,
-    autoPagination: true,
-    allLoadedText: 'End of List',
+  // Spinner
+  spinnerColor: undefined,
+  fetchingSpinnerSize: 'large',
+  waitingSpinnerSize: 'small',
+  waitingSpinnerText: 'Loading...',
 
-    // Spinner
-    spinnerColor: undefined,
-    fetchingSpinnerSize: 'large',
-    waitingSpinnerSize: 'small',
-    waitingSpinnerText: 'Loading...',
+  // Pagination Button
+  paginationBtnText: 'Load more...',
 
-    // Pagination Button
-    paginationBtnText: 'Load more...',
+  // GridView
+  numColumns: 1
+};
 
-    // GridView
-    numColumns: 1
-  }
+export type DefaultProps = typeof defaultProps;
 
-  /*
-  static propTypes = {
-    initialNumToRender: PropTypes.number,
-    horizontal: PropTypes.bool,
-    keyExtractor: PropTypes.func,
+export default class index<ItemT> extends React.PureComponent<Props<ItemT>, State<ItemT>> {
 
-    renderItem: PropTypes.func,
+  static defaultProps: DefaultProps = defaultProps;
 
-    firstLoader: PropTypes.bool,
-    scrollEnabled: PropTypes.bool,
-    onFetch: PropTypes.func,
-
-    // Custom ListView
-    paginationFetchingView: PropTypes.func,
-    paginationAllLoadedView: PropTypes.func,
-    paginationWaitingView: PropTypes.func,
-    emptyView: PropTypes.func,
-
-    // Refreshable
-    refreshable: PropTypes.bool,
-
-    // RefreshControl
-    refreshableTitle: PropTypes.string,
-    refreshableColors: PropTypes.array,
-    refreshableProgressBackgroundColor: PropTypes.string,
-    refreshableSize: PropTypes.string,
-    refreshableTintColor: PropTypes.string,
-    customRefreshControl: PropTypes.func,
-
-    // Pagination
-    pagination: PropTypes.bool,
-    autoPagination: PropTypes.bool,
-    allLoadedText: PropTypes.string,
-
-    // Spinner
-    spinnerColor: PropTypes.string,
-    fetchingSpinnerSize: PropTypes.any,
-    waitingSpinnerSize: PropTypes.any,
-    waitingSpinnerText: PropTypes.string,
-
-    // Pagination Button
-    paginationBtnText: PropTypes.string,
-
-    // GridView
-    numColumns: PropTypes.number
-  }
-  */
-
-  mounted: boolean
+  mounted: boolean = false
   rows: Array<any>
   page: number
-  _flatList: ?React.ElementRef<any> = null;
+  // _flatList: ?React.ElementRef<any> = null;
 
+  _flatList: null | VirtualizedList | ScrollView
 
-  constructor(props: Props) {
+  constructor(props: Props<ItemT>) {
     super(props)
     this.setPage(1)
     this.setRows([])
@@ -225,7 +195,7 @@ export default class index extends React.Component<Props, State> {
   }
 
   onEndReached = () => {
-    // console.log('onEndReached()');
+    console.log('onEndReached()');
     if (this.props.pagination && this.props.autoPagination && this.state.paginationStatus === PaginationStatus.WAITING) {
       this.onPaginate()
     }
@@ -245,23 +215,40 @@ export default class index extends React.Component<Props, State> {
     this.onRefresh()
   }
 
-  // scrollToOffset = (option) => {
-  //   this._flatList.scrollToOffset(option)
-  // }
-  //
-  // scrollToIndex = (option) => {
-  //   this._flatList.scrollToIndex(option)
-  // }
-  //
-  // scrollToItem = (option) => {
-  //   this._flatList.scrollToItem(option)
-  // }
-  //
-  // scrollToEnd = (option) => {
-  //   this._flatList.scrollToEnd(option)
-  // }
+  scrollToEnd(params?: ?{animated?: ?boolean}) {
+    if (this._flatList) {
+      this._flatList.scrollToEnd(params);
+    }
+  }
 
-  postRefresh = (rows: Array<any> = [], pageLimit: number) => {
+  scrollToIndex(params: {
+    animated?: ?boolean,
+    index: number,
+    viewOffset?: number,
+    viewPosition?: number,
+  }) {
+    if (this._flatList) {
+      this._flatList.scrollToIndex(params);
+    }
+  }
+
+  scrollToItem(params: {
+    animated?: ?boolean,
+    item: ItemT,
+    viewPosition?: number,
+  }) {
+    if (this._flatList) {
+      this._flatList.scrollToItem(params);
+    }
+  }
+
+  scrollToOffset(params: {animated?: ?boolean, offset: number}) {
+    if (this._flatList) {
+      this._flatList.scrollToOffset(params);
+    }
+  }
+
+  postRefresh = (rows: Array<ItemT> = [], pageLimit: number) => {
     if (this.mounted) {
       let paginationStatus = PaginationStatus.WAITING
       if (rows.length < pageLimit) {
@@ -285,7 +272,7 @@ export default class index extends React.Component<Props, State> {
     this.updateRows(mergedRows, paginationStatus)
   }
 
-  updateRows = (rows: Array<any>, paginationStatus: number) => {
+  updateRows = (rows: ?Array<any> , paginationStatus: number) => {
     if (rows) {
       this.setRows(rows)
       this.setState({
@@ -310,18 +297,11 @@ export default class index extends React.Component<Props, State> {
     }
   }
 
-  updateDataSource(rows: Array<any> = []) {
+  updateDataSource(rows: Array<ItemT> = []) {
     this.setRows(rows)
     this.setState({
       dataSource: rows
     })
-  }
-
-  keyExtractor = (item: any, index: number) => {
-    if (this.props.keyExtractor) {
-      return this.props.keyExtractor(item, index)
-    }
-    return `index-${index}`
   }
 
   PaginationFetchingView = () => {
@@ -350,7 +330,6 @@ export default class index extends React.Component<Props, State> {
         </View>
       )
     }
-
     return null
   }
 
@@ -430,7 +409,6 @@ export default class index extends React.Component<Props, State> {
         onEndReached={this.onEndReached}
         refreshControl={this.renderRefreshControl()}
         numColumns={numColumns}
-        keyExtractor={this.keyExtractor}
       />
     )
   }
