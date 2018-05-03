@@ -13,10 +13,10 @@ import com.android.build.OutputFile
  *
  * project.ext.react = [
  *   // the name of the generated asset file containing your JS bundle
- *   bundleAssetName: "index.android.bundle",
+ *   bundleAssetName: "index_old.android.bundle",
  *
  *   // the entry file for bundle generation
- *   entryFile: "index.android.js",
+ *   entryFile: "index_old.android.js",
  *
  *   // whether to bundle JS and assets in debug mode
  *   bundleInDebug: false,
@@ -73,7 +73,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+    entryFile: "index_old_old.js"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"

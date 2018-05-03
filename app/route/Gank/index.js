@@ -4,47 +4,61 @@
  */
 
 import React from 'react';
+import {Text, View} from "react-native";
 
 import {imageSize, System} from '../../utils';
-import AutoResponsive from 'autoresponsive-react-native';
 import {Button, TableList, FastImage} from '../../components'
 
-import {loadGankData} from '../../servers/Gank';
+import {loadGankData, RGank} from '../../servers/Gank';
 
 import {observer} from 'mobx-react';
 
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
+
+
+type State = {
+  typeArr: Array<any>
+}
+
 @observer
-export class Gank extends React.Component<any> {
+export class Gank extends React.Component<any, State> {
 
-  static getAutoResponsiveProps() {
-    return {
-      itemMargin: 4,
-    };
-  };
+  componentDidMount() {
+    // console.log('Gank')
+  }
 
-  static renderItem({item}: any){
-    return (
-      <AutoResponsive {...Gank.getAutoResponsiveProps()}>
-        { WelfareItem(item.data) }
-      </AutoResponsive>
+  constructor(props: any){
+    super(props);
+    const { navigate } = this.props.navigation;
+    this.state = {
+      typeArr : [
+        {'title': '福利', 'type': '福利', 'navigate': navigate},
+        {'title': 'iOS', 'type': 'iOS','navigate': navigate},
+        {'title': 'Android', 'type':'Android','navigate': navigate},
+        {'title': '前端', 'type': '前端','navigate': navigate},
+        {'title': '休息视频 ', 'type': '休息视频','navigate': navigate},
+        {'title': '拓展资源', 'type': '拓展资源','navigate': navigate}
+      ],
+    }
+  }
+
+  static renderItem({item}: any): any{
+
+    return(
+      <View style={{height: 80}}>
+        <Text>{item.desc}</Text>
+      </View>
     )
   }
 
   onFetch = async (page: number = 1, startFetch: any, abortFetch: any) => {
     try {
-      let data = await loadGankData(page, '福利', 1000);
+      let data = await loadGankData(page, 'iOS');
       let imageData = [];
-      data.results.map((item) => imageSize(item, 2))
-        .map(task => task.fork(
-          (err) => {
-            console.warn('Image failed to load')
-            // console.log('Image failed to load', err);
-          },
-          (gank) => {
-            imageData.push(gank);
-            startFetch([{_id: '123', data: imageData}], 20)
-          })
-        )
+      console.log(data);
+
+      startFetch(data.results, 20)
+
     } catch (e) {
       abortFetch()
     }
@@ -52,32 +66,27 @@ export class Gank extends React.Component<any> {
 
   render() {
     return(
-      <TableList
-        onFetch={this.onFetch}
-        renderItem={Gank.renderItem}
-        numColumns={2}
-        keyExtractor={(item) => item._id}
-      />
+      <ScrollableTabView
+        renderTabBar={() => <ScrollableTabBar />}
+        tabBarActiveTextColor='#4ECBFC'
+        tabBarInactiveTextColor='black'
+        tabBarBackgroundColor='white'
+        tabBarUnderlineStyle={{backgroundColor:'#4ECBFC',height:2}}
+        // onScroll={(e) => this._onScroll(e)}
+        // onChangeTab={(i) => this._onChangeTab(i)}
+        tabBarTextStyle={{fontSize: 15}}
+      >
+        {
+          this.state.typeArr.map((item, i) => {
+              return (
+                <View type={item.type} tabLabel={item.title} key={i}>
+                  <Text>{item.title}</Text>
+                </View>
+
+              );
+            })
+        }
+      </ScrollableTabView>
     )
   }
 }
-
-const WelfareItem = (dataSource) => {
-  console.log(dataSource);
-  return dataSource.map((item, i) => {
-    return (
-      <Button style={{height: item.resizeSize.height, width: item.resizeSize.width}}
-              onPress={()=>alert(item.url)}
-              key={i}
-      >
-        <FastImage
-          source={{uri: item.url}}
-          style={{
-            height: item.resizeSize.height,
-            width: item.resizeSize.width,
-          }}
-        />
-      </Button>
-    );
-  }, this);
-};

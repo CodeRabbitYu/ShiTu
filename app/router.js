@@ -7,8 +7,10 @@ import React from 'react';
 
 import {
   StackNavigator,
-  TabNavigator,
-  TabBarBottom
+  TabBarBottom,
+  createBottomTabNavigator,
+  createStackNavigator,
+  createMaterialBottomTabNavigator
 } from 'react-navigation';
 
 import { System } from './utils';
@@ -19,72 +21,73 @@ import { Gank } from "./route/Gank";
 import { Main } from "./route/Main";
 
 import { News } from "./route/Gank/news";
+import { GankTab } from './route/Gank/route';
 
 import Sample from './test/sample';
 
-const MyTab = TabNavigator({
+const MyTab = createBottomTabNavigator({
   Gank: {
-    screen: News,
-    navigationOptions: ()=> TabOptions('干货', 'Gank', '干货'),
+    screen: Gank,
+    navigationOptions: () => TabOptions('干货', 'Gank'),
   },
   ShiTu: {
     screen: ShiTu,
-    navigationOptions: ()=> TabOptions('识兔', 'ShiTu', '识兔'),
+    navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
   },
 
-  Main:{
+  Main: {
     screen: Main,
-    navigationOptions: ()=> TabOptions('我的', 'Main', '我的'),
+    navigationOptions: ()=> TabOptions('我的', 'Main'),
   },
 },{
-
-  // initialRouteName: 'Gank',
-  tabBarPosition: 'bottom',
-  tabBarComponent: TabBarBottom,
-  swipeEnabled: false,
-  animationEnabled: false,
+  initialRouteName: 'ShiTu',
   backBehavior: 'none',
   lazy: true,
   tabBarOptions: {
-    // tabbar的style
     style: {
-      height:49,
-      backgroundColor:'white'
+      height: 49,
+      backgroundColor: 'white'
     },
-    showIcon: true,
-    // 是否显示label，默认为true
-    showLabel: System.iOS && false,
-    indicatorStyle :{
-      height:0, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了,
-    }
+    showLabel: false,
   }
 });
-export const MyApp = StackNavigator({
+export const MyApp = createStackNavigator({
   MyTab: {
     screen: MyTab,
   },
   Sample: {
     screen: Sample,
   }
+},{
+  navigationOptions: ({navigation}) => NavigatorOptions(navigation)
 });
 
-const TabOptions = (tabBarTitle, tabBarIconName, navTitle) => {
-  const tabBarLabel = tabBarTitle;
-  const tabBarIcon = (({tintColor,focused})=> {
-    const color = focused ? Theme.tabBarColor : '#aaa';
-    return(
-      <Icon name={tabBarIconName} size={30} color={color}/>
-    )
-  });
-  const headerTitle = navTitle;
+const NavigatorOptions = (navigation) => {
+
+  const params = navigation.state.routes[navigation.state.index].params;
+
+  const headerTitle = params ? params.title : ''
+
+  console.log(navigation);
+
   const headerTitleStyle = {
     fontSize: System.iOS ? 23 : 20,
     color: 'white',
     alignSelf: 'center',
     paddingTop: System.Android ? 17 : null,
   };
-  // header的style
   const headerStyle = { backgroundColor: Theme.navColor };
+  return { headerTitle, headerStyle, headerTitleStyle }
+}
+
+const TabOptions = (tabBarTitle, tabBarIconName) => {
+  const title = tabBarTitle;
+  const tabBarIcon = (({tintColor,focused})=> {
+    const color = focused ? Theme.tabBarColor : '#aaa';
+    return(
+      <Icon name={tabBarIconName} size={30} color={color}/>
+    )
+  });
   const tabBarVisible = true;
-  return { tabBarLabel, tabBarIcon, headerTitle, headerTitleStyle, headerStyle, tabBarVisible };
+  return { title, tabBarIcon, tabBarVisible };
 };

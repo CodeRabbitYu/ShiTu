@@ -1,9 +1,8 @@
 /**
- * @flow
  * Created by Rabbit on 2018/4/23.
  */
 
-import * as React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
 import {
@@ -11,13 +10,11 @@ import {
   Dimensions,
   FlatList,
   RefreshControl,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  VirtualizedList,
-  ScrollView
+  View
 } from 'react-native'
-import type {Props as VirtualizedListProps} from "react-native/Libraries/Lists/VirtualizedList";
 
 const { width, height } = Dimensions.get('window')
 
@@ -26,135 +23,94 @@ const PaginationStatus = {
   WAITING: 1,
   ALL_LOADED: 2
 }
-// type paginationStatus = 'FIRST_LOAD' | 'WAITING' | 'ALL_LOADED';
 
-type IndicatorSize = number | 'small' | 'large';
+type Props = {};
+export default class index_old extends Component<Props> {
+  static defaultProps = {
+    initialNumToRender: 10,
+    horizontal: false,
+    keyExtractor: null,
 
-export type SeparatorsObj = {
-  highlight: () => void,
-  unhighlight: () => void,
-  updateProps: (select: 'leading' | 'trailing', newProps: Object) => void,
-};
+    renderItem: null,
 
-type RequiredProps<ItemT> = {
-  renderItem: (info: {
-    item: ItemT,
-    index: number,
-    separators: SeparatorsObj,
-  }) => React.Element<any>,
+    firstLoader: true,
+    scrollEnabled: true,
+    onFetch: null,
 
-  // onFetch: (page: number, postRefresh: any, endFetch: any) => void,
-  onFetch: any,
+    // Custom View
+    paginationFetchingView: null,
+    paginationAllLoadedView: null,
+    paginationWaitingView: null,
+    emptyView: null,
 
-  keyExtractor: (item: ItemT | Array<ItemT>, index: number) => string,
-}
+    // Refreshable
+    refreshable: true,
 
-type OptionalProps<ItemT> = {
+    // RefreshControl
+    refreshableTitle: null,
+    refreshableColors: ['dimgray', 'tomato', 'limegreen'],
+    refreshableProgressBackgroundColor: 'white',
+    refreshableSize: undefined,
+    refreshableTintColor: 'lightgray',
+    customRefreshControl: null,
 
-  initialNumToRender?: number,
-  horizontal?: boolean,
+    // Pagination
+    pagination: true,
+    autoPagination: true,
+    allLoadedText: 'End of List',
 
-  ListHeaderComponent?: ?React.ComponentType<any>,
-  ListEmptyComponent?: ?React.ComponentType<any>,
-  ListFooterComponent?: ?React.ComponentType<any>,
-  ListEmptyComponent?: ?React.ComponentType<any>,
+    // Spinner
+    spinnerColor: undefined,
+    fetchingSpinnerSize: 'large',
+    waitingSpinnerSize: 'small',
+    waitingSpinnerText: 'Loading...',
 
-  firstLoader?: ?boolean,
-  scrollEnabled?: ?boolean,
+    // Pagination Button
+    paginationBtnText: 'Load more...',
 
-  // Custom View
-  PaginationFetchingView?: any,
-  PaginationAllLoadedView?: any,
-  PaginationWaitingView?: any,
+    // GridView
+    numColumns: 1
+  }
 
-  SeparatorComponent?: ?React.ComponentType<any>,
+  static propTypes = {
+    initialNumToRender: PropTypes.number,
+    horizontal: PropTypes.bool,
+    keyExtractor: PropTypes.func,
 
-  // Refreshable
-  refreshable?: ?boolean,
+    renderItem: PropTypes.func,
 
-  // RefreshControl
-  refreshableTitle?: string,
-  refreshableColors?: Array<string>,
-  refreshableProgressBackgroundColor?: ?string,
-  refreshableSize?: ?number,
-  refreshableTintColor?: ?string,
+    firstLoader: PropTypes.bool,
+    scrollEnabled: PropTypes.bool,
+    onFetch: PropTypes.func,
 
-  // Pagination
-  pagination?: ?boolean,
-  autoPagination?: ?boolean,
-  allLoadedText?: ?string,
+    // Custom ListView
+    paginationFetchingView: PropTypes.func,
+    paginationAllLoadedView: PropTypes.func,
+    paginationWaitingView: PropTypes.func,
+    emptyView: PropTypes.func,
 
-  // Spinner
-  spinnerColor?: ?string,
-  fetchingSpinnerSize?: ?number,
-  waitingSpinnerSize?: IndicatorSize,
-  waitingSpinnerText?: ?string,
+    // Refreshable
+    refreshable: PropTypes.bool,
 
-  // Pagination Button
-  paginationBtnText?: ?string,
+    // Pagination
+    pagination: PropTypes.bool,
+    autoPagination: PropTypes.bool,
+    allLoadedText: PropTypes.string,
 
-  // GridView
-  numColumns?: number
-}
+    // Spinner
+    spinnerColor: PropTypes.string,
+    fetchingSpinnerSize: PropTypes.any,
+    waitingSpinnerSize: PropTypes.any,
+    waitingSpinnerText: PropTypes.string,
 
-export type Props<ItemT> = RequiredProps<ItemT> & OptionalProps<ItemT> & VirtualizedListProps;
+    // Pagination Button
+    paginationBtnText: PropTypes.string,
 
-type State<ItemT> = {
-  dataSource: Array<ItemT>,
-  isRefreshing: boolean,
-  paginationStatus: number,
-}
+    // GridView
+    numColumns: PropTypes.number
+  }
 
-const defaultProps = {
-  ...VirtualizedList.defaultProps,
-  numColumns: 1,
-
-  firstLoader: true,
-  scrollEnabled: true,
-
-  // Refreshable
-  refreshable: true,
-
-  // RefreshControl
-  refreshableTitle: '',
-  refreshableColors: ['dimgray', 'tomato', 'limegreen'],
-  refreshableProgressBackgroundColor: 'white',
-  refreshableSize: 'small',
-  refreshableTintColor: 'lightgray',
-
-
-  // Pagination
-  pagination: true,
-  autoPagination: true,
-  allLoadedText: 'End of List',
-
-  // Spinner
-  spinnerColor: undefined,
-  fetchingSpinnerSize: 'large',
-  waitingSpinnerSize: 'small',
-  waitingSpinnerText: 'Loading...',
-
-  // Pagination Button
-  paginationBtnText: 'Load more...',
-
-  // GridView
-  numColumns: 1
-};
-
-export type DefaultProps = typeof defaultProps;
-
-export default class index<ItemT> extends React.PureComponent<Props<ItemT>, State<ItemT>> {
-
-  static defaultProps: DefaultProps = defaultProps;
-
-  mounted: boolean = false
-  rows: Array<any>
-  page: number
-  // _flatList: ?React.ElementRef<any> = null;
-
-  _flatList: null | VirtualizedList | ScrollView
-
-  constructor(props: Props<ItemT>) {
+  constructor(props) {
     super(props)
     this.setPage(1)
     this.setRows([])
@@ -195,60 +151,43 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
   }
 
   onEndReached = () => {
-    console.log('onEndReached()');
+    // console.log('onEndReached()');
     if (this.props.pagination && this.props.autoPagination && this.state.paginationStatus === PaginationStatus.WAITING) {
       this.onPaginate()
     }
   }
 
-  setPage = (page: number) => this.page = page
+  setPage = page => this.page = page
 
   getPage = () => this.page
 
-  setRows = (rows: Array<any>) => {
-    this.rows = rows
-  }
+  setRows = rows => this.rows = rows
 
   getRows = () => this.rows
+
+  sleep = time => new Promise(resolve => setTimeout(() => resolve(), time))
 
   refresh = () => {
     this.onRefresh()
   }
 
-  scrollToEnd(params?: ?{animated?: ?boolean}) {
-    if (this._flatList) {
-      this._flatList.scrollToEnd(params);
-    }
+  scrollToOffset = (option) => {
+    this._flatList.scrollToOffset(option)
   }
 
-  scrollToIndex(params: {
-    animated?: ?boolean,
-    index: number,
-    viewOffset?: number,
-    viewPosition?: number,
-  }) {
-    if (this._flatList) {
-      this._flatList.scrollToIndex(params);
-    }
+  scrollToIndex = (option) => {
+    this._flatList.scrollToIndex(option)
   }
 
-  scrollToItem(params: {
-    animated?: ?boolean,
-    item: ItemT,
-    viewPosition?: number,
-  }) {
-    if (this._flatList) {
-      this._flatList.scrollToItem(params);
-    }
+  scrollToItem = (option) => {
+    this._flatList.scrollToItem(option)
   }
 
-  scrollToOffset(params: {animated?: ?boolean, offset: number}) {
-    if (this._flatList) {
-      this._flatList.scrollToOffset(params);
-    }
+  scrollToEnd = (option) => {
+    this._flatList.scrollToEnd(option)
   }
 
-  postRefresh = (rows: Array<ItemT> = [], pageLimit: number) => {
+  postRefresh = (rows = [], pageLimit) => {
     if (this.mounted) {
       let paginationStatus = PaginationStatus.WAITING
       if (rows.length < pageLimit) {
@@ -258,9 +197,9 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
     }
   }
 
-  postPaginate = (rows: Array<any> = []) => {
+  postPaginate = (rows = [], pageLimit) => {
     this.setPage(this.getPage() + 1)
-    let mergedRows = []
+    let mergedRows
     let paginationStatus
     if (rows.length === 0) {
       paginationStatus = PaginationStatus.ALL_LOADED
@@ -272,7 +211,7 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
     this.updateRows(mergedRows, paginationStatus)
   }
 
-  updateRows = (rows: ?Array<any> , paginationStatus: number) => {
+  updateRows = (rows, paginationStatus) => {
     if (rows) {
       this.setRows(rows)
       this.setState({
@@ -297,16 +236,23 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
     }
   }
 
-  updateDataSource(rows: Array<ItemT> = []) {
+  updateDataSource(rows = []) {
     this.setRows(rows)
     this.setState({
       dataSource: rows
     })
   }
 
-  PaginationFetchingView = () => {
-    if (this.props.PaginationFetchingView) {
-      return this.props.PaginationFetchingView()
+  keyExtractor = (item, index) => {
+    if (this.props.keyExtractor) {
+      return this.props.keyExtractor(item, index)
+    }
+    return `index-${index}`
+  }
+
+  paginationFetchingView = () => {
+    if (this.props.paginationFetchingView) {
+      return this.props.paginationFetchingView()
     }
 
     return (
@@ -316,10 +262,10 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
     )
   }
 
-  PaginationAllLoadedView = () => {
+  paginationAllLoadedView = () => {
     if (this.props.pagination) {
-      if (this.props.PaginationAllLoadedView) {
-        return this.props.PaginationAllLoadedView()
+      if (this.props.paginationAllLoadedView) {
+        return this.props.paginationAllLoadedView()
       }
 
       return (
@@ -330,15 +276,15 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
         </View>
       )
     }
+
     return null
   }
 
-  PaginationWaitingView = (paginateCallback: any) => {
+  paginationWaitingView = (paginateCallback) => {
     if (this.props.pagination) {
       if (this.props.autoPagination) {
-        if (this.props.PaginationWaitingView) {
-          // return <paginationWaitingView />
-          return this.props.PaginationWaitingView(paginateCallback)
+        if (this.props.paginationWaitingView) {
+          return this.props.paginationWaitingView(paginateCallback)
         }
 
         return (
@@ -346,8 +292,7 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
             <ActivityIndicator color={this.props.spinnerColor} size={this.props.waitingSpinnerSize} />
             <Text
               style={[styles.paginationViewText, { marginLeft: 5 }]}
-            >
-              {this.props.waitingSpinnerText}
+            >{this.props.waitingSpinnerText}
             </Text>
           </View>
         )
@@ -357,20 +302,40 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
     return null
   }
 
-  renderFooter = () => {
+  renderSeparator = () => {
+    if (this.props.separator) {
+      if (this.props.numColumns > 1) {
+        return null
+      }
 
-    if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
-      return this.PaginationFetchingView()
-    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
-      return this.PaginationWaitingView(this.onPaginate)
-    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
-      return this.PaginationWaitingView()
-    } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
-      return this.PaginationAllLoadedView()
+      return this.props.separator()
     }
 
     return null
   }
+
+  renderEmptyView = () => {
+    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && this.props.emptyView) {
+      return this.props.emptyView()
+    }
+
+    return null
+  }
+
+  renderFooter = () => {
+    if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
+      return this.paginationFetchingView()
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
+      return this.paginationWaitingView(this.onPaginate)
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
+      return this.paginationWaitingView()
+    } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
+      return this.paginationAllLoadedView()
+    }
+
+    return null
+  }
+
 
   renderRefreshControl = () => {
     if (this.props.refreshable) {
@@ -390,13 +355,7 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
   }
 
   render() {
-    const { numColumns, ListEmptyComponent } = this.props
-
-    let emptyView
-    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && ListEmptyComponent){
-      emptyView = <ListEmptyComponent />
-    }
-
+    const { numColumns } = this.props
     return (
       <FlatList
         key={numColumns}
@@ -404,11 +363,13 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
         {...this.props}
         ref={ref => this._flatList = ref}
         data={this.state.dataSource}
+        ItemSeparatorComponent={this.renderSeparator}
         ListFooterComponent={this.renderFooter}
-        ListEmptyComponent={emptyView}
+        ListEmptyComponent={this.renderEmptyView}
         onEndReached={this.onEndReached}
         refreshControl={this.renderRefreshControl()}
         numColumns={numColumns}
+        keyExtractor={this.keyExtractor}
       />
     )
   }

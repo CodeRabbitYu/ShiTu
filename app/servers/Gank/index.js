@@ -27,11 +27,13 @@ type RGankType = 'iOS' | 'Android' | '福利'
 
 export async function loadGankData(page: number, type: RGankType, count: number = 20): Promise<RGankResult> {
 
-  type = encodeURIComponent(type);
+  let _type: string;
 
-  let url = `http://gank.io/api/data/${type}/${count}/${page}`;
+  _type = encodeURIComponent(type);
 
-  const Gank: RGankResult[] = await Fetch.get(url);
+  let url = `http://gank.io/api/data/${_type}/${count}/${page}`;
+
+  const Gank: RGankResult = await Fetch.get(url);
+
   return Gank;
-
 }

@@ -139,16 +139,16 @@ class Fetch {
       // })
   }
 
-  post( url, params = {}, header = {}, config = {} ): Promise {
+  static post(url, params = {}, header = {}, config = {} ): Promise {
     return Fetch.fetch({method:'post', url, params, header, config })
-      .then((data)=>{
-        // console.log(data);
-        return data;
-      })
-      .catch((error)=>{
-        // console.log(error.msg);
-        throw error;
-      })
+      // .then((data)=>{
+      //   // console.log(data);
+      //   return data;
+      // })
+      // .catch((error)=>{
+      //   // console.log(error.msg);
+      //   throw error;
+      // })
   }
 };
 

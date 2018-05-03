@@ -15,6 +15,11 @@ import { LargeList } from "react-native-largelist";
 
 type Props = {};
 export class Main extends Component<Props> {
+
+  componentDidMount() {
+    // console.log('Main')
+  }
+
   render() {
     return (
       <View style={styles.container}>

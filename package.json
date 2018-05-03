@@ -21,9 +21,10 @@
     "react-native-fetch-blob": "^0.10.8",
     "react-native-largelist": "^1.2.12",
     "react-native-masonry": "^0.4.7",
+    "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-ultimate-listview": "^3.3.0",
     "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^1.5.11",
+    "react-navigation": "^2.0.0-rc.7",
     "teaset": "^0.5.6"
   },
   "devDependencies": {
