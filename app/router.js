@@ -20,8 +20,7 @@ import { ShiTu } from './route/ShiTu';
 import { Gank } from "./route/News";
 import { Main } from "./route/Main";
 
-import { News } from "./route/News/news";
-import { GankTab } from './route/News/route';
+// import { GankTab } from './route/News/route';
 
 import Sample from './test/sample';
 
@@ -66,8 +65,6 @@ const NavigatorOptions = (navigation) => {
   const params = navigation.state.routes[navigation.state.index].params;
 
   const headerTitle = params ? params.title : ''
-
-  console.log(navigation);
 
   const headerTitleStyle = {
     fontSize: System.iOS ? 23 : 20,

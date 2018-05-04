@@ -12,8 +12,6 @@ import {
 } from 'react-navigation';
 
 
-
-import { News } from "./news";
 import {System} from "../../utils";
 
 

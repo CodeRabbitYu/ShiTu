@@ -16,6 +16,9 @@ import {System} from "../../../utils";
 import {Fetch, MasonryList} from "../../../components";
 import type {RTGankResult, RTWeal} from "../../../servers/News/types";
 import {loadWealPictureData} from "../../../servers/News";
+import WealPictureMobx from '../../../mobx/News/WealPicture';
+
+import { observer} from 'mobx-react'
 
 let loadMoreNumber = []
 
@@ -23,22 +26,27 @@ type Props = {};
 type State = {
   isRefreshing: boolean,
   dataSource: Array<any>,
-  results:  Array<any>,
-  imageData:  Array<any>,
   page: number,
 }
+@observer
 export default class index extends React.Component<Props, State> {
 
   state = {
     isRefreshing: true,
     dataSource: [],
-    results: [],
-    imageData: [],
     page: 1,
   };
 
+  wealPictureMobx: WealPictureMobx;
+
+  constructor(props: Props){
+    super(props);
+    this.wealPictureMobx = new WealPictureMobx();
+  }
+
   async componentDidMount() {
-    await this.fetchData(this.state.page)
+    await this.wealPictureMobx.fetchWealPictureData(1);
+    // await this.fetchData(1)
   }
 
   fetchData = async (page: number) => {
@@ -89,7 +97,6 @@ export default class index extends React.Component<Props, State> {
       page += 1;
       this.fetchData(page)
     }
-
   }
   _refreshRequest = () => {
     this.setState({ isRefreshing: true });
@@ -109,11 +116,14 @@ export default class index extends React.Component<Props, State> {
   }
 
   render() {
+
+    const { dataSource, refreshData, isRefreshing, loadMoreData } = this.wealPictureMobx
+
     return (
       <MasonryList
-        onRefresh={this._refreshRequest}
-        refreshing={this.state.isRefreshing}
-        data={this.state.dataSource}
+        onRefresh={refreshData}
+        refreshing={isRefreshing}
+        data={dataSource.slice()}
         renderItem={this.renderItem}
         getHeightForItem={({ item }) => item.height + 2}
         numColumns={2}
@@ -126,7 +136,7 @@ export default class index extends React.Component<Props, State> {
         //   </View>
         // }
         onEndReachedThreshold={0.1}
-        onEndReached={this.loadMoreData}
+        onEndReached={loadMoreData}
       />
     );
   }
