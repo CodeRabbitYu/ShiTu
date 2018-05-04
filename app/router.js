@@ -25,13 +25,20 @@ import { GankTab } from './route/Gank/route';
 
 import Sample from './test/sample';
 
+const ShiTuStack = createStackNavigator({
+  ShiTu: {
+    screen: ShiTu,
+    navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
+  },
+})
+
 const MyTab = createBottomTabNavigator({
   Gank: {
     screen: Gank,
     navigationOptions: () => TabOptions('干货', 'Gank'),
   },
-  ShiTu: {
-    screen: ShiTu,
+  ShiTuStack: {
+    screen: ShiTuStack,
     navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
   },
 
@@ -40,7 +47,7 @@ const MyTab = createBottomTabNavigator({
     navigationOptions: ()=> TabOptions('我的', 'Main'),
   },
 },{
-  initialRouteName: 'ShiTu',
+  initialRouteName: 'ShiTuStack',
   backBehavior: 'none',
   lazy: true,
   tabBarOptions: {
@@ -54,12 +61,12 @@ const MyTab = createBottomTabNavigator({
 export const MyApp = createStackNavigator({
   MyTab: {
     screen: MyTab,
+    navigationOptions: ({navigation}) => ({header: null})
   },
   Sample: {
     screen: Sample,
   }
 },{
-  navigationOptions: ({navigation}) => NavigatorOptions(navigation)
 });
 
 const NavigatorOptions = (navigation) => {
