@@ -14,8 +14,9 @@ import {Button, TableList, FastImage} from '../../components'
 import {observer} from 'mobx-react';
 
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
-import WealPicture from './WealPicture';
 
+import WealPicture from './WealPicture';
+import BuDeJie from './BuDeJie';
 
 type State = {
   typeArr: Array<any>
@@ -35,16 +36,14 @@ export class Gank extends React.Component<any, State> {
     const { navigate } = this.props.navigation;
     this.state = {
       typeArr : [
-        {'title': '福利', 'type': '福利', 'navigate': navigate},
-        {'title': 'iOS', 'type': 'iOS','navigate': navigate},
-        {'title': 'Android', 'type':'Android','navigate': navigate},
-        {'title': '前端', 'type': '前端','navigate': navigate},
-        {'title': '休息视频 ', 'type': '休息视频','navigate': navigate},
-        {'title': '拓展资源', 'type': '拓展资源','navigate': navigate}
+        {'title': '视频', 'type': 41, 'navigate': navigate},
+        {'title': '图片', 'type': 10, 'navigate': navigate},
+        {'title': '段子', 'type': 29, 'navigate': navigate},
+        {'title': '声音', 'type': 31, 'navigate': navigate},
+        {'title': '福利', 'type': '福利','navigate': navigate},
       ],
     }
   }
-
 
   render() {
     return(
@@ -54,18 +53,22 @@ export class Gank extends React.Component<any, State> {
         tabBarInactiveTextColor='black'
         tabBarBackgroundColor='white'
         tabBarUnderlineStyle={{backgroundColor:'#4ECBFC',height:2}}
-        // onScroll={(e) => this._onScroll(e)}
-        // onChangeTab={(i) => this._onChangeTab(i)}
         tabBarTextStyle={{fontSize: 15}}
       >
         {
           this.state.typeArr.map((item, i) => {
-              return (
-                <WealPicture type={item.type} tabLabel={item.title} key={i}>
-                  <Text>{item.title}</Text>
-                </WealPicture>
-
-              );
+            return(
+              <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+            )
+            // if (i === 0) {
+            //   return (
+            //     <WealPicture tabLabel={item.title} key={i} />
+            //   );
+            // } else {
+            //   return(
+            //     <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+            //   )
+            // }
             })
         }
       </ScrollableTabView>

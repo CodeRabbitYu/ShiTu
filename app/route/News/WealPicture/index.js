@@ -13,100 +13,30 @@ import {
 } from 'react-native';
 
 import {System} from "../../../utils";
-import {Fetch, MasonryList} from "../../../components";
-import type {RTGankResult, RTWeal} from "../../../servers/News/types";
-import {loadWealPictureData} from "../../../servers/News";
-import WealPictureMobx from '../../../mobx/News/WealPicture';
+import { MasonryList} from "../../../components";
+
+import { WealPictureMobx } from '../../../mobx/News';
 
 import { observer} from 'mobx-react'
 
-let loadMoreNumber = []
-
 type Props = {};
-type State = {
-  isRefreshing: boolean,
-  dataSource: Array<any>,
-  page: number,
-}
 @observer
-export default class index extends React.Component<Props, State> {
+export default class index extends React.Component<Props> {
 
-  state = {
-    isRefreshing: true,
-    dataSource: [],
-    page: 1,
-  };
-
-  wealPictureMobx: WealPictureMobx;
+  WealPictureMobx: WealPictureMobx;
 
   constructor(props: Props){
     super(props);
-    this.wealPictureMobx = new WealPictureMobx();
+    this.WealPictureMobx = new WealPictureMobx();
   }
 
   async componentDidMount() {
-    await this.wealPictureMobx.fetchWealPictureData(1);
-    // await this.fetchData(1)
+    await this.WealPictureMobx.fetchWealPictureData(1);
   }
-
-  fetchData = async (page: number) => {
-
-    try {
-      let data = await loadWealPictureData(page)
-
-      let results = data.results
-
-      results.map((item: RTWeal) => {
-        let imageWidth = System.SCREEN_WIDTH / 2 - 15;
-        let imageHeight = imageWidth * 1.15;
-        imageHeight = parseInt(Math.random() * 100 + imageHeight);
-        item.height = imageHeight;
-        item.width = imageWidth;
-      });
-
-      setTimeout(()=> {
-        if (page !== 1) {
-          console.log('page不等于1', page);
-          this.setState({
-            page: page,
-            dataSource : this.state.dataSource.concat(results),
-            isRefreshing:false,
-          });
-        } else {
-          this.setState({
-            page: 1,
-            dataSource: results,
-            isRefreshing: false
-          });
-          console.log('page等于1', page);
-        }
-      },500);
-    } catch (e) {
-    }
-  }
-
-  loadMoreData = (distanceFromEnd: number) => {
-
-    if (loadMoreNumber.length === 2) loadMoreNumber = [];
-
-    loadMoreNumber.push(distanceFromEnd);
-
-    let page = this.state.page;
-
-    if (loadMoreNumber.length === 2){
-      page += 1;
-      this.fetchData(page)
-    }
-  }
-  _refreshRequest = () => {
-    this.setState({ isRefreshing: true });
-    this.fetchData(1)
-  };
 
   renderItem = ({ item, index, column }: any) => {
-    const _item: RTWeal = item;
     return(
-      <Image source={{uri: _item.url}}
+      <Image source={{uri: item.url}}
              style={[
                styles.cell,
                { height: item.height, backgroundColor: 'white'},
@@ -117,7 +47,7 @@ export default class index extends React.Component<Props, State> {
 
   render() {
 
-    const { dataSource, refreshData, isRefreshing, loadMoreData } = this.wealPictureMobx
+    const { dataSource, isRefreshing, refreshData, loadMoreData } = this.WealPictureMobx
 
     return (
       <MasonryList
@@ -130,11 +60,15 @@ export default class index extends React.Component<Props, State> {
         keyExtractor={item => item._id}
         // ListEmptyComponent={()=> <Text>222222</Text>}
         ListHeaderComponent={()=><View/>}
-        // ListFooterComponent={()=>
-        //   <View style={{height: 50, flex:1,  alignItems: 'center', justifyContent: 'center'}}>
-        //     <ActivityIndicator size={'small'}/>
-        //   </View>
-        // }
+        ListFooterComponent={()=>
+          !isRefreshing
+            ?
+            <View style={{height: 50, flex:1,  alignItems: 'center', justifyContent: 'center'}}>
+              <ActivityIndicator size={'small'}/>
+            </View>
+            :
+            null
+        }
         onEndReachedThreshold={0.1}
         onEndReached={loadMoreData}
       />

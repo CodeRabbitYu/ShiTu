@@ -7,10 +7,9 @@ import type {RTGankResult, RTWeal} from "../../servers/News/types";
 import {loadWealPictureData} from "../../servers/News";
 import {System} from "../../utils";
 
-
 let loadMoreNumber = [];
 
-class WealPicture {
+class WealPictureMobx {
 
   @observable isRefreshing: boolean = true;
   @observable dataSource: Array<RTGankResult> = [];
@@ -23,8 +22,6 @@ class WealPicture {
 
       let results = data.results;
 
-      this.isRefreshing = false;
-
       results.map((item: RTWeal) => {
         let imageWidth = System.SCREEN_WIDTH / 2 - 15;
         let imageHeight = imageWidth * 1.15;
@@ -33,20 +30,21 @@ class WealPicture {
         item.width = imageWidth;
       });
 
-      setTimeout(()=> {
-        if (page !== 1) {
-          console.log('page不等于1', page);
+      if (page !== 1) {
+        console.log('page不等于1', page);
 
-          this.page = page;
-          this.dataSource = this.dataSource.concat(results);
+        this.page = page;
+        this.dataSource = this.dataSource.concat(results);
 
-        } else {
-          this.page = 1;
-          this.dataSource = results;
+      } else {
+        this.page = 1;
+        this.dataSource = results;
 
-          console.log('page等于1', page);
-        }
-      },500);
+        console.log('page等于1', page);
+      }
+
+      this.isRefreshing = false;
+
     } catch (e) {
       this.isRefreshing = false;
       console.log(e)
@@ -72,8 +70,6 @@ class WealPicture {
       await this.fetchWealPictureData(page)
     }
   }
-
 }
 
-// const wealPicture = new WealPicture();
-export default WealPicture;
+export { WealPictureMobx };

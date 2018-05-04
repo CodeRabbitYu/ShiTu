@@ -1,5 +1,5 @@
 /**
- * @flow
+ * @  flow
  * Created by Rabbit on 2018/4/23.
  */
 
@@ -106,11 +106,12 @@ type State<ItemT> = {
 }
 
 const defaultProps = {
-  ...VirtualizedList.defaultProps,
-  numColumns: 1,
+
+  initialNumToRender: 10,
+  horizontal: false,
 
   firstLoader: true,
-  scrollEnabled: true,
+  onFetch: null,
 
   // Refreshable
   refreshable: true,
@@ -143,18 +144,18 @@ const defaultProps = {
 
 export type DefaultProps = typeof defaultProps;
 
-export default class index<ItemT> extends React.PureComponent<Props<ItemT>, State<ItemT>> {
+export default class index<ItemT> extends React.Component<Props<ItemT>, State<ItemT>> {
 
   static defaultProps: DefaultProps = defaultProps;
 
-  mounted: boolean = false
+  mounted: boolean
   rows: Array<any>
   page: number
   // _flatList: ?React.ElementRef<any> = null;
 
   _flatList: null | VirtualizedList | ScrollView
 
-  constructor(props: Props<ItemT>) {
+  constructor(props: Props) {
     super(props)
     this.setPage(1)
     this.setRows([])
@@ -205,9 +206,7 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
 
   getPage = () => this.page
 
-  setRows = (rows: Array<any>) => {
-    this.rows = rows
-  }
+  setRows = (rows: Array<any>) => this.rows = rows
 
   getRows = () => this.rows
 
@@ -248,12 +247,14 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
     }
   }
 
-  postRefresh = (rows: Array<ItemT> = [], pageLimit: number) => {
+  postRefresh = (rows: Array<any> = [], pageLimit: number) => {
     if (this.mounted) {
       let paginationStatus = PaginationStatus.WAITING
       if (rows.length < pageLimit) {
         paginationStatus = PaginationStatus.ALL_LOADED
       }
+
+      console.log('rows', rows, 'page', pageLimit)
       this.updateRows(rows, paginationStatus)
     }
   }
@@ -287,7 +288,6 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
         paginationStatus
       })
     }
-
   }
 
   endFetch = () => {
@@ -321,7 +321,6 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
       if (this.props.PaginationAllLoadedView) {
         return this.props.PaginationAllLoadedView()
       }
-
       return (
         <View style={styles.paginationView}>
           <Text style={styles.allLoadedText}>
@@ -337,7 +336,6 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
     if (this.props.pagination) {
       if (this.props.autoPagination) {
         if (this.props.PaginationWaitingView) {
-          // return <paginationWaitingView />
           return this.props.PaginationWaitingView(paginateCallback)
         }
 
@@ -360,12 +358,16 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
   renderFooter = () => {
 
     if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
+      console.log('PaginationFetchingView')
       return this.PaginationFetchingView()
     } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
+      console.log('PaginationWaitingView --- false')
       return this.PaginationWaitingView(this.onPaginate)
     } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
+      console.log('PaginationWaitingView --- true')
       return this.PaginationWaitingView()
     } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
+      console.log('PaginationAllLoadedView')
       return this.PaginationAllLoadedView()
     }
 
@@ -397,16 +399,18 @@ export default class index<ItemT> extends React.PureComponent<Props<ItemT>, Stat
       emptyView = <ListEmptyComponent />
     }
 
+
     return (
       <FlatList
         key={numColumns}
+        onEndReached={this.onEndReached}
         onEndReachedThreshold={0.1}
         {...this.props}
         ref={ref => this._flatList = ref}
         data={this.state.dataSource}
         ListFooterComponent={this.renderFooter}
-        ListEmptyComponent={emptyView}
-        onEndReached={this.onEndReached}
+        // ListEmptyComponent={emptyView}
+
         refreshControl={this.renderRefreshControl()}
         numColumns={numColumns}
       />
@@ -474,4 +478,4 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexWrap: 'wrap'
   }
-});
+})

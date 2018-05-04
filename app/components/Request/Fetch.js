@@ -32,7 +32,7 @@ function throwError(json){
 };
 function checkStatus (resp, json){
   // console.log(resp, json);
-  if (resp.respInfo.status === 200 && json.error === false){
+  if (resp.respInfo.status === 200 && resp.respInfo.status < 300){
     return json;
   }else{
     throwError(json);

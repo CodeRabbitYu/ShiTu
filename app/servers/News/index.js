@@ -5,9 +5,9 @@
 
 import { Fetch } from "../../components";
 
-import {RTWeal, RTGankResult} from "./types";
+import {RTWeal, RTGankResult, RTBDJResult} from "./types";
 
-type RGankType = '福利'
+type RGankType = '福利' | 'iOS' | 'Android';
 
 export async function loadWealPictureData(page: number, type: RGankType = '福利', count: number = 20): Promise<RTGankResult> {
 
@@ -20,4 +20,14 @@ export async function loadWealPictureData(page: number, type: RGankType = '福�
   return await Fetch.get(url);
 
   // return Gank;
+}
+
+export async function loadBuDeJieData(type: number, maxtime: string): Promise<RTBDJResult> {
+  let url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
+
+  console.log('url', url)
+
+  return await Fetch.get(url);
+
+  // console.log(url)
 }

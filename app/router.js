@@ -20,6 +20,8 @@ import { ShiTu } from './route/ShiTu';
 import { Gank } from "./route/News";
 import { Main } from "./route/Main";
 
+import  BuDeJie  from './route/News/BuDeJie'
+
 // import { GankTab } from './route/News/route';
 
 import Sample from './test/sample';
@@ -27,7 +29,7 @@ import Sample from './test/sample';
 const MyTab = createBottomTabNavigator({
 
   ShiTu: {
-    screen: ShiTu,
+    screen: BuDeJie,
     navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
   },
   Gank: {
@@ -39,7 +41,7 @@ const MyTab = createBottomTabNavigator({
     navigationOptions: ()=> TabOptions('我的', 'Main'),
   },
 },{
-  initialRouteName: 'Gank',
+  initialRouteName: 'ShiTu',
   backBehavior: 'none',
   tabBarOptions: {
     style: {
