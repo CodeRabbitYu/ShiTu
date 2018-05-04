@@ -7,7 +7,8 @@ import {
   StackNavigator,
   TabNavigator,
   TabBarBottom,
-  TabBarTop
+  TabBarTop,
+  createMaterialTopTabNavigator
 } from 'react-navigation';
 
 
@@ -16,7 +17,7 @@ import { News } from "./news";
 import {System} from "../../utils";
 
 
-export const GankTab = TabNavigator({
+export const GankTab = createMaterialTopTabNavigator({
   Gank: {
     screen: News,
     navigationOptions: ()=> TabOptions('识兔', 'ShiTu', '识兔'),

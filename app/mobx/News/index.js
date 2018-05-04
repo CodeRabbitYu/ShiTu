@@ -4,10 +4,10 @@
 
 import {observable, computed, action, runInAction, autorun} from 'mobx'
 import { imageSize } from "../../utils";
-import { loadGankData } from "../../servers/Gank";
+import { loadGankData } from "../../servers/News";
 
 
-import type { RGankResult, RGank } from "../../servers/Gank";
+import type { RGankResult, RGank } from "../../servers/News";
 import Immutable from 'immutable';
 
 class GankMobx {

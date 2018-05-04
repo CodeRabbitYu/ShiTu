@@ -17,39 +17,31 @@ import { System } from './utils';
 import { Icon, Theme } from './components';
 
 import { ShiTu } from './route/ShiTu';
-import { Gank } from "./route/Gank";
+import { Gank } from "./route/News";
 import { Main } from "./route/Main";
 
-import { News } from "./route/Gank/news";
-import { GankTab } from './route/Gank/route';
+import { News } from "./route/News/news";
+import { GankTab } from './route/News/route';
 
 import Sample from './test/sample';
 
-const ShiTuStack = createStackNavigator({
+const MyTab = createBottomTabNavigator({
+
   ShiTu: {
     screen: ShiTu,
     navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
   },
-})
-
-const MyTab = createBottomTabNavigator({
   Gank: {
     screen: Gank,
     navigationOptions: () => TabOptions('干货', 'Gank'),
   },
-  ShiTuStack: {
-    screen: ShiTuStack,
-    navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
-  },
-
   Main: {
     screen: Main,
     navigationOptions: ()=> TabOptions('我的', 'Main'),
   },
 },{
-  initialRouteName: 'ShiTuStack',
+  initialRouteName: 'Gank',
   backBehavior: 'none',
-  lazy: true,
   tabBarOptions: {
     style: {
       height: 49,
@@ -61,12 +53,12 @@ const MyTab = createBottomTabNavigator({
 export const MyApp = createStackNavigator({
   MyTab: {
     screen: MyTab,
-    navigationOptions: ({navigation}) => ({header: null})
   },
   Sample: {
     screen: Sample,
   }
 },{
+  navigationOptions: ({navigation}) => NavigatorOptions(navigation)
 });
 
 const NavigatorOptions = (navigation) => {

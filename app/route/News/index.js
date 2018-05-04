@@ -9,11 +9,12 @@ import {Text, View} from "react-native";
 import {imageSize, System} from '../../utils';
 import {Button, TableList, FastImage} from '../../components'
 
-import {loadGankData, RGank} from '../../servers/Gank';
+// import {loadGankData, RGank} from '../../servers/News';
 
 import {observer} from 'mobx-react';
 
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
+import WealPicture from './WealPicture';
 
 
 type State = {
@@ -24,7 +25,9 @@ type State = {
 export class Gank extends React.Component<any, State> {
 
   componentDidMount() {
-    // console.log('Gank')
+    this.props.navigation.setParams({
+      title: '百思不得姐',
+    })
   }
 
   constructor(props: any){
@@ -42,27 +45,6 @@ export class Gank extends React.Component<any, State> {
     }
   }
 
-  static renderItem({item}: any): any{
-
-    return(
-      <View style={{height: 80}}>
-        <Text>{item.desc}</Text>
-      </View>
-    )
-  }
-
-  onFetch = async (page: number = 1, startFetch: any, abortFetch: any) => {
-    try {
-      let data = await loadGankData(page, 'iOS');
-      let imageData = [];
-      console.log(data);
-
-      startFetch(data.results, 20)
-
-    } catch (e) {
-      abortFetch()
-    }
-  }
 
   render() {
     return(
@@ -79,9 +61,9 @@ export class Gank extends React.Component<any, State> {
         {
           this.state.typeArr.map((item, i) => {
               return (
-                <View type={item.type} tabLabel={item.title} key={i}>
+                <WealPicture type={item.type} tabLabel={item.title} key={i}>
                   <Text>{item.title}</Text>
-                </View>
+                </WealPicture>
 
               );
             })

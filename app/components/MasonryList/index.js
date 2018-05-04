@@ -1,31 +1,16 @@
 /**
- * Created by Rabbit on 2018/4/27.
+ * @flow
+ * Created by Rabbit on 2018/5/1.
  */
-
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-
+import * as React from 'react';
 import {
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  RefreshControl,
   VirtualizedList,
+  View,
   ScrollView,
   StyleSheet,
-  Text,
-  View,
-  findNodeHandle
-} from 'react-native'
-
-const { width, height } = Dimensions.get('window')
-
-const PaginationStatus = {
-  FIRST_LOAD: 0,
-  WAITING: 1,
-  ALL_LOADED: 2
-}
-
+  findNodeHandle,
+  RefreshControl,
+} from 'react-native';
 
 type Column = {
   index: number,
@@ -67,6 +52,7 @@ export type Props = {
   getHeightForItem: ({ item: any, index: number }) => number,
   ListHeaderComponent?: ?React.ComponentType<any>,
   ListEmptyComponent?: ?React.ComponentType<any>,
+  ListFooterComponent?: ?React.ComponentType<any>,
   /**
    * Used to extract a unique key for a given item at the specified index. Key is used for caching
    * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
@@ -98,6 +84,9 @@ type State = {
   columns: Array<Column>,
 };
 
+// This will get cloned and added a bunch of props that are supposed to be on
+// ScrollView so we wan't to make sure we don't pass them over (especially
+// onLayout since it exists on both).
 class FakeScrollView extends React.Component<{ style?: any, children?: any }> {
   render() {
     return (
@@ -108,89 +97,9 @@ class FakeScrollView extends React.Component<{ style?: any, children?: any }> {
   }
 }
 
-
-export default class index extends Component<Props, State> {
-  /**
+export default class MasonryList extends React.Component<Props, State> {
   static defaultProps = {
-    initialNumToRender: 10,
-    horizontal: false,
-    keyExtractor: null,
-
-    renderItem: null,
-
-    firstLoader: true,
-    scrollEnabled: true,
-    onFetch: null,
-
-    // Custom View
-    paginationFetchingView: null,
-    paginationAllLoadedView: null,
-    paginationWaitingView: null,
-    emptyView: null,
-
-    // Refreshable
-    refreshable: true,
-
-    // Pagination
-    pagination: true,
-    autoPagination: true,
-    allLoadedText: 'End of List',
-
-    // Spinner
-    spinnerColor: undefined,
-    fetchingSpinnerSize: 'large',
-    waitingSpinnerSize: 'small',
-    waitingSpinnerText: 'Loading...',
-
-    // Pagination Button
-    paginationBtnText: 'Load more...',
-
-    // GridView
-    numColumns: 1
-  }
-  */
-  /**
-  static propTypes = {
-    initialNumToRender: PropTypes.number,
-    horizontal: PropTypes.bool,
-    keyExtractor: PropTypes.func,
-
-    renderItem: PropTypes.func,
-
-    firstLoader: PropTypes.bool,
-    scrollEnabled: PropTypes.bool,
-    onFetch: PropTypes.func,
-
-    // Custom ListView
-    paginationFetchingView: PropTypes.func,
-    paginationAllLoadedView: PropTypes.func,
-    paginationWaitingView: PropTypes.func,
-    emptyView: PropTypes.func,
-
-    // Refreshable
-    refreshable: PropTypes.bool,
-
-    // Pagination
-    pagination: PropTypes.bool,
-    autoPagination: PropTypes.bool,
-    allLoadedText: PropTypes.string,
-
-    // Spinner
-    spinnerColor: PropTypes.string,
-    fetchingSpinnerSize: PropTypes.any,
-    waitingSpinnerSize: PropTypes.any,
-    waitingSpinnerText: PropTypes.string,
-
-    // Pagination Button
-    paginationBtnText: PropTypes.string,
-
-    // GridView
-    numColumns: PropTypes.number
-  }
-  */
-
-  static defaultProps = {
-    scrollEventThrottle: 0,
+    scrollEventThrottle: 50,
     numColumns: 1,
     renderScrollComponent: (props: Props) => {
       if (props.onRefresh && props.refreshing != null) {
@@ -293,7 +202,6 @@ export default class index extends Component<Props, State> {
 
   _getItemLayout = (columnIndex, rowIndex) => {
     const column = this.state.columns[columnIndex];
-    console.log(column);
     let offset = 0;
     for (let ii = 0; ii < rowIndex; ii += 1) {
       offset += column.heights[ii];
@@ -309,318 +217,79 @@ export default class index extends Component<Props, State> {
 
   _captureScrollRef = ref => (this._scrollRef = ref);
 
-  constructor(props) {
-    super(props)
-    this.setPage(1)
-    this.setRows([])
-
-    this.state = {
-      dataSource: [],
-      isRefreshing: false,
-      paginationStatus: PaginationStatus.FIRST_LOAD
-    }
-  }
-
-  componentDidMount() {
-    this.mounted = true
-    if (this.props.firstLoader) {
-      this.props.onFetch(this.getPage(), this.postRefresh, this.endFetch)
-    }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false
-  }
-
-  onRefresh = () => {
-    console.log('onRefresh()')
-    if (this.mounted) {
-      this.setState({ isRefreshing: true })
-      this.setPage(1)
-      this.props.onFetch(this.getPage(), this.postRefresh, this.endFetch)
-    }
-  }
-
-  onPaginate = () => {
-    if (this.state.paginationStatus !== PaginationStatus.ALL_LOADED && !this.state.isRefreshing) {
-      console.log('onPaginate()')
-      this.setState({ paginationStatus: PaginationStatus.WAITING })
-      this.props.onFetch(this.getPage() + 1, this.postPaginate, this.endFetch)
-    }
-  }
-
-  onEndReached = () => {
-    // console.log('onEndReached()');
-    if (this.props.pagination && this.props.autoPagination && this.state.paginationStatus === PaginationStatus.WAITING) {
-      this.onPaginate()
-    }
-  }
-
-  setPage = page => this.page = page
-
-  getPage = () => this.page
-
-  setRows = rows => this.rows = rows
-
-  getRows = () => this.rows
-
-  sleep = time => new Promise(resolve => setTimeout(() => resolve(), time))
-
-  refresh = () => {
-    this.onRefresh()
-  }
-
-  scrollToOffset = (option) => {
-    this._flatList.scrollToOffset(option)
-  }
-
-  scrollToIndex = (option) => {
-    this._flatList.scrollToIndex(option)
-  }
-
-  scrollToItem = (option) => {
-    this._flatList.scrollToItem(option)
-  }
-
-  scrollToEnd = (option) => {
-    this._flatList.scrollToEnd(option)
-  }
-
-  postRefresh = (rows = [], pageLimit) => {
-    if (this.mounted) {
-      let paginationStatus = PaginationStatus.WAITING
-      if (rows.length < pageLimit) {
-        paginationStatus = PaginationStatus.ALL_LOADED
-      }
-      this.updateRows(rows, paginationStatus)
-    }
-  }
-
-  postPaginate = (rows = [], pageLimit) => {
-    this.setPage(this.getPage() + 1)
-    let mergedRows
-    let paginationStatus
-    if (rows.length === 0) {
-      paginationStatus = PaginationStatus.ALL_LOADED
-    } else {
-      mergedRows = this.getRows().concat(rows)
-      paginationStatus = PaginationStatus.WAITING
-    }
-
-    this.updateRows(mergedRows, paginationStatus)
-  }
-
-  updateRows = (rows, paginationStatus) => {
-    if (rows) {
-      this.setRows(rows)
-      this.setState({
-        dataSource: rows,
-        isRefreshing: false,
-        paginationStatus
-      })
-    } else {
-      this.setState({
-        dataSource: this.getRows().slice(),
-        isRefreshing: false,
-        paginationStatus
-      })
-    }
-
-  }
-
-  endFetch = () => {
-    console.log('endRefresh()');
-    if (this.mounted) {
-      this.setState({ isRefreshing: false })
-    }
-  }
-
-  updateDataSource(rows = []) {
-    this.setRows(rows)
-    this.setState({
-      dataSource: rows
-    })
-  }
-
-  keyExtractor = (item, index) => {
-    if (this.props.keyExtractor) {
-      return this.props.keyExtractor(item, index)
-    }
-    return `index-${index}`
-  }
-
-  paginationFetchingView = () => {
-    if (this.props.paginationFetchingView) {
-      return this.props.paginationFetchingView()
-    }
-
-    return (
-      <View style={styles.fetchingView}>
-        <Text style={styles.paginationViewText}>{this.props.waitingSpinnerText}</Text>
-      </View>
-    )
-  }
-
-  paginationAllLoadedView = () => {
-    if (this.props.pagination) {
-      if (this.props.paginationAllLoadedView) {
-        return this.props.paginationAllLoadedView()
-      }
-
-      return (
-        <View style={styles.paginationView}>
-          <Text style={styles.allLoadedText}>
-            {this.props.allLoadedText}
-          </Text>
-        </View>
-      )
-    }
-
-    return null
-  }
-
-  paginationWaitingView = (paginateCallback) => {
-    if (this.props.pagination) {
-      if (this.props.autoPagination) {
-        if (this.props.paginationWaitingView) {
-          return this.props.paginationWaitingView(paginateCallback)
-        }
-
-        return (
-          <View style={styles.paginationView}>
-            <ActivityIndicator color={this.props.spinnerColor} size={this.props.waitingSpinnerSize} />
-            <Text
-              style={[styles.paginationViewText, { marginLeft: 5 }]}
-            >{this.props.waitingSpinnerText}
-            </Text>
-          </View>
-        )
-      }
-    }
-
-    return null
-  }
-
-
-  renderEmptyView = () => {
-    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && this.props.emptyView) {
-      return this.props.emptyView()
-    }
-
-    return null
-  }
-
-  renderFooter = () => {
-    if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
-      return this.paginationFetchingView()
-    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
-      return this.paginationWaitingView(this.onPaginate)
-    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
-      return this.paginationWaitingView()
-    } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
-      return this.paginationAllLoadedView()
-    }
-
-    return null
-  }
-
-
-  renderRefreshControl = () => {
-    if (this.props.refreshable) {
-      return (
-        <RefreshControl
-          onRefresh={this.onRefresh}
-          refreshing={this.state.isRefreshing}
-          colors={this.props.refreshableColors}
-          progressBackgroundColor={this.props.refreshableProgressBackgroundColor}
-          size={this.props.refreshableSize}
-          tintColor={this.props.refreshableTintColor}
-          title={this.props.refreshableTitle}
-        />
-      )
-    }
-    return null
-  }
-
   render() {
-    const { numColumns } = this.props
-    return (
-      <FlatList
-        key={numColumns}
-        onEndReachedThreshold={0.1}
-        {...this.props}
-        ref={ref => this._flatList = ref}
-        data={this.state.dataSource}
-        ItemSeparatorComponent={this.renderSeparator}
-        ListFooterComponent={this.renderFooter}
-        ListEmptyComponent={this.renderEmptyView}
-        onEndReached={this.onEndReached}
-        refreshControl={this.renderRefreshControl()}
-        numColumns={numColumns}
-        keyExtractor={this.keyExtractor}
-      />
-    )
+    const {
+      renderItem,
+      ListHeaderComponent,
+      ListEmptyComponent,
+      ListFooterComponent,
+      keyExtractor,
+      onEndReached,
+      ...props
+    } = this.props;
+    let headerElement;
+    if (ListHeaderComponent) {
+      headerElement = <ListHeaderComponent />;
+    }
+    let emptyElement;
+    if (ListEmptyComponent) {
+      emptyElement = <ListEmptyComponent />;
+    }
+    let footerElement;
+    if (ListFooterComponent){
+      footerElement = <ListFooterComponent />
+    }
+
+    const content = (
+      <View style={styles.contentContainer}>
+        {this.state.columns.map(col =>
+          <VirtualizedList
+            {...props}
+            ref={ref => (this._listRefs[col.index] = ref)}
+            key={`$col_${col.index}`}
+            data={col.data}
+            getItemCount={this._getItemCount}
+            getItem={this._getItem}
+            getItemLayout={(data, index) =>
+              this._getItemLayout(col.index, index)}
+            renderItem={({ item, index }) =>
+              renderItem({ item, index, column: col.index })}
+            renderScrollComponent={this._renderScrollComponent}
+            keyExtractor={keyExtractor}
+            onEndReached={onEndReached}
+            onEndReachedThreshold={this.props.onEndReachedThreshold}
+            removeClippedSubviews={false}
+          />,
+        )}
+      </View>
+    );
+
+    const scrollComponent = React.cloneElement(
+      this.props.renderScrollComponent(this.props),
+      {
+        ref: this._captureScrollRef,
+        removeClippedSubviews: false,
+        onContentSizeChange: this._onContentSizeChange,
+        onLayout: this._onLayout,
+        onScroll: this._onScroll,
+        onScrollBeginDrag: this._onScrollBeginDrag,
+        onScrollEndDrag: this._onScrollEndDrag,
+        onMomentumScrollEnd: this._onMomentumScrollEnd,
+      },
+      headerElement,
+      emptyElement && this.props.data.length === 0 ? emptyElement : content,
+      footerElement
+    );
+
+    return scrollComponent;
   }
 }
 
 const styles = StyleSheet.create({
-  fetchingView: {
-    width,
-    height,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  paginationView: {
-    flex: 0,
-    width,
-    height: 55,
+  contentContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
   },
-  paginationViewText: {
-    fontSize: 16
-  },
-  paginationViewSpinner: {
-    marginRight: 5
-  },
-  paginationBtn: {
-    backgroundColor: 'tomato',
-    margin: 10,
-    borderRadius: 20,
+  column: {
     flex: 1,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
-  paginationBtnText: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: 'bold'
-  },
-  separator: {
-    height: 0.5,
-    marginLeft: 15,
-    marginRight: 15,
-    backgroundColor: 'lightgray'
-  },
-  emptyView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  allLoadedText: {
-    alignSelf: 'center',
-    color: '#bfbfbf'
-  },
-  gridItem: {
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  gridView: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    flexWrap: 'wrap'
-  }
 });

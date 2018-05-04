@@ -20,7 +20,6 @@ import { Images } from '../../resource';
 import { Button, Theme } from '../../components';
 import { System } from "../../utils";
 
-import NavigationActions from "react-navigation/src/NavigationActions";
 
 type Props = {
   navigation: any
@@ -30,7 +29,7 @@ export class ShiTu extends Component<Props> {
   componentDidMount() {
 
     this.props.navigation.setParams({
-      title: '123',
+      title: '识兔',
     })
 
 

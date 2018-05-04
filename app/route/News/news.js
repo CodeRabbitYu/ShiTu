@@ -12,9 +12,9 @@ import AutoResponsive from 'autoresponsive-react-native';
 import {Button, Fetch, TableList} from '../../components'
 
 import FastImage from 'react-native-fast-image';
-import {loadGankData} from '../../servers/Gank';
+import {loadWealPictureData} from '../../servers/News';
 
-import GankMobx from '../../mobx/Gank';
+import GankMobx from '../../mobx/News';
 import {observer} from 'mobx-react';
 import {action} from 'mobx';
 import {Gank} from "./index";
@@ -60,7 +60,6 @@ export class News extends Component<any> {
   };
 
   async componentDidMount() {
-    // console.log(DATA)
     await this.fetchData(this.state.page)
   }
 
@@ -69,11 +68,9 @@ export class News extends Component<any> {
   }
 
   fetchData = async (page: number) => {
-    // let url = `http://gank.io/api/data/iOS/30/${page}`;
-    let url = `http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/${page}`;
 
     try {
-      let data = await Fetch.get(url);
+      let data = await loadWealPictureData()
 
       let results = data.results;
 

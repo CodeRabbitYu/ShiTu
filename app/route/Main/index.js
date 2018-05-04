@@ -13,11 +13,15 @@ import {
 } from 'react-native';
 import { LargeList } from "react-native-largelist";
 
-type Props = {};
+type Props = {
+  navigation: any
+};
 export class Main extends Component<Props> {
 
   componentDidMount() {
-    // console.log('Main')
+    this.props.navigation.setParams({
+      title: '我的',
+    })
   }
 
   render() {
