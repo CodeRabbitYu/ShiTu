@@ -1,5 +1,5 @@
 /**
- * @  flow
+ * @flow
  * Created by Rabbit on 2018/4/23.
  */
 
@@ -155,7 +155,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
 
   _flatList: null | VirtualizedList | ScrollView
 
-  constructor(props: Props) {
+  constructor(props: Props<ItemT>) {
     super(props)
     this.setPage(1)
     this.setRows([])
@@ -253,8 +253,6 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
       if (rows.length < pageLimit) {
         paginationStatus = PaginationStatus.ALL_LOADED
       }
-
-      console.log('rows', rows, 'page', pageLimit)
       this.updateRows(rows, paginationStatus)
     }
   }
@@ -358,19 +356,14 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   renderFooter = () => {
 
     if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
-      console.log('PaginationFetchingView')
       return this.PaginationFetchingView()
     } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
-      console.log('PaginationWaitingView --- false')
       return this.PaginationWaitingView(this.onPaginate)
     } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
-      console.log('PaginationWaitingView --- true')
       return this.PaginationWaitingView()
     } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
-      console.log('PaginationAllLoadedView')
       return this.PaginationAllLoadedView()
     }
-
     return null
   }
 
@@ -403,14 +396,13 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
     return (
       <FlatList
         key={numColumns}
-        onEndReached={this.onEndReached}
         onEndReachedThreshold={0.1}
         {...this.props}
         ref={ref => this._flatList = ref}
         data={this.state.dataSource}
         ListFooterComponent={this.renderFooter}
-        // ListEmptyComponent={emptyView}
-
+        ListEmptyComponent={emptyView}
+        onEndReached={this.onEndReached}
         refreshControl={this.renderRefreshControl()}
         numColumns={numColumns}
       />
