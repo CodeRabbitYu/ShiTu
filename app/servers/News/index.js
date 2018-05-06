@@ -17,6 +17,7 @@ export async function loadWealPictureData(page: number, type: RGankType = 'ç¦åˆ
 
   let url = `http://gank.io/api/data/${_type}/${count}/${page}`;
 
+
   return await Fetch.get(url);
 
   // return Gank;
@@ -24,8 +25,6 @@ export async function loadWealPictureData(page: number, type: RGankType = 'ç¦åˆ
 
 export async function loadBuDeJieData(type: number, maxtime: string): Promise<RTBDJResult> {
   let url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
-
-  console.log('url', url)
 
   return await Fetch.get(url);
 

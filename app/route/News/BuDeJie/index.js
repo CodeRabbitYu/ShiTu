@@ -23,11 +23,14 @@ type Props = {
 export default class index extends React.Component<Props, any> {
   constructor(props: Props) {
     super(props);
+
     this.state = {
       maxtime: '',
       data: [],
     }
   }
+
+  maxtime = undefined;
 
   async componentDidMount() {
     // console.log(await loadBuDeJieData(this.props.type));
@@ -55,25 +58,34 @@ export default class index extends React.Component<Props, any> {
     }
   }
 
-  onFetch = async ( page: any  , startFetch: any, abortFetch: any) => {
+  onFetch = async ( value: any = this.state.maxtime, startFetch: any, abortFetch: any) => {
     try {
       // let data = await loadBuDeJieData(this.props.type, value);
-      // this.setState({
-      //   maxtime: data.info.maxid,
-      //   data: data.list
-      // })
 
-      let data = await loadWealPictureData(page, "iOS")
-      // console.log(data)
+      let data = await loadBuDeJieData(29, value)
+
+      console.log('maxid', data);
 
       this.setState({
-        data: data.results
+        maxtime: data.info.maxid,
+        data: data.list
       })
 
-      // console.log(this.state.data.length);
+      this.maxtime = data.info.maxid;
 
-      startFetch(data.results, 20)
 
+
+      startFetch(data.list, 20)
+
+    //   let data = await loadWealPictureData(value, "iOS")
+    //   console.log(data)
+    //
+    //   this.setState({
+    //     data: data.results
+    //   })
+    //
+    //   startFetch(data.results, 20)
+    //
     } catch (e) {
       console.log(e)
     }
@@ -81,9 +93,9 @@ export default class index extends React.Component<Props, any> {
 
 
   renderItem = ( {item, index}: any ) => {
-    // const _item: RTBDJList = item
+    const _item: RTBDJList = item
     return(
-      <Text style={{height: 44, marginTop: 10, backgroundColor: '#aaa'}}>{index + '        ' + item.desc}</Text>
+      <Text style={{marginTop: 10, backgroundColor: '#aaa'}}>{index + '        ' + _item.text}</Text>
     )
   }
 
@@ -100,9 +112,9 @@ export default class index extends React.Component<Props, any> {
           onFetch={this.onFetch}
           // item={this.item}
           renderItem={this.renderItem}
-          keyExtractor={(item) => item._id}
+          keyExtractor={(item) => item.id}
           initialNumToRender={20}
-          // paginationType={'value'}
+          paginationType={'value'}
         />
     )
   }

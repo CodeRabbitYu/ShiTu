@@ -81,6 +81,7 @@ type OptionalProps<ItemT> = {
 
   // Pagination
   pagination?: ?boolean,
+  paginationType?: ?string | number,
   autoPagination?: ?boolean,
   allLoadedText?: ?string,
 
@@ -126,6 +127,7 @@ const defaultProps = {
 
   // Pagination
   pagination: true,
+  paginationType: 'page',
   autoPagination: true,
   allLoadedText: 'End of List',
 
@@ -151,13 +153,17 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   mounted: boolean
   rows: Array<any>
   page: number
+  value: ?number | ?string
   // _flatList: ?React.ElementRef<any> = null;
 
   _flatList: null | VirtualizedList | ScrollView
 
   constructor(props: Props<ItemT>) {
     super(props)
-    this.setPage(1)
+    // this.setPage(1)
+
+    this.getPaginationTypeForPage() ? this.setValue(1) : this.setValue()
+
     this.setRows([])
 
     this.state = {
@@ -170,7 +176,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   componentDidMount() {
     this.mounted = true
     if (this.props.firstLoader) {
-      this.props.onFetch(this.getPage(), this.postRefresh, this.endFetch)
+      this.props.onFetch(this.getValue(), this.postRefresh, this.endFetch)
     }
   }
 
@@ -182,25 +188,34 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
     console.log('onRefresh()')
     if (this.mounted) {
       this.setState({ isRefreshing: true })
-      this.setPage(1)
-      this.props.onFetch(this.getPage(), this.postRefresh, this.endFetch)
+      // this.setPage(1)
+      this.getPaginationTypeForPage() ? this.setValue(1) : this.setValue()
+      this.props.onFetch(this.getValue(), this.postRefresh, this.endFetch)
     }
   }
 
   onPaginate = () => {
     if (this.state.paginationStatus !== PaginationStatus.ALL_LOADED && !this.state.isRefreshing) {
-      console.log('onPaginate()')
+      // console.log('onPaginate()')
       this.setState({ paginationStatus: PaginationStatus.WAITING })
-      this.props.onFetch(this.getPage() + 1, this.postPaginate, this.endFetch)
+      let value = this.getPaginationTypeForPage() ? this.getValue() + 1 : this.getValue()
+      this.props.onFetch(value, this.postPaginate, this.endFetch)
     }
   }
 
   onEndReached = () => {
-    console.log('onEndReached()');
+    // console.log('onEndReached()');
     if (this.props.pagination && this.props.autoPagination && this.state.paginationStatus === PaginationStatus.WAITING) {
       this.onPaginate()
     }
   }
+
+  setValue = (value: ?number | ?string ) => this.value = value
+
+
+  getValue = (): ?string | ?number => this.value
+
+  getPaginationTypeForPage = (): boolean => this.props.paginationType === 'page'
 
   setPage = (page: number) => this.page = page
 
@@ -258,7 +273,8 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   }
 
   postPaginate = (rows: Array<any> = []) => {
-    this.setPage(this.getPage() + 1)
+    // this.setPage(this.getPage() + 1)
+    this.getPaginationTypeForPage() ? this.setValue(this.getValue() + 1) : this.setValue(this.getValue())
     let mergedRows = []
     let paginationStatus
     if (rows.length === 0) {
