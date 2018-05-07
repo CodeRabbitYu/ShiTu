@@ -14,9 +14,9 @@ import {
 
 import { Button, FastImage } from "../../../components";
 import { System } from "../../../utils";
+import { ActionSheet } from 'teaset';
 import FetchBolb from 'react-native-fetch-blob';
 const Dirs = FetchBolb.fs.dirs
-
 
 type Props = {
   navigation: any;
@@ -24,64 +24,67 @@ type Props = {
 export class WealPictureDetail extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    console.log(this.props.navigation.state.params.url);
+    console.log(this.props.navigation.state.params.url)
   }
 
-  saveImage = (url: string) => {
-    
-    CameraRoll.saveToCameraRoll(url, 'photo')
-      .then((data)=>{
-        console.log(data)
-      })
-      .catch((error)=>{
-        console.log(error);
-      });
+  static navigationOptions = ({navigation}: any) => ({
+    header: null
+  })
+
+  saveImageWithIOS = async (url: string) => {
+    try {
+      let imageData = await  CameraRoll.saveToCameraRoll(url, 'photo');
+      console.log(imageData);
+      alert('保存成功');
+    } catch (e) {
+      alert('保存失败');
+    }
   }
 
-  saveAndroidImage = (url: string) => {
 
-    let lastIndex = url.lastIndexOf('/');
-    let imageName = url.substr(lastIndex);
-    console.log(imageName);
+  saveImageWithAndroid = async (url: string) => {
 
-    /**
-     * 1、path 是图片的sd中的路径
-     * 2、如果出现保存慢的情况，可以把下面的注释部分代码打开，但那样会存储两张照片，需要手动删除一张
-     * 3、我发现下载的方法，会导致存储缓慢，重启之后就正常了。 不知道是不是模拟器问题
-     * */
+    // url最后一个反斜线的位置
+    const lastIndex = url.lastIndexOf('/');
+    // 通过位置得到图片名称
+    const imageName = url.substr(lastIndex);
 
-    FetchBolb.config({
+    const config = {
       fileCache: true,
-      path: Dirs.DCIMDir + imageName
-    })
-      .fetch("GET", url)
-      .then(data=> {
-        console.log(data)
+      path: Dirs.PictureDir + imageName
+    };
 
-        // let path = 'file://' + data.data;
-        // CameraRoll.saveToCameraRoll(path, 'photo')
-        //   .then((data)=>{
-        //     console.log(data)
-        //     // alert(data);
-        //   })
-        //   .catch((error)=>{
-        //     console.log(error);
-        //     // alert(error);
-        //   });
+    try {
+      // 下载图片
+      const imageData = await FetchBolb.config(config).fetch("GET", url);
+      // 拼接保存的图片地址
+      const imagePath = 'file://' + imageData.data;
+      // 保存图片
+      await CameraRoll.saveToCameraRoll(imagePath, 'photo');
+      // 删除下载的图片
+      await FetchBolb.fs.unlink(imageData.data);
+      alert('保存成功');
+    } catch (e) {
+      console.log(e);
+      alert('保存失败');
+    }
+  }
 
-      })
-      .catch(e=>{
-        console.log(e)
-      })
+  actionSheetToSaveImage = (url: string) => {
+    const items = [
+      {title: '保存图片', onPress: () => System.iOS ? this.saveImageWithIOS(url) : this.saveImageWithAndroid(url)},
+      {title: '设置主屏幕', type: 'default'},
+    ];
+
+    const cancelItem = {title: '取消'};
+    ActionSheet.show(items, cancelItem);
   }
 
   render() {
     const url = this.props.navigation.state.params.url
 
     return (
-      <Button onPress={()=> this.saveAndroidImage(url)}
-              // onLongPress={()=> this.saveAndroidImage(url)}
-      >
+      <Button onPress={()=> this.actionSheetToSaveImage(url)}>
         <FastImage style={styles.container}
                    source={{uri: url}}
                    resizeMode={'contain'}

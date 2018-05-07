@@ -56,6 +56,7 @@ export const MyApp = createStackNavigator({
   },
   WealPictureDetail: {
     screen: WealPictureDetail,
+    // navigationOptions: () => ({header: null})
   },
   BuDeJie: {
     screen: BuDeJie,

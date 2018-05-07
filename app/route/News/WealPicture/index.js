@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import {System} from "../../../utils";
-import { MasonryList} from "../../../components";
+import { MasonryList } from "../../../components";
 
 import { WealPictureMobx } from '../../../mobx/News';
 
@@ -33,7 +33,6 @@ export class WealPicture extends React.Component<Props> {
   constructor(props: Props){
     super(props);
     this.WealPictureMobx = new WealPictureMobx();
-    console.log(this.props);
   }
 
   async componentDidMount() {
