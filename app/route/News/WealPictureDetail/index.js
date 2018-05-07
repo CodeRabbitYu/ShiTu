@@ -21,15 +21,32 @@ const Dirs = FetchBolb.fs.dirs
 type Props = {
   navigation: any;
 };
-export class WealPictureDetail extends React.Component<Props> {
+type State = {
+  isHiddenHeader: boolean
+}
+export class WealPictureDetail extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     console.log(this.props.navigation.state.params.url)
+    this.state = {
+      isHiddenHeader: false
+    }
   }
 
-  static navigationOptions = ({navigation}: any) => ({
-    header: null
-  })
+  static navigationOptions = ({navigation}: any) => {
+    const { params } = navigation.state;
+    let header;
+    if (params && params.isHiddenHeader) {
+      header = null;
+    }
+
+    return { header }
+  }
+
+  componentDidMount() {
+    this.setNavBarHidden(true)
+  }
+
 
   saveImageWithIOS = async (url: string) => {
     try {
@@ -40,7 +57,6 @@ export class WealPictureDetail extends React.Component<Props> {
       alert('保存失败');
     }
   }
-
 
   saveImageWithAndroid = async (url: string) => {
 
@@ -56,10 +72,10 @@ export class WealPictureDetail extends React.Component<Props> {
 
     try {
       // 下载图片
-      const imageData = await FetchBolb.config(config).fetch("GET", url);
+      await FetchBolb.config(config).fetch("GET", url);
 
       // 可能因为模拟器原因，图片并不是同步加载的，使用小米真机基本没有问题，所以下面代码被删除。
-      
+
       alert('保存成功');
     } catch (e) {
       console.log(e);
@@ -78,13 +94,27 @@ export class WealPictureDetail extends React.Component<Props> {
     ActionSheet.show(items, cancelItem);
   }
 
+  showORHideNavBar = () => {
+    this.setState({isHiddenHeader: !this.state.isHiddenHeader})
+    console.log(this.state.isHiddenHeader);
+    this.setNavBarHidden(this.state.isHiddenHeader);
+  }
+
+  setNavBarHidden = (isHidden: boolean) => {
+    console.log(isHidden);
+    this.props.navigation.setParams({ isHiddenHeader: isHidden })
+  }
+
   render() {
     const url = this.props.navigation.state.params.url
     return (
-      <Button onPress={this.actionSheetToSaveImage}>
+      <Button onLongPress={this.actionSheetToSaveImage}
+              onPress={this.showORHideNavBar}
+              style={{backgroundColor: 'red', flex: 1}}
+      >
         <FastImage style={styles.container}
                    source={{uri: url}}
-                   resizeMode={'contain'}
+                   // resizeMode={'contain'}
         />
       </Button>
     );
