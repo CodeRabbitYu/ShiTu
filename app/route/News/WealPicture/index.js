@@ -18,16 +18,22 @@ import { MasonryList} from "../../../components";
 import { WealPictureMobx } from '../../../mobx/News';
 
 import { observer} from 'mobx-react'
+import { Button, FastImage } from "../../../components";
+import {BuDeJie} from "../index";
+import {WealPictureDetail} from "../WealPictureDetail";
 
-type Props = {};
+type Props = {
+  navigation: any,
+};
 @observer
-export default class index extends React.Component<Props> {
+export class WealPicture extends React.Component<Props> {
 
   WealPictureMobx: WealPictureMobx;
 
   constructor(props: Props){
     super(props);
     this.WealPictureMobx = new WealPictureMobx();
+    console.log(this.props);
   }
 
   async componentDidMount() {
@@ -36,12 +42,17 @@ export default class index extends React.Component<Props> {
 
   renderItem = ({ item, index, column }: any) => {
     return(
-      <Image source={{uri: item.url}}
-             style={[
-               styles.cell,
-               { height: item.height, backgroundColor: 'white'},
-             ]}
-      />
+      <Button
+        onPress={()=> this.props.navigation.navigate('WealPictureDetail', {url: item.url})}
+      >
+        <FastImage source={{uri: item.url}}
+               style={[
+                 styles.cell,
+                 { height: item.height, backgroundColor: 'white'},
+               ]}
+        />
+      </Button>
+
     )
   }
 

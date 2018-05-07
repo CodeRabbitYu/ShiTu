@@ -19,6 +19,7 @@ type Props = {
 export class Main extends Component<Props> {
 
   componentDidMount() {
+    console.log('我的');
     this.props.navigation.setParams({
       title: '我的',
     })

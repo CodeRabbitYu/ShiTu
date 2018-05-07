@@ -20,47 +20,27 @@ import {UltimateListView } from 'react-native-ultimate-listview'
 type Props = {
   type: number
 };
-export default class index extends React.Component<Props, any> {
+type State = {
+  hideMore: boolean
+}
+export class BuDeJie extends React.Component<any, any> {
+
   constructor(props: Props) {
     super(props);
 
+    this.hideMore = false;
     this.state = {
       maxtime: '',
       data: [],
     }
   }
+  hideMore: boolean;
 
-  maxtime = undefined;
-
-  async componentDidMount() {
-    // console.log(await loadBuDeJieData(this.props.type));
-
-    // let data = await loadBuDeJieData(this.props.type, this.state.maxtime);
-
-    // await this.fetchData()
-
-  }
-
-  fetchData = async () => {
-    try {
-      let data = await loadBuDeJieData(this.props.type, this.state.maxtime);
-
-      console.log(data);
-
-      this.setState({
-        maxtime: data.info.maxid,
-        data: data.list
-      })
-
-
-    } catch (e) {
-      console.log(e)
-    }
+  componentDidMount() {
   }
 
   onFetch = async ( value: any = this.state.maxtime, startFetch: any, abortFetch: any) => {
     try {
-      // let data = await loadBuDeJieData(this.props.type, value);
 
       let data = await loadBuDeJieData(29, value)
 
@@ -71,22 +51,10 @@ export default class index extends React.Component<Props, any> {
         data: data.list
       })
 
-      this.maxtime = data.info.maxid;
-
-
 
       startFetch(data.list, 20)
-
-    //   let data = await loadWealPictureData(value, "iOS")
-    //   console.log(data)
-    //
-    //   this.setState({
-    //     data: data.results
-    //   })
-    //
-    //   startFetch(data.results, 20)
-    //
     } catch (e) {
+      abortFetch();
       console.log(e)
     }
   }

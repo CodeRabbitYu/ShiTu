@@ -15,15 +15,16 @@ import {observer} from 'mobx-react';
 
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
-import WealPicture from './WealPicture';
-import BuDeJie from './BuDeJie';
+import { WealPicture } from './WealPicture';
+import { WealPictureDetail } from "./WealPictureDetail";
+import { BuDeJie } from './BuDeJie';
 
 type State = {
   typeArr: Array<any>
 }
 
 @observer
-export class Gank extends React.Component<any, State> {
+class News extends React.Component<any, State> {
 
   componentDidMount() {
     this.props.navigation.setParams({
@@ -57,21 +58,28 @@ export class Gank extends React.Component<any, State> {
       >
         {
           this.state.typeArr.map((item, i) => {
-            return(
-              <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
-            )
-            // if (i === 0) {
-            //   return (
-            //     <WealPicture tabLabel={item.title} key={i} />
-            //   );
-            // } else {
-            //   return(
-            //     <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
-            //   )
-            // }
+            // return(
+            //   <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+            // )
+            if (i === 0) {
+              return (
+                <WealPicture tabLabel={item.title} key={i} navigate={item.navigate} navigation={this.props.navigation}/>
+              );
+            } else {
+              return(
+                <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+              )
+            }
             })
         }
       </ScrollableTabView>
     )
   }
+}
+
+export {
+  News,
+  WealPicture,
+  WealPictureDetail,
+  BuDeJie,
 }

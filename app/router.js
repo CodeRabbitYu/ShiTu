@@ -17,23 +17,21 @@ import { System } from './utils';
 import { Icon, Theme } from './components';
 
 import { ShiTu } from './route/ShiTu';
-import { Gank } from "./route/News";
+import { News, WealPicture, WealPictureDetail, BuDeJie } from "./route/News";
 import { Main } from "./route/Main";
 
-import  BuDeJie  from './route/News/BuDeJie'
-
-// import { GankTab } from './route/News/route';
+import { GankTab } from './route/News/route';
 
 import Sample from './test/sample';
 
 const MyTab = createBottomTabNavigator({
 
   ShiTu: {
-    screen: BuDeJie,
+    screen: ShiTu,
     navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
   },
   Gank: {
-    screen: Gank,
+    screen: News,
     navigationOptions: () => TabOptions('干货', 'Gank'),
   },
   Main: {
@@ -41,7 +39,7 @@ const MyTab = createBottomTabNavigator({
     navigationOptions: ()=> TabOptions('我的', 'Main'),
   },
 },{
-  initialRouteName: 'ShiTu',
+  initialRouteName: 'Gank',
   backBehavior: 'none',
   tabBarOptions: {
     style: {
@@ -51,9 +49,16 @@ const MyTab = createBottomTabNavigator({
     showLabel: false,
   }
 });
+
 export const MyApp = createStackNavigator({
   MyTab: {
     screen: MyTab,
+  },
+  WealPictureDetail: {
+    screen: WealPictureDetail,
+  },
+  BuDeJie: {
+    screen: BuDeJie,
   },
   Sample: {
     screen: Sample,
@@ -64,7 +69,11 @@ export const MyApp = createStackNavigator({
 
 const NavigatorOptions = (navigation) => {
 
-  const params = navigation.state.routes[navigation.state.index].params;
+  // console.log(navigation);
+
+  const routes = navigation.state.routes;
+
+  const params = routes ? routes[navigation.state.index].params : null;
 
   const headerTitle = params ? params.title : ''
 
@@ -75,7 +84,7 @@ const NavigatorOptions = (navigation) => {
     paddingTop: System.Android ? 17 : null,
   };
   const headerStyle = { backgroundColor: Theme.navColor };
-  return { headerTitle, headerStyle, headerTitleStyle }
+  return {headerTitle, headerStyle, headerTitleStyle }
 }
 
 const TabOptions = (tabBarTitle, tabBarIconName) => {
