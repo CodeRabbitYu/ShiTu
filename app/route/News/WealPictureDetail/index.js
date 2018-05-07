@@ -51,18 +51,15 @@ export class WealPictureDetail extends React.Component<Props> {
 
     const config = {
       fileCache: true,
-      path: Dirs.PictureDir + imageName
+      path: Dirs.DCIMDir + imageName
     };
 
     try {
       // 下载图片
       const imageData = await FetchBolb.config(config).fetch("GET", url);
-      // 拼接保存的图片地址
-      const imagePath = 'file://' + imageData.data;
-      // 保存图片
-      await CameraRoll.saveToCameraRoll(imagePath, 'photo');
-      // 删除下载的图片
-      await FetchBolb.fs.unlink(imageData.data);
+
+      // 可能因为模拟器原因，图片并不是同步加载的，使用小米真机基本没有问题，所以下面代码被删除。
+      
       alert('保存成功');
     } catch (e) {
       console.log(e);
@@ -70,7 +67,8 @@ export class WealPictureDetail extends React.Component<Props> {
     }
   }
 
-  actionSheetToSaveImage = (url: string) => {
+  actionSheetToSaveImage = () => {
+    const url = this.props.navigation.state.params.url
     const items = [
       {title: '保存图片', onPress: () => System.iOS ? this.saveImageWithIOS(url) : this.saveImageWithAndroid(url)},
       {title: '设置主屏幕', type: 'default'},
@@ -82,9 +80,8 @@ export class WealPictureDetail extends React.Component<Props> {
 
   render() {
     const url = this.props.navigation.state.params.url
-
     return (
-      <Button onPress={()=> this.actionSheetToSaveImage(url)}>
+      <Button onPress={this.actionSheetToSaveImage}>
         <FastImage style={styles.container}
                    source={{uri: url}}
                    resizeMode={'contain'}
