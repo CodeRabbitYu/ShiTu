@@ -42,7 +42,7 @@ export class WealPicture extends React.Component<Props> {
   renderItem = ({ item, index, column }: any) => {
     return(
       <Button
-        onPress={()=> this.props.navigation.navigate('WealPictureDetail', {url: item.url})}
+        onPress={()=> this.props.navigation.navigate('WealPictureDetail', {url: item.url, isHiddenHeader: true})}
       >
         <FastImage source={{uri: item.url}}
                style={[
@@ -51,7 +51,6 @@ export class WealPicture extends React.Component<Props> {
                ]}
         />
       </Button>
-
     )
   }
 

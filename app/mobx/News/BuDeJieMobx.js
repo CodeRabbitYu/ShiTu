@@ -4,13 +4,25 @@
 
 import {observable, computed, action, runInAction, autorun} from 'mobx'
 import type {RTGankResult} from "../../servers/News/types";
+import {loadBuDeJieData} from "../../servers/News";
 
 
 class BuDeJieMobx {
   @observable isRefreshing: boolean = true;
   @observable dataSource: Array<RTGankResult> = [];
-  @observable page: number = 1;
+  @observable maxtime: string = '';
+
+  @action
+  async fetchBuDeJieData(type, value) {
+    const dataSource = await loadBuDeJieData(type, value)
+
+    runInAction(()=>{
+      this.dataSource = dataSource.list;
+      this.maxtime = dataSource.info.maxid;
+    })
+
+  }
 
 }
 
-export default BuDeJieMobx;
+export { BuDeJieMobx };

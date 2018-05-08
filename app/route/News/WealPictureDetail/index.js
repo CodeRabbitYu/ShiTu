@@ -27,7 +27,6 @@ type State = {
 export class WealPictureDetail extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    console.log(this.props.navigation.state.params.url)
     this.state = {
       isHiddenHeader: false
     }
@@ -50,8 +49,7 @@ export class WealPictureDetail extends React.Component<Props, State> {
 
   saveImageWithIOS = async (url: string) => {
     try {
-      let imageData = await  CameraRoll.saveToCameraRoll(url, 'photo');
-      console.log(imageData);
+      await  CameraRoll.saveToCameraRoll(url, 'photo');
       alert('保存成功');
     } catch (e) {
       alert('保存失败');
@@ -59,7 +57,6 @@ export class WealPictureDetail extends React.Component<Props, State> {
   }
 
   saveImageWithAndroid = async (url: string) => {
-
     // url最后一个反斜线的位置
     const lastIndex = url.lastIndexOf('/');
     // 通过位置得到图片名称
@@ -73,9 +70,6 @@ export class WealPictureDetail extends React.Component<Props, State> {
     try {
       // 下载图片
       await FetchBolb.config(config).fetch("GET", url);
-
-      // 可能因为模拟器原因，图片并不是同步加载的，使用小米真机基本没有问题，所以下面代码被删除。
-
       alert('保存成功');
     } catch (e) {
       console.log(e);
@@ -89,14 +83,12 @@ export class WealPictureDetail extends React.Component<Props, State> {
       {title: '保存图片', onPress: () => System.iOS ? this.saveImageWithIOS(url) : this.saveImageWithAndroid(url)},
       {title: '设置主屏幕', type: 'default'},
     ];
-
     const cancelItem = {title: '取消'};
     ActionSheet.show(items, cancelItem);
   }
 
-  showORHideNavBar = () => {
+  navBarIsVisible = () => {
     this.setState({isHiddenHeader: !this.state.isHiddenHeader})
-    console.log(this.state.isHiddenHeader);
     this.setNavBarHidden(this.state.isHiddenHeader);
   }
 
@@ -109,12 +101,13 @@ export class WealPictureDetail extends React.Component<Props, State> {
     const url = this.props.navigation.state.params.url
     return (
       <Button onLongPress={this.actionSheetToSaveImage}
-              onPress={this.showORHideNavBar}
+              onPress={this.navBarIsVisible}
               style={{backgroundColor: 'red', flex: 1}}
+              activeOpacity={0.9}
       >
         <FastImage style={styles.container}
                    source={{uri: url}}
-                   // resizeMode={'contain'}
+                   resizeMode={'cover'}
         />
       </Button>
     );
@@ -123,7 +116,10 @@ export class WealPictureDetail extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    height: System.SCREEN_HEIGHT,
-    width: System.SCREEN_WIDTH
+    flex: 1,
+    height: null,
+    width: null
+    // height: System.SCREEN_HEIGHT,
+    // width: System.SCREEN_WIDTH
   },
 });

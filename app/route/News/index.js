@@ -37,10 +37,10 @@ class News extends React.Component<any, State> {
     const { navigate } = this.props.navigation;
     this.state = {
       typeArr : [
+        {'title': '全部', 'type': 1,  'navigate': navigate},
         {'title': '视频', 'type': 41, 'navigate': navigate},
         {'title': '图片', 'type': 10, 'navigate': navigate},
-        {'title': '段子', 'type': 29, 'navigate': navigate},
-        {'title': '声音', 'type': 31, 'navigate': navigate},
+        {'title': '笑话', 'type': 29, 'navigate': navigate},
         {'title': '福利', 'type': '福利','navigate': navigate},
       ],
     }
@@ -58,18 +58,18 @@ class News extends React.Component<any, State> {
       >
         {
           this.state.typeArr.map((item, i) => {
-            // return(
-            //   <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
-            // )
-            if (i === 0) {
-              return (
-                <WealPicture tabLabel={item.title} key={i} navigate={item.navigate} navigation={this.props.navigation}/>
-              );
-            } else {
-              return(
-                <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
-              )
-            }
+            return(
+              <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+            )
+            // if (i === 0) {
+            //   return (
+            //     <WealPicture tabLabel={item.title} key={i} navigate={item.navigate} navigation={this.props.navigation}/>
+            //   );
+            // } else {
+            //   return(
+            //     <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+            //   )
+            // }
             })
         }
       </ScrollableTabView>

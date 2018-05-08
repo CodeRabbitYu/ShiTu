@@ -25,6 +25,7 @@ export async function loadWealPictureData(page: number, type: RGankType = 'Á¶èÂà
 
 export async function loadBuDeJieData(type: number, maxtime: string): Promise<RTBDJResult> {
   let url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
+  console.log(url);
 
   return await Fetch.get(url);
 

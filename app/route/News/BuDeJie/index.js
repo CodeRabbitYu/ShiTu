@@ -15,44 +15,33 @@ import {
 import {loadBuDeJieData, loadWealPictureData} from "../../../servers/News";
 import { TableList } from '../../../components';
 import type {RTBDJList, RTWeal} from "../../../servers/News/types";
+import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
+import { observer } from "mobx-react";
 
-import {UltimateListView } from 'react-native-ultimate-listview'
+
 type Props = {
   type: number
 };
-type State = {
-  hideMore: boolean
-}
+
+
+@observer
 export class BuDeJie extends React.Component<any, any> {
+
+
+  BuDeJieMobx: BuDeJieMobx;
 
   constructor(props: Props) {
     super(props);
-
-    this.hideMore = false;
-    this.state = {
-      maxtime: '',
-      data: [],
-    }
+    this.BuDeJieMobx = new BuDeJieMobx();
   }
-  hideMore: boolean;
 
   componentDidMount() {
   }
 
-  onFetch = async ( value: any = this.state.maxtime, startFetch: any, abortFetch: any) => {
+  onFetch = async ( value: any = this.BuDeJieMobx.maxtime, startFetch: any, abortFetch: any) => {
     try {
-
-      let data = await loadBuDeJieData(29, value)
-
-      console.log('maxid', data);
-
-      this.setState({
-        maxtime: data.info.maxid,
-        data: data.list
-      })
-
-
-      startFetch(data.list, 20)
+      await this.BuDeJieMobx.fetchBuDeJieData(this.props.type, value);
+      startFetch(this.BuDeJieMobx.dataSource.slice(), 20)
     } catch (e) {
       abortFetch();
       console.log(e)
@@ -87,15 +76,6 @@ export class BuDeJie extends React.Component<any, any> {
     )
   }
 }
-
-{/*<FlatList*/}
-  {/*data={this.state.data}*/}
-  {/*renderItem={this.renderItem}*/}
-  {/*keyExtractor={(item) => item.id}*/}
-  {/*ListHeaderComponent={()=><View/>}*/}
-  {/*onEndReachedThreshold={0.1}*/}
-  {/*onEndReached={this.onEndReached}*/}
-{/*/>*/}
 
 const styles = StyleSheet.create({
   container: {
