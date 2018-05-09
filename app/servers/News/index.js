@@ -23,7 +23,17 @@ export async function loadWealPictureData(page: number, type: RGankType = '福�
   // return Gank;
 }
 
-export async function loadBuDeJieData(type: number, maxtime: string): Promise<RTBDJResult> {
+
+const BuDeJieValue = {
+  全部: 1,
+  视频: 41,
+  图片: 10,
+  笑话: 29
+};
+
+export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
+
+export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
   let url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
   console.log(url);
 

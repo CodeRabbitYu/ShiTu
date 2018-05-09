@@ -58,18 +58,18 @@ class News extends React.Component<any, State> {
       >
         {
           this.state.typeArr.map((item, i) => {
-            return(
-              <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
-            )
-            // if (i === 0) {
-            //   return (
-            //     <WealPicture tabLabel={item.title} key={i} navigate={item.navigate} navigation={this.props.navigation}/>
-            //   );
-            // } else {
-            //   return(
-            //     <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
-            //   )
-            // }
+            // return(
+            //   <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+            // )
+            if (i === 4) {
+              return (
+                <WealPicture tabLabel={item.title} key={i} navigate={item.navigate} navigation={this.props.navigation}/>
+              );
+            } else {
+              return(
+                <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+              )
+            }
             })
         }
       </ScrollableTabView>

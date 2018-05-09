@@ -4,7 +4,7 @@
 
 import {observable, computed, action, runInAction, autorun} from 'mobx'
 import type {RTGankResult} from "../../servers/News/types";
-import {loadBuDeJieData} from "../../servers/News";
+import {loadBuDeJieData, RTBuDeJieType} from "../../servers/News";
 
 
 class BuDeJieMobx {
@@ -13,7 +13,7 @@ class BuDeJieMobx {
   @observable maxtime: string = '';
 
   @action
-  async fetchBuDeJieData(type, value) {
+  async fetchBuDeJieData(type: RTBuDeJieType, value) {
     const dataSource = await loadBuDeJieData(type, value)
 
     runInAction(()=>{

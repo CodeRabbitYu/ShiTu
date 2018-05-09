@@ -17,6 +17,7 @@ import { TableList } from '../../../components';
 import type {RTBDJList, RTWeal} from "../../../servers/News/types";
 import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
 import { observer } from "mobx-react";
+import { BaseItem } from "./Components";
 
 
 type Props = {
@@ -48,19 +49,14 @@ export class BuDeJie extends React.Component<any, any> {
     }
   }
 
-
+  //      {/*<Text style={{marginTop: 10, backgroundColor: '#aaa'}}>{index + '        ' + _item.text}</Text>*/}
   renderItem = ( {item, index}: any ) => {
     const _item: RTBDJList = item
     return(
-      <Text style={{marginTop: 10, backgroundColor: '#aaa'}}>{index + '        ' + _item.text}</Text>
+      <BaseItem itemData={item}/>
     )
   }
 
-  item = (item: RTWeal, index: number) => {
-    return(
-      <Text style={{height: 44, marginTop: 10, backgroundColor: '#aaa'}}>{index + '        ' + item.desc}</Text>
-    )
-  }
 
   render() {
     return (
