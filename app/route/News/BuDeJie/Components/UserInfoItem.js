@@ -10,29 +10,40 @@ import {
   View,
   Image,
 } from 'react-native';
-import {Button} from "../../../../components";
+import {Button,FastImage} from "../../../../components";
 
 type Props = {
   profile_image: string;
   name: string;
   passtime: string;
+  userInfoPress: Function;
 };
-export class UserInfoItem extends React.PureComponent<Props> {
 
-  render() {
-    return (
-      <Button activeOpacity={0.7}>
-        <View  style={{flexDirection:'row'}}>
-          <Image source={{uri:this.props.profile_image}} style={styles.icon}/>
-          <View style={styles.userDetailView}>
-            <Text style={styles.userText}>{this.props.name}</Text>
-            <Text style={styles.userTime}>{this.props.passtime}</Text>
-          </View>
-        </View>
-      </Button>
-    );
+export function UserInfoItem(props: Props) {
+  let _profile_image;
+
+  const { profile_image, name, passtime, userInfoPress } = props;
+  _profile_image = profile_image;
+  if (!profile_image) {
+    _profile_image = 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png';
   }
+  return (
+    <View>
+        <View style={{flexDirection:'row' }}>
+          <Button activeOpacity={1} onPress={userInfoPress}>
+            <FastImage source={{uri:_profile_image}} style={styles.icon}/>
+          </Button>
+          <Button style={styles.userDetailView} activeOpacity={1} onPress={userInfoPress}>
+            <View >
+              <Text style={styles.userText}>{name}</Text>
+              <Text style={styles.userTime}>{passtime}</Text>
+            </View>
+          </Button>
+        </View>
+    </View>
+  )
 }
+
 
 const styles = StyleSheet.create({
   userInfo:{
@@ -42,13 +53,14 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginTop: 5,
+    marginVertical: 5,
     marginLeft: 10,
   },
   userDetailView:{
     alignSelf: 'center',
     marginLeft: 8,
-    marginTop: 5,
+    // marginTop: 5,
+    marginVertical: 10,
   },
   userText:{
     fontSize: 13,

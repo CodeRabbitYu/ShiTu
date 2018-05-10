@@ -185,7 +185,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   }
 
   onRefresh = () => {
-    console.log('onRefresh()')
+    // console.log('onRefresh()')
     if (this.mounted) {
       this.setState({ isRefreshing: true })
       // this.setPage(1)

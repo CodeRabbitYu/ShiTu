@@ -13,7 +13,7 @@ import {
 
 import {UserInfoItem} from "./UserInfoItem";
 import {RTBDJList} from "../../../../servers/News/types";
-import ToolBarItem from "./ToolBarItem";
+import {ToolBarItem} from "./ToolBarItem";
 
 type Props = {
   itemData: RTBDJList;
@@ -23,15 +23,18 @@ export class BaseItem extends React.PureComponent<Props> {
 
   render() {
 
-    const { text, profile_image, name, passtime } = this.props.itemData;
+    const { text, profile_image, name, passtime, love, hate, repost, comment } = this.props.itemData;
 
     return (
       <View style={styles.container}>
-        <UserInfoItem profile_image={profile_image} name={name} passtime={passtime}/>
+        <UserInfoItem profile_image={profile_image} name={name} passtime={passtime}
+                      userInfoPress={()=>alert('123')}
+        />
 
         <Text>{text}</Text>
 
-        <ToolBarItem/>
+        <ToolBarItem love={love} hate={hate} repost={repost} comment={comment}
+        />
       </View>
     );
   }

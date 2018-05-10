@@ -14,7 +14,7 @@ import {
 } from 'react-navigation';
 
 import { System } from './utils';
-import { Icon, Theme } from './components';
+import { CustomIcon, Theme } from './components';
 
 import { ShiTu } from './route/ShiTu';
 import { News, WealPicture, WealPictureDetail, BuDeJie } from "./route/News";
@@ -23,6 +23,7 @@ import { Main } from "./route/Main";
 import { GankTab } from './route/News/route';
 
 import Sample from './test/sample';
+import {Text} from "react-native";
 
 const MyTab = createBottomTabNavigator({
 
@@ -81,11 +82,19 @@ const NavigatorOptions = (navigation) => {
   const headerTitleStyle = {
     fontSize: System.iOS ? 23 : 20,
     color: 'white',
-    alignSelf: 'center',
+    flex: 1,
+    textAlign: 'center',
     paddingTop: System.Android ? 17 : null,
   };
   const headerStyle = { backgroundColor: Theme.navColor };
-  return {headerTitle, headerStyle, headerTitleStyle }
+
+  const headerLeft = ()=>{
+    return(
+      <Text>12313132</Text>
+    )
+  }
+
+  return {headerTitle, headerStyle, headerTitleStyle, headerLeft }
 }
 
 const TabOptions = (tabBarTitle, tabBarIconName) => {
@@ -93,7 +102,7 @@ const TabOptions = (tabBarTitle, tabBarIconName) => {
   const tabBarIcon = (({tintColor,focused})=> {
     const color = focused ? Theme.tabBarColor : '#aaa';
     return(
-      <Icon name={tabBarIconName} size={30} color={color}/>
+      <CustomIcon name={tabBarIconName} size={30} color={color}/>
     )
   });
   const tabBarVisible = true;

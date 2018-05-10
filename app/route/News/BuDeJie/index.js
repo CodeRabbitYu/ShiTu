@@ -19,6 +19,8 @@ import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
 import { observer } from "mobx-react";
 import { BaseItem } from "./Components";
 
+import  a  from 'react-native-ultimate-listview'
+
 
 type Props = {
   type: number

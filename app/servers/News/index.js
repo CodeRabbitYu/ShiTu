@@ -35,7 +35,6 @@ export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
 
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
   let url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
-  console.log(url);
 
   return await Fetch.get(url);
 

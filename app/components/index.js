@@ -3,14 +3,15 @@
  */
 
 import { Theme } from 'teaset';
-import FastImage from 'react-native-fast-image';
 
+// import FastImage from 'react-native-fast-image';
+import FastImage from './FastImage';
 
 import { Button } from './Button';
-import Icon from './Icon';
+import CustomIcon from './Icon';
 import TableList from './TableList';
 import MasonryList from './MasonryList'
 
 import { Fetch, Axios } from "./Request";
 
-export { Button, Icon, Theme, Fetch, Axios, TableList, FastImage, MasonryList };
+export { Button, CustomIcon, Theme, Fetch, Axios, TableList, FastImage, MasonryList };
