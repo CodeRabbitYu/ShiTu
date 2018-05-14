@@ -22,6 +22,7 @@ export interface RTGankResult {
   results: RTWeal[];
 }
 
+/** @desc 不得姐单条数据 */
 export interface RTBDJList {
   id: string;
   type: string;
@@ -68,8 +69,10 @@ export interface RTBDJList {
   t: string;
   ding: string;
   favourite: string;
+  UserInfo: Object<UserInfo>;
 }
 
+/** @desc 不得姐参数 */
 export interface RTBDJInfo {
   vendor: string;
   count: number;
@@ -78,7 +81,38 @@ export interface RTBDJInfo {
   maxtime: string;
 }
 
+/** @desc 不得姐总数据源 */
 export interface RTBDJResult {
   info: RTBDJInfo;
   list: RTBDJList[];
+}
+
+
+
+/** @desc 用户信息 */
+export interface UserInfo extends RTBDJList{
+  profile_image: string;
+  name: string;
+  passtime: string;
+}
+
+/** @desc 底部功能条 */
+export interface ToolBar extends RTBDJList{
+  love: string;
+  hate: string;
+  repost: string;
+  comment: string;
+}
+
+/** @desc 笑话 */
+export interface Joke extends RTBDJList {
+  text: string;
+}
+
+/** @desc 图片 */
+export interface Picture extends RTBDJList<Joke> {
+  cdn_img: string;
+  height: string;
+  width: string;
+  text: string;
 }

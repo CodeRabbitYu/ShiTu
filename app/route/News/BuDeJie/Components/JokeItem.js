@@ -8,12 +8,14 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
 } from 'react-native';
-import {RTBDJList} from "../../../../servers/News/types";
 
 type Props = {
-  jokeData: RTBDJList
+  jokeData: Joke
+}
+
+type Joke = {
+   text: string;
 }
 
 export const JokeItem = (props: Props) => {

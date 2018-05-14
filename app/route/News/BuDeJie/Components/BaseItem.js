@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import {UserInfoItem} from "./UserInfoItem";
-import {RTBDJList} from "../../../../servers/News/types";
+import {RTBDJList, ToolBar, UserInfo, Joke, Picture} from "../../../../servers/News/interfaces";
 import {ToolBarItem} from "./ToolBarItem";
 import {JokeItem} from "./JokeItem";
 import {PictureItem} from "./PictureItem";
@@ -20,18 +20,18 @@ import {PictureItem} from "./PictureItem";
 type Props = {
   itemData: RTBDJList;
 };
-export class BaseItem extends React.PureComponent<Props, any> {
 
+export class BaseItem extends React.PureComponent<Props, any> {
 
   constructor(props: Props) {
     super(props);
 
     const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, height, width } = props.itemData;
 
-    const userInfoData = { profile_image, name, passtime };
-    const toolBarData = { love, hate, repost, comment };
-    const jokeData = { text };
-    const pictureData = { cdn_img, height, width, ...jokeData };
+    const userInfoData: UserInfo = { profile_image, name, passtime } ;
+    const toolBarData: ToolBar = { love, hate, repost, comment };
+    const jokeData: Joke = { text };
+    const pictureData: Picture = { cdn_img, height, width, ...jokeData };
 
     this.state = {
       userInfoData,
@@ -42,7 +42,6 @@ export class BaseItem extends React.PureComponent<Props, any> {
   }
 
   render() {
-
     const { userInfoData, toolBarData, jokeData, pictureData } = this.state;
     return (
       <View style={styles.container}>
@@ -50,7 +49,6 @@ export class BaseItem extends React.PureComponent<Props, any> {
                       userInfoPress={()=>alert('123')}/>
 
         <PictureItem pictureData={pictureData}/>
-
         <ToolBarItem toolBarData={toolBarData}/>
       </View>
     );

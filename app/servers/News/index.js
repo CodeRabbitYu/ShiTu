@@ -5,7 +5,7 @@
 
 import { Fetch } from "../../components";
 
-import {RTWeal, RTGankResult, RTBDJResult} from "./types";
+import {RTWeal, RTGankResult, RTBDJResult} from "./interfaces";
 
 type RGankType = '福利' | 'iOS' | 'Android';
 

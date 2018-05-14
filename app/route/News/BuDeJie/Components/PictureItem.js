@@ -9,15 +9,9 @@ import {
   Image,
 } from 'react-native';
 import {FastImage} from '../../../../components';
-import {RTBDJList} from "../../../../servers/News/types";
 import { System }  from "../../../../utils";
+import type {Picture} from "../../../../servers/News/interfaces";
 
-type Picture = {
-  cdn_img: string;
-  text: string;
-  height: string;
-  width: string;
-}
 
 type Props = {
   pictureData: Picture;
@@ -27,10 +21,8 @@ export class PictureItem extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
-    // console.log(props);
-
     let imageHeight = System.SCREEN_WIDTH * props.pictureData.height / props.pictureData.width;
-    console.log(imageHeight);
+    // console.log(imageHeight);
     this.state={
       imageHeight: imageHeight,
     };

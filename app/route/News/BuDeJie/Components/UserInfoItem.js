@@ -11,18 +11,17 @@ import {
   Image,
 } from 'react-native';
 import {Button,FastImage} from "../../../../components";
-import type {RTBDJList} from "../../../../servers/News/types";
+import type {UserInfo} from "../../../../servers/News/interfaces";
 
 type Props = {
   userInfoPress: Function;
-  userInfoData: RTBDJList;
+  userInfoData: UserInfo;
 };
 
 export function UserInfoItem(props: Props) {
   let _profile_image;
 
   const { profile_image, name, passtime } = props.userInfoData;
-
 
   _profile_image = profile_image;
   if (!profile_image) {

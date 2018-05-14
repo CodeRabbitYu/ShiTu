@@ -13,10 +13,10 @@ import {System} from "../../../../utils";
 import {Button, CustomIcon} from "../../../../components";
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import type {RTBDJList} from "../../../../servers/News/types";
+import type {ToolBar} from "../../../../servers/News/interfaces";
 
 type Props = {
-  toolBarData: RTBDJList;
+  toolBarData: ToolBar;
 };
 
 type State = {
