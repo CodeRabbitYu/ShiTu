@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
 } from 'react-native';
 import {System} from "../../../../utils";
 import {Button, CustomIcon} from "../../../../components";
@@ -37,10 +36,10 @@ export class ToolBarItem extends React.Component<Props, State>{
     super(props);
     this.state = {
       buttonData: [
-        {'icon': 'ios-thumbs-up-outline',   'title': props.love,    'selected': false},
-        {'icon': 'ios-thumbs-down-outline', 'title': props.hate,    'selected': false},
-        {'icon': 'ios-open-outline',        'title': props.repost,  'selected': false},
-        {'icon': 'ios-text-outline',        'title': props.comment, 'selected': false}
+        {'icon': 'md-thumbs-up',   'title': props.love,    'selected': false},
+        {'icon': 'md-thumbs-down', 'title': props.hate,    'selected': false},
+        {'icon': 'md-open',        'title': props.repost,  'selected': false},
+        {'icon': 'md-text',        'title': props.comment, 'selected': false}
       ]
     }
   }
@@ -59,9 +58,7 @@ export class ToolBarItem extends React.Component<Props, State>{
         }
       }
     });
-
     this.setState({ buttonData })
-
   };
 
   createButton = () => {
@@ -88,46 +85,6 @@ export class ToolBarItem extends React.Component<Props, State>{
   }
 }
 
-const toolItemPress = (index: number, props: Props) => {
-  const { toolItemPress } = props;
-
-
-
-  toolItemPress(index);
-}
-
-const createButton = (props: Props) => {
-  const buttonData =  [
-    {'icon': 'ios-thumbs-up-outline',   'title': props.love,    'selected': false},
-    {'icon': 'ios-thumbs-down-outline', 'title': props.hate,    'selected': false},
-    {'icon': 'ios-open-outline',        'title': props.repost,  'selected': false},
-    {'icon': 'ios-text-outline',        'title': props.comment, 'selected': false}
-  ];
-
-  return buttonData.map((item, index) => {
-    let color = item.selected ? 'red' : 'orange';
-    return(
-      <Button key={index} onPress={()=>toolItemPress(index, props)} activeOpacity={1}>
-        <View style={styles.button}>
-          <Icon name={item.icon} size={20} color={color}/>
-          <Text style={styles.buttonTitle}>{item.title}</Text>
-          <View style={styles.buttonLine} />
-        </View>
-      </Button>
-    )
-  })
-
-}
-
-export function ToolBarItem111(props: Props) {
-  console.log(props);
-  return(
-    <View style={styles.toolBar}>
-      {createButton(props)}
-    </View>
-  )
-}
-
 const styles = StyleSheet.create({
 
   toolBar:{
@@ -135,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     borderTopWidth:0.5,
     borderTopColor:'#ddd',
-    marginTop: 10,
+    marginTop: 5,
   },
   button:{
     width: System.SCREEN_WIDTH / 4,
@@ -145,9 +102,10 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   buttonTitle:{
-    marginLeft:3,
-    fontSize:15,
-    color: 'red'
+    marginLeft: 5,
+    marginBottom: 3,
+    fontSize: 15,
+    color: 'red',
   },
   buttonLine:{
     position:'absolute',

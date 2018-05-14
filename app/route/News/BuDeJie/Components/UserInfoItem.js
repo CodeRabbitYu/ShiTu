@@ -34,8 +34,8 @@ export function UserInfoItem(props: Props) {
             <FastImage source={{uri:_profile_image}} style={styles.icon}/>
           </Button>
           <Button style={styles.userDetailView} activeOpacity={1} onPress={userInfoPress}>
-            <View >
-              <Text style={styles.userText}>{name}</Text>
+            <View>
+              <Text style={styles.userText} numberOfLines={2}>{name}</Text>
               <Text style={styles.userTime}>{passtime}</Text>
             </View>
           </Button>
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   userDetailView:{
     alignSelf: 'center',
     marginLeft: 8,
-    // marginTop: 5,
-    marginVertical: 10,
+    marginVertical: 5,
+    marginRight: '15%',
   },
   userText:{
     fontSize: 13,

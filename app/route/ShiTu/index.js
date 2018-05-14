@@ -27,12 +27,9 @@ type Props = {
 export class ShiTu extends Component<Props> {
 
   componentDidMount() {
-
     this.props.navigation.setParams({
       title: '识兔',
     })
-
-
   }
 
   render() {

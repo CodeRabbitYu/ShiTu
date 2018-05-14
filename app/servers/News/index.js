@@ -17,7 +17,6 @@ export async function loadWealPictureData(page: number, type: RGankType = '福�
 
   let url = `http://gank.io/api/data/${_type}/${count}/${page}`;
 
-
   return await Fetch.get(url);
 
   // return Gank;
@@ -25,10 +24,10 @@ export async function loadWealPictureData(page: number, type: RGankType = '福�
 
 
 const BuDeJieValue = {
-  全部: 1,
-  视频: 41,
-  图片: 10,
-  笑话: 29
+  '全部': 1,
+  '视频': 41,
+  '图片': 10,
+  '笑话': 29
 };
 
 export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
