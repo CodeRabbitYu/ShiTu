@@ -15,25 +15,43 @@ import {UserInfoItem} from "./UserInfoItem";
 import {RTBDJList} from "../../../../servers/News/types";
 import {ToolBarItem} from "./ToolBarItem";
 import {JokeItem} from "./JokeItem";
+import {PictureItem} from "./PictureItem";
 
 type Props = {
   itemData: RTBDJList;
 };
-export class BaseItem extends React.PureComponent<Props> {
+export class BaseItem extends React.PureComponent<Props, any> {
 
+
+  constructor(props: Props) {
+    super(props);
+
+    const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, height, width } = props.itemData;
+
+    const userInfoData = { profile_image, name, passtime };
+    const toolBarData = { love, hate, repost, comment };
+    const jokeData = { text };
+    const pictureData = { cdn_img, height, width, ...jokeData };
+
+    this.state = {
+      userInfoData,
+      toolBarData,
+      jokeData,
+      pictureData
+    }
+  }
 
   render() {
 
-    const { text, profile_image, name, passtime, love, hate, repost, comment } = this.props.itemData;
-
+    const { userInfoData, toolBarData, jokeData, pictureData } = this.state;
     return (
       <View style={styles.container}>
-        <UserInfoItem profile_image={profile_image} name={name} passtime={passtime}
-                      userInfoPress={()=>alert('123')} />
+        <UserInfoItem userInfoData={userInfoData}
+                      userInfoPress={()=>alert('123')}/>
 
-        <JokeItem text={text} />
+        <PictureItem pictureData={pictureData}/>
 
-        <ToolBarItem love={love} hate={hate} repost={repost} comment={comment} />
+        <ToolBarItem toolBarData={toolBarData}/>
       </View>
     );
   }

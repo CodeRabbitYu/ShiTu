@@ -13,12 +13,10 @@ import {System} from "../../../../utils";
 import {Button, CustomIcon} from "../../../../components";
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import type {RTBDJList} from "../../../../servers/News/types";
 
 type Props = {
-  love: string;
-  hate: string;
-  repost: string;
-  comment: string;
+  toolBarData: RTBDJList;
 };
 
 type State = {
@@ -34,12 +32,13 @@ type ButtonItem = {
 export class ToolBarItem extends React.Component<Props, State>{
   constructor(props: Props){
     super(props);
+    const { love, hate, repost, comment } = props.toolBarData;
     this.state = {
       buttonData: [
-        {'icon': 'md-thumbs-up',   'title': props.love,    'selected': false},
-        {'icon': 'md-thumbs-down', 'title': props.hate,    'selected': false},
-        {'icon': 'md-open',        'title': props.repost,  'selected': false},
-        {'icon': 'md-text',        'title': props.comment, 'selected': false}
+        {'icon': 'md-thumbs-up',   'title': love,    'selected': false},
+        {'icon': 'md-thumbs-down', 'title': hate,    'selected': false},
+        {'icon': 'md-open',        'title': repost,  'selected': false},
+        {'icon': 'md-text',        'title': comment, 'selected': false}
       ]
     }
   }

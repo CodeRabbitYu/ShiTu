@@ -11,29 +11,30 @@ import {
   Image,
 } from 'react-native';
 import {Button,FastImage} from "../../../../components";
+import type {RTBDJList} from "../../../../servers/News/types";
 
 type Props = {
-  profile_image: string;
-  name: string;
-  passtime: string;
   userInfoPress: Function;
+  userInfoData: RTBDJList;
 };
 
 export function UserInfoItem(props: Props) {
   let _profile_image;
 
-  const { profile_image, name, passtime, userInfoPress } = props;
+  const { profile_image, name, passtime } = props.userInfoData;
+
+
   _profile_image = profile_image;
   if (!profile_image) {
     _profile_image = 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png';
   }
   return (
     <View>
-        <View style={{flexDirection:'row' }}>
-          <Button activeOpacity={1} onPress={userInfoPress}>
+        <View style={{flexDirection:'row'}}>
+          <Button activeOpacity={1} onPress={props.userInfoPress}>
             <FastImage source={{uri:_profile_image}} style={styles.icon}/>
           </Button>
-          <Button style={styles.userDetailView} activeOpacity={1} onPress={userInfoPress}>
+          <Button style={styles.userDetailView} activeOpacity={1} onPress={props.userInfoPress}>
             <View>
               <Text style={styles.userText} numberOfLines={2}>{name}</Text>
               <Text style={styles.userTime}>{passtime}</Text>

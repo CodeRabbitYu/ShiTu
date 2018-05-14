@@ -12,8 +12,12 @@ import {
 } from 'react-native';
 import {RTBDJList} from "../../../../servers/News/types";
 
-export const JokeItem = (props: RTBDJList) => {
-  const { text } = props;
+type Props = {
+  jokeData: RTBDJList
+}
+
+export const JokeItem = (props: Props) => {
+  const { text } = props.jokeData;
   return(
     <View style={styles.jokeView}>
       <Text style={styles.jokeText}>{text}</Text>

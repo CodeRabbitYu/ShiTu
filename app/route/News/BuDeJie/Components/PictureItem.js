@@ -10,27 +10,39 @@ import {
 } from 'react-native';
 import {FastImage} from '../../../../components';
 import {RTBDJList} from "../../../../servers/News/types";
+import { System }  from "../../../../utils";
 
-type Props<RTBDJList> = {
+type Picture = {
+  cdn_img: string;
   text: string;
-  image0: string;
+  height: string;
+  width: string;
 }
-export default class PictureItem extends PureComponent<Props<RTBDJList>> {
 
-  constructor(props: Props<RTBDJList>) {
+type Props = {
+  pictureData: Picture;
+}
+export class PictureItem extends React.PureComponent<Props> {
+
+  constructor(props: Props) {
     super(props);
-    this.state = {
 
-    }
+    // console.log(props);
+
+    let imageHeight = System.SCREEN_WIDTH * props.pictureData.height / props.pictureData.width;
+    console.log(imageHeight);
+    this.state={
+      imageHeight: imageHeight,
+    };
   }
 
   render() {
-    const { text, image0 } = props;
+    const { text, cdn_img } = this.props.pictureData;
 
     return(
       <View style={styles.jokeView}>
-        <Text>{text}</Text>
-        <FastImage source={{uri: image0}} style={}/>
+        <Text style={styles.jokeText}>{text}</Text>
+        <FastImage source={{uri: cdn_img}} style={{width: System.SCREEN_WIDTH - 20, height: this.state.imageHeight}}/>
       </View>
     )
   }

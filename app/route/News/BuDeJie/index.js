@@ -34,9 +34,6 @@ export class BuDeJie extends React.Component<any, any> {
     this.BuDeJieMobx = new BuDeJieMobx();
   }
 
-  componentDidMount() {
-  }
-
   onFetch = async ( value: any = this.BuDeJieMobx.maxtime, startFetch: any, abortFetch: any) => {
     try {
       await this.BuDeJieMobx.fetchBuDeJieData(this.props.type, value);
@@ -47,7 +44,6 @@ export class BuDeJie extends React.Component<any, any> {
     }
   }
 
-  //      {/*<Text style={{marginTop: 10, backgroundColor: '#aaa'}}>{index + '        ' + _item.text}</Text>*/}
   renderItem = ( {item, index}: any ) => {
     const _item: RTBDJList = item
     return(
