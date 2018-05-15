@@ -21,17 +21,26 @@ type Props = {
   itemData: RTBDJList;
 };
 
-export class BaseItem extends React.PureComponent<Props, any> {
+type State = {
+  userInfoData: UserInfo;
+  toolBarData: ToolBar;
+  jokeData: Joke;
+  pictureData: Picture;
+}
+
+export class BaseItem extends React.PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
 
-    const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, height, width } = props.itemData;
+    // console.log(props);
 
-    const userInfoData: UserInfo = { profile_image, name, passtime } ;
-    const toolBarData: ToolBar = { love, hate, repost, comment };
-    const jokeData: Joke = { text };
-    const pictureData: Picture = { cdn_img, height, width, ...jokeData };
+    const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, imageHeight, isLongPicture } = props.itemData;
+
+    const userInfoData = { profile_image, name, passtime } ;
+    const toolBarData = { love, hate, repost, comment };
+    const jokeData = { text };
+    const pictureData = { cdn_img, imageHeight, isLongPicture, ...jokeData };
 
     this.state = {
       userInfoData,
@@ -49,6 +58,7 @@ export class BaseItem extends React.PureComponent<Props, any> {
                       userInfoPress={()=>alert('123')}/>
 
         <PictureItem pictureData={pictureData}/>
+
         <ToolBarItem toolBarData={toolBarData}/>
       </View>
     );

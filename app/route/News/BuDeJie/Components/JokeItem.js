@@ -9,13 +9,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import type {Joke} from "../../../../servers/News/interfaces";
 
 type Props = {
   jokeData: Joke
-}
-
-type Joke = {
-   text: string;
 }
 
 export const JokeItem = (props: Props) => {

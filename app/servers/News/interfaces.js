@@ -69,7 +69,8 @@ export interface RTBDJList {
   t: string;
   ding: string;
   favourite: string;
-  UserInfo: Object<UserInfo>;
+  isLongPicture: boolean;
+  imageHeight: number;
 }
 
 /** @desc 不得姐参数 */
@@ -110,9 +111,11 @@ export interface Joke extends RTBDJList {
 }
 
 /** @desc 图片 */
-export interface Picture extends RTBDJList<Joke> {
+export interface Picture extends RTBDJList{
   cdn_img: string;
   height: string;
   width: string;
   text: string;
+  isLongPicture: boolean;
+  imageHeight: number;
 }

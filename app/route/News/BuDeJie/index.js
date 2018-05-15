@@ -14,7 +14,7 @@ import {
 
 import {loadBuDeJieData, loadWealPictureData} from "../../../servers/News";
 import { TableList } from '../../../components';
-import type {RTBDJList, RTWeal} from "../../../servers/News/types";
+import type {RTBDJList, RTWeal} from "../../../servers/News/interfaces";
 import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
 import { observer } from "mobx-react";
 import { BaseItem } from "./Components";
@@ -45,7 +45,6 @@ export class BuDeJie extends React.Component<any, any> {
   }
 
   renderItem = ( {item, index}: any ) => {
-    const _item: RTBDJList = item
     return(
       <BaseItem itemData={item}/>
     )
@@ -57,7 +56,6 @@ export class BuDeJie extends React.Component<any, any> {
         <TableList
           style={{backgroundColor: 'white'}}
           onFetch={this.onFetch}
-          // item={this.item}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id}
           initialNumToRender={20}

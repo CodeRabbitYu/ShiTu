@@ -35,10 +35,10 @@ export class ToolBarItem extends React.Component<Props, State>{
     const { love, hate, repost, comment } = props.toolBarData;
     this.state = {
       buttonData: [
-        {'icon': 'md-thumbs-up',   'title': love,    'selected': false},
-        {'icon': 'md-thumbs-down', 'title': hate,    'selected': false},
-        {'icon': 'md-open',        'title': repost,  'selected': false},
-        {'icon': 'md-text',        'title': comment, 'selected': false}
+        {icon: 'md-thumbs-up',   title: love,    selected: false},
+        {icon: 'md-thumbs-down', title: hate,    selected: false},
+        {icon: 'md-open',        title: repost,  selected: false},
+        {icon: 'md-text',        title: comment, selected: false}
       ]
     }
   }
