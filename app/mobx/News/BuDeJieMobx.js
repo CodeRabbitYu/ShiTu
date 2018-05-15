@@ -24,13 +24,13 @@ class BuDeJieMobx {
       let imageHeight = System.SCREEN_WIDTH * item.height / item.width;
 
       item.imageHeight = imageHeight;
+      item.containerHeight = imageHeight;
       item.isLongPicture = false;
 
       if (imageHeight > ContainerHeight && imageHeight < System.SCREEN_HEIGHT) {
-        item.imageHeight = imageHeight - 80;
+        item.containerHeight = imageHeight - 80;
         item.isLongPicture = false;
       } else if(imageHeight > System.SCREEN_HEIGHT && item.is_gif === '0') {
-        item.imageHeight = System.SCREEN_HEIGHT * 0.5;
         item.isLongPicture = true;
       }
     })

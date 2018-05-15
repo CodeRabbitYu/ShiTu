@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
+
 import type {Joke} from "../../../../servers/News/interfaces";
 
 type Props = {
@@ -25,7 +26,6 @@ export const JokeItem = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-
   jokeView: {
     marginHorizontal: 10,
     // marginTop: 3,

@@ -9,7 +9,7 @@ import {
   Text,
   View,
   Image,
-  FlatList,
+  FlatList, Modal,
 } from 'react-native';
 
 import {loadBuDeJieData, loadWealPictureData} from "../../../servers/News";
@@ -18,9 +18,11 @@ import type {RTBDJList, RTWeal} from "../../../servers/News/interfaces";
 import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
 import { observer } from "mobx-react";
 import { BaseItem } from "./Components";
+import type {NavigationState} from "react-navigation";
 
 type Props = {
-  type: number
+  type: number;
+  navigate: NavigationState
 };
 
 
@@ -32,9 +34,12 @@ export class BuDeJie extends React.Component<any, any> {
   constructor(props: Props) {
     super(props);
     this.BuDeJieMobx = new BuDeJieMobx();
+    this.state = {
+      isVisible: false
+    }
   }
 
-  onFetch = async ( value: any = this.BuDeJieMobx.maxtime, startFetch: any, abortFetch: any) => {
+  onFetch = async ( value: any = this.BuDeJieMobx.maxtime, startFetch: Function, abortFetch: Function) => {
     try {
       await this.BuDeJieMobx.fetchBuDeJieData(this.props.type, value);
       startFetch(this.BuDeJieMobx.dataSource.slice(), 20)
@@ -45,8 +50,9 @@ export class BuDeJie extends React.Component<any, any> {
   }
 
   renderItem = ( {item, index}: any ) => {
+    const { navigate } = this.props;
     return(
-      <BaseItem itemData={item}/>
+      <BaseItem itemData={item} navigate={navigate} itemPress={()=>alert('123')}/>
     )
   }
 

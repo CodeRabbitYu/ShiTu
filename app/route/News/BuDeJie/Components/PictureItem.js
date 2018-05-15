@@ -18,16 +18,16 @@ type Props = {
 }
 
 export class PictureItem extends React.PureComponent<Props> {
-  
+
   renderPicture() {
-    const { cdn_img, isLongPicture, imageHeight } = this.props.pictureData;
+    const { cdn_img, isLongPicture, containerHeight } = this.props.pictureData;
 
     if (isLongPicture) {
       return (
         <View>
           <Image source={{uri: cdn_img}}
                      // resizeMode={'contain'}
-                     style={[styles.picture, {height: imageHeight}]}
+                     style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
           />
           <View style={styles.longPictureSignView}>
             <Text style={styles.longPictureSignText}>点击查看原图</Text>
@@ -37,16 +37,15 @@ export class PictureItem extends React.PureComponent<Props> {
     } else {
       return (
         <FastImage source={{uri: cdn_img}}
-                   style={[styles.picture, {height: imageHeight}]}/>
+                   resizeMode={'contain'}
+                   style={[styles.picture, {height: containerHeight}]}/>
       )
     }
   }
 
   render() {
-    const { text } = this.props.pictureData;
     return(
       <View style={styles.pictureView}>
-        <Text style={styles.jokeText}>{text}</Text>
         {this.renderPicture()}
       </View>
     )
@@ -58,13 +57,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5,
   },
-  jokeText: {
-    lineHeight: 22,
-    fontSize: 17,
-  },
   picture: {
     width: System.SCREEN_WIDTH - 20,
-    marginTop: 5,
   },
   longPictureSignView: {
     backgroundColor:'rgba(88, 87, 86, 0.8)',

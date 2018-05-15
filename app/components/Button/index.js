@@ -42,7 +42,7 @@ type Props = {
   ...TouchableWithoutFeedback.propTypes,
 }
 
-export class Button extends React.Component<Props> {
+export default class Button extends React.Component<Props> {
 
   static propTypes = {
     onPress: PropTypes.func.isRequired,

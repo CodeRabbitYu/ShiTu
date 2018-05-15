@@ -9,8 +9,6 @@ import {Text, View} from "react-native";
 import {imageSize, System} from '../../utils';
 import {Button, TableList, FastImage} from '../../components'
 
-// import {loadGankData, RGank} from '../../servers/News';
-
 import {observer} from 'mobx-react';
 
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
@@ -18,9 +16,19 @@ import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-v
 import { WealPicture } from './WealPicture';
 import { WealPictureDetail } from "./WealPictureDetail";
 import { BuDeJie } from './BuDeJie';
+import {BuDeJiePictureDetail} from "./BuDeJiePictureDetail";
+
+import type {NavigationState} from 'react-navigation';
+
 
 type State = {
-  typeArr: Array<any>
+  typeArr: Array<typeItem>
+}
+
+type typeItem = {
+  title: string;
+  type: string | number;
+  navigate: NavigationState;
 }
 
 @observer
@@ -37,10 +45,10 @@ class News extends React.Component<any, State> {
     const { navigate } = this.props.navigation;
     this.state = {
       typeArr : [
-        {'title': '图片', 'type': 10, 'navigate': navigate},
-        {'title': '全部', 'type': 1,  'navigate': navigate},
-        {'title': '视频', 'type': 41, 'navigate': navigate},
-        {'title': '笑话', 'type': 29, 'navigate': navigate},
+        {'title': '图片', 'type': 10,   'navigate': navigate},
+        {'title': '全部', 'type': 1,    'navigate': navigate},
+        {'title': '视频', 'type': 41,   'navigate': navigate},
+        {'title': '笑话', 'type': 29,   'navigate': navigate},
         {'title': '福利', 'type': '福利','navigate': navigate},
       ],
     }
@@ -58,16 +66,13 @@ class News extends React.Component<any, State> {
       >
         {
           this.state.typeArr.map((item, i) => {
-            // return(
-            //   <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
-            // )
             if (i === 4) {
               return (
-                <WealPicture tabLabel={item.title} key={i} navigate={item.navigate} navigation={this.props.navigation}/>
+                <WealPicture tabLabel={item.title} key={i} navigate={item.navigate}/>
               );
             } else {
               return(
-                <BuDeJie type={item.type} tabLabel={item.title} key={i}/>
+                <BuDeJie type={item.type} tabLabel={item.title} key={i} navigate={item.navigate}/>
               )
             }
             })
@@ -82,4 +87,5 @@ export {
   WealPicture,
   WealPictureDetail,
   BuDeJie,
+  BuDeJiePictureDetail,
 }

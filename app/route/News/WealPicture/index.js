@@ -21,9 +21,10 @@ import { observer} from 'mobx-react'
 import { Button, FastImage } from "../../../components";
 import {BuDeJie} from "../index";
 import {WealPictureDetail} from "../WealPictureDetail";
+import type {NavigationState} from "react-navigation";
 
 type Props = {
-  navigation: any,
+  navigate: NavigationState;
 };
 @observer
 export class WealPicture extends React.Component<Props> {
@@ -42,7 +43,7 @@ export class WealPicture extends React.Component<Props> {
   renderItem = ({ item, index, column }: any) => {
     return(
       <Button
-        onPress={()=> this.props.navigation.navigate('WealPictureDetail', {url: item.url, isHiddenHeader: true})}
+        onPress={()=> this.props.navigate('WealPictureDetail', {url: item.url, isHiddenHeader: true})}
       >
         <FastImage source={{uri: item.url}}
                style={[

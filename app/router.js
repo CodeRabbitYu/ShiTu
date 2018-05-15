@@ -17,7 +17,7 @@ import { System } from './utils';
 import { CustomIcon, Theme } from './components';
 
 import { ShiTu } from './route/ShiTu';
-import { News, WealPicture, WealPictureDetail, BuDeJie } from "./route/News";
+import { News, WealPicture, WealPictureDetail, BuDeJie, BuDeJiePictureDetail } from "./route/News";
 import { Main } from "./route/Main";
 
 import { GankTab } from './route/News/route';
@@ -57,21 +57,22 @@ export const MyApp = createStackNavigator({
   },
   WealPictureDetail: {
     screen: WealPictureDetail,
-    // navigationOptions: () => ({header: null})
   },
   BuDeJie: {
     screen: BuDeJie,
   },
+  BuDeJiePictureDetail: {
+    screen: BuDeJiePictureDetail
+  },
   Sample: {
     screen: Sample,
-  }
+  },
+
 },{
   navigationOptions: ({navigation}) => NavigatorOptions(navigation)
 });
 
 const NavigatorOptions = (navigation) => {
-
-  // console.log(navigation);
 
   const routes = navigation.state.routes;
 
@@ -86,15 +87,18 @@ const NavigatorOptions = (navigation) => {
     textAlign: 'center',
     paddingTop: System.Android ? 17 : null,
   };
-  const headerStyle = { backgroundColor: Theme.navColor };
+  const headerBackTitle = null;
+  const headerTintColor = 'white';
+  const headerStyle = {
+      backgroundColor: Theme.navColor,
+      shadowColor: 'transparent',
+      shadowOpacity: 0,
+      borderBottomWidth: 0,
+      borderBottomColor: 'transparent',
+      elevation: 0,
+  };
 
-  const headerLeft = ()=>{
-    return(
-      <Text>12313132</Text>
-    )
-  }
-
-  return {headerTitle, headerStyle, headerTitleStyle, headerLeft }
+  return { headerTitle, headerStyle, headerTitleStyle, headerBackTitle, headerTintColor }
 }
 
 const TabOptions = (tabBarTitle, tabBarIconName) => {

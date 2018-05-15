@@ -19,7 +19,6 @@ export default class index extends FastImage<any, any> {
 
   ImageLoading_Error(){
     console.log('error');
-    alert('error');
     this.setState({ imageLoading: false });
   }
 

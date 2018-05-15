@@ -71,6 +71,7 @@ export interface RTBDJList {
   favourite: string;
   isLongPicture: boolean;
   imageHeight: number;
+  containerHeight: number;
 }
 
 /** @desc 不得姐参数 */
@@ -115,7 +116,7 @@ export interface Picture extends RTBDJList{
   cdn_img: string;
   height: string;
   width: string;
-  text: string;
   isLongPicture: boolean;
   imageHeight: number;
+  containerHeight: number;
 }
