@@ -72,6 +72,11 @@ export interface RTBDJList {
   isLongPicture: boolean;
   imageHeight: number;
   containerHeight: number;
+
+  userInfoData: UserInfo;
+  toolBarData: ToolBar;
+  jokeData: Joke;
+  pictureData: Picture;
 }
 
 /** @desc 不得姐参数 */

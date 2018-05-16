@@ -6,6 +6,7 @@ import {observable, computed, action, runInAction, autorun} from 'mobx'
 import type {RTGankResult} from "../../servers/News/types";
 import {loadBuDeJieData, RTBuDeJieType} from "../../servers/News";
 import { System } from "../../utils";
+import type {UserInfo} from "../../servers/News/interfaces";
 
 
 const ContainerHeight = System.SCREEN_HEIGHT - 49 - 64 - 54;
@@ -33,7 +34,22 @@ class BuDeJieMobx {
       } else if(imageHeight > System.SCREEN_HEIGHT && item.is_gif === '0') {
         item.isLongPicture = true;
       }
+
+
+      const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, containerHeight, isLongPicture } = item;
+
+      const userInfoData = { profile_image, name, passtime } ;
+      const toolBarData = { love, hate, repost, comment };
+      const jokeData = { text };
+      const pictureData = { cdn_img, imageHeight, isLongPicture, containerHeight, ...jokeData };
+
+      item.userInfoData = userInfoData;
+      item.toolBarData = toolBarData;
+      item.jokeData = jokeData;
+      item.pictureData = pictureData;
+
     })
+
 
     console.log(dataSource);
 

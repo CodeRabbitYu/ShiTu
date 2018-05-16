@@ -18,7 +18,7 @@ import { MasonryList } from "../../../components";
 import { WealPictureMobx } from '../../../mobx/News';
 
 import { observer} from 'mobx-react'
-import { Button, FastImage } from "../../../components";
+import { Button, CustomImage } from "../../../components";
 import {BuDeJie} from "../index";
 import {WealPictureDetail} from "../WealPictureDetail";
 import type {NavigationState} from "react-navigation";
@@ -45,7 +45,7 @@ export class WealPicture extends React.Component<Props> {
       <Button
         onPress={()=> this.props.navigate('WealPictureDetail', {url: item.url, isHiddenHeader: true})}
       >
-        <FastImage source={{uri: item.url}}
+        <CustomImage source={{uri: item.url}}
                style={[
                  styles.cell,
                  { height: item.height, backgroundColor: 'white'},

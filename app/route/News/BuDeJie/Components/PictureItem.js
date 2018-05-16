@@ -9,12 +9,13 @@ import {
   View,
   Image,
 } from 'react-native';
-import {FastImage} from '../../../../components';
+import {CustomImage,Button} from '../../../../components';
 import { System }  from "../../../../utils";
 import type {Picture} from "../../../../servers/News/interfaces";
 
 type Props = {
   pictureData: Picture;
+  picturePress: Function;
 }
 
 export class PictureItem extends React.PureComponent<Props> {
@@ -36,18 +37,18 @@ export class PictureItem extends React.PureComponent<Props> {
       )
     } else {
       return (
-        <FastImage source={{uri: cdn_img}}
-                   resizeMode={'contain'}
-                   style={[styles.picture, {height: containerHeight}]}/>
+        <CustomImage source={{uri: cdn_img}}
+                     resizeMode={'contain'}
+                     style={[styles.picture, {height: containerHeight}]}/>
       )
     }
   }
 
   render() {
     return(
-      <View style={styles.pictureView}>
+      <Button style={styles.pictureView} onPress={this.props.picturePress}>
         {this.renderPicture()}
-      </View>
+      </Button>
     )
   }
 }

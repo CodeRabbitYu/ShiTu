@@ -10,11 +10,10 @@ import {
   View,
   Image,
 } from 'react-native';
-import {Button,FastImage} from "../../../../components";
+import {Button,CustomImage} from "../../../../components";
 import type {UserInfo} from "../../../../servers/News/interfaces";
 
 type Props = {
-  userInfoPress: Function;
   userInfoData: UserInfo;
 };
 
@@ -30,10 +29,10 @@ export function UserInfoItem(props: Props) {
   return (
     <View>
         <View style={{flexDirection:'row'}}>
-          <Button activeOpacity={1} onPress={props.userInfoPress}>
-            <FastImage source={{uri:_profile_image}} style={styles.icon}/>
+          <Button activeOpacity={1} onPress={()=>alert('点击用户信息')}>
+            <CustomImage source={{uri:_profile_image}} style={styles.icon}/>
           </Button>
-          <Button style={styles.userDetailView} activeOpacity={1} onPress={props.userInfoPress}>
+          <Button style={styles.userDetailView} activeOpacity={1} onPress={()=>alert('点击用户信息')}>
             <View>
               <Text style={styles.userText} numberOfLines={2}>{name}</Text>
               <Text style={styles.userTime}>{passtime}</Text>

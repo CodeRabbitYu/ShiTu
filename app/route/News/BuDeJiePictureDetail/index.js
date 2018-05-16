@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import type {Picture} from "../../../servers/News/interfaces";
 
-import { FastImage, Theme } from '../../../components'
+import { CustomImage, Theme } from '../../../components'
 import type {NavigationState} from "react-navigation";
 import {System} from "../../../utils";
 
@@ -50,7 +50,7 @@ export class BuDeJiePictureDetail extends React.Component<Props> {
       )
     } else {
       return (
-        <FastImage source={{uri: cdn_img}}
+        <CustomImage source={{uri: cdn_img}}
                    resizeMode={'contain'}
                    style={[styles.picture, {height: imageHeight}]}/>
       )

@@ -31,16 +31,16 @@ const MyTab = createBottomTabNavigator({
     screen: ShiTu,
     navigationOptions: ()=> TabOptions('识兔', 'ShiTu'),
   },
-  Gank: {
+  News: {
     screen: News,
-    navigationOptions: () => TabOptions('干货', 'Gank'),
+    navigationOptions: () => TabOptions('干货', 'News'),
   },
   Main: {
     screen: Main,
     navigationOptions: ()=> TabOptions('我的', 'Main'),
   },
 },{
-  initialRouteName: 'Gank',
+  initialRouteName: 'News',
   backBehavior: 'none',
   tabBarOptions: {
     style: {
@@ -69,7 +69,10 @@ export const MyApp = createStackNavigator({
   },
 
 },{
-  navigationOptions: ({navigation}) => NavigatorOptions(navigation)
+  navigationOptions: ({navigation}) => NavigatorOptions(navigation),
+  headerTransitionPreset: 'fade-in-place',
+  headerMode: 'float',
+  // mode: 'modal'
 });
 
 const NavigatorOptions = (navigation) => {

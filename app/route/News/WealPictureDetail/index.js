@@ -12,7 +12,7 @@ import {
   CameraRoll
 } from 'react-native';
 
-import { Button, FastImage } from "../../../components";
+import { Button, CustomImage } from "../../../components";
 import { System } from "../../../utils";
 import { ActionSheet } from 'teaset';
 import FetchBolb from 'react-native-fetch-blob';
@@ -105,7 +105,7 @@ export class WealPictureDetail extends React.Component<Props, State> {
               style={{backgroundColor: 'red', flex: 1}}
               activeOpacity={0.9}
       >
-        <FastImage style={styles.container}
+        <CustomImage style={styles.container}
                    source={{uri: url}}
                    resizeMode={'cover'}
         />
