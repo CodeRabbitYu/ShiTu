@@ -74,7 +74,6 @@ export class BuDeJie extends React.Component<any, any> {
   }
 
   render() {
-    console.log(this.itemData);
     return [
       <TableList
         key={'TableList'}

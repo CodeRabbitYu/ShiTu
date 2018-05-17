@@ -6,42 +6,73 @@
 import React from 'react';
 
 import FastImage from 'react-native-fast-image';
-import {View, StyleSheet, Image} from "react-native";
+import { Image, StyleSheet, ActivityIndicator, View} from "react-native";
 
-export default class index extends FastImage<any, any> {
+type Size = 'large' | 'small';
 
-  constructor(props: any){
+type Props = {
+  useCustomImage: boolean;
+  activityVisible: boolean;
+  activitySize: Size;
+  ...FastImage.propTypes;
+}
+
+let CustomImage = FastImage;
+
+export default class index extends React.Component<Props, any> {
+
+  constructor(props: Props){
     super(props);
     this.state={
-      imageLoading : true,
+      imageLoading: true,
+      imageLoaded: true,
+      activityVisible: props.activityVisible
     }
   }
 
-  ImageLoading_Error(){
+  imageLoadError(){
     console.log('error');
-    this.setState({ imageLoading: false });
+    this.setState({ imageLoading: false, activityVisible: false });
+  }
+
+  imageLoadEnd() {
+    this.setState({ activityVisible: false });
   }
 
   render() {
-    const { source } = this.props
+    const { source, useCustomImage = false, activitySize = 'small' } = this.props;
+
+    if (!useCustomImage) CustomImage = Image;
+
+    console.log(CustomImage);
+
     return (
-      <FastImage
-        {...this.props}
-        source = { this.state.imageLoading
-          ?
-          source
-          :
-          { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' } }
-        onError={this.ImageLoading_Error.bind(this)}
-      />
+      <View style={styles.customImageView}>
+        <CustomImage
+          {...this.props}
+          source = { this.state.imageLoading
+            ?
+            source
+            :
+            { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' } }
+          onError={this.imageLoadError.bind(this)}
+          onLoadEnd={this.imageLoadEnd.bind(this)}
+        />
+        <ActivityIndicator style={styles.activityStyle} animating={this.state.activityVisible} size={activitySize}/>
+      </View>
 
     );
   }
 }
 
 const styles = StyleSheet.create({
-  MainContainer : {
-    // flex:1,
-    backgroundColor: 'blue'
+  customImageView: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  activityStyle: {
+    position: 'absolute',
+
+  }
 });

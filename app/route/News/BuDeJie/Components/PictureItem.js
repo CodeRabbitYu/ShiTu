@@ -8,6 +8,8 @@ import {
   Text,
   View,
   Image,
+  ActivityIndicator,
+  AccessibilityInfo
 } from 'react-native';
 import {CustomImage,Button} from '../../../../components';
 import { System }  from "../../../../utils";
@@ -26,9 +28,10 @@ export class PictureItem extends React.PureComponent<Props> {
     if (isLongPicture) {
       return (
         <View>
-          <Image source={{uri: cdn_img}}
+          <CustomImage source={{uri: cdn_img}}
+                       useCustomImage={false}
                      // resizeMode={'contain'}
-                     style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
+                       style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
           />
           <View style={styles.longPictureSignView}>
             <Text style={styles.longPictureSignText}>点击查看原图</Text>

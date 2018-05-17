@@ -34,17 +34,17 @@ export class Main extends Component<Props> {
       <View style={styles.container}>
         <Text>Main</Text>
 
-        <View style={{backgroundColor: 'red', height:badegeNumber, width: badegeNumber, borderRadius: badegeRadius,
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
-          marginLeft: 20
-        }}>
-          <Text>99</Text>
-          <Text style={{marginBottom: 10, color: 'green', alignItems: 'flex-end', alignSelf: 'space-around'}}>
-            +
-          </Text>
-        </View>
+        {/*<View style={{backgroundColor: 'red', height:badegeNumber, width: badegeNumber, borderRadius: badegeRadius,*/}
+          {/*alignItems: 'center',*/}
+          {/*justifyContent: 'center',*/}
+          {/*flexDirection: 'row',*/}
+          {/*marginLeft: 20*/}
+        {/*}}>*/}
+          {/*<Text>99</Text>*/}
+          {/*<Text style={{marginBottom: 10, color: 'green', alignItems: 'flex-end', alignSelf: 'space-around'}}>*/}
+            {/*+*/}
+          {/*</Text>*/}
+        {/*</View>*/}
 
         {/*<LargeList*/}
           {/*style={{ flex: 1, backgroundColor:'orange' }}*/}

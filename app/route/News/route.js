@@ -52,7 +52,7 @@ export const GankTab = createMaterialTopTabNavigator({
 
 },{
 
-  initialRouteName: 'Main5',
+  initialRouteName: 'ShiTu',
   swipeEnabled: true,
   animationEnabled: false,
   backBehavior: 'none',

@@ -66,6 +66,13 @@ export default class Sample extends React.Component {
               this.setState({ numberOfSections: parseInt(text) })}
           />
         </View>
+
+        <TouchableOpacity onPress={()=> {
+          console.log(this.props.navigation)
+          this.props.navigation.toggleDrawer()
+        }} >
+          <Text>打开侧边栏</Text>
+        </TouchableOpacity>
         <View style={{ flexDirection: "row", marginTop: 20, marginLeft: 50 }}>
           <Text style={{ width: 80 }}>rows</Text>
           <TextInput
