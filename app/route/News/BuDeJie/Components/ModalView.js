@@ -8,20 +8,32 @@ import {
   StyleSheet,
   Text,
   View,
-  Image, ScrollView,
+  Image, ScrollView, ActivityIndicator,
 } from 'react-native';
 import {JokeItem} from "./JokeItem";
 import {PictureItem} from "./PictureItem";
 import {CustomImage, Button} from '../../../../components';
 import type {RTBDJList} from "../../../../servers/News/interfaces";
 import {System} from "../../../../utils";
+import {observer} from "mobx-react";
+import {observable} from "mobx";
 
 type Props = {
   itemData: RTBDJList;
   // itemPress: Function;
   picturePress: Function;
 };
+
+@observer
 export class ModalView extends React.Component<Props> {
+
+
+  @observable isVisible: boolean = true;
+
+  setActivityVisible = (isVisible: boolean) => {
+    console.log('isVisible', isVisible);
+    this.isVisible = false;
+  }
 
   renderItem() {
     const { jokeData, pictureData, type, isLongPicture, cdn_img, imageHeight } = this.props.itemData;
@@ -41,9 +53,12 @@ export class ModalView extends React.Component<Props> {
         return (
           <ScrollView>
             <Button onPress={this.props.picturePress} activeOpacity={1}>
-              <Image source={{uri: cdn_img}}
+              <CustomImage source={{uri: cdn_img}}
                 // resizeMode={'contain'}
-                     style={[styles.picture, {height: imageHeight}]}
+                //            useCustomImage={false}
+                           activityVisible={false}
+                           onLoadEnd={()=>this.setActivityVisible(false)}
+                           style={[styles.picture, {height: imageHeight}]}
               />
             </Button>
           </ScrollView>
@@ -53,6 +68,8 @@ export class ModalView extends React.Component<Props> {
           <Button onPress={this.props.picturePress} activeOpacity={1}>
             <CustomImage source={{uri: cdn_img}}
                          resizeMode={'contain'}
+                         activityVisible={false}
+                         onLoadEnd={()=>this.setActivityVisible(false)}
                          style={[styles.picture, {height: imageHeight}]}/>
           </Button>
         )
@@ -73,10 +90,10 @@ export class ModalView extends React.Component<Props> {
   }
 
   render() {
-    // const { itemPress } = this.props;
     return(
-      <View>
+      <View style={styles.container}>
         {this.renderItem()}
+        <ActivityIndicator size={'large'} animating={this.isVisible} style={styles.activityStyle}/>
       </View>
     )
   }
@@ -84,22 +101,15 @@ export class ModalView extends React.Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   picture: {
     width: System.SCREEN_WIDTH,
   },
-  longPictureSignView: {
-    backgroundColor:'rgba(88, 87, 86, 0.8)',
-    height: 40,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
+  activityStyle: {
     position: 'absolute',
-    width: System.SCREEN_WIDTH,
-  },
-  longPictureSignText: {
-    fontSize: 18,
-    color: 'white'
   }
+
 });

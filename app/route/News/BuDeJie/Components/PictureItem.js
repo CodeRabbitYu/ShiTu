@@ -30,7 +30,7 @@ export class PictureItem extends React.PureComponent<Props> {
         <View>
           <CustomImage source={{uri: cdn_img}}
                        useCustomImage={false}
-                     // resizeMode={'contain'}
+                       resizeMode={'contain'}
                        style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
           />
           <View style={styles.longPictureSignView}>

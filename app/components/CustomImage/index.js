@@ -33,18 +33,19 @@ export default class index extends React.Component<Props, any> {
   imageLoadError(){
     console.log('error');
     this.setState({ imageLoading: false, activityVisible: false });
+    this.props.onError && this.props.onError()
   }
 
   imageLoadEnd() {
     this.setState({ activityVisible: false });
+    this.props.onLoadEnd && this.props.onLoadEnd()
+    console.log('onLoadEnd');
   }
 
   render() {
     const { source, useCustomImage = false, activitySize = 'small' } = this.props;
 
     if (!useCustomImage) CustomImage = Image;
-
-    console.log(CustomImage);
 
     return (
       <View style={styles.customImageView}>
@@ -73,6 +74,5 @@ const styles = StyleSheet.create({
   },
   activityStyle: {
     position: 'absolute',
-
   }
 });

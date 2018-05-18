@@ -9,7 +9,9 @@ import {
   Text,
   View,
   Image,
-  FlatList, Modal,
+  FlatList,
+  Modal,
+  ActivityIndicator
 } from 'react-native';
 
 import {loadBuDeJieData, loadWealPictureData} from "../../../servers/News";
@@ -81,7 +83,7 @@ export class BuDeJie extends React.Component<any, any> {
         onFetch={this.onFetch}
         renderItem={this.renderItem}
         keyExtractor={(item) => item.id}
-        initialNumToRender={20}
+        initialNumToRender={10}
         paginationType={'value'}
       />,
       <Modal key={'Modal'}
@@ -91,9 +93,9 @@ export class BuDeJie extends React.Component<any, any> {
         <View style={{flex: 1, backgroundColor: 'black', justifyContent: 'center', alignItems: 'center'}}>
           {
             this.itemData ? <ModalView itemData={this.itemData}
-                                       picturePress={() => {
-                                         this.setVisible(false);
-                                       }}
+                                         picturePress={() => {
+                                           this.setVisible(false);
+                                         }}
               />
               : null
           }
@@ -107,4 +109,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
 });
