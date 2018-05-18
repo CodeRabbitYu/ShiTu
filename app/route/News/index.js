@@ -66,7 +66,7 @@ class News extends React.Component<any, State> {
       >
         {
           this.state.typeArr.map((item, i) => {
-            if (i === 4) {
+            if (i === 0) {
               return (
                 <WealPicture tabLabel={item.title} key={i} navigate={item.navigate}/>
               );

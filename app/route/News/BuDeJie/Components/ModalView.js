@@ -20,7 +20,6 @@ import {observable} from "mobx";
 
 type Props = {
   itemData: RTBDJList;
-  // itemPress: Function;
   picturePress: Function;
 };
 

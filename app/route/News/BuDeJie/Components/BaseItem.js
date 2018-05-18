@@ -11,14 +11,15 @@ import {
   Image,
 } from 'react-native';
 
-import {UserInfoItem} from "./UserInfoItem";
 import {RTBDJList, ToolBar, UserInfo, Joke, Picture} from "../../../../servers/News/interfaces";
-import {ToolBarItem} from "./ToolBarItem";
 import {JokeItem} from "./JokeItem";
 import {PictureItem} from "./PictureItem";
 import {ContainerItem} from "./ContainerItem";
 import {Button} from "../../../../components";
 import type {NavigationState} from "react-navigation";
+
+import {UserInfoView} from "./Views/UserInfoView";
+import {ToolBarView} from "./Views/ToolBarView";
 
 type Props = {
   itemData: RTBDJList;
@@ -43,12 +44,12 @@ export class BaseItem extends React.PureComponent<Props, State> {
 
     return (
       <View style={styles.container}>
-        <UserInfoItem userInfoData={userInfoData}/>
+        <UserInfoView userInfoData={userInfoData}/>
         <ContainerItem itemData={this.props.itemData}
                        itemPress={this.props.itemPress}
                        picturePress={this.props.picturePress}
         />
-        <ToolBarItem toolBarData={toolBarData}/>
+        <ToolBarView toolBarData={toolBarData}/>
       </View>
     );
   }

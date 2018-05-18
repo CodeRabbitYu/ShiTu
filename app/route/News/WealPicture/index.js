@@ -22,6 +22,8 @@ import { Button, CustomImage } from "../../../components";
 import {BuDeJie} from "../index";
 import {WealPictureDetail} from "../WealPictureDetail";
 import type {NavigationState} from "react-navigation";
+import {RTWeal} from "../../../servers/News/interfaces";
+import FastImage from "react-native-fast-image";
 
 type Props = {
   navigate: NavigationState;
@@ -41,15 +43,18 @@ export class WealPicture extends React.Component<Props> {
   }
 
   renderItem = ({ item, index, column }: any) => {
+    const _item: RTWeal = item;
+    // console.log(item);
     return(
       <Button
         onPress={()=> this.props.navigate('WealPictureDetail', {url: item.url, isHiddenHeader: true})}
       >
-        <CustomImage source={{uri: item.url}}
-               style={[
-                 styles.cell,
-                 { height: item.height, backgroundColor: 'white'},
-               ]}
+        <CustomImage source={{uri: _item.url}}
+                     activityVisible={false}
+                     style={[
+                       styles.cell,
+                       { height: _item.height, backgroundColor: 'white'},
+                     ]}
         />
       </Button>
     )
@@ -67,9 +72,10 @@ export class WealPicture extends React.Component<Props> {
         renderItem={this.renderItem}
         getHeightForItem={({ item }) => item.height + 2}
         numColumns={2}
+        initialNumToRender={10}
         keyExtractor={item => item._id}
-        // ListEmptyComponent={()=> <Text>222222</Text>}
-        ListHeaderComponent={()=><View/>}
+        ListEmptyComponent={()=> <Text>222222</Text>}
+        ListHeaderComponent={()=><Text>123</Text>}
         ListFooterComponent={()=>
           !isRefreshing
             ?

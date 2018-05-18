@@ -24,10 +24,10 @@ export async function loadWealPictureData(page: number, type: RGankType = '福�
 
 
 const BuDeJieValue = {
-  '全部': 1,
-  '视频': 41,
-  '图片': 10,
-  '笑话': 29
+  'All': 1,
+  'Video': 41,
+  'Picture': 10,
+  'Joke': 29
 };
 
 export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;

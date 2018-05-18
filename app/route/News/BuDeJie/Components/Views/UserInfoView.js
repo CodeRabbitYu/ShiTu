@@ -10,14 +10,14 @@ import {
   View,
   Image,
 } from 'react-native';
-import {Button,CustomImage} from "../../../../components";
-import type {UserInfo} from "../../../../servers/News/interfaces";
+import {Button,CustomImage} from "../../../../../components";
+import type {UserInfo} from "../../../../../servers/News/interfaces";
 
 type Props = {
   userInfoData: UserInfo;
 };
 
-export function UserInfoItem(props: Props) {
+export function UserInfoView(props: Props) {
   let _profile_image;
 
   const { profile_image, name, passtime } = props.userInfoData;

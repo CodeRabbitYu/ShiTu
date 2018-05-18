@@ -18,7 +18,7 @@ class WealPictureMobx {
   @action.bound
   async fetchWealPictureData(page) {
     try {
-      let data = await loadWealPictureData(page)
+      let data = await loadWealPictureData(page);
 
       let results = data.results;
 

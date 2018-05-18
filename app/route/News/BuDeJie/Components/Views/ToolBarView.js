@@ -9,11 +9,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import {System} from "../../../../utils";
-import {Button, CustomIcon} from "../../../../components";
+import {System} from "../../../../../utils";
+import {Button, CustomIcon} from "../../../../../components";
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import type {ToolBar} from "../../../../servers/News/interfaces";
+import type {ToolBar} from "../../../../../servers/News/interfaces";
 
 type Props = {
   toolBarData: ToolBar;
@@ -29,7 +29,7 @@ type ButtonItem = {
   selected: boolean;
 }
 
-export class ToolBarItem extends React.Component<Props, State>{
+export class ToolBarView extends React.Component<Props, State>{
   constructor(props: Props){
     super(props);
     const { love, hate, repost, comment } = props.toolBarData;

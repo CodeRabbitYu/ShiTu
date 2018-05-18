@@ -10,7 +10,6 @@ import {
   TabBarBottom,
   createBottomTabNavigator,
   createStackNavigator,
-  createMaterialBottomTabNavigator
 } from 'react-navigation';
 
 import { System } from './utils';

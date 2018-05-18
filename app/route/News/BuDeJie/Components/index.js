@@ -3,9 +3,9 @@
  */
 
 import { BaseItem } from "./BaseItem";
-import { UserInfoItem } from "./UserInfoItem";
+import { UserInfoView } from "./Views/UserInfoView";
 
 
 
 
-export { BaseItem, UserInfoItem }
+export { BaseItem, UserInfoView }

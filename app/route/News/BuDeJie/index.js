@@ -25,6 +25,8 @@ import type {NavigationState} from "react-navigation";
 import {ContainerItem} from "./Components/ContainerItem";
 import {ModalView} from "./Components/ModalView";
 
+import { AlbumView } from 'teaset';
+
 type Props = {
   type: number;
   navigate: NavigationState

@@ -102,7 +102,7 @@ export class WealPictureDetail extends React.Component<Props, State> {
     return (
       <Button onLongPress={this.actionSheetToSaveImage}
               onPress={this.navBarIsVisible}
-              style={{backgroundColor: 'red', flex: 1}}
+              style={{backgroundColor: 'white', flex: 1}}
               activeOpacity={0.9}
       >
         <CustomImage style={styles.container}
