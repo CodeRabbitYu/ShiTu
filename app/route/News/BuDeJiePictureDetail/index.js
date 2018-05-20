@@ -42,9 +42,10 @@ export class BuDeJiePictureDetail extends React.Component<Props> {
     if (isLongPicture) {
       return (
         <ScrollView>
-          <Image source={{uri: cdn_img}}
+          <CustomImage source={{uri: cdn_img}}
+                       useCustomImage={false}
             // resizeMode={'contain'}
-                 style={[styles.picture, {height: imageHeight}]}
+                       style={[styles.picture, {height: imageHeight}]}
           />
         </ScrollView>
       )

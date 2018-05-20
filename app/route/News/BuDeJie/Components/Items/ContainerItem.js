@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import {JokeItem} from "./JokeItem";
 import {PictureItem} from "./PictureItem";
-import type {RTBDJList} from "../../../../servers/News/interfaces";
-import { Button } from "../../../../components";
+import type {RTBDJList} from "../../../../../servers/News/interfaces";
+import { Button } from "../../../../../components/index";
 
 type Props = {
   itemData: RTBDJList;

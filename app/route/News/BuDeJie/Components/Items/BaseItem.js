@@ -11,15 +11,15 @@ import {
   Image,
 } from 'react-native';
 
-import {RTBDJList, ToolBar, UserInfo, Joke, Picture} from "../../../../servers/News/interfaces";
+import {RTBDJList, ToolBar, UserInfo, Joke, Picture} from "../../../../../servers/News/interfaces";
 import {JokeItem} from "./JokeItem";
 import {PictureItem} from "./PictureItem";
 import {ContainerItem} from "./ContainerItem";
-import {Button} from "../../../../components";
+import {Button} from "../../../../../components/index";
 import type {NavigationState} from "react-navigation";
 
-import {UserInfoView} from "./Views/UserInfoView";
-import {ToolBarView} from "./Views/ToolBarView";
+import {UserInfoView} from "../Views/UserInfoView";
+import {ToolBarView} from "../Views/ToolBarView";
 
 type Props = {
   itemData: RTBDJList;

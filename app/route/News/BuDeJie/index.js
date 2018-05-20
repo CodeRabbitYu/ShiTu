@@ -22,8 +22,8 @@ import { observer } from "mobx-react";
 import { observable } from 'mobx';
 import { BaseItem } from "./Components";
 import type {NavigationState} from "react-navigation";
-import {ContainerItem} from "./Components/ContainerItem";
-import {ModalView} from "./Components/ModalView";
+import {ContainerItem} from "./Components/Items/ContainerItem";
+import {ModalView} from "./Components/Views/ModalView";
 
 import { AlbumView } from 'teaset';
 
@@ -78,6 +78,7 @@ export class BuDeJie extends React.Component<any, any> {
   }
 
   render() {
+    console.log('11111111');
     return [
       <TableList
         key={'TableList'}

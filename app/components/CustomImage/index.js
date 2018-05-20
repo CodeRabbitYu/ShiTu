@@ -7,6 +7,8 @@ import React from 'react';
 
 import FastImage from 'react-native-fast-image';
 import { Image, StyleSheet, ActivityIndicator, View} from "react-native";
+import {observer} from "mobx-react";
+import {observable} from 'mobx';
 
 type Size = 'large' | 'small';
 
@@ -19,11 +21,18 @@ type Props = {
 
 let CustomImage;
 
-export default class index extends React.Component<Props, any> {
+@observer
+export default class index extends React.PureComponent<Props, any> {
 
   static defaultProps = {
-    useCustomImage: true
+    useCustomImage: true,
+    activityVisible: true,
+    activitySize: 'small',
   };
+
+  @observable imageLoading: boolean = true;
+  @observable imageLoaded: boolean = true;
+  @observable activityVisible: boolean = this.props.activityVisible;
 
   constructor(props: Props){
     super(props);
@@ -33,23 +42,33 @@ export default class index extends React.Component<Props, any> {
     } else {
       CustomImage = Image;
     }
-    this.state={
-      imageLoading: true,
-      imageLoaded: true,
-      activityVisible: props.activityVisible
-    }
+    // this.state={
+    //   imageLoading: true,
+    //   imageLoaded: true,
+    //   activityVisible: props.activityVisible
+    // }
   }
 
   imageLoadError(){
     console.log('onError');
-    this.setState({ imageLoading: false, activityVisible: false });
+    // this.setState({ imageLoading: false, activityVisible: false });
+
+    this.imageLoading = false;
+    this.activityVisible = false;
+
     this.props.onError && this.props.onError()
   }
 
   imageLoadEnd() {
     // console.log('onLoadEnd');
-    this.setState({ activityVisible: false });
+    // this.setState({ activityVisible: false });
+    this.activityVisible = false;
     this.props.onLoadEnd && this.props.onLoadEnd()
+  }
+
+  imageLoadStart() {
+    this.activityVisible = true;
+    this.props.onLoadStart && this.props.onLoadStart()
   }
 
   render() {
@@ -63,16 +82,17 @@ export default class index extends React.Component<Props, any> {
         <CustomImage
           {...this.props}
           source = {
-            this.state.imageLoading
+            this.imageLoading
             ?
             source
             :
             { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' }
           }
+          onLoadStart={this.imageLoadStart.bind(this)}
           onLoadEnd={this.imageLoadEnd.bind(this)}
           onError={this.imageLoadError.bind(this)}
         />
-        <ActivityIndicator style={styles.activityStyle} animating={this.state.activityVisible} size={activitySize}/>
+        <ActivityIndicator style={styles.activityStyle} animating={this.activityVisible} size={activitySize}/>
       </View>
 
     );

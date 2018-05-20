@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-import type {Joke} from "../../../../servers/News/interfaces";
+import type {Joke} from "../../../../../servers/News/interfaces";
 
 type Props = {
   jokeData: Joke

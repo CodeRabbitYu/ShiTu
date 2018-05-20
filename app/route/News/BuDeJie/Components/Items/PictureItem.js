@@ -11,9 +11,9 @@ import {
   ActivityIndicator,
   AccessibilityInfo
 } from 'react-native';
-import {CustomImage,Button} from '../../../../components';
-import { System }  from "../../../../utils";
-import type {Picture} from "../../../../servers/News/interfaces";
+import {CustomImage,Button} from '../../../../../components/index';
+import { System }  from "../../../../../utils/index";
+import type {Picture} from "../../../../../servers/News/interfaces";
 
 type Props = {
   pictureData: Picture;
@@ -40,7 +40,7 @@ export class PictureItem extends React.PureComponent<Props> {
       )
     } else {
       return (
-        <CustomImage source={{uri: cdn_img}}
+        <Image source={{uri: cdn_img}}
                      resizeMode={'contain'}
                      style={[styles.picture, {height: containerHeight}]}/>
       )

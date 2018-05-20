@@ -10,11 +10,11 @@ import {
   View,
   Image, ScrollView, ActivityIndicator,
 } from 'react-native';
-import {JokeItem} from "./JokeItem";
-import {PictureItem} from "./PictureItem";
-import {CustomImage, Button} from '../../../../components';
-import type {RTBDJList} from "../../../../servers/News/interfaces";
-import {System} from "../../../../utils";
+import {JokeItem} from "../Items/JokeItem";
+import {PictureItem} from "../Items/PictureItem";
+import {CustomImage, Button} from '../../../../../components/index';
+import type {RTBDJList} from "../../../../../servers/News/interfaces";
+import {System} from "../../../../../utils/index";
 import {observer} from "mobx-react";
 import {observable} from "mobx";
 

@@ -62,7 +62,7 @@ export class WealPicture extends React.Component<Props> {
 
   render() {
 
-    const { dataSource, isRefreshing, refreshData, loadMoreData } = this.WealPictureMobx
+    const { dataSource, isRefreshing, refreshData, loadMoreData } = this.WealPictureMobx;
 
     return (
       <MasonryList
