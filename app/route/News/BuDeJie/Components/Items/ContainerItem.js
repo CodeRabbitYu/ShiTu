@@ -20,7 +20,7 @@ type Props = {
   itemPress: Function;
   picturePress: Function;
 };
-export class ContainerItem extends React.PureComponent<Props> {
+export class ContainerItem extends React.Component<Props> {
 
   renderItem() {
     const { jokeData, pictureData, type } = this.props.itemData;

@@ -16,6 +16,8 @@ import { Button, CustomImage } from "../../../components";
 import { System } from "../../../utils";
 import { ActionSheet } from 'teaset';
 import FetchBolb from 'react-native-fetch-blob';
+import {observer} from "mobx-react";
+import FastImage from "react-native-fast-image";
 const Dirs = FetchBolb.fs.dirs
 
 type Props = {
@@ -24,6 +26,7 @@ type Props = {
 type State = {
   isHiddenHeader: boolean
 }
+@observer
 export class WealPictureDetail extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -43,6 +46,7 @@ export class WealPictureDetail extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    console.log(this.props);
     this.setNavBarHidden(true)
   }
 
@@ -98,7 +102,7 @@ export class WealPictureDetail extends React.Component<Props, State> {
   }
 
   render() {
-    const url = this.props.navigation.state.params.url
+    const url = this.props.navigation.state.params.url;
     return (
       <Button onLongPress={this.actionSheetToSaveImage}
               onPress={this.navBarIsVisible}
@@ -106,8 +110,8 @@ export class WealPictureDetail extends React.Component<Props, State> {
               activeOpacity={0.9}
       >
         <CustomImage style={styles.container}
-                   source={{uri: url}}
-                   resizeMode={'cover'}
+                     source={{uri: url}}
+                     resizeMode={'cover'}
         />
       </Button>
     );
@@ -117,9 +121,8 @@ export class WealPictureDetail extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: null,
-    width: null
-    // height: System.SCREEN_HEIGHT,
-    // width: System.SCREEN_WIDTH
+		// backgroundColor: 'red'
+		height: System.SCREEN_HEIGHT,
+    width: System.SCREEN_WIDTH
   },
 });

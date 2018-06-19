@@ -22,7 +22,7 @@ type Props = {
 let CustomImage;
 
 @observer
-export default class index extends React.PureComponent<Props, any> {
+export default class index extends React.Component<Props, any> {
 
   static defaultProps = {
     useCustomImage: true,
@@ -40,7 +40,7 @@ export default class index extends React.PureComponent<Props, any> {
     if (props.useCustomImage) {
       CustomImage = FastImage;
     } else {
-      CustomImage = Image;
+      CustomImage = FastImage;
     }
     // this.state={
     //   imageLoading: true,
@@ -61,7 +61,6 @@ export default class index extends React.PureComponent<Props, any> {
 
   imageLoadEnd() {
     // console.log('onLoadEnd');
-    // this.setState({ activityVisible: false });
     this.activityVisible = false;
     this.props.onLoadEnd && this.props.onLoadEnd()
   }
@@ -72,15 +71,16 @@ export default class index extends React.PureComponent<Props, any> {
   }
 
   render() {
-    const { source, activityVisible, activitySize = 'small' } = this.props;
+    const { source, activityVisible, activitySize = 'small', style } = this.props;
 
     // 瀑布流中的图片组件，如果设置alignItems/alignSelf就会导致加载不出来
     const alignStyle = activityVisible ? {alignItems: 'center'} : null;
-
+		console.log('imageLoading', this.imageLoading);
     return (
       <View style={[styles.customImageView, alignStyle]}>
         <CustomImage
-          {...this.props}
+
+					style={[{flex: 1}, style]}
           source = {
             this.imageLoading
             ?
@@ -88,11 +88,12 @@ export default class index extends React.PureComponent<Props, any> {
             :
             { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' }
           }
-          onLoadStart={this.imageLoadStart.bind(this)}
-          onLoadEnd={this.imageLoadEnd.bind(this)}
+					{...this.props}
+          // onLoadStart={this.imageLoadStart.bind(this)}
+          // onLoadEnd={this.imageLoadEnd.bind(this)}
           onError={this.imageLoadError.bind(this)}
         />
-        <ActivityIndicator style={styles.activityStyle} animating={this.activityVisible} size={activitySize}/>
+        {/*<ActivityIndicator style={styles.activityStyle} animating={this.activityVisible} size={activitySize}/>*/}
       </View>
 
     );

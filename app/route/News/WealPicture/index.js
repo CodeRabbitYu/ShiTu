@@ -74,8 +74,8 @@ export class WealPicture extends React.Component<Props> {
         numColumns={2}
         initialNumToRender={10}
         keyExtractor={item => item._id}
-        ListEmptyComponent={()=> <Text>222222</Text>}
-        ListHeaderComponent={()=><Text>123</Text>}
+        ListEmptyComponent={()=> <View/>}
+        ListHeaderComponent={()=> <View/>}
         ListFooterComponent={()=>
           !isRefreshing
             ?

@@ -20,40 +20,39 @@ type Props = {
   picturePress: Function;
 }
 
-export class PictureItem extends React.PureComponent<Props> {
 
-  renderPicture() {
-    const { cdn_img, isLongPicture, containerHeight } = this.props.pictureData;
+const renderPicture = (props: Props) => {
+	const { cdn_img, isLongPicture, containerHeight } = props.pictureData;
 
-    if (isLongPicture) {
-      return (
-        <View>
-          <CustomImage source={{uri: cdn_img}}
-                       useCustomImage={false}
-                       resizeMode={'contain'}
-                       style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
-          />
-          <View style={styles.longPictureSignView}>
-            <Text style={styles.longPictureSignText}>点击查看原图</Text>
-          </View>
-        </View>
-      )
-    } else {
-      return (
-        <Image source={{uri: cdn_img}}
-                     resizeMode={'contain'}
-                     style={[styles.picture, {height: containerHeight}]}/>
-      )
-    }
-  }
+	if (isLongPicture) {
+		return (
+			<View>
+				<CustomImage source={{uri: cdn_img}}
+										 useCustomImage={false}
+										 resizeMode={'contain'}
+										 style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
+				/>
+				<View style={styles.longPictureSignView}>
+					<Text style={styles.longPictureSignText}>点击查看原图</Text>
+				</View>
+			</View>
+		)
+	} else {
+		return (
+			<CustomImage source={{uri: cdn_img}}
+									 resizeMode={'contain'}
+									 style={[styles.picture, {height: containerHeight}]}/>
+		)
+	}
+}
 
-  render() {
-    return(
-      <Button style={styles.pictureView} onPress={this.props.picturePress}>
-        {this.renderPicture()}
+export const PictureItem = (props: Props) => {
+
+	return(
+      <Button style={styles.pictureView} onPress={props.picturePress}>
+        {renderPicture(props)}
       </Button>
     )
-  }
 }
 
 const styles = StyleSheet.create({

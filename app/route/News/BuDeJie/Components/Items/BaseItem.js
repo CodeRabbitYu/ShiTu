@@ -36,7 +36,24 @@ type State = {
   type: string;
 }
 
-export class BaseItem extends React.PureComponent<Props, State> {
+
+export const BaseItem = (props: Props) => {
+	const { userInfoData, toolBarData } = props.itemData;
+	const { itemData, itemPress, picturePress} = props;
+
+	return (
+		<View style={styles.container}>
+			<UserInfoView userInfoData={userInfoData}/>
+			<ContainerItem itemData={itemData}
+										 itemPress={itemPress}
+										 picturePress={picturePress}
+			/>
+			<ToolBarView toolBarData={toolBarData}/>
+		</View>
+	);
+}
+
+export class BaseItem1 extends React.PureComponent<Props, State> {
 
   render() {
 
