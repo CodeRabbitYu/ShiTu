@@ -26,6 +26,7 @@ import {ContainerItem} from "./Components/Items/ContainerItem";
 import {ModalView} from "./Components/Views/ModalView";
 
 import { AlbumView } from 'teaset';
+import {Picture} from "../../../servers/News/interfaces";
 
 type Props = {
   type: number;
@@ -56,6 +57,16 @@ export class BuDeJie extends React.Component<any, any> {
     }
   }
 
+
+	picturePress = (item: Picture) => {
+
+		this.props.navigate('WebView',{uri: item.weixin_url});
+
+
+		// this.setVisible(true);
+		// this.itemData = item;
+	}
+
   renderItem = ( {item, index}: any ) => {
     const { navigate } = this.props;
     return(
@@ -64,10 +75,7 @@ export class BuDeJie extends React.Component<any, any> {
                 itemPress={()=>{
                   alert('itemPress')
                 }}
-                picturePress={()=>{
-                  this.setVisible(true);
-                  this.itemData = item;
-                }}
+                picturePress={()=>this.picturePress(item)}
       />
     )
   }

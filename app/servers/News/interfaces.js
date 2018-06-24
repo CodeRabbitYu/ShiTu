@@ -124,4 +124,5 @@ export interface Picture extends RTBDJList{
   isLongPicture: boolean;
   imageHeight: number;
   containerHeight: number;
+	weixin_url: string,
 }

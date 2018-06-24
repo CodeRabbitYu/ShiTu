@@ -12,7 +12,7 @@ import {
   AccessibilityInfo
 } from 'react-native';
 import {CustomImage,Button} from '../../../../../components/index';
-import { System }  from "../../../../../utils/index";
+import { System }  from "../../../../../utils";
 import type {Picture} from "../../../../../servers/News/interfaces";
 
 type Props = {
@@ -23,15 +23,23 @@ type Props = {
 
 const renderPicture = (props: Props) => {
 	const { cdn_img, isLongPicture, containerHeight } = props.pictureData;
-
-	if (isLongPicture) {
+	if (isLongPicture && containerHeight < 10000) {
 		return (
 			<View>
-				<CustomImage source={{uri: cdn_img}}
-										 useCustomImage={false}
-										 resizeMode={'contain'}
+				<Image source={{uri: cdn_img}}
+										 useCustomImage={true}
+										 resizeMode={'cover'}
 										 style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
 				/>
+				<View style={styles.longPictureSignView}>
+					<Text style={styles.longPictureSignText}>点击查看原图</Text>
+				</View>
+			</View>
+		)
+	} else if (containerHeight > 10000) {
+		return (
+			<View style={styles.promptView}>
+				<Text style={styles.promptTitle}>图片可能过大哦，请查看原图</Text>
 				<View style={styles.longPictureSignView}>
 					<Text style={styles.longPictureSignText}>点击查看原图</Text>
 				</View>
@@ -63,6 +71,15 @@ const styles = StyleSheet.create({
   picture: {
     width: System.SCREEN_WIDTH - 20,
   },
+	promptView: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 300
+	},
+	promptTitle:{
+		fontSize: 20,
+	},
   longPictureSignView: {
     backgroundColor:'rgba(88, 87, 86, 0.8)',
     height: 40,

@@ -75,7 +75,7 @@ export default class index extends React.Component<Props, any> {
 
     // 瀑布流中的图片组件，如果设置alignItems/alignSelf就会导致加载不出来
     const alignStyle = activityVisible ? {alignItems: 'center'} : null;
-		console.log('imageLoading', this.imageLoading);
+		// console.log('imageLoading', this.imageLoading);
     return (
       <View style={[styles.customImageView, alignStyle]}>
         <CustomImage

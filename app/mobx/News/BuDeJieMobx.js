@@ -36,12 +36,12 @@ class BuDeJieMobx {
       }
 
 
-      const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, containerHeight, isLongPicture } = item;
+      const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, containerHeight, isLongPicture, weixin_url } = item;
 
       const userInfoData = { profile_image, name, passtime } ;
       const toolBarData = { love, hate, repost, comment };
       const jokeData = { text };
-      const pictureData = { cdn_img, imageHeight, isLongPicture, containerHeight, ...jokeData };
+      const pictureData = { cdn_img, imageHeight, isLongPicture, containerHeight, weixin_url, ...jokeData };
 
       item.userInfoData = userInfoData;
       item.toolBarData = toolBarData;
