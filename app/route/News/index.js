@@ -11,7 +11,7 @@ import {Button, TableList, CustomImage} from '../../components'
 
 import {observer} from 'mobx-react';
 
-import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view';
+import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 
 import { WealPicture } from './WealPicture';
 import { WealPictureDetail } from "./WealPictureDetail";
@@ -57,7 +57,7 @@ class News extends React.Component<any, State> {
   render() {
     return(
       <ScrollableTabView
-        renderTabBar={() => <ScrollableTabBar />}
+        renderTabBar={() => <DefaultTabBar />}
         tabBarActiveTextColor='#4ECBFC'
         tabBarInactiveTextColor='black'
         tabBarBackgroundColor='white'

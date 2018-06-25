@@ -11,7 +11,8 @@ import Button from './Button';
 import CustomIcon from './Icon';
 import TableList from './TableList';
 import MasonryList from './MasonryList'
+import ProgressBar from './ProgressBar';
 
 import { Fetch, Axios } from "./Request";
 
-export { Button, CustomIcon, Theme, Fetch, Axios, TableList, CustomImage, MasonryList };
+export { Button, CustomIcon, Theme, Fetch, Axios, TableList, CustomImage, MasonryList, ProgressBar };
