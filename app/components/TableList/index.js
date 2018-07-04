@@ -87,7 +87,7 @@ type OptionalProps<ItemT> = {
 
   // Spinner
   spinnerColor?: ?string,
-  fetchingSpinnerSize?: ?number,
+  fetchingSpinnerSize?: ?number | string,
   waitingSpinnerSize?: IndicatorSize,
   waitingSpinnerText?: ?string,
 
@@ -196,7 +196,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
 
   onPaginate = () => {
     if (this.state.paginationStatus !== PaginationStatus.ALL_LOADED && !this.state.isRefreshing) {
-      // console.log('onPaginate()')
+      console.log('onPaginate()')
       this.setState({ paginationStatus: PaginationStatus.WAITING })
       let value = this.getPaginationTypeForPage() ? this.getValue() + 1 : this.getValue()
       this.props.onFetch(value, this.postPaginate, this.endFetch)
@@ -206,6 +206,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   onEndReached = () => {
     // console.log('onEndReached()');
     if (this.props.pagination && this.props.autoPagination && this.state.paginationStatus === PaginationStatus.WAITING) {
+     	console.log('1111111111');
       this.onPaginate()
     }
   }
@@ -288,6 +289,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   }
 
   updateRows = (rows: ?Array<any> , paginationStatus: number) => {
+  	console.log('rows', rows, paginationStatus);
     if (rows) {
       this.setRows(rows)
       this.setState({

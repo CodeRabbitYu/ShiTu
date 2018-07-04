@@ -20,10 +20,12 @@ type Props = {
   picturePress: Function;
 }
 
+const maxImageHeight = 8000;
+
 
 const renderPicture = (props: Props) => {
 	const { cdn_img, isLongPicture, containerHeight } = props.pictureData;
-	if (isLongPicture && containerHeight < 10000) {
+	if (isLongPicture && containerHeight < maxImageHeight) {
 		return (
 			<View>
 				<Image source={{uri: cdn_img}}
@@ -36,7 +38,7 @@ const renderPicture = (props: Props) => {
 				</View>
 			</View>
 		)
-	} else if (containerHeight > 10000) {
+	} else if (containerHeight > maxImageHeight) {
 		return (
 			<View style={styles.promptView}>
 				<Text style={styles.promptTitle}>图片可能过大哦，请查看原图</Text>

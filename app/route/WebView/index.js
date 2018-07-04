@@ -241,10 +241,10 @@ export default class index extends React.Component<Props, State> {
 					ref={WEBVIEW_REF}
 					style={styles.webView}
 					source={{uri: this.state.uri}}
-					javaScriptEnabled={true}
-					domStorageEnabled={true}
-					scalesPageToFit={true}
-					automaticallyAdjustContentInsets={false}
+					// javaScriptEnabled={true}
+					// domStorageEnabled={true}
+					// scalesPageToFit={true}
+					// automaticallyAdjustContentInsets={false}
 					onNavigationStateChange={this._onNavigationStateChange}
 					renderLoading={this._renderLoading}
 					startInLoadingState={true}
