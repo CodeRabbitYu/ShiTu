@@ -12,8 +12,8 @@ import {
 	WebView,
 	Alert
 } from 'react-native';
-import { ProgressBar } from "../../components";
-import {System} from "../../utils";
+import { ProgressBar } from '../../components';
+import {System} from '../../utils';
 
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -57,50 +57,50 @@ export default class index extends React.Component<Props, State> {
 	}
 
 
-	_reload = ()=> {
+	_reload = () => {
 		console.log('刷新');
 		this.refs[WEBVIEW_REF].reload();
 	};
-	_goForward = ()=> {
+	_goForward = () => {
 		console.log('去前面的页面');
-		this.state.isForWard ? this.refs[WEBVIEW_REF].goForward() :null;
+		this.state.isForWard ? this.refs[WEBVIEW_REF].goForward() : null;
 	};
 
-	_goBack = ()=> {
+	_goBack = () => {
 		console.log('返回上级页面');
 		this.state.isGoBack ? this.refs[WEBVIEW_REF].goBack() : null;
 	};
 
-	_close = ()=> {
+	_close = () => {
 		console.log('关闭');
 		const {goBack} = this.props.navigation;
 		goBack();
 	};
 
-	_onShouldStartLoadWithRequest = (data)=>{
+	_onShouldStartLoadWithRequest = (data) => {
 		console.log(data);
 		return true;
 	}
 
 	_renderLoading = () => {
-		return(
+		return (
 			System.Android ?
 				<ProgressBar
 					progress={this.state.progress}
 					style={{
 						height: System.iOS ? 20 : 5,
 						width: System.SCREEN_WIDTH,
-						borderWidth:0,
-						borderRadius:0,
-						backgroundColor:'gray',
+						borderWidth: 0,
+						borderRadius: 0,
+						backgroundColor: 'gray',
 					}}
-					//filledColor='#4ECBFC'
-					//unfilledColor='#F5FCFF'
+					// filledColor='#4ECBFC'
+					// unfilledColor='#F5FCFF'
 					filledColor="#C9DE00"
 					unfilledColor="white"
 				/>
 				: null
-		)
+		);
 	};
 
 	_onNavigationStateChange = (navState) => {
@@ -118,7 +118,7 @@ export default class index extends React.Component<Props, State> {
 		this.setState({
 			isGoBack: navState.canGoBack,
 			isForWard: navState.canGoForward,
-			uri:navState.url,
+			uri: navState.url,
 		});
 	};
 
@@ -128,25 +128,25 @@ export default class index extends React.Component<Props, State> {
 			progress: 0,
 			active: false,
 		});
-		this.setIntervar = setInterval(()=>{
-			if (this.state.progress > 80){
+		this.setIntervar = setInterval(() => {
+			if (this.state.progress > 80) {
 				return;
 			}
 			this.setState({
-				progress : this.state.progress + 0.1,
+				progress: this.state.progress + 0.1,
 			});
 
-			if (this.state.progress >= 100){
+			if (this.state.progress >= 100) {
 				this.setIntervar && clearInterval(this.setIntervar);
 			}
 		});
 	}
 
-	_onLoadEnd = ()=>{
+	_onLoadEnd = () => {
 		console.log('加载结束，成功或失败都会走到这里');
 		this.setIntervar && clearInterval(this.setIntervar);
 		this.setState({
-			progress:100,
+			progress: 100,
 			// active:true
 		});
 
@@ -161,29 +161,29 @@ export default class index extends React.Component<Props, State> {
 				{text: '取消', onPress: () => this.props.navigation.goBack(), style: 'cancel'},
 			],
 			{ cancelable: false }
-		)
+		);
 	}
 
 
-	_renderActionButton = () =>{
-		return(
+	_renderActionButton = () => {
+		return (
 			<ActionButton buttonColor="rgba(231,76,60,1)"
 				// 是否自动打开
 				// 						active={System.iOS ? false : this.state.active}
-										active={false}
+				active={false}
 
 				// 是否展示阴影
 				// 						hideShadow={System.iOS ? true : true}
-										position="right"
-										spacing={10}
-										// offsetY={10}
-										// offsetX={10}
-										size={50}
-										backdrop={false}
-										degrees={90}
-										// outRangeScale={1}
-										autoInactive={false}
-										onPress={()=>{console.log('点击Action了')}}
+				position="right"
+				spacing={10}
+				// offsetY={10}
+				// offsetX={10}
+				size={50}
+				backdrop={false}
+				degrees={90}
+				// outRangeScale={1}
+				autoInactive={false}
+				onPress={() => { console.log('点击Action了'); }}
 			>
 				<ActionButton.Item buttonColor={'#F8D168'}
 													 style={styles.actionItemStyle}
@@ -191,16 +191,16 @@ export default class index extends React.Component<Props, State> {
 													 hideShadow={false}
 													 onPress={this._reload}
 				>
-					<Icon name="ios-refresh-outline" style={[styles.actionButtonIcon,{fontSize:20}]}/>
+					<Icon name="ios-refresh-outline" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
 				</ActionButton.Item>
-				<ActionButton.Item buttonColor={this.state.isForWard ?'#1abc9c' : '#dddddd'}
+				<ActionButton.Item buttonColor={this.state.isForWard ? '#1abc9c' : '#dddddd'}
 													 onPress={this._goForward}
 													 size={40}
 													 // hideShadow={false}
 													 style={styles.actionItemStyle} >
 					<Icon name="ios-arrow-forward-outline" style={styles.actionButtonIcon} />
 				</ActionButton.Item>
-				<ActionButton.Item buttonColor={this.state.isGoBack ?'#3498db' : '#dddddd'}
+				<ActionButton.Item buttonColor={this.state.isGoBack ? '#3498db' : '#dddddd'}
 													 onPress={this._goBack}
 													 size={40}
 													 style={styles.actionItemStyle}>
@@ -210,11 +210,11 @@ export default class index extends React.Component<Props, State> {
 													 onPress={this._close}
 													 size={40}
 													 style={styles.actionItemStyle}
-													>
+				>
 					<Icon name="md-close-circle" style={styles.actionButtonIcon} />
 				</ActionButton.Item>
 			</ActionButton>
-		)
+		);
 	};
 
 	render() {
@@ -229,9 +229,9 @@ export default class index extends React.Component<Props, State> {
 					style={{
 						height: System.iOS ? 20 : 5,
 						width: System.SCREEN_WIDTH,
-						borderWidth:0,
-						borderRadius:0,
-						backgroundColor:'gray',
+						borderWidth: 0,
+						borderRadius: 0,
+						backgroundColor: 'gray',
 					}}
 					filledColor='#4ECBFC'
 					unfilledColor='#F5FCFF'
@@ -248,7 +248,7 @@ export default class index extends React.Component<Props, State> {
 					onNavigationStateChange={this._onNavigationStateChange}
 					renderLoading={this._renderLoading}
 					startInLoadingState={true}
-					onShouldStartLoadWithRequest={()=>this._onShouldStartLoadWithRequest()}
+					onShouldStartLoadWithRequest={() => this._onShouldStartLoadWithRequest()}
 					onLoadStart={this._onLoadStart}
 					// onLoad={()=>{
 					// 	console.log('加载完成');
@@ -266,15 +266,15 @@ export default class index extends React.Component<Props, State> {
 
 
 const ActionButtonItem = ({iconName, onPress, buttonColor}: {iconName: string, onPress?: Function, buttonColor: string}) => (
-		<ActionButton.Item buttonColor={'red'}
+	<ActionButton.Item buttonColor={'red'}
 											 onPress={onPress}
 											 size={40}
 											 hideShadow={false}
 											 style={styles.actionItemStyle} >
-			<View style={{height: 30, width: 30, backgroundColor: 'red'}}/>
-			{/*<Icon name={iconName} style={styles.actionButtonIcon} />*/}
-		</ActionButton.Item>
-)
+		<View style={{height: 30, width: 30, backgroundColor: 'red'}}/>
+		{/* <Icon name={iconName} style={styles.actionButtonIcon} />*/}
+	</ActionButton.Item>
+);
 
 const styles = StyleSheet.create({
 	container: {
@@ -290,29 +290,29 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		height: 20,
 		color: 'white',
-		alignSelf:'center',
-		alignItems:'center',
+		alignSelf: 'center',
+		alignItems: 'center',
 	},
-	actionItemStyle:{
+	actionItemStyle: {
 		height: 20,
 		width: 20,
 	},
-	bottomViewStyle:{
-		position:'absolute',
-		bottom:0,
-		height:40,
+	bottomViewStyle: {
+		position: 'absolute',
+		bottom: 0,
+		height: 40,
 		width: System.SCREEN_WIDTH,
-		flexDirection:'row',
-		flex :1,
+		flexDirection: 'row',
+		flex: 1,
 	},
-	bottomButtonStyle:{
-		width: System.SCREEN_WIDTH/4,
-		height:40,
+	bottomButtonStyle: {
+		width: System.SCREEN_WIDTH / 4,
+		height: 40,
 	},
-	bottomIconStyle:{
-		alignSelf:'center',
-		justifyContent:'center',
-		marginTop:5,
+	bottomIconStyle: {
+		alignSelf: 'center',
+		justifyContent: 'center',
+		marginTop: 5,
 
 	}
 });

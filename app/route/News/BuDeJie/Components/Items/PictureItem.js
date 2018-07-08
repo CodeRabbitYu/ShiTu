@@ -4,16 +4,16 @@
  */
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ActivityIndicator,
-  AccessibilityInfo
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	ActivityIndicator,
+	AccessibilityInfo
 } from 'react-native';
-import {CustomImage,Button} from '../../../../../components/index';
-import { System }  from "../../../../../utils";
-import type {Picture} from "../../../../../servers/News/interfaces";
+import {CustomImage, Button} from '../../../../../components/index';
+import { System }  from '../../../../../utils';
+import type {Picture} from '../../../../../servers/News/interfaces';
 
 type Props = {
   pictureData: Picture;
@@ -37,7 +37,7 @@ const renderPicture = (props: Props) => {
 					<Text style={styles.longPictureSignText}>点击查看原图</Text>
 				</View>
 			</View>
-		)
+		);
 	} else if (containerHeight > maxImageHeight) {
 		return (
 			<View style={styles.promptView}>
@@ -46,53 +46,53 @@ const renderPicture = (props: Props) => {
 					<Text style={styles.longPictureSignText}>点击查看原图</Text>
 				</View>
 			</View>
-		)
+		);
 	} else {
 		return (
 			<CustomImage source={{uri: cdn_img}}
 									 resizeMode={'contain'}
 									 style={[styles.picture, {height: containerHeight}]}/>
-		)
+		);
 	}
-}
+};
 
 export const PictureItem = (props: Props) => {
 
-	return(
-      <Button style={styles.pictureView} onPress={props.picturePress}>
-        {renderPicture(props)}
-      </Button>
-    )
-}
+	return (
+		<Button style={styles.pictureView} onPress={props.picturePress}>
+			{renderPicture(props)}
+		</Button>
+	);
+};
 
 const styles = StyleSheet.create({
-  pictureView: {
-    marginHorizontal: 10,
-    marginVertical: 5,
-  },
-  picture: {
-    width: System.SCREEN_WIDTH - 20,
-  },
+	pictureView: {
+		marginHorizontal: 10,
+		marginVertical: 5,
+	},
+	picture: {
+		width: System.SCREEN_WIDTH - 20,
+	},
 	promptView: {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: 300
 	},
-	promptTitle:{
+	promptTitle: {
 		fontSize: 20,
 	},
-  longPictureSignView: {
-    backgroundColor:'rgba(88, 87, 86, 0.8)',
-    height: 40,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    width: System.SCREEN_WIDTH,
-  },
-  longPictureSignText: {
-    fontSize: 18,
-    color: 'white'
-  }
+	longPictureSignView: {
+		backgroundColor: 'rgba(88, 87, 86, 0.8)',
+		height: 40,
+		bottom: 0,
+		alignItems: 'center',
+		justifyContent: 'center',
+		position: 'absolute',
+		width: System.SCREEN_WIDTH,
+	},
+	longPictureSignText: {
+		fontSize: 18,
+		color: 'white'
+	}
 });

@@ -3,8 +3,8 @@
  * Created by Rabbit on 2018/6/25.
  */
 
-import React, { Component } from 'react'
-import { Text, View, StyleSheet, LayoutAnimation } from 'react-native'
+import React, { Component } from 'react';
+import { Text, View, StyleSheet, LayoutAnimation } from 'react-native';
 
 type Props = {
 	startDelay?: number,
@@ -25,22 +25,22 @@ export default class ProgressBar extends Component<Props, State> {
 		this.state = {
 			progress: 0,
 			startDelay: this.props.startDelay || 300,
-		}
+		};
 	}
 
 	componentDidMount() {
 		LayoutAnimation.spring();
 		setTimeout(() => {
-			this.setState({ progress: this.props.progress })
-		}, this.state.startDelay)
+			this.setState({ progress: this.props.progress });
+		}, this.state.startDelay);
 	}
 
-	componentWillReceiveProps(nextProps: Props) {
-		this.setState({ progress: nextProps.progress })
+	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+		this.setState({ progress: nextProps.progress });
 	}
 
-	componentWillUpdate() {
-		LayoutAnimation.spring()
+	UNSAFE_componentWillUpdate() {
+		LayoutAnimation.spring();
 	}
 
 
@@ -55,7 +55,7 @@ export default class ProgressBar extends Component<Props, State> {
 						{ backgroundColor: this.props.unfilledColor || '#FFF' }]} />
 				</View>
 			</View>
-		)
+		);
 	}
 }
 

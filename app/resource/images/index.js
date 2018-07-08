@@ -3,7 +3,7 @@
  */
 
 const Images =  {
-  default: require('./default.jpeg'),
+	default: require('./default.jpeg'),
 };
 
 export default Images;

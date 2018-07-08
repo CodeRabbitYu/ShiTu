@@ -3,9 +3,9 @@
  */
 
 export default {
-  fitIPhoneX: true,
+	fitIPhoneX: true,
 
-  mainColor: 'black',
+	mainColor: 'black',
 
-  transparentColor : 'transparent',
-}
+	transparentColor: 'transparent',
+};

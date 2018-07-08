@@ -5,21 +5,21 @@
 
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
+	StyleSheet,
+	Text,
+	View,
+	Image,
 } from 'react-native';
 
-import {RTBDJList, ToolBar, UserInfo, Joke, Picture} from "../../../../../servers/News/interfaces";
-import {JokeItem} from "./JokeItem";
-import {PictureItem} from "./PictureItem";
-import {ContainerItem} from "./ContainerItem";
-import {Button} from "../../../../../components/index";
-import type {NavigationState} from "react-navigation";
+import {RTBDJList, ToolBar, UserInfo, Joke, Picture} from '../../../../../servers/News/interfaces';
+import {JokeItem} from './JokeItem';
+import {PictureItem} from './PictureItem';
+import {ContainerItem} from './ContainerItem';
+import {Button} from '../../../../../components/index';
+import type {NavigationState} from 'react-navigation';
 
-import {UserInfoView} from "../Views/UserInfoView";
-import {ToolBarView} from "../Views/ToolBarView";
+import {UserInfoView} from '../Views/UserInfoView';
+import {ToolBarView} from '../Views/ToolBarView';
 
 type Props = {
   itemData: RTBDJList;
@@ -51,29 +51,29 @@ export const BaseItem = (props: Props) => {
 			<ToolBarView toolBarData={toolBarData}/>
 		</View>
 	);
-}
+};
 
 export class BaseItem1 extends React.PureComponent<Props, State> {
 
-  render() {
+	render() {
 
-    const { userInfoData, toolBarData } = this.props.itemData;
+		const { userInfoData, toolBarData } = this.props.itemData;
 
-    return (
-      <View style={styles.container}>
-        <UserInfoView userInfoData={userInfoData}/>
-        <ContainerItem itemData={this.props.itemData}
-                       itemPress={this.props.itemPress}
-                       picturePress={this.props.picturePress}
-        />
-        <ToolBarView toolBarData={toolBarData}/>
-      </View>
-    );
-  }
+		return (
+			<View style={styles.container}>
+				<UserInfoView userInfoData={userInfoData}/>
+				<ContainerItem itemData={this.props.itemData}
+					itemPress={this.props.itemPress}
+					picturePress={this.props.picturePress}
+				/>
+				<ToolBarView toolBarData={toolBarData}/>
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+	container: {
+		flex: 1,
+	},
 });

@@ -5,12 +5,12 @@
 
 import React from 'react';
 
-import { MyApp } from "./router";
+import { MyApp } from './router';
 
 export default class index extends React.Component<any> {
-  render() {
-    return (
-      <MyApp />
-    );
-  }
+	render() {
+		return (
+			<MyApp />
+		);
+	}
 }
