@@ -6,10 +6,11 @@
 import React from 'react';
 
 import {NavigationBar, Theme} from 'teaset';
-// import LinearGradient from 'react-native-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 import { withNavigation, StackActions } from 'react-navigation';
+import {System} from "../../utils";
 
 
 const popAction = StackActions.pop({
@@ -65,6 +66,8 @@ class NavigatorBar extends React.PureComponent<Props> {
 											 colors={['rgb(13,199,255)', 'rgb(16,174,255)']}
 											 style={{height: Theme.statusBarHeight + Theme.navBarContentHeight}}
 										 /> : this.props.background}
+										 titleStyle={{fontSize: System.iOS ? 23 : 20, color: 'white', fontWeight: 'bold'}}
+										 statusBarStyle={'light-content'}
 										 {...this.props}
 			/>
 		);

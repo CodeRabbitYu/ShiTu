@@ -7,7 +7,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 
 import {System} from '../../utils';
-import {Button, TableList, CustomImage} from '../../components';
+import {Button, TableList, BaseContainer} from '../../components';
 
 import {observer} from 'mobx-react';
 
@@ -56,28 +56,30 @@ class News extends React.Component<any, State> {
 
 	render() {
 		return (
-			<ScrollableTabView
-				renderTabBar={() => <DefaultTabBar />}
-				tabBarActiveTextColor='#4ECBFC'
-				tabBarInactiveTextColor='black'
-				tabBarBackgroundColor='white'
-				tabBarUnderlineStyle={{backgroundColor: '#4ECBFC', height: 2}}
-				tabBarTextStyle={{fontSize: 15}}
-			>
-				{
-					this.state.typeArr.map((item, i) => {
-						if (i === 4) {
-							return (
-								<WealPicture tabLabel={item.title} key={i} navigate={item.navigate}/>
-							);
-						} else {
-							return (
-								<BuDeJie type={item.type} tabLabel={item.title} key={i} navigate={item.navigate}/>
-							);
-						}
-					})
-				}
-			</ScrollableTabView>
+			<BaseContainer title={'干货集中营'} isTopNavigator={true}>
+				<ScrollableTabView
+					renderTabBar={() => <DefaultTabBar />}
+					tabBarActiveTextColor='#4ECBFC'
+					tabBarInactiveTextColor='black'
+					tabBarBackgroundColor='white'
+					tabBarUnderlineStyle={{backgroundColor: '#4ECBFC', height: 2}}
+					tabBarTextStyle={{fontSize: 15}}
+				>
+					{
+						this.state.typeArr.map((item, i) => {
+							if (i === 4) {
+								return (
+									<WealPicture tabLabel={item.title} key={i} navigate={item.navigate}/>
+								);
+							} else {
+								return (
+									<BuDeJie type={item.type} tabLabel={item.title} key={i} navigate={item.navigate}/>
+								);
+							}
+						})
+					}
+				</ScrollableTabView>
+			</BaseContainer>
 		);
 	}
 }

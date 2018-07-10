@@ -15,8 +15,6 @@ import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
 import { Theme } from 'teaset';
 
 
-// import { ThemeCustom } from '../../utils';
-
 type Props = {
 	store?: Object,							// 页面中的mobx状态
 	onErrorPress?: Function,	  // 出错页面的点击事件
@@ -31,17 +29,14 @@ type Props = {
 
 	errorTitle?: string,   //  错误页文本
 	imageSource?: string,  // 错误页图片
-	title?: string, // 按钮文字
-	errorStyle?: string, // View样式
+	errorStyle?: string, // 错误View样式
 
 	bottomStyle?: any,
 	bottomBackgroundColor?: string,
 	bottomHeight?: number,
 
-
 	...NavigatorBar.Props
 }
-
 
 @observer
 export default class BaseContainer extends Component<Props> {
@@ -115,7 +110,6 @@ const styles = StyleSheet.create({
 	},
 	contentView: {
 		marginTop: Theme.statusBarHeight + Theme.navBarContentHeight,
-		// marginBottom: 39,
 		flex: 1
 	},
 });

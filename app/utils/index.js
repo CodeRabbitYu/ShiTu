@@ -4,3 +4,6 @@
 
 export { default as System } from './System';
 
+import { Fetch, Axios } from './Request/index';
+
+export { Fetch, Axios };

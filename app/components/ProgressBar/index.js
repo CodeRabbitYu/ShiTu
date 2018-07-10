@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, LayoutAnimation } from 'react-native';
+import { Text, View, StyleSheet, LayoutAnimation, InteractionManager } from 'react-native';
 
 type Props = {
 	startDelay?: number,
@@ -29,31 +29,31 @@ export default class ProgressBar extends Component<Props, State> {
 	}
 
 	componentDidMount() {
-		LayoutAnimation.spring();
-		setTimeout(() => {
-			this.setState({ progress: this.props.progress });
-		}, this.state.startDelay);
+		InteractionManager.runAfterInteractions(() => {
+			this.timer = setTimeout(() => {
+				this.setState({ progress: this.props.progress });
+
+			}, this.props.startDelay);
+			// LayoutAnimation.spring();
+		});
+	}
+
+	componentWillUnmount() {
+		this.timer && clearTimeout(this.timer);
+		this.setState({ progress: 100 });
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
 		this.setState({ progress: nextProps.progress });
 	}
 
-	UNSAFE_componentWillUpdate() {
-		LayoutAnimation.spring();
-	}
-
-
-
 	render() {
 		return (
-			<View style={this.props.style}>
-				<View style={[styles.flexBox, styles.progressBar, this.props.style]}>
-					<View style={[{ flex: this.state.progress },
-						{ backgroundColor: this.props.filledColor || '#D50000' }]} />
-					<View style={[{ flex: 100 - this.state.progress },
-						{ backgroundColor: this.props.unfilledColor || '#FFF' }]} />
-				</View>
+			<View style={[styles.flexBox, styles.progressBar, this.props.style]}>
+				<View style={[{ flex: this.state.progress },
+					{ backgroundColor: this.props.filledColor || '#D50000' }]} />
+				<View style={[{ flex: 100 - this.state.progress },
+					{ backgroundColor: this.props.unfilledColor || '#FFF' }]} />
 			</View>
 		);
 	}
@@ -62,13 +62,13 @@ export default class ProgressBar extends Component<Props, State> {
 const styles = StyleSheet.create({
 	flexBox: {
 		flexDirection: 'row',
+		// flex: 1,
+		// backgroundColor: 'white',
 	},
 	progressBar: {
 		overflow: 'hidden',
-		height: 14,
-		borderWidth: 1,
-		borderColor: '#D50000',
-		borderRadius: 10,
+		height: 20,
+		backgroundColor: 'white',
 	}
 });
 

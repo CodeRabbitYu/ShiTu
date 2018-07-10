@@ -217,25 +217,26 @@ export default class index extends React.Component<Props, State> {
 		);
 	};
 
+	renderProgressBar = () => {
+		return (
+			<ProgressBar
+				progress={this.state.progress}
+				style={{
+					height: System.iOS ? 20 : 5,
+					width: System.SCREEN_WIDTH,
+					backgroundColor: 'white',
+				}}
+				filledColor='#4ECBFC'
+				unfilledColor='white'
+			/>
+		);
+	}
+
 	render() {
-
-
-
 		return (
 			<View style={styles.container}>
 
-				<ProgressBar
-					progress={this.state.progress}
-					style={{
-						height: System.iOS ? 20 : 5,
-						width: System.SCREEN_WIDTH,
-						borderWidth: 0,
-						borderRadius: 0,
-						backgroundColor: 'gray',
-					}}
-					filledColor='#4ECBFC'
-					unfilledColor='#F5FCFF'
-				/>
+				{this.renderProgressBar()}
 
 				<WebView
 					ref={WEBVIEW_REF}
@@ -279,11 +280,15 @@ const ActionButtonItem = ({iconName, onPress, buttonColor}: {iconName: string, o
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: 'white',
+		height: System.SCREEN_HEIGHT,
+		width: System.SCREEN_WIDTH,
 	},
 	webView: {
 		height: System.Android ? 200 : System.SCREEN_HEIGHT,
 		width: System.SCREEN_WIDTH,
 		marginTop: System.Android ? 24 : 0,
+		backgroundColor: 'white'
 		// marginBottom:40,
 	},
 	actionButtonIcon: {

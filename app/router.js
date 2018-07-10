@@ -73,8 +73,8 @@ export const MyApp = createStackNavigator({
 
 }, {
 	navigationOptions: ({navigation}) => NavigatorOptions(navigation),
-	headerTransitionPreset: 'fade-in-place',
-	headerMode: 'float',
+	// headerTransitionPreset: 'fade-in-place',
+	// headerMode: 'float',
 	// mode: 'modal'
 });
 
@@ -104,12 +104,14 @@ const NavigatorOptions = (navigation) => {
 		elevation: 0,
 	};
 
-	return { headerTitle, headerStyle, headerTitleStyle, headerBackTitle, headerTintColor };
+	const header = null;
+
+	return { headerTitle, headerStyle, headerTitleStyle, headerBackTitle, headerTintColor, header };
 };
 
 const TabOptions = (tabBarTitle, tabBarIconName) => {
 	const title = tabBarTitle;
-	const tabBarIcon = (({tintColor, focused}) => {
+	const tabBarIcon = (({tintColor, focused}: {tintColor?: string, focused: boolean}) => {
 		const color = focused ? Theme.tabBarColor : '#aaa';
 		return (
 			<CustomIcon name={tabBarIconName} size={30} color={color}/>

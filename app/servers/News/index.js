@@ -3,7 +3,7 @@
  * Created by Rabbit on 2018/4/16.
  */
 
-import { Fetch } from '../../components';
+import { Fetch } from '../../utils';
 
 import {RTWeal, RTGankResult, RTBDJResult} from './interfaces';
 
