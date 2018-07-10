@@ -15,10 +15,10 @@ import {
 import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
 import { ActionSheet } from 'teaset';
-import FetchBolb from 'react-native-fetch-blob';
+import FetchBlob from 'rn-fetch-blob';
 import {observer} from 'mobx-react';
 import FastImage from 'react-native-fast-image';
-const Dirs = FetchBolb.fs.dirs;
+const Dirs = FetchBlob.fs.dirs;
 
 type Props = {
   navigation: any;
@@ -73,7 +73,7 @@ export class WealPictureDetail extends React.Component<Props, State> {
 
   	try {
   		// 下载图片
-  		await FetchBolb.config(config).fetch('GET', url);
+  		await FetchBlob.config(config).fetch('GET', url);
   		alert('保存成功');
   	} catch (e) {
   		console.log(e);

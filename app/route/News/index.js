@@ -6,7 +6,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-import {imageSize, System} from '../../utils';
+import {System} from '../../utils';
 import {Button, TableList, CustomImage} from '../../components';
 
 import {observer} from 'mobx-react';

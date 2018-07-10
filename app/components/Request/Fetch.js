@@ -3,7 +3,7 @@
  */
 
 
-import RNFetchBlob from 'react-native-fetch-blob';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import {
 	AsyncStorage
