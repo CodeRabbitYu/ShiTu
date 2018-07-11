@@ -11,5 +11,7 @@ import App from './app/index';
 console.ignoredYellowBox = [ 'Warning: isMounted(...)' ];
 // YellowBox.ignoreWarnings(['Warning: isMounted(...)']);
 
+// 关闭全部的警告
+// console.disableYellowBox = true;
 
 AppRegistry.registerComponent('ShiTu', () => App);
