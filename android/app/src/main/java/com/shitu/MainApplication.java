@@ -6,7 +6,6 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 
 import com.dylanvann.fastimage.FastImageViewPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -31,7 +30,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFetchBlobPackage(),
             new LinearGradientPackage(),
             new FastImageViewPackage(),
-            new RNFetchBlobPackage(),
             new VectorIconsPackage()
       );
     }

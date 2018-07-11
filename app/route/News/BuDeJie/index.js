@@ -86,7 +86,7 @@ export class BuDeJie extends React.Component<any, any> {
   }
 
   render() {
-  	console.log('11111111');
+  	// console.log('11111111');
   	return [
   		<TableList
   			key={'TableList'}
@@ -97,21 +97,7 @@ export class BuDeJie extends React.Component<any, any> {
   			initialNumToRender={10}
   			paginationType={'value'}
   		/>,
-  		<Modal key={'Modal'}
-  			animationType={'fade'}
-  			visible={this.isVisible}
-  		>
-  			<View style={{flex: 1, backgroundColor: 'black', justifyContent: 'center', alignItems: 'center'}}>
-  				{
-  					this.itemData ? <ModalView itemData={this.itemData}
-  						picturePress={() => {
-  							this.setVisible(false);
-  						}}
-  					/>
-  						: null
-  				}
-  			</View>
-  		</Modal>
+
   	];
   }
 }

@@ -39,7 +39,7 @@
     "flow-bin": "^0.76.0",
     "immutable": "^3.8.2",
     "jest": "23.3.0",
-    "mobx": "^5.0.3",
+    "mobx": "4.3.1",
     "mobx-react": "^5.0.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",

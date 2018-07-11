@@ -64,6 +64,7 @@ class Fetch {
     // appendExt : string,
     // session : string,
     // addAndroidDownloads : any,
+	  trusty: true
   }
 
   /**
@@ -81,7 +82,7 @@ class Fetch {
   	let _params;
   	let _url = url;
   	const _config = { indicator: true, timeout: 30000,  ...config};
-  	const _header = { 'Content-Type': 'application/json', ...header };
+  	// const _header = { 'Content-Type': 'application/json', ...header };
 
   	// let userData = await AsyncStorage.getItem('USER_TOKEN');
 
@@ -105,8 +106,9 @@ class Fetch {
 
   	return RNFetchBlob
   		.config(_config)
-  		.fetch(_method, _url, _header, _params)
+  		.fetch(_method, _url, header, _params)
   		.then(resp => {
+  			// console.log(resp);
   			return checkStatus(resp, resp.json());
   		})
   		.then((response) => {

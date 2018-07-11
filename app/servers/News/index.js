@@ -14,12 +14,13 @@ export async function loadWealPictureData(page: number, type: RGankType = 'Á¶èÂà
 	let _type: string;
 
 	_type = encodeURIComponent(type);
+	console.log(_type)
 
 	const url = `http://gank.io/api/data/${_type}/${count}/${page}`;
 
-	return await Fetch.get(url);
+	console.log('33333', url);
 
-	// return Gank;
+	return await Fetch.get(url);
 }
 
 
@@ -35,7 +36,18 @@ export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
 	const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
 
-	return await Fetch.get(url);
+	console.log('222222', url);
+
+	const data = await Fetch.get(url);
+
+	return data;
+
+	// const data = await fetch('http://api.budejie.com/api/api_open.php?a=list&c=data&type=10');
+	// console.log(await data.json());
+	//
+	// const _data = await data.json()
+	//
+	// return _data;
 
 	// console.log(url)
 }
