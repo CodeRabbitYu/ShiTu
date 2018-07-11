@@ -8,8 +8,23 @@ Theme.set(DefaultTheme);
 
 import App from './app/index';
 
-console.ignoredYellowBox = [ 'Warning: isMounted(...)' ];
+if (!__DEV__) {
+	global.console = {
+		info: () => {
+		},
+		log: () => {
+		},
+		warn: () => {
+		},
+		error: () => {
+		},
+	};
+}
+
 // YellowBox.ignoreWarnings(['Warning: isMounted(...)']);
+
+// 关闭指定警告
+console.ignoredYellowBox = [ 'Warning: isMounted(...)' ];
 
 // 关闭全部的警告
 // console.disableYellowBox = true;
