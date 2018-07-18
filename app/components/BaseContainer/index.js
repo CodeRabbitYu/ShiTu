@@ -43,7 +43,7 @@ type Props = {
 export default class BaseContainer extends Component<Props> {
 
 	componentWillUnmount() {
-		Toast.close(0);
+		// Toast.close(0);
 	}
 
 	renderContent() {

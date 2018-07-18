@@ -17,8 +17,7 @@ import {System} from '../../utils';
 
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-
+import {Theme} from 'teaset';
 
 type Props = {
 	uri?: string,
@@ -56,6 +55,10 @@ export default class index extends React.Component<Props, State> {
 		};
 	}
 
+	componentWillUnmount() {
+		this.setIntervar && clearInterval(this.setIntervar);
+	}
+
 
 	_reload = () => {
 		console.log('刷新');
@@ -78,8 +81,8 @@ export default class index extends React.Component<Props, State> {
 	};
 
 	_onShouldStartLoadWithRequest = (data) => {
-		console.log(data);
-		return true;
+		console.log('_onShouldStartLoadWithRequest', data);
+		// return true;
 	}
 
 	_renderLoading = () => {
@@ -88,7 +91,7 @@ export default class index extends React.Component<Props, State> {
 				<ProgressBar
 					progress={this.state.progress}
 					style={{
-						height: System.iOS ? 20 : 5,
+						height: Theme.statusBarHeight,
 						width: System.SCREEN_WIDTH,
 						borderWidth: 0,
 						borderRadius: 0,
@@ -124,6 +127,8 @@ export default class index extends React.Component<Props, State> {
 
 	_onLoadStart = () => {
 		console.log('开始加载');
+		this.setIntervar && clearInterval(this.setIntervar);
+
 		this.setState({
 			progress: 0,
 			active: false,
@@ -153,6 +158,7 @@ export default class index extends React.Component<Props, State> {
 	}
 
 	_onError = () => {
+		this.setIntervar && clearInterval(this.setIntervar);
 		Alert.alert(
 			'加载失败',
 			null,
@@ -222,7 +228,7 @@ export default class index extends React.Component<Props, State> {
 			<ProgressBar
 				progress={this.state.progress}
 				style={{
-					height: System.iOS ? 20 : 5,
+					height: Theme.statusBarHeight,
 					width: System.SCREEN_WIDTH,
 					backgroundColor: 'white',
 				}}
@@ -242,14 +248,14 @@ export default class index extends React.Component<Props, State> {
 					ref={WEBVIEW_REF}
 					style={styles.webView}
 					source={{uri: this.state.uri}}
-					// javaScriptEnabled={true}
-					// domStorageEnabled={true}
-					// scalesPageToFit={true}
-					// automaticallyAdjustContentInsets={false}
+					javaScriptEnabled={true}
+					domStorageEnabled={true}
+					scalesPageToFit={true}
+					automaticallyAdjustContentInsets={false}
 					onNavigationStateChange={this._onNavigationStateChange}
-					renderLoading={this._renderLoading}
+					// renderLoading={this._renderLoading}
 					startInLoadingState={true}
-					onShouldStartLoadWithRequest={() => this._onShouldStartLoadWithRequest()}
+					// onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest}
 					onLoadStart={this._onLoadStart}
 					// onLoad={()=>{
 					// 	console.log('加载完成');
