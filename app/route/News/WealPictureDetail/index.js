@@ -15,107 +15,88 @@ import {
 import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
 import { ActionSheet } from 'teaset';
-import FetchBlob from 'rn-fetch-blob';
 import {observer} from 'mobx-react';
-import FastImage from 'react-native-fast-image';
-const Dirs = FetchBlob.fs.dirs;
+import BaseContainer from '../../../components/BaseContainer';
+import {WealPictureDetailMobx} from '../../../mobx/News/WealPictureDetailMobx';
 
 type Props = {
-  navigation: any;
+	navigation: any;
 };
 type State = {
-  isHiddenHeader: boolean
+	isHiddenHeader: boolean
 }
 @observer
 export class WealPictureDetail extends React.Component<Props, State> {
+	wealPictureDetailMobx: WealPictureDetailMobx
 	constructor(props: Props) {
 		super(props);
+		this.wealPictureDetailMobx = new WealPictureDetailMobx();
 		this.state = {
-			isHiddenHeader: false
 		};
 	}
 
-  static navigationOptions = ({navigation}: any) => {
-  	const { params } = navigation.state;
-  	let header;
-  	if (params && params.isHiddenHeader) {
-  		header = null;
-  	}
+	static navigationOptions = ({navigation}: any) => {
+		return { header: null };
+	}
 
-  	return { header };
-  }
-
-  componentDidMount() {
-  	console.log(this.props);
-  	this.setNavBarHidden(true);
-  }
+	componentDidMount() {
+		console.log(this.props);
+		// this.setNavBarHidden(true);
+	}
 
 
-  saveImageWithIOS = async (url: string) => {
-  	try {
-  		await  CameraRoll.saveToCameraRoll(url, 'photo');
-  		alert('保存成功');
-  	} catch (e) {
-  		alert('保存失败');
-  	}
-  }
+	actionSheetToSaveImage = () => {
+		const url = this.props.navigation.state.params.url;
+		const items = [
+			{
+				title: '保存图片', onPress: () => System.iOS
+					?
+					this.wealPictureDetailMobx.saveImageWithIOS(url)
+					:
+					this.wealPictureDetailMobx.saveImageWithAndroid(url)
+			},
+			{
+				title: '设置主屏幕',
+				type: 'default',
+				onPress: () => {
+					alert('设置成功');
+				}
+			},
+		];
+		const cancelItem = {title: '取消'};
+		ActionSheet.show(items, cancelItem);
+	}
 
-  saveImageWithAndroid = async (url: string) => {
-  	// url最后一个反斜线的位置
-  	const lastIndex = url.lastIndexOf('/');
-  	// 通过位置得到图片名称
-  	const imageName = url.substr(lastIndex);
+	navBarIsVisible = () => {
+		// this.setState({isHiddenHeader: !this.state.isHiddenHeader});
+		this.wealPictureDetailMobx.setHiddenNavBar(!this.wealPictureDetailMobx.isHiddenNavBar);
+	}
+	//
+	// setNavBarHidden = (isHidden: boolean) => {
+	// 	console.log(isHidden);
+	// 	this.props.navigation.setParams({ isHiddenHeader: isHidden });
+	// }
 
-  	const config = {
-  		fileCache: true,
-  		path: Dirs.DCIMDir + imageName
-  	};
+	render() {
+		const url = this.props.navigation.state.params.url;
 
-  	try {
-  		// 下载图片
-  		await FetchBlob.config(config).fetch('GET', url);
-  		alert('保存成功');
-  	} catch (e) {
-  		console.log(e);
-  		alert('保存失败');
-  	}
-  }
+		const { isHiddenNavBar } = this.wealPictureDetailMobx;
 
-  actionSheetToSaveImage = () => {
-  	const url = this.props.navigation.state.params.url;
-  	const items = [
-  		{title: '保存图片', onPress: () => System.iOS ? this.saveImageWithIOS(url) : this.saveImageWithAndroid(url)},
-  		{title: '设置主屏幕', type: 'default'},
-  	];
-  	const cancelItem = {title: '取消'};
-  	ActionSheet.show(items, cancelItem);
-  }
-
-  navBarIsVisible = () => {
-  	this.setState({isHiddenHeader: !this.state.isHiddenHeader});
-  	this.setNavBarHidden(this.state.isHiddenHeader);
-  }
-
-  setNavBarHidden = (isHidden: boolean) => {
-  	console.log(isHidden);
-  	this.props.navigation.setParams({ isHiddenHeader: isHidden });
-  }
-
-  render() {
-  	const url = this.props.navigation.state.params.url;
-  	return (
-  		<Button onLongPress={this.actionSheetToSaveImage}
-  			onPress={this.navBarIsVisible}
-  			style={{backgroundColor: 'white', flex: 1}}
-  			activeOpacity={0.9}
-  		>
-  			<CustomImage style={styles.container}
-  				source={{uri: url}}
-  				resizeMode={'cover'}
-  			/>
-  		</Button>
-  	);
-  }
+		return (
+			<BaseContainer isHiddenNavBar={isHiddenNavBar}>
+				<Button onLongPress={this.actionSheetToSaveImage}
+				        onPress={this.navBarIsVisible}
+				        style={{backgroundColor: 'white', flex: 1}}
+				        activeOpacity={0.9}
+				>
+					<CustomImage style={styles.container}
+					             source={{uri: url}}
+					             resizeMode={'cover'}
+					/>
+				</Button>
+			</BaseContainer>
+		);
+	}
 }
 
 const styles = StyleSheet.create({

@@ -14,8 +14,10 @@ import MasonryList from './MasonryList';
 import ProgressBar from './ProgressBar';
 import NavigatorBar from './NavigatorBar';
 import BaseContainer from './BaseContainer';
+import Toast from './Toast';
+import LoadingSpinner from './LoadingSpinner';
 
 
 export { Button, CustomIcon, Theme, TableList,
-	CustomImage, MasonryList, ProgressBar, NavigatorBar, BaseContainer
+	CustomImage, MasonryList, ProgressBar, NavigatorBar, BaseContainer, Toast, LoadingSpinner
 };

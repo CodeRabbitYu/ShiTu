@@ -26,6 +26,7 @@ type Props = {
 	contentViewStyle?: any,			// 包裹层View样式
 
 	isTopNavigator?: boolean,		// 是否是顶层页面
+	isHiddenNavBar?: boolean,
 
 	errorTitle?: string,   //  错误页文本
 	imageSource?: string,  // 错误页图片
@@ -73,7 +74,7 @@ export default class BaseContainer extends Component<Props> {
 		let navView = null;
 		if (typeof navBar === 'undefined') {
 			navView = <NavigatorBar {...navProps} style={navStyle} isTopNavigator={isTopNavigator} />;
-		} else {
+		} else  {
 			navView = navBar;
 		}
 		return navView;
@@ -91,13 +92,14 @@ export default class BaseContainer extends Component<Props> {
 
 
 	render() {
-		const {style, contentViewStyle, isTopNavigator} = this.props;
+		const {style, contentViewStyle, isTopNavigator, isHiddenNavBar} = this.props;
 
 		const backgroundColor = !isTopNavigator && Theme.isIPhoneX ? 'white' : null;
+		const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
 		return <View style={[styles.container, style]}>
 			{this.renderNavView()}
-			<View style={[styles.contentView, { backgroundColor}, style, contentViewStyle]}>
+			<View style={[styles.contentView, {marginTop, backgroundColor}, style, contentViewStyle]}>
 				{this.renderContent()}
 				{this.renderBottom()}
 			</View>
@@ -109,7 +111,6 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	contentView: {
-		marginTop: Theme.statusBarHeight + Theme.navBarContentHeight,
 		flex: 1
 	},
 });

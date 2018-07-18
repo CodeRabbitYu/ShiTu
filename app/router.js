@@ -72,7 +72,12 @@ export const MyApp = createStackNavigator({
 	},
 
 }, {
-	navigationOptions: ({navigation}) => NavigatorOptions(navigation),
+	// 快速定制导航条，新版识兔中所有的导航都是重写的，所以这里会将全部的导航置空
+
+	navigationOptions: () => ({header: null}),
+
+
+	// navigationOptions: ({navigation}) => NavigatorOptions(navigation),
 	// headerTransitionPreset: 'fade-in-place',
 	// headerMode: 'float',
 	// mode: 'modal'

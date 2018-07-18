@@ -12,6 +12,7 @@ import {
 	FlatList
 } from 'react-native';
 import { LargeList } from 'react-native-largelist';
+import BaseContainer from "../../components/BaseContainer";
 
 
 const badegeNumber = 30;
@@ -23,16 +24,14 @@ type Props = {
 export class Main extends Component<Props> {
 
 	componentDidMount() {
-		console.log('我的');
-		this.props.navigation.setParams({
-			title: '我的',
-		});
+
 	}
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}>
 				<Text>Main</Text>
+				<View>1111</View>
 
 				{/* <View style={{backgroundColor: 'red', height:badegeNumber, width: badegeNumber, borderRadius: badegeRadius,*/}
 				{/* alignItems: 'center',*/}
@@ -61,7 +60,7 @@ export class Main extends Component<Props> {
 				{/* heightForCell={() => 44}*/}
 				{/* renderItemSeparator={()=><View/>}*/}
 				{/* />*/}
-			</View>
+			</BaseContainer>
 		);
 	}
 }
