@@ -1,10 +1,18 @@
-import { AppRegistry, YellowBox } from 'react-native';
+import { AppRegistry, YellowBox, Text, TextInput } from 'react-native';
 
 // import { Theme } from 'teaset';
 
 import { Theme } from './app/components';
 import DefaultTheme from './app/resource/thems/DefaultTheme';
+import {addCustomProps} from './app/utils';
+
+// 处理iOS系统文字
+addCustomProps(Text, {allowFontScaling: false});
+addCustomProps(TextInput, {allowFontScaling: false});
+
 Theme.set(DefaultTheme);
+
+
 
 import App from './app/index';
 
