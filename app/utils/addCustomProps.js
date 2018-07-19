@@ -7,7 +7,7 @@
  * 添加组件的的自定义属性
  * @param WrapComponent 组件
  * @param customProps 默认属性
- * @by  puti
+ * @by  下一刻  菩提
  */
 export const addCustomProps = (WrapComponent, customProps) => {
 	const componentRender = WrapComponent.prototype.render;
