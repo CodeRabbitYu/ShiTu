@@ -38,7 +38,7 @@
     "eslint-plugin-react-native": "^3.2.1",
     "flow-bin": "^0.76.0",
     "immutable": "^3.8.2",
-    "jest": "23.3.0",
+    "jest": "^23.4.1",
     "mobx": "4.3.1",
     "mobx-react": "^5.0.0",
     "prop-types": "^15.6.2",
@@ -46,6 +46,15 @@
     "react-test-renderer": "16.4.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|rn-fetch-blob|teaset|react-navigation)/"
+    ],
+    "notify": false
   }
 }

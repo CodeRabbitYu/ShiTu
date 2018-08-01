@@ -8,7 +8,7 @@ import { Theme } from 'teaset';
 import CustomImage from './CustomImage';
 
 import Button from './Button';
-import CustomIcon from './Icon';
+import CustomIcon from './CustomIcon';
 import TableList from './TableList';
 import MasonryList from './MasonryList';
 import ProgressBar from './ProgressBar';

@@ -39,13 +39,13 @@ export class BuDeJie extends React.Component<Props, any> {
 
 	constructor(props: Props) {
 		super(props);
-		this.BuDeJieMobx = new BuDeJieMobx();
+		this.buDeJieMobx = new BuDeJieMobx();
 	}
 
-	onFetch = async ( value: any = this.BuDeJieMobx.maxtime, startFetch: Function, abortFetch: Function) => {
+	onFetch = async ( value: any = this.buDeJieMobx.maxtime, startFetch: Function, abortFetch: Function) => {
 		try {
-			await this.BuDeJieMobx.fetchBuDeJieData(this.props.type, value);
-			startFetch(this.BuDeJieMobx.dataSource.slice(), 20);
+			await this.buDeJieMobx.fetchBuDeJieData(this.props.type, value);
+			startFetch(this.buDeJieMobx.dataSource.slice(), 20);
 		} catch (e) {
 			abortFetch();
 			console.log(e);
@@ -72,10 +72,10 @@ export class BuDeJie extends React.Component<Props, any> {
 
 
 	render() {
-		return [
-			<BaseContainer key={'base'} isTopNavigator={true}
-			               store={this.BuDeJieMobx}
+		return (
+			<BaseContainer store={this.buDeJieMobx}
 			               isHiddenNavBar={true}
+			               // isMarginTop={true}
 			>
 				<TableList
 					style={{backgroundColor: 'white'}}
@@ -87,7 +87,7 @@ export class BuDeJie extends React.Component<Props, any> {
 				/>
 			</BaseContainer>
 
-		];
+		)
 	}
 }
 

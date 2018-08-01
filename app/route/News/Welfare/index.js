@@ -15,12 +15,10 @@ import {
 import {System} from '../../../utils';
 import { MasonryList, BaseContainer } from '../../../components';
 
-import { WealPictureMobx } from '../../../mobx/News';
+import { WelfareMobx } from '../../../mobx/News';
 
 import { observer} from 'mobx-react';
 import { Button, CustomImage } from '../../../components';
-import {BuDeJie} from '../index';
-import {WealPictureDetail} from '../WealPictureDetail';
 import type {NavigationState} from 'react-navigation';
 import {RTWeal} from '../../../servers/News/interfaces';
 import FastImage from 'react-native-fast-image';
@@ -29,27 +27,26 @@ type Props = {
 	navigate: NavigationState;
 };
 @observer
-export class WealPicture extends React.Component<Props> {
+export class Welfare extends React.Component<Props> {
 
-	WealPictureMobx: WealPictureMobx;
+	welfareMobx: WelfareMobx;
 
 	constructor(props: Props) {
 		super(props);
-		this.WealPictureMobx = new WealPictureMobx();
+		this.welfareMobx = new WelfareMobx();
 	}
 
 	async componentDidMount() {
-		await this.WealPictureMobx.fetchWealPictureData(1);
+		await this.welfareMobx.fetchWelfareData(1);
 	}
 
 	renderItem = ({item}: {item: RTWeal, index: number, column: number}) => {
-		// console.log(item);
+		console.log(item);
 		return (
 			<Button
-				onPress={() => this.props.navigate('WealPictureDetail', {url: item.url, isHiddenHeader: true})}
+				onPress={() => this.props.navigate('WelfareDetail', {url: item.url, isHiddenHeader: true})}
 			>
-				<CustomImage source={{uri: item.createdAt}}
-				             activityVisible={false}
+				<CustomImage source={{uri: item.url}}
 				             style={[
 					             styles.cell,
 					             { height: item.height, backgroundColor: 'white'},
@@ -59,17 +56,30 @@ export class WealPicture extends React.Component<Props> {
 		);
 	}
 
+	renderFooterComponent = () => {
+		const { isRefreshing } = this.welfareMobx;
+		return (
+			!isRefreshing &&
+				<View style={{height: 50, flex: 1,  alignItems: 'center', justifyContent: 'center'}}>
+					<ActivityIndicator size={'small'}/>
+				</View>
+
+		);
+	}
+
 	render() {
 
-		const { dataSource, isRefreshing, refreshData, loadMoreData } = this.WealPictureMobx;
+		const { dataSource, isRefreshing, refreshData, loadMoreData } = this.welfareMobx;
 
 		return (
-			<BaseContainer key={'base'} isTopNavigator={true}
-			               navBar={<View/>} store={this.WealPictureMobx}
+			<BaseContainer key={'base'}
 			               isHiddenNavBar={true}
+			               store={this.welfareMobx}
+			               // style={{backgroundColor: 'red'}}
 			>
 				<MasonryList
 					onRefresh={refreshData}
+					style={{backgroundColor: 'white'}}
 					refreshing={isRefreshing}
 					data={dataSource.slice()}
 					renderItem={this.renderItem}
@@ -79,15 +89,7 @@ export class WealPicture extends React.Component<Props> {
 					keyExtractor={item => item._id}
 					ListEmptyComponent={() => <View/>}
 					ListHeaderComponent={() => <View/>}
-					ListFooterComponent={() =>
-						!isRefreshing
-							?
-							<View style={{height: 50, flex: 1,  alignItems: 'center', justifyContent: 'center'}}>
-								<ActivityIndicator size={'small'}/>
-							</View>
-							:
-							null
-					}
+					ListFooterComponent={this.renderFooterComponent}
 					onEndReachedThreshold={0.1}
 					onEndReached={loadMoreData}
 				/>

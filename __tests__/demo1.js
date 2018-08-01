@@ -68,17 +68,48 @@
 //   return expect(Promise.resolve('lemon')).resolves.toBe('lemon');
 // });
 //
-// test('rejects to octopus', () => {
-//   // make sure to add a return statement
-//   return expect(Promise.reject(new Error('octopus'))).rejects.toThrow(
-//     'octopus',
-//   );
+test('rejects to octopus', () => {
+	// make sure to add a return statement
+	return expect(Promise.reject(new Error('octopus'))).rejects.toThrow(
+		'octopus',
+	);
+});
+
+
+// import {WealPictureDetailMobx} from '../app/mobx/News/WealPictureDetailMobx';
+import {Test} from './Test';
+
+
+
+describe('Test', () => {
+	it('Test --- title', () => {
+
+		const test = new Test();
+
+		const text = 'Finish docs';
+
+		const testParams = {
+			'title': 'Finish docs',
+		}
+
+		expect.not.stringContaining(text);
+
+		expect(test.setTitle(testParams));
+	});
+})
+
+
+// test('the data is peanut butter', () => {
+// 	expect.assertions(1);
+// 	WealPictureDetailMobx.setHiddenNavBar(true);
+// 	expect(data).toBe('peanut butter');
 // });
 
-const mockFn = jest.fn();
-mockFn();
-expect(mockFn).toHaveBeenCalled();
+
+// const mockFn = jest.fn();
+// mockFn();
+// expect(mockFn).toHaveBeenCalled();
 
 // With a mock implementation:
-const returnsTrue = jest.fn(() => true);
-console.log(returnsTrue()); // true;
+// const returnsTrue = jest.fn(() => true);
+// console.log(returnsTrue()); // true;

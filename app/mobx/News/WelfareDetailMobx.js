@@ -9,14 +9,14 @@ import FetchBlob from 'rn-fetch-blob';
 const Dirs = FetchBlob.fs.dirs;
 
 
-class WealPictureDetailMobx {
+class WelfareDetailMobx {
 
 	@observable isHiddenNavBar: boolean = true;
 
-
 	@action.bound
-	setHiddenNavBar(isHiddenNavBar: boolean) {
+	setHiddenNavBar(isHiddenNavBar: boolean): boolean {
 		this.isHiddenNavBar = isHiddenNavBar;
+		return isHiddenNavBar;
 	}
 
 
@@ -54,4 +54,4 @@ class WealPictureDetailMobx {
 
 }
 
-export { WealPictureDetailMobx };
+export { WelfareDetailMobx };

@@ -14,6 +14,7 @@ import {JokeItem} from './JokeItem';
 import {PictureItem} from './PictureItem';
 import type {RTBDJList} from '../../../../../servers/News/interfaces';
 import { Button } from '../../../../../components/index';
+import {BuDeJieDetail} from "../../../index";
 
 type Props = {
   itemData: RTBDJList;
@@ -33,7 +34,7 @@ export class ContainerItem extends React.Component<Props> {
 			);
 		}
 
-		{ /* <Button onPress={() => navigate('BuDeJiePictureDetail', { pictureData: pictureData })}>*/ }
+		{ /* <Button onPress={() => navigate('BuDeJieDetail', { pictureData: pictureData })}>*/ }
 
 		/**
      * @desc 图片

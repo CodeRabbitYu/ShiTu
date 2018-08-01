@@ -1,24 +1,25 @@
 /**
+ * @flow
  * Created by Rabbit on 2018/5/4.
  */
 
 import {observable, computed, action, runInAction, autorun} from 'mobx';
 import type {RTGankResult, RTWeal} from '../../servers/News/types';
-import {loadWealPictureData} from '../../servers/News';
+import {loadWelfareData} from '../../servers/News';
 import {System} from '../../utils';
 
 let loadMoreNumber = [];
 
-class WealPictureMobx {
+class WelfareMobx {
 
   @observable isRefreshing: boolean = true;
   @observable dataSource: Array<RTGankResult> = [];
   @observable page: number = 1;
 
   @action.bound
-  async fetchWealPictureData(page) {
+  async fetchWelfareData(page) {
   	try {
-  		const data = await loadWealPictureData(page);
+  		const data = await loadWelfareData(page);
 
   		const results = data.results;
 
@@ -54,11 +55,11 @@ class WealPictureMobx {
   @action.bound
   async refreshData() {
   	this.isRefreshing = true;
-  	await this.fetchWealPictureData(1);
+  	await this.fetchWelfareData(1);
   }
 
   @action.bound
-  async loadMoreData(distanceFromEnd: number) {
+  async loadMoreData(distanceFromEnd: Array<number>) {
   	if (loadMoreNumber.length === 2) loadMoreNumber = [];
 
   	loadMoreNumber.push(distanceFromEnd);
@@ -67,9 +68,9 @@ class WealPictureMobx {
 
   	if (loadMoreNumber.length === 2) {
   		page += 1;
-  		await this.fetchWealPictureData(page);
+  		await this.fetchWelfareData(page);
   	}
   }
 }
 
-export { WealPictureMobx };
+export { WelfareMobx };

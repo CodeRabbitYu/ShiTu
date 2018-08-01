@@ -20,7 +20,7 @@ type Props = {
   pictureData: Picture;
   navigation: NavigationState
 }
-export class BuDeJiePictureDetail extends React.Component<Props> {
+export class BuDeJieDetail extends React.Component<Props> {
 
   static navigationOptions = () => {
   	const headerStyle = {

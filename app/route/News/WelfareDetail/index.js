@@ -5,11 +5,7 @@
 
 import React from 'react';
 import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	CameraRoll
+	StyleSheet, View,
 } from 'react-native';
 
 import { Button, CustomImage } from '../../../components';
@@ -17,7 +13,7 @@ import { System } from '../../../utils';
 import { ActionSheet } from 'teaset';
 import {observer} from 'mobx-react';
 import BaseContainer from '../../../components/BaseContainer';
-import {WealPictureDetailMobx} from '../../../mobx/News/WealPictureDetailMobx';
+import {WelfareDetailMobx} from '../../../mobx/News/WelfareDetailMobx';
 
 type Props = {
 	navigation: any;
@@ -26,11 +22,11 @@ type State = {
 	isHiddenHeader: boolean
 }
 @observer
-export class WealPictureDetail extends React.Component<Props, State> {
-	wealPictureDetailMobx: WealPictureDetailMobx
+export class WelfareDetail extends React.Component<Props, State> {
+	welfareDetailMobx: WelfareDetailMobx;
 	constructor(props: Props) {
 		super(props);
-		this.wealPictureDetailMobx = new WealPictureDetailMobx();
+		this.welfareDetailMobx = new WelfareDetailMobx();
 		this.state = {
 		};
 	}
@@ -51,9 +47,9 @@ export class WealPictureDetail extends React.Component<Props, State> {
 			{
 				title: '保存图片', onPress: () => System.iOS
 					?
-					this.wealPictureDetailMobx.saveImageWithIOS(url)
+					this.welfareDetailMobx.saveImageWithIOS(url)
 					:
-					this.wealPictureDetailMobx.saveImageWithAndroid(url)
+					this.welfareDetailMobx.saveImageWithAndroid(url)
 			},
 			{
 				title: '设置主屏幕',
@@ -68,22 +64,18 @@ export class WealPictureDetail extends React.Component<Props, State> {
 	}
 
 	navBarIsVisible = () => {
-		// this.setState({isHiddenHeader: !this.state.isHiddenHeader});
-		this.wealPictureDetailMobx.setHiddenNavBar(!this.wealPictureDetailMobx.isHiddenNavBar);
+		this.welfareDetailMobx.setHiddenNavBar(!this.welfareDetailMobx.isHiddenNavBar);
 	}
-	//
-	// setNavBarHidden = (isHidden: boolean) => {
-	// 	console.log(isHidden);
-	// 	this.props.navigation.setParams({ isHiddenHeader: isHidden });
-	// }
 
 	render() {
 		const url = this.props.navigation.state.params.url;
 
-		const { isHiddenNavBar } = this.wealPictureDetailMobx;
+		const { isHiddenNavBar } = this.welfareDetailMobx;
 
 		return (
-			<BaseContainer isHiddenNavBar={isHiddenNavBar}>
+			<BaseContainer
+				isHiddenNavBar={isHiddenNavBar}
+			>
 				<Button onLongPress={this.actionSheetToSaveImage}
 				        onPress={this.navBarIsVisible}
 				        style={{backgroundColor: 'white', flex: 1}}

@@ -98,7 +98,7 @@ export default class BaseContainer extends Component<Props> {
 		const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
 		return <View style={[styles.container, style]}>
-			{this.renderNavView()}
+			{ !isHiddenNavBar && this.renderNavView() }
 			<View style={[styles.contentView, {marginTop, backgroundColor}, style, contentViewStyle]}>
 				{this.renderContent()}
 				{this.renderBottom()}

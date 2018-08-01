@@ -2,8 +2,9 @@
  * Created by Rabbit on 2018/4/16.
  */
 
-import { WealPictureMobx } from './WealPictureMobx';
+import { WelfareDetailMobx } from './WelfareDetailMobx';
 import { BuDeJieMobx } from './BuDeJieMobx';
+import { WelfareMobx } from './WelfareMobx';
 
 
-export { WealPictureMobx, BuDeJieMobx };
+export { WelfareDetailMobx, WelfareMobx, BuDeJieMobx };

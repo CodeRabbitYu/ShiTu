@@ -9,7 +9,7 @@ import {RTWeal, RTGankResult, RTBDJResult} from './interfaces';
 
 type RGankType = '福利' | 'iOS' | 'Android';
 
-export async function loadWealPictureData(page: number, type: RGankType = '福利', count: number = 20): Promise<RTGankResult> {
+export async function loadWelfareData(page: number, type: RGankType = '福利', count: number = 20): Promise<RTGankResult> {
 
 	let _type: string;
 
@@ -36,11 +36,7 @@ export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
 	const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
 
-	console.log('222222', url);
-
-	const data = await Fetch.get(url);
-
-	return data;
+	return await Fetch.get(url);
 
 	// const data = await fetch('http://api.budejie.com/api/api_open.php?a=list&c=data&type=10');
 	// console.log(await data.json());

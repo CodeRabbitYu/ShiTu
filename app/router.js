@@ -16,7 +16,7 @@ import { System } from './utils';
 import { CustomIcon, Theme } from './components';
 
 import { ShiTu } from './route/ShiTu';
-import { News, WealPicture, WealPictureDetail, BuDeJie, BuDeJiePictureDetail } from './route/News';
+import { News, Welfare, WelfareDetail, BuDeJie, BuDeJieDetail } from './route/News';
 import { Main } from './route/Main';
 import WebView from './route/WebView';
 
@@ -55,14 +55,14 @@ export const MyApp = createStackNavigator({
 	MyTab: {
 		screen: MyTab,
 	},
-	WealPictureDetail: {
-		screen: WealPictureDetail,
+	WelfareDetail: {
+		screen: WelfareDetail,
 	},
 	BuDeJie: {
 		screen: BuDeJie,
 	},
-	BuDeJiePictureDetail: {
-		screen: BuDeJiePictureDetail
+	BuDeJieDetail: {
+		screen: BuDeJieDetail
 	},
 	WebView: {
   	screen: WebView,

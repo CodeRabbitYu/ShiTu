@@ -7,16 +7,16 @@ import React from 'react';
 import {Text, View} from 'react-native';
 
 import {System} from '../../utils';
-import {Button, TableList, BaseContainer} from '../../components';
+import { BaseContainer} from '../../components';
 
 import {observer} from 'mobx-react';
 
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 
-import { WealPicture } from './WealPicture';
-import { WealPictureDetail } from './WealPictureDetail';
+import { Welfare } from './Welfare';
+import { WelfareDetail } from './WelfareDetail';
 import { BuDeJie } from './BuDeJie';
-import {BuDeJiePictureDetail} from './BuDeJiePictureDetail';
+import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type {NavigationState} from 'react-navigation';
 
@@ -69,7 +69,7 @@ class News extends React.Component<any, State> {
 						this.state.typeArr.map((item, i) => {
 							if (i === 4) {
 								return (
-									<WealPicture tabLabel={item.title} key={i} navigate={item.navigate}/>
+									<Welfare tabLabel={item.title} key={i} navigate={item.navigate}/>
 								);
 							} else {
 								return (
@@ -86,8 +86,8 @@ class News extends React.Component<any, State> {
 
 export {
 	News,
-	WealPicture,
-	WealPictureDetail,
+	WelfareDetail,
+	Welfare,
 	BuDeJie,
-	BuDeJiePictureDetail,
+	BuDeJieDetail,
 };
