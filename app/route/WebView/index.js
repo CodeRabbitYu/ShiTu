@@ -18,6 +18,7 @@ import {System} from '../../utils';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Theme} from 'teaset';
+import BaseContainer from '../../components/BaseContainer';
 
 type Props = {
 	uri?: string,
@@ -36,11 +37,7 @@ const WEBVIEW_REF = 'webview';
 
 export default class index extends React.Component<Props, State> {
 
-	setIntervar: any;
-
-	static navigationOptions = () => ({
-		header: null
-	})
+	setInterval: any;
 
 	constructor(props: Props) {
 		super(props);
@@ -56,7 +53,8 @@ export default class index extends React.Component<Props, State> {
 	}
 
 	componentWillUnmount() {
-		this.setIntervar && clearInterval(this.setIntervar);
+		this.setState({progress: 0});
+		this.setInterval && clearInterval(this.setInterval);
 	}
 
 
@@ -87,22 +85,15 @@ export default class index extends React.Component<Props, State> {
 
 	_renderLoading = () => {
 		return (
-			System.Android ?
-				<ProgressBar
-					progress={this.state.progress}
-					style={{
-						height: Theme.statusBarHeight,
-						width: System.SCREEN_WIDTH,
-						borderWidth: 0,
-						borderRadius: 0,
-						backgroundColor: 'gray',
-					}}
-					// filledColor='#4ECBFC'
-					// unfilledColor='#F5FCFF'
-					filledColor="#C9DE00"
-					unfilledColor="white"
-				/>
-				: null
+			<ProgressBar
+				progress={this.state.progress}
+				style={{
+					height: 10,
+					width: System.SCREEN_WIDTH,
+				}}
+				filledColor="#C9DE00"
+				unfilledColor="white"
+			/>
 		);
 	};
 
@@ -127,13 +118,13 @@ export default class index extends React.Component<Props, State> {
 
 	_onLoadStart = () => {
 		console.log('开始加载');
-		this.setIntervar && clearInterval(this.setIntervar);
+		this.setInterval && clearInterval(this.setInterval);
 
 		this.setState({
 			progress: 0,
 			active: false,
 		});
-		this.setIntervar = setInterval(() => {
+		this.setInterval = setInterval(() => {
 			if (this.state.progress > 80) {
 				return;
 			}
@@ -142,14 +133,14 @@ export default class index extends React.Component<Props, State> {
 			});
 
 			if (this.state.progress >= 100) {
-				this.setIntervar && clearInterval(this.setIntervar);
+				this.setInterval && clearInterval(this.setInterval);
 			}
 		});
 	}
 
 	_onLoadEnd = () => {
 		console.log('加载结束，成功或失败都会走到这里');
-		this.setIntervar && clearInterval(this.setIntervar);
+		this.setInterval && clearInterval(this.setInterval);
 		this.setState({
 			progress: 100,
 			// active:true
@@ -158,7 +149,7 @@ export default class index extends React.Component<Props, State> {
 	}
 
 	_onError = () => {
-		this.setIntervar && clearInterval(this.setIntervar);
+		this.setInterval && clearInterval(this.setInterval);
 		Alert.alert(
 			'加载失败',
 			null,
@@ -228,11 +219,11 @@ export default class index extends React.Component<Props, State> {
 			<ProgressBar
 				progress={this.state.progress}
 				style={{
-					height: Theme.statusBarHeight,
+					height: 100,
 					width: System.SCREEN_WIDTH,
 					backgroundColor: 'white',
 				}}
-				filledColor='#4ECBFC'
+				filledColor='blue'
 				unfilledColor='white'
 			/>
 		);
@@ -240,10 +231,7 @@ export default class index extends React.Component<Props, State> {
 
 	render() {
 		return (
-			<View style={styles.container}>
-
-				{this.renderProgressBar()}
-
+			<BaseContainer style={styles.container}>
 				<WebView
 					ref={WEBVIEW_REF}
 					style={styles.webView}
@@ -253,11 +241,12 @@ export default class index extends React.Component<Props, State> {
 					scalesPageToFit={true}
 					automaticallyAdjustContentInsets={false}
 					onNavigationStateChange={this._onNavigationStateChange}
-					// renderLoading={this._renderLoading}
+					renderLoading={this._renderLoading}
 					startInLoadingState={true}
 					// onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest}
 					onLoadStart={this._onLoadStart}
-					// onLoad={()=>{
+					// onLoad={() => {
+					// 	this.setState({progress: 0});
 					// 	console.log('加载完成');
 					// }}
 					onLoadEnd={this._onLoadEnd}
@@ -266,7 +255,7 @@ export default class index extends React.Component<Props, State> {
 
 				{this._renderActionButton()}
 
-			</View>
+			</BaseContainer>
 		);
 	}
 }

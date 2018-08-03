@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import {observer} from 'mobx-react';
+import {SafeAreaView} from 'react-navigation';
 
 import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
 import { Theme } from 'teaset';
@@ -97,13 +98,15 @@ export default class BaseContainer extends Component<Props> {
 		const backgroundColor = !isTopNavigator && Theme.isIPhoneX ? 'white' : null;
 		const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
-		return <View style={[styles.container, style]}>
+		return <SafeAreaView style={[styles.container, style]}
+		                     forceInset={{ bottom: 'never', top: 'never' }}
+		>
 			{ !isHiddenNavBar && this.renderNavView() }
 			<View style={[styles.contentView, {marginTop, backgroundColor}, style, contentViewStyle]}>
 				{this.renderContent()}
-				{this.renderBottom()}
+				{/*{this.renderBottom()}*/}
 			</View>
-		</View>;
+		</SafeAreaView>;
 	}
 }
 const styles = StyleSheet.create({
