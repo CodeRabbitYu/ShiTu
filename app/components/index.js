@@ -16,8 +16,10 @@ import NavigatorBar from './NavigatorBar';
 import BaseContainer from './BaseContainer';
 import Toast from './Toast';
 import LoadingSpinner from './LoadingSpinner';
+import MyTextInput from './MyTextInput';
 
 
 export { Button, CustomIcon, Theme, TableList,
-	CustomImage, MasonryList, ProgressBar, NavigatorBar, BaseContainer, Toast, LoadingSpinner
+	CustomImage, MasonryList, ProgressBar, NavigatorBar, BaseContainer, Toast, LoadingSpinner,
+	MyTextInput
 };

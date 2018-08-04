@@ -9,11 +9,13 @@ import {
 	Text,
 	View,
 	Image,
-	FlatList
+	FlatList,
+
 } from 'react-native';
 import { LargeList } from 'react-native-largelist';
-import BaseContainer from "../../components/BaseContainer";
+import BaseContainer from '../../components/BaseContainer';
 
+import { MyTextInput as TextInput } from '../../components';
 
 const badegeNumber = 30;
 const badegeRadius = badegeNumber / 2;
@@ -60,6 +62,9 @@ export class Main extends Component<Props> {
 				{/* heightForCell={() => 44}*/}
 				{/* renderItemSeparator={()=><View/>}*/}
 				{/* />*/}
+
+				<TextInput placeholder='11111111' style={{height: 44, backgroundColor: 'red'}}/>
+
 			</BaseContainer>
 		);
 	}

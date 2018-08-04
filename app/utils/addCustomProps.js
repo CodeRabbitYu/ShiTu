@@ -17,11 +17,11 @@ export const addCustomProps = (WrapComponent, customProps) => {
 		...customProps
 	};
 	WrapComponent.prototype.render = function render() {
-		let oldProps = this.props;
+		const oldProps = this.props;
 		this.props = {
 			...this.props,
 			style: [customProps.style, oldProps.style]
 		};
-		return componentRender.apply(this)
-	}
+		return componentRender.apply(this);
+	};
 };
