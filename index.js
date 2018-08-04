@@ -32,8 +32,7 @@ if (!__DEV__) {
 // YellowBox.ignoreWarnings(['Warning: isMounted(...)']);
 
 // 关闭指定警告
-console.ignoredYellowBox = [ 'Warning: isMounted(...)',
-	'Warning: Can\'t call setState (or forceUpdate) on an unmounted component.' ];
+console.ignoredYellowBox = [ 'Warning: isMounted(...)', ];
 
 // 关闭全部的警告
 // console.disableYellowBox = true;

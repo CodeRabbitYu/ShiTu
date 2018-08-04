@@ -12,17 +12,19 @@ import {
 	WebView,
 	Alert
 } from 'react-native';
-import { ProgressBar } from '../../components';
+import { ProgressBar, Button } from '../../components';
 import {System} from '../../utils';
 
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Theme} from 'teaset';
 import BaseContainer from '../../components/BaseContainer';
+import {inject} from 'mobx-react';
 
 type Props = {
 	uri?: string,
 	navigation: any,
+	ConfigStore: any,
 };
 
 type State = {
@@ -33,18 +35,16 @@ type State = {
 	isForWard: boolean,
 }
 
-const WEBVIEW_REF = 'webview';
-
+@inject('ConfigStore')
 export default class index extends React.Component<Props, State> {
 
-	setInterval: any;
+	webView: WebView;
 
 	constructor(props: Props) {
 		super(props);
 
 		const { uri } = this.props.navigation.state.params;
 		this.state = {
-			progress: 0,
 			active: false,
 			isGoBack: false,
 			isForWard: false,
@@ -53,23 +53,22 @@ export default class index extends React.Component<Props, State> {
 	}
 
 	componentWillUnmount() {
-		this.setState({progress: 0});
-		this.setInterval && clearInterval(this.setInterval);
+		this.props.ConfigStore.hideLoading();
 	}
 
 
 	_reload = () => {
 		console.log('刷新');
-		this.refs[WEBVIEW_REF].reload();
+		this.webView.reload();
 	};
 	_goForward = () => {
 		console.log('去前面的页面');
-		this.state.isForWard ? this.refs[WEBVIEW_REF].goForward() : null;
+		this.state.isForWard ? this.webView.goForward() : null;
 	};
 
 	_goBack = () => {
 		console.log('返回上级页面');
-		this.state.isGoBack ? this.refs[WEBVIEW_REF].goBack() : null;
+		this.state.isGoBack ? this.webView.goBack() : null;
 	};
 
 	_close = () => {
@@ -82,20 +81,6 @@ export default class index extends React.Component<Props, State> {
 		console.log('_onShouldStartLoadWithRequest', data);
 		// return true;
 	}
-
-	_renderLoading = () => {
-		return (
-			<ProgressBar
-				progress={this.state.progress}
-				style={{
-					height: 10,
-					width: System.SCREEN_WIDTH,
-				}}
-				filledColor="#C9DE00"
-				unfilledColor="white"
-			/>
-		);
-	};
 
 	_onNavigationStateChange = (navState) => {
 		// console.log(navState);
@@ -116,40 +101,27 @@ export default class index extends React.Component<Props, State> {
 		});
 	};
 
-	_onLoadStart = () => {
-		console.log('开始加载');
-		this.setInterval && clearInterval(this.setInterval);
-
-		this.setState({
-			progress: 0,
-			active: false,
-		});
-		this.setInterval = setInterval(() => {
-			if (this.state.progress > 80) {
-				return;
-			}
-			this.setState({
-				progress: this.state.progress + 0.1,
-			});
-
-			if (this.state.progress >= 100) {
-				this.setInterval && clearInterval(this.setInterval);
-			}
-		});
+	renderError = () => {
+		return (
+			<Button onPress={this._reload}>
+				<Text>出错啦！请点击刷新页面</Text>
+			</Button>
+		);
 	}
 
-	_onLoadEnd = () => {
+	onLoad = () => {
+		console.log('加载中');
+	}
+	onLoadEnd = () => {
 		console.log('加载结束，成功或失败都会走到这里');
-		this.setInterval && clearInterval(this.setInterval);
-		this.setState({
-			progress: 100,
-			// active:true
-		});
-
+		this.props.ConfigStore.hideLoading();
 	}
-
-	_onError = () => {
-		this.setInterval && clearInterval(this.setInterval);
+	onLoadStart = () => {
+		console.log('开始加载');
+		this.props.ConfigStore.setVisible(true);
+	}
+	onError = () => {
+		this.props.ConfigStore.hideLoading();
 		Alert.alert(
 			'加载失败',
 			null,
@@ -214,26 +186,13 @@ export default class index extends React.Component<Props, State> {
 		);
 	};
 
-	renderProgressBar = () => {
-		return (
-			<ProgressBar
-				progress={this.state.progress}
-				style={{
-					height: 100,
-					width: System.SCREEN_WIDTH,
-					backgroundColor: 'white',
-				}}
-				filledColor='blue'
-				unfilledColor='white'
-			/>
-		);
-	}
+
 
 	render() {
 		return (
 			<BaseContainer style={styles.container}>
 				<WebView
-					ref={WEBVIEW_REF}
+					ref={ref => this.webView = ref}
 					style={styles.webView}
 					source={{uri: this.state.uri}}
 					javaScriptEnabled={true}
@@ -241,16 +200,13 @@ export default class index extends React.Component<Props, State> {
 					scalesPageToFit={true}
 					automaticallyAdjustContentInsets={false}
 					onNavigationStateChange={this._onNavigationStateChange}
-					renderLoading={this._renderLoading}
-					startInLoadingState={true}
 					// onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest}
-					onLoadStart={this._onLoadStart}
-					// onLoad={() => {
-					// 	this.setState({progress: 0});
-					// 	console.log('加载完成');
-					// }}
-					onLoadEnd={this._onLoadEnd}
-					onError={this._onError}
+					renderError={this.renderError}
+					onLoad={this.onLoad}
+					onLoadEnd={this.onLoadEnd}
+					onLoadStart={this.onLoadStart}
+					onError={this.onError}
+
 				/>
 
 				{this._renderActionButton()}
