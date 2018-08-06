@@ -14,11 +14,8 @@ export async function loadWelfareData(page: number, type: RGankType = '福利', 
 	let _type: string;
 
 	_type = encodeURIComponent(type);
-	console.log(_type)
 
 	const url = `http://gank.io/api/data/${_type}/${count}/${page}`;
-
-	console.log('33333', url);
 
 	return await Fetch.get(url);
 }

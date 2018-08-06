@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 import { withNavigation, StackActions } from 'react-navigation';
-import {System} from "../../utils";
+import {System} from '../../utils';
 
 
 const popAction = StackActions.pop({

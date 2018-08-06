@@ -16,24 +16,44 @@ import * as Animatable from 'react-native-animatable';
 const AnimationButton = Animatable.createAnimatableComponent(Button);
 const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
 
+import {ShiTuMobx} from '../../mobx/ShiTu';
+
 import { Images } from '../../resource';
 import { Button, Theme, BaseContainer } from '../../components';
 import { System } from '../../utils';
+import {observer, inject} from 'mobx-react';
+import RootStore from '../../store/RootStore';
+import {ConfigStore} from '../../store/ConfigStore';
 
 
 type Props = {
-  navigation: any
+  navigation: any,
+	rootStore: RootStore;
+	configStore: ConfigStore;
 };
+
+@inject('configStore')
+@observer
 export class ShiTu extends Component<Props> {
 
-	componentDidMount() {}
+	shiTuMobx: ShiTuMobx;
+
+	constructor(props: Props) {
+		super(props);
+		this.shiTuMobx = new ShiTuMobx();
+	}
+
+	componentDidMount() {
+	}
 
 	render() {
 		return (
 			<BaseContainer title={'识兔'} isTopNavigator={true}>
 				<AnimationImageBackground style={styles.container}
 					animation="fadeIn"
-					source={Images.default}
+					// source={Images.default}
+					//                         source={{uri: this.props.rootStore.shiTuMobx.backgroundImageUri}}
+					                        source={{uri: this.props.configStore.params}}
 					blurRadius={System.Android ? 5 : 8}
 				>
 					<AnimationButton title={'点我寻找!'}

@@ -11,29 +11,29 @@ import {
 import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
 import { ActionSheet } from 'teaset';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import BaseContainer from '../../../components/BaseContainer';
 import {WelfareDetailMobx} from '../../../mobx/News/WelfareDetailMobx';
+import RootStore from '../../../store/RootStore';
+import {ConfigStore} from '../../../store/ConfigStore';
 
 type Props = {
 	navigation: any;
+	rootStore: RootStore;
+	configStore: ConfigStore;
 };
-type State = {
-	isHiddenHeader: boolean
-}
+
+@inject('configStore')
 @observer
-export class WelfareDetail extends React.Component<Props, State> {
+export class WelfareDetail extends React.Component<Props> {
 	welfareDetailMobx: WelfareDetailMobx;
 	constructor(props: Props) {
 		super(props);
 		this.welfareDetailMobx = new WelfareDetailMobx();
-		this.state = {
-		};
 	}
 
 	componentDidMount() {
-		console.log(this.props);
-		// this.setNavBarHidden(true);
+
 	}
 
 
@@ -51,7 +51,9 @@ export class WelfareDetail extends React.Component<Props, State> {
 				title: '设置主屏幕',
 				type: 'default',
 				onPress: () => {
-					alert('设置成功');
+					// alert('设置成功');
+
+					this.props.configStore.setParams(url);
 				}
 			},
 		];
@@ -60,12 +62,15 @@ export class WelfareDetail extends React.Component<Props, State> {
 	}
 
 	navBarIsVisible = () => {
+		// this.props.rootStore.welfareDetailMobx.setHiddenNavBar(!this.props.rootStore.welfareDetailMobx.isHiddenNavBar);
+
 		this.welfareDetailMobx.setHiddenNavBar(!this.welfareDetailMobx.isHiddenNavBar);
 	}
 
 	render() {
 		const url = this.props.navigation.state.params.url;
 
+		// const { isHiddenNavBar } = this.props.rootStore.welfareDetailMobx;
 		const { isHiddenNavBar } = this.welfareDetailMobx;
 
 		return (

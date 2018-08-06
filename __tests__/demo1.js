@@ -90,13 +90,13 @@ describe('Test', () => {
 
 		const testParams = {
 			'title': 'Finish docs',
-		}
+		};
 
 		expect.not.stringContaining(text);
 
 		expect(test.setTitle(testParams));
 	});
-})
+});
 
 
 // test('the data is peanut butter', () => {

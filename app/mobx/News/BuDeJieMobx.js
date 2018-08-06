@@ -8,13 +8,13 @@ import type {RTGankResult} from '../../servers/News/types';
 import {loadBuDeJieData, RTBuDeJieType} from '../../servers/News';
 import { System } from '../../utils';
 import type {UserInfo} from '../../servers/News/interfaces';
-import ConfigStore from '../../store/Config';
+// import {RootStore} from '../../store/RootStore';
 
 
 const ContainerHeight = System.SCREEN_HEIGHT - 49 - 64 - 54;
 
 
-class BuDeJieMobx extends ConfigStore {
+class BuDeJieMobx{
   @observable isRefreshing: boolean = true;
   @observable dataSource: Array<RTGankResult> = [];
   @observable maxtime: string = '';
@@ -61,7 +61,7 @@ class BuDeJieMobx extends ConfigStore {
 			  this.maxtime = dataSource.info.maxid;
 		  });
 	  } catch (e) {
-		  this.showErrorView(e);
+		  // this.showErrorView(e);
 	  }
   }
 

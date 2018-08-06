@@ -7,6 +7,7 @@ import {observable, computed, action, runInAction, autorun} from 'mobx';
 import type {RTGankResult, RTWeal} from '../../servers/News/types';
 import {loadWelfareData} from '../../servers/News';
 import {System} from '../../utils';
+// import {RootStore} from '../../store/RootStore';
 
 let loadMoreNumber = [];
 
@@ -32,29 +33,41 @@ class WelfareMobx {
   		});
 
   		if (page !== 1) {
-  			console.log('page不等于1', page);
+  			// console.log('page不等于1', page);
 
-  			this.page = page;
-  			this.dataSource = this.dataSource.concat(results);
+  			runInAction(() => {
+				  this.page = page;
+				  this.dataSource = this.dataSource.concat(results);
+			  });
 
   		} else {
-  			this.page = 1;
-  			this.dataSource = results;
+  			runInAction(() => {
+				  this.page = 1;
+				  this.dataSource = results;
+			  });
 
-  			console.log('page等于1', page);
+  			// console.log('page等于1', page);
   		}
 
-  		this.isRefreshing = false;
+
+  		runInAction(() => {
+			  this.isRefreshing = false;
+		  });
+
 
   	} catch (e) {
-  		this.isRefreshing = false;
-  		console.log(e);
+		  runInAction(() => {
+			  this.isRefreshing = false;
+		  });
+		  console.log(e);
   	}
   }
 
   @action.bound
   async refreshData() {
-  	this.isRefreshing = true;
+  	runInAction(() => {
+		  this.isRefreshing = true;
+	  });
   	await this.fetchWelfareData(1);
   }
 

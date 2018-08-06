@@ -1,10 +1,13 @@
 /**
  * @flow
- * Created by Rabbit on 2018/7/18.
+ * Created by Rabbit on 2018/8/6.
  */
 
 import {observable, action} from 'mobx';
 import {AsyncStorage} from 'react-native';
+
+
+
 
 type ErrorInfo = {
 	message: string,
@@ -22,6 +25,12 @@ class ConfigStore {
 
 	@action.bound setParams(params: any) {
 		this.params = params;
+		console.log('ConfigStore', this.params);
+	}
+
+	@action.bound
+	getParams = () => {
+		return this.params;
 	}
 
 	@action.bound showLoading(type?: loadingType) {
@@ -44,20 +53,10 @@ class ConfigStore {
 	}
 
 
-	@action.bound isLoadingError(isError: boolean) {
-		this.isError = isError;
-	}
-
-
-	@action.bound setVisible(visible: boolean) {
-		this.isLoading = visible;
-	}
 
 	@action.bound async fetchStartUp() {
 		const getToken = await AsyncStorage.getItem('User');
 		console.log('存在Token', getToken);
-		// if (getSession) alert('存在');
-
 		try {
 			// const responseData: responseType = await fetchUserData();
 			//
@@ -72,11 +71,8 @@ class ConfigStore {
 			// 	// if (getSession) alert('不存在');
 			// }
 		} catch (e) {
-			console.log('e', e);
 		}
 
 	}
 }
-
-// const configStore = new ConfigStore();
-export default ConfigStore;
+export { ConfigStore };

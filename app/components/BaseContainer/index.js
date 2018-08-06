@@ -57,7 +57,7 @@ export default class BaseContainer extends Component<Props> {
 				 return <LoadingSpinner isVisible={store.isLoading}/>;
 			 } else {
 				 return (
-				 	<View style={{flex:1}}>
+				 	<View style={{flex: 1}}>
 					  {children}
 					  <LoadingSpinner isVisible={store.isLoading}/>
 				 </View>);
@@ -104,7 +104,7 @@ export default class BaseContainer extends Component<Props> {
 			{ !isHiddenNavBar && this.renderNavView() }
 			<View style={[styles.contentView, {marginTop, backgroundColor}, style, contentViewStyle]}>
 				{this.renderContent()}
-				{/*{this.renderBottom()}*/}
+				{/* {this.renderBottom()}*/}
 			</View>
 		</SafeAreaView>;
 	}

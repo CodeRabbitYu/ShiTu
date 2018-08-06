@@ -122,7 +122,7 @@ export default class MasonryList extends React.Component<Props, State> {
   _scrollRef: ?ScrollView;
   _endsReached = 0;
 
-	UNSAFE_componentWillReceiveProps(newProps: Props) {
+  UNSAFE_componentWillReceiveProps(newProps: Props) {
   	this.setState(_stateFromProps(newProps));
   }
 

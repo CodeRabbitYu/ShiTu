@@ -41,7 +41,6 @@ export class Welfare extends React.Component<Props> {
 	}
 
 	renderItem = ({item}: {item: RTWeal, index: number, column: number}) => {
-		console.log(item);
 		return (
 			<Button
 				onPress={() => this.props.navigate('WelfareDetail', {url: item.url, isHiddenHeader: true})}

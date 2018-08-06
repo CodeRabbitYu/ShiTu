@@ -9,17 +9,22 @@ import { MyApp } from './router';
 import {View} from 'react-native';
 import {Toast, LoadingSpinner} from './components';
 import {observer, Provider} from 'mobx-react';
-import ConfigStore from './store/Config';
+import RootStore  from './store/RootStore';
+import {ConfigStore}  from './store/ConfigStore';
 
 
 @observer
 export default class index extends React.Component<any> {
 
-	configStore: ConfigStore;
 	toast: Toast;
+	rootStore: RootStore;
+	configStore: ConfigStore;
+
 
 	constructor(props: Props) {
 		super(props);
+
+		// this.rootStore = new RootStore();
 		this.configStore = new ConfigStore();
 
 	}
@@ -27,7 +32,7 @@ export default class index extends React.Component<any> {
 	render() {
 
 		return (
-			<Provider ConfigStore={this.configStore}>
+			<Provider configStore={this.configStore}>
 				<View style={{backgroundColor: 'transparent', flex: 1}}>
 					<MyApp />
 					<Toast ref={(t: any) => this.toast = t}/>

@@ -35,7 +35,7 @@ type Props = {
 @observer
 export class BuDeJie extends React.Component<Props, any> {
 
-	BuDeJieMobx: BuDeJieMobx;
+	buDeJieMobx: BuDeJieMobx;
 
 	constructor(props: Props) {
 		super(props);
@@ -63,19 +63,17 @@ export class BuDeJie extends React.Component<Props, any> {
 			<BaseItem itemData={item}
 			          navigate={navigate}
 			          itemPress={() => {
-				          alert('itemPress');
+				          alert(item.text);
 			          }}
 			          picturePress={() => this.picturePress(item)}
 			/>
 		);
 	}
 
-
 	render() {
 		return (
 			<BaseContainer store={this.buDeJieMobx}
 			               isHiddenNavBar={true}
-			               // isMarginTop={true}
 			>
 				<TableList
 					style={{backgroundColor: 'white'}}
@@ -87,13 +85,6 @@ export class BuDeJie extends React.Component<Props, any> {
 				/>
 			</BaseContainer>
 
-		)
+		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-
-});

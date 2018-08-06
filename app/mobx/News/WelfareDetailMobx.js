@@ -6,6 +6,7 @@
 import {observable, computed, action, runInAction, autorun} from 'mobx';
 import {CameraRoll} from 'react-native';
 import FetchBlob from 'rn-fetch-blob';
+// import {RootStore} from '../../store/RootStore';
 const Dirs = FetchBlob.fs.dirs;
 
 
@@ -13,12 +14,11 @@ class WelfareDetailMobx {
 
 	@observable isHiddenNavBar: boolean = true;
 
+
 	@action.bound
 	setHiddenNavBar(isHiddenNavBar: boolean): boolean {
 		this.isHiddenNavBar = isHiddenNavBar;
-		return isHiddenNavBar;
 	}
-
 
 	@action.bound
 	saveImageWithIOS = async (url: string) => {
