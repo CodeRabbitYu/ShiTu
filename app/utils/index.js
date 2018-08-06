@@ -8,4 +8,7 @@ import { Fetch, Axios } from './Request/index';
 
 import {addCustomProps} from './addCustomProps';
 
-export { Fetch, Axios, addCustomProps };
+import Global from './Global';
+import ThemeCustom from './ThemeCustom';
+
+export { Fetch, Axios, addCustomProps, Global, ThemeCustom };

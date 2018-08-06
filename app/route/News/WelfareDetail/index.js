@@ -31,10 +31,6 @@ export class WelfareDetail extends React.Component<Props, State> {
 		};
 	}
 
-	static navigationOptions = ({navigation}: any) => {
-		return { header: null };
-	}
-
 	componentDidMount() {
 		console.log(this.props);
 		// this.setNavBarHidden(true);

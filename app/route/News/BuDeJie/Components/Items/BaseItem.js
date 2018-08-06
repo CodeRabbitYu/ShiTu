@@ -28,15 +28,6 @@ type Props = {
   picturePress: Function;
 };
 
-type State = {
-  userInfoData: UserInfo;
-  toolBarData: ToolBar;
-  jokeData: Joke;
-  pictureData: Picture;
-  type: string;
-}
-
-
 export const BaseItem = (props: Props) => {
 	const { userInfoData, toolBarData } = props.itemData;
 	const { itemData, itemPress, picturePress} = props;
@@ -53,27 +44,9 @@ export const BaseItem = (props: Props) => {
 	);
 };
 
-export class BaseItem1 extends React.PureComponent<Props, State> {
-
-	render() {
-
-		const { userInfoData, toolBarData } = this.props.itemData;
-
-		return (
-			<View style={styles.container}>
-				<UserInfoView userInfoData={userInfoData}/>
-				<ContainerItem itemData={this.props.itemData}
-					itemPress={this.props.itemPress}
-					picturePress={this.props.picturePress}
-				/>
-				<ToolBarView toolBarData={toolBarData}/>
-			</View>
-		);
-	}
-}
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		marginTop: px2dp(20),
 	},
 });

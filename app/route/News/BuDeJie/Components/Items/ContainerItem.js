@@ -14,7 +14,7 @@ import {JokeItem} from './JokeItem';
 import {PictureItem} from './PictureItem';
 import type {RTBDJList} from '../../../../../servers/News/interfaces';
 import { Button } from '../../../../../components/index';
-import {BuDeJieDetail} from "../../../index";
+import {BuDeJieDetail} from '../../../index';
 
 type Props = {
   itemData: RTBDJList;
@@ -77,9 +77,3 @@ export class ContainerItem extends React.Component<Props> {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-});

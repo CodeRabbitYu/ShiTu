@@ -49,14 +49,22 @@ export class ToolBarView extends React.Component<Props, State> {
 
   	buttonData.map((item: ButtonItem, dataIndex: number) => {
 
-  		if (buttonData.find(item => item.selected)) return;
+  		// if (buttonData.find(item => item.selected)) return;
 
   		if (index === 0 || index === 1) {
-  			if (index === dataIndex && !item.selected) {
-  				item.selected = !item.selected;
-  			}
-  		}
+			  if (index === dataIndex) {
+				  item.selected = true;
+				  // item.selected = !item.selected;
+			  } else {
+			  	item.selected = false;
+			  }
+		  } else {
+			  if (index === dataIndex) {
+				  item.selected = !item.selected;
+			  }
+		  }
   	});
+
   	this.setState({ buttonData });
   };
 
@@ -87,31 +95,31 @@ export class ToolBarView extends React.Component<Props, State> {
 const styles = StyleSheet.create({
 
 	toolBar: {
-		height: 30,
+		height: px2dp(60),
 		flexDirection: 'row',
-		borderTopWidth: 0.5,
+		borderTopWidth: StyleSheet.hairlineWidth / 2,
 		borderTopColor: '#ddd',
-		marginTop: 5,
+		marginTop: px2dp(10),
 	},
 	button: {
 		width: System.SCREEN_WIDTH / 4,
-		height: 30,
+		height: px2dp(60),
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
 	buttonTitle: {
-		marginLeft: 5,
-		marginBottom: 3,
-		fontSize: 15,
+		marginLeft: px2dp(10),
+		marginBottom: px2dp(6),
+		fontSize: FONT_SIZE(15),
 		color: 'red',
 	},
 	buttonLine: {
 		position: 'absolute',
 		right: 0,
-		top: 5,
-		width: 0.5,
-		height: 20,
+		top: px2dp(10),
+		width: StyleSheet.hairlineWidth / 2,
+		height: px2dp(40),
 		backgroundColor: '#ddd'
 	}
 });

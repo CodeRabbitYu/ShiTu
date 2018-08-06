@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 	},
 	longPictureSignView: {
 		backgroundColor: 'rgba(88, 87, 86, 0.8)',
-		height: 40,
+		height: px2dp(80),
 		bottom: 0,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 		width: System.SCREEN_WIDTH,
 	},
 	longPictureSignText: {
-		fontSize: 18,
+		fontSize: FONT_SIZE(18),
 		color: 'white'
 	}
 });
