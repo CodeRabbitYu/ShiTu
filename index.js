@@ -1,8 +1,10 @@
 import { AppRegistry, YellowBox, Text, TextInput } from 'react-native';
 
-// import { Theme } from 'teaset';
+import { configure } from 'mobx';
+configure({ enforceActions: true });
+
+import { Theme } from 'teaset';
 import './app/utils';
-import { Theme } from './app/components';
 import DefaultTheme from './app/resource/thems/DefaultTheme';
 import {addCustomProps} from './app/utils';
 
