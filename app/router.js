@@ -20,6 +20,9 @@ import { News, Welfare, WelfareDetail, BuDeJie, BuDeJieDetail } from './route/Ne
 import { Main } from './route/Main';
 import WebView from './route/WebView';
 
+import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+
+
 import { GankTab } from './route/News/route';
 
 import Sample from './test/sample';
@@ -40,7 +43,7 @@ const MyTab = createBottomTabNavigator({
 		navigationOptions: () => TabOptions('我的', 'Main'),
 	},
 }, {
-	initialRouteName: 'News',
+	initialRouteName: 'ShiTu',
 	backBehavior: 'none',
 	tabBarOptions: {
 		style: {
@@ -48,7 +51,8 @@ const MyTab = createBottomTabNavigator({
 			backgroundColor: 'white'
 		},
 		showLabel: false,
-	}
+	},
+
 });
 
 export const MyApp = createStackNavigator({
@@ -73,10 +77,14 @@ export const MyApp = createStackNavigator({
 
 }, {
 	// 快速定制导航条，新版识兔中所有的导航都是重写的，所以这里会将全部的导航置空
-
-	navigationOptions: () => ({header: null}),
-
-
+	navigationOptions: () => ({
+		header: null,
+		gesturesEnabled: true,
+	}),
+	// headerMode: 'screen',
+	transitionConfig: () => ({
+		screenInterpolator: StackViewStyleInterpolator.forHorizontal,
+	})
 	// navigationOptions: ({navigation}) => NavigatorOptions(navigation),
 	// headerTransitionPreset: 'fade-in-place',
 	// headerMode: 'float',

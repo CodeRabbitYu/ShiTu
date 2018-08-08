@@ -1,4 +1,5 @@
 /**
+ * @flow
  * Created by Rabbit on 2018/4/13.
  */
 
@@ -82,7 +83,7 @@ class Fetch {
   	let _params;
   	let _url = url;
   	const _config = { indicator: true, timeout: 30000,  ...config};
-  	// const _header = { 'Content-Type': 'application/json', ...header };
+  	const _header = { 'Content-Type': 'application/json', ...header };
 
   	// let userData = await AsyncStorage.getItem('USER_TOKEN');
 
@@ -97,11 +98,12 @@ class Fetch {
   		_params =  JSON.stringify(params);
   	}
 
-  	if (!__DEV__) {
+
+  	if (__DEV__) {
   		console.log('_url:', _url);
-  		console.log('_config:', _config);
-  		console.log('_method:', _method);
-  		console.log('_header:', _header);
+  		// console.log('_config:', _config);
+  		// console.log('_method:', _method);
+  		// console.log('_header:', _header);
   	}
 
   	return RNFetchBlob

@@ -43,7 +43,7 @@ export class Welfare extends React.Component<Props> {
 	renderItem = ({item}: {item: RTWeal, index: number, column: number}) => {
 		return (
 			<Button
-				onPress={() => this.props.navigate('WelfareDetail', {url: item.url, isHiddenHeader: true})}
+				onPress={() => this.props.navigate('WelfareDetail', {url: item.url, largeUrl: item.largeUrl})}
 			>
 				<CustomImage source={{uri: item.url}}
 				             style={[

@@ -14,16 +14,14 @@ import { ActionSheet } from 'teaset';
 import {observer, inject} from 'mobx-react';
 import BaseContainer from '../../../components/BaseContainer';
 import {WelfareDetailMobx} from '../../../mobx/News/WelfareDetailMobx';
-import RootStore from '../../../store/RootStore';
-import {ConfigStore} from '../../../store/ConfigStore';
+import {PowerStore} from '../../../store/PowerStore';
 
 type Props = {
 	navigation: any;
-	rootStore: RootStore;
-	configStore: ConfigStore;
+	powerStore: PowerStore;
 };
 
-@inject('configStore')
+@inject('powerStore')
 @observer
 export class WelfareDetail extends React.Component<Props> {
 	welfareDetailMobx: WelfareDetailMobx;
@@ -33,7 +31,7 @@ export class WelfareDetail extends React.Component<Props> {
 	}
 
 	componentDidMount() {
-
+		console.log('图片地址', this.props.navigation.state.params.url);
 	}
 
 
@@ -50,10 +48,9 @@ export class WelfareDetail extends React.Component<Props> {
 			{
 				title: '设置主屏幕',
 				type: 'default',
-				onPress: () => {
+				onPress: async () => {
 					// alert('设置成功');
-
-					this.props.configStore.setParams(url);
+					await this.props.powerStore.setShiTuBackgroundImage(url);
 				}
 			},
 		];
@@ -62,15 +59,11 @@ export class WelfareDetail extends React.Component<Props> {
 	}
 
 	navBarIsVisible = () => {
-		// this.props.rootStore.welfareDetailMobx.setHiddenNavBar(!this.props.rootStore.welfareDetailMobx.isHiddenNavBar);
-
 		this.welfareDetailMobx.setHiddenNavBar(!this.welfareDetailMobx.isHiddenNavBar);
 	}
 
 	render() {
-		const url = this.props.navigation.state.params.url;
-
-		// const { isHiddenNavBar } = this.props.rootStore.welfareDetailMobx;
+		const {largeUrl} = this.props.navigation.state.params;
 		const { isHiddenNavBar } = this.welfareDetailMobx;
 
 		return (
@@ -83,7 +76,7 @@ export class WelfareDetail extends React.Component<Props> {
 				        activeOpacity={0.9}
 				>
 					<CustomImage style={styles.container}
-					             source={{uri: url}}
+					             source={{uri: largeUrl}}
 					             resizeMode={'cover'}
 					/>
 				</Button>

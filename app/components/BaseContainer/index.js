@@ -51,7 +51,7 @@ export default class BaseContainer extends Component<Props> {
 		const {store, children, onErrorPress, errorTitle, imageSource, errorStyle} = this.props;
 		if (!store) return children;
 		const {isLoading, isError, errorInfo} = store;
-		console.log(errorInfo);
+		// console.log(errorInfo);
 		if (isLoading) {
 			 if (store.loadingType === 'page') {
 				 return <LoadingSpinner isVisible={store.isLoading}/>;

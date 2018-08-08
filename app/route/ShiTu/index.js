@@ -18,21 +18,18 @@ const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackg
 
 import {ShiTuMobx} from '../../mobx/ShiTu';
 
-import { Images } from '../../resource';
 import { Button, Theme, BaseContainer } from '../../components';
 import { System } from '../../utils';
 import {observer, inject} from 'mobx-react';
-import RootStore from '../../store/RootStore';
-import {ConfigStore} from '../../store/ConfigStore';
+import {PowerStore} from '../../store/PowerStore';
 
 
 type Props = {
   navigation: any,
-	rootStore: RootStore;
-	configStore: ConfigStore;
+	powerStore: PowerStore;
 };
 
-@inject('configStore')
+@inject('powerStore')
 @observer
 export class ShiTu extends Component<Props> {
 
@@ -43,18 +40,13 @@ export class ShiTu extends Component<Props> {
 		this.shiTuMobx = new ShiTuMobx();
 	}
 
-	componentDidMount() {
-	}
-
 	render() {
 		return (
 			<BaseContainer title={'识兔'} isTopNavigator={true}>
 				<AnimationImageBackground style={styles.container}
 					animation="fadeIn"
-					// source={Images.default}
-					//                         source={{uri: this.props.rootStore.shiTuMobx.backgroundImageUri}}
-					                        source={{uri: this.props.configStore.params}}
-					blurRadius={System.Android ? 5 : 8}
+					source={{uri: this.props.powerStore.ShiTuBackgroundImage}}
+					blurRadius={System.Android ? 5 : 5}
 				>
 					<AnimationButton title={'点我寻找!'}
 						animation="bounceInLeft"

@@ -20,7 +20,7 @@ type Props = {
 export function UserInfoView(props: Props) {
 	let _profile_image;
 
-	const { profile_image, name, passtime } = props.userInfoData;
+	const { profile_image, name, theme_name } = props.userInfoData;
 
 	_profile_image = profile_image;
 	if (!profile_image) {
@@ -35,7 +35,7 @@ export function UserInfoView(props: Props) {
 				<Button style={styles.userDetailView} activeOpacity={1} onPress={() => alert('点击用户信息')}>
 					<View>
 						<Text style={styles.userText} numberOfLines={2}>{name}</Text>
-						<Text style={styles.userTime}>{passtime}</Text>
+						<Text style={styles.userTime}>{theme_name}</Text>
 					</View>
 				</Button>
 			</View>
@@ -62,12 +62,12 @@ const styles = StyleSheet.create({
 		marginRight: '15%',
 	},
 	userText: {
-		fontSize: FONT_SIZE(13),
-		marginBottom: StyleSheet.hairlineWidth,
+		fontSize: FONT_SIZE(16),
 		color: '#4474A9',
 	},
 	userTime: {
-		fontSize: 11,
+		marginTop: px2dp(10),
+		fontSize: 13,
 		color: '#989898',
 	},
 });

@@ -8,7 +8,7 @@ import React from 'react';
 import FastImage from 'react-native-fast-image';
 import { Image, StyleSheet, ActivityIndicator, View} from 'react-native';
 import {observer} from 'mobx-react';
-import {observable} from 'mobx';
+import {observable, action} from 'mobx';
 
 type Props = {
   useCustomImage: boolean;
@@ -36,6 +36,7 @@ export default class index extends React.Component<Props, any> {
   	}
   }
 
+  @action.bound
   imageLoadError() {
   	console.log('onError');
   	this.imageLoadedError = true;

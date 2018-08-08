@@ -24,7 +24,7 @@ import {inject} from 'mobx-react';
 type Props = {
 	uri?: string,
 	navigation: any,
-	ConfigStore: any,
+	configStore: any,
 };
 
 type State = {
@@ -35,7 +35,7 @@ type State = {
 	isForWard: boolean,
 }
 
-@inject('ConfigStore')
+@inject('configStore')
 export default class index extends React.Component<Props, State> {
 
 	webView: WebView;
@@ -53,7 +53,7 @@ export default class index extends React.Component<Props, State> {
 	}
 
 	componentWillUnmount() {
-		this.props.ConfigStore.hideLoading();
+		this.props.configStore.hideLoading();
 	}
 
 
@@ -114,14 +114,14 @@ export default class index extends React.Component<Props, State> {
 	}
 	onLoadEnd = () => {
 		console.log('加载结束，成功或失败都会走到这里');
-		this.props.ConfigStore.hideLoading();
+		this.props.configStore.hideLoading();
 	}
 	onLoadStart = () => {
 		console.log('开始加载');
-		this.props.ConfigStore.setVisible(true);
+		this.props.configStore.showLoading();
 	}
 	onError = () => {
-		this.props.ConfigStore.hideLoading();
+		this.props.configStore.hideLoading();
 		Alert.alert(
 			'加载失败',
 			null,

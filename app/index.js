@@ -9,34 +9,26 @@ import { MyApp } from './router';
 import {View} from 'react-native';
 import {Toast, LoadingSpinner} from './components';
 import {observer, Provider} from 'mobx-react';
-import RootStore  from './store/RootStore';
-import {ConfigStore}  from './store/ConfigStore';
+import * as RootStore  from './store/RootStore';
 
 
 @observer
 export default class index extends React.Component<any> {
 
 	toast: Toast;
-	rootStore: RootStore;
-	configStore: ConfigStore;
-
 
 	constructor(props: Props) {
 		super(props);
-
-		// this.rootStore = new RootStore();
-		this.configStore = new ConfigStore();
-
 	}
 
 	render() {
 
 		return (
-			<Provider configStore={this.configStore}>
+			<Provider {...RootStore}>
 				<View style={{backgroundColor: 'transparent', flex: 1}}>
 					<MyApp />
 					<Toast ref={(t: any) => this.toast = t}/>
-					<LoadingSpinner isVisible={this.configStore.isLoading}/>
+					<LoadingSpinner isVisible={RootStore.configStore.isLoading}/>
 				</View>
 			</Provider>
 		);

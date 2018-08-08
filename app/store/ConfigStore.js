@@ -6,9 +6,6 @@
 import {observable, action} from 'mobx';
 import {AsyncStorage} from 'react-native';
 
-
-
-
 type ErrorInfo = {
 	message: string,
 	code: number,
@@ -21,19 +18,7 @@ class ConfigStore {
 	@observable errorInfo: ErrorInfo;
 	@observable loadingType: string;
 
-	@observable params: any;
-
-	@action.bound setParams(params: any) {
-		this.params = params;
-		console.log('ConfigStore', this.params);
-	}
-
-	@action.bound
-	getParams = () => {
-		return this.params;
-	}
-
-	@action.bound showLoading(type?: loadingType) {
+	@action.bound showLoading(type?: string) {
 		this.loadingType = type ? type : 'normal';
 		this.isLoading = true;
 	}
@@ -51,8 +36,6 @@ class ConfigStore {
 	@action.bound hideErrorView() {
 		this.isError = false;
 	}
-
-
 
 	@action.bound async fetchStartUp() {
 		const getToken = await AsyncStorage.getItem('User');

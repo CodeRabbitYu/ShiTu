@@ -4,7 +4,7 @@
  */
 
 import {observable, computed, action, runInAction, autorun} from 'mobx';
-import type {RTGankResult, RTWeal} from '../../servers/News/types';
+import type {RTGankResult, RTWeal} from '../../servers/News/interfaces';
 import {loadWelfareData} from '../../servers/News';
 import {System} from '../../utils';
 // import {RootStore} from '../../store/RootStore';
@@ -30,11 +30,13 @@ class WelfareMobx {
   			imageHeight = parseInt(Math.random() * 100 + imageHeight);
   			item.height = imageHeight;
   			item.width = imageWidth;
+
+			  item.largeUrl = item.url;
+  			item.url = WelfareMobx.handleImageToSmallSize(item.url);
   		});
 
   		if (page !== 1) {
   			// console.log('page不等于1', page);
-
   			runInAction(() => {
 				  this.page = page;
 				  this.dataSource = this.dataSource.concat(results);
@@ -49,7 +51,6 @@ class WelfareMobx {
   			// console.log('page等于1', page);
   		}
 
-
   		runInAction(() => {
 			  this.isRefreshing = false;
 		  });
@@ -61,6 +62,10 @@ class WelfareMobx {
 		  });
 		  console.log(e);
   	}
+  }
+
+  static handleImageToSmallSize(url) {
+  	return url.replace('large', 'bmiddle');
   }
 
   @action.bound

@@ -4,10 +4,15 @@
  */
 
 import {observable, computed, action, runInAction, autorun} from 'mobx';
-// import {RootStore} from '../../store/RootStore';
+import {ConfigStore} from '../../store/ConfigStore';
 
+class ShiTuMobx extends ConfigStore {
 
-class ShiTuMobx {
+	@observable backgroundImageUrl: string;
+
+	constructor() {
+		super();
+	}
 
 }
 

@@ -1,4 +1,5 @@
 /**
+ * @flow
  * Created by Rabbit on 2018/5/4.
  */
 
@@ -11,6 +12,7 @@ export interface RTWeal {
   source: string;
   type: string;
   url: string;
+  largeUrl: string,
   used: boolean;
   who: string;
   height: number;
