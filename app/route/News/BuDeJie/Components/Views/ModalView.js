@@ -54,7 +54,6 @@ export class ModalView extends React.Component<Props> {
   					<Button onPress={this.props.picturePress} activeOpacity={1}>
   						<CustomImage source={{uri: cdn_img}}
   							// resizeMode={'contain'}
-  							//            useCustomImage={false}
   							activityVisible={false}
   							onLoadEnd={() => this.setActivityVisible(false)}
   							style={[styles.picture, {height: imageHeight}]}

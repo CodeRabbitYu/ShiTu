@@ -4,6 +4,7 @@
 
 const Images =  {
 	default: require('./default.jpeg'),
+	errorImage: require('./errorImage.png')
 };
 
 export default Images;

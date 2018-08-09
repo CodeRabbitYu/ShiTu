@@ -9,10 +9,9 @@ import {
 	Text,
 	View,
 	Image,
-	ActivityIndicator
+	ActivityIndicator,
+	Modal
 } from 'react-native';
-
-import {System} from '../../../utils';
 import { MasonryList, BaseContainer } from '../../../components';
 
 import { WelfareMobx } from '../../../mobx/News';
@@ -70,11 +69,10 @@ export class Welfare extends React.Component<Props> {
 
 		const { dataSource, isRefreshing, refreshData, loadMoreData } = this.welfareMobx;
 
-		return (
+		return [
 			<BaseContainer key={'base'}
 			               isHiddenNavBar={true}
 			               store={this.welfareMobx}
-			               // style={{backgroundColor: 'red'}}
 			>
 				<MasonryList
 					onRefresh={refreshData}
@@ -92,8 +90,9 @@ export class Welfare extends React.Component<Props> {
 					onEndReachedThreshold={0.1}
 					onEndReached={loadMoreData}
 				/>
-			</BaseContainer>
-		);
+			</BaseContainer>,
+
+		];
 	}
 }
 
