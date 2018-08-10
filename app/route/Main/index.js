@@ -33,37 +33,7 @@ export class Main extends Component<Props> {
 		return (
 			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}>
 				<Text>Main</Text>
-				<View>1111</View>
-
-				{/* <View style={{backgroundColor: 'red', height:badegeNumber, width: badegeNumber, borderRadius: badegeRadius,*/}
-				{/* alignItems: 'center',*/}
-				{/* justifyContent: 'center',*/}
-				{/* flexDirection: 'row',*/}
-				{/* marginLeft: 20*/}
-				{/* }}>*/}
-				{/* <Text>99</Text>*/}
-				{/* <Text style={{marginBottom: 10, color: 'green', alignItems: 'flex-end', alignSelf: 'space-around'}}>*/}
-				{/* +*/}
-				{/* </Text>*/}
-				{/* </View>*/}
-
-				{/* <LargeList*/}
-				{/* style={{ flex: 1, backgroundColor:'orange' }}*/}
-				{/* bounces={true}*/}
-				{/* ref={ref => (this.largeList = ref)}*/}
-				{/* refreshing={this.state.refreshing}*/}
-				{/* onRefresh={() => {*/}
-				{/* this.fetchData()*/}
-				{/* }}*/}
-				{/* // safeMargin={600}*/}
-				{/* numberOfRowsInSection={() => this.state.data.length}*/}
-				{/* // numberOfSections={()=>this.props.numberOfSections}*/}
-				{/* renderCell={this.renderItem.bind(this)}*/}
-				{/* heightForCell={() => 44}*/}
-				{/* renderItemSeparator={()=><View/>}*/}
-				{/* />*/}
-
-				<TextInput placeholder='11111111' style={{height: 44, backgroundColor: 'red'}}/>
+				{/*<TextInput placeholder='11111111' style={{height: 44, backgroundColor: 'red'}}/>*/}
 
 			</BaseContainer>
 		);
