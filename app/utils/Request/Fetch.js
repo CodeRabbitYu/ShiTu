@@ -36,6 +36,7 @@ function checkStatus (resp, json) {
 	if (resp.respInfo.status === 200 && resp.respInfo.status < 300) {
 		return json;
 	} else {
+		console.log(resp, json);
 		throwError(json);
 	}
 	return json;
@@ -65,7 +66,7 @@ class Fetch {
     // appendExt : string,
     // session : string,
     // addAndroidDownloads : any,
-	  trusty: true
+	  trusty: false
   }
 
   /**
@@ -82,8 +83,10 @@ class Fetch {
   	let _method;
   	let _params;
   	let _url = url;
-  	const _config = { indicator: true, timeout: 30000,  ...config};
-  	const _header = { 'Content-Type': 'application/json', ...header };
+  	const _config = { indicator: true, timeout: 30000, trusty: false, ...config};
+  	const _headers = {'Content-Type': 'application/json',
+		  'User-Agent': 'ShiTu Android 8.0.0/1.0.0',
+		  ...header };
 
   	// let userData = await AsyncStorage.getItem('USER_TOKEN');
 
@@ -91,24 +94,23 @@ class Fetch {
   	else _method  = method.toUpperCase();
 
   	if (_method === 'GET' && params) {
-  		_url = encodeQuery(url, params);
+  		_url = encodeQuery(_url, params);
   	}
 
   	if (_method === 'POST' && params) {
   		_params =  JSON.stringify(params);
   	}
 
-
   	if (__DEV__) {
   		console.log('_url:', _url);
   		// console.log('_config:', _config);
   		// console.log('_method:', _method);
-  		// console.log('_header:', _header);
+  		// console.log('_header:', _headers);
   	}
 
   	return RNFetchBlob
-  		.config(_config)
-  		.fetch(_method, _url, header, _params)
+		  .config(_config)
+		  .fetch(_method, _url, _headers, _params)
   		.then(resp => {
   			// console.log(resp);
   			return checkStatus(resp, resp.json());
