@@ -43,7 +43,7 @@ const MyTab = createBottomTabNavigator({
 		navigationOptions: () => TabOptions('我的', 'Main'),
 	},
 }, {
-	initialRouteName: 'ShiTu',
+	initialRouteName: 'News',
 	backBehavior: 'none',
 	tabBarOptions: {
 		style: {

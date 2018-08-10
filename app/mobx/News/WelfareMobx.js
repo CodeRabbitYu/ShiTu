@@ -3,13 +3,13 @@
  * Created by Rabbit on 2018/5/4.
  */
 
-import {observable, computed, action, runInAction, autorun} from 'mobx';
+import {observable, action, runInAction} from 'mobx';
 import type {RTGankResult, RTWeal} from '../../servers/News/interfaces';
 import {loadWelfareData} from '../../servers/News';
 import {System} from '../../utils';
-import FetchBlob from "rn-fetch-blob";
-import {CameraRoll} from "react-native";
-// import {RootStore} from '../../store/RootStore';
+import FetchBlob from 'rn-fetch-blob';
+import {CameraRoll} from 'react-native';
+const Dirs = FetchBlob.fs.dirs;
 
 let loadMoreNumber = [];
 
@@ -18,18 +18,6 @@ class WelfareMobx {
   @observable isRefreshing: boolean = true;
   @observable dataSource: Array<RTGankResult> = [];
   @observable page: number = 1;
-
-  @observable isModalVisible: boolean = false;
-  @observable imageUrl: string = '';
-  @observable imageLargeUrl: string = '';
-
-  setModalViewData = (isModalVisible, imageUrl, imageLargeUrl) => {
-  	runInAction(() => {
-		  this.isModalVisible = isModalVisible;
-		  this.imageUrl = imageUrl;
-		  this.imageLargeUrl = imageLargeUrl;
-	  });
-  }
 
 	@action.bound
 	saveImageWithIOS = async (url: string) => {
@@ -65,7 +53,7 @@ class WelfareMobx {
 
 
   @action.bound
-  async fetchWelfareData(page) {
+	async fetchWelfareData(page) {
   	try {
   		const data = await loadWelfareData(page);
 
@@ -109,7 +97,7 @@ class WelfareMobx {
 		  });
 		  console.log(e);
   	}
-  }
+	}
 
   static handleImageToSmallSize(url) {
   	return url.replace('large', 'bmiddle');

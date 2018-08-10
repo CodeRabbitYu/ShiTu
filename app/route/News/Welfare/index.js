@@ -45,27 +45,21 @@ export class Welfare extends React.Component<Props> {
 		await this.welfareMobx.fetchWelfareData(1);
 	}
 
-	setModalViewData = (isModalVisible, url, largeUrl) => {
-		this.welfareMobx.setModalViewData(isModalVisible, url, largeUrl);
-	}
-
-	actionSheetToSaveImage = () => {
-		const { imageUrl } = this.welfareMobx;
-
+	actionSheetToSaveImage = (item: RTWeal) => {
 		const items = [
 			{
 				title: '保存图片', onPress: () => System.iOS
 					?
-					this.welfareMobx.saveImageWithIOS(imageUrl)
+					this.welfareMobx.saveImageWithIOS(item.largeUrl)
 					:
-					this.welfareMobx.saveImageWithAndroid(imageUrl)
+					this.welfareMobx.saveImageWithAndroid(item.largeUrl)
 			},
 			{
 				title: '设置主屏幕',
 				type: 'default',
 				onPress: async () => {
 					// alert('设置成功');
-					await this.props.powerStore.setShiTuBackgroundImage(imageUrl);
+					await this.props.powerStore.setShiTuBackgroundImage(item.url);
 				}
 			},
 		];
@@ -74,47 +68,37 @@ export class Welfare extends React.Component<Props> {
 	}
 
 
-	showPopCustom(imageSource, fromView) {
+	showPopCustom(item: RTWeal) {
 
-
-		console.log('sssssssssss', fromView);
-
-		fromView.measure((x, y, width, height, pageX, pageY) => {
-			const overlayView = (
-				<Overlay.PopView
-					style={{alignItems: 'center', justifyContent: 'center'}}
-					overlayOpacity={1}
-					type='custom'
-					animated={false}
-					customBounds={{x: pageX, y: pageY, width, height}}
-					ref={v => this.customPopView = v}
-				>
-					<TouchableWithoutFeedback
-						onLongPress={this.actionSheetToSaveImage}
-						onPress={() => this.customPopView && this.customPopView.close()}>
-						<CustomImage source={{uri: imageSource}} resizeMode='cover' style={{backgroundColor: 'red', width: SCREEN_WIDTH, height: SCREEN_HEIGHT
-						}}/>
-					</TouchableWithoutFeedback>
-				</Overlay.PopView>
-			);
-			Overlay.show(overlayView);
-		});
+		const overlayView = (
+			<Overlay.PopView
+				style={{alignItems: 'center', justifyContent: 'center'}}
+				overlayOpacity={1}
+				type='zoomIn'
+				ref={v => this.customPopView = v}
+			>
+				<Button
+					onLongPress={() => this.actionSheetToSaveImage(item)}
+					onPress={() => this.customPopView && this.customPopView.close()}>
+					<CustomImage source={{uri: item.largeUrl}} resizeMode='cover'
+					             style={{backgroundColor: 'white', width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}
+					/>
+				</Button>
+			</Overlay.PopView>
+		);
+		Overlay.show(overlayView);
 	}
 
 	renderItem = ({item}: {item: RTWeal, index: number, column: number}) => {
 		return (
 			<Button
-				// onPress={() => this.props.navigate('WelfareDetail', {url: item.url, largeUrl: item.largeUrl})}
-
-				onPress={() => this.showPopCustom(item.url, this.itemImage)}
-				// onPress={() => this.setModalViewData(true, item.url, item.largeUrl)}
+				onPress={() => this.showPopCustom(item)}
 			>
 				<Image source={{uri: item.url}}
-				       ref={v => this.itemImage = v}
-				             style={[
-					             styles.cell,
-					             { height: item.height, backgroundColor: 'white'},
-				             ]}
+				       style={[
+					       styles.cell,
+					       { height: item.height, backgroundColor: 'white'},
+				       ]}
 				/>
 			</Button>
 		);
@@ -134,7 +118,7 @@ export class Welfare extends React.Component<Props> {
 
 		const { dataSource, isRefreshing, refreshData, loadMoreData } = this.welfareMobx;
 
-		return [
+		return (
 			<BaseContainer key={'base'}
 			               isHiddenNavBar={true}
 			               store={this.welfareMobx}
@@ -155,25 +139,8 @@ export class Welfare extends React.Component<Props> {
 					onEndReachedThreshold={0.1}
 					onEndReached={loadMoreData}
 				/>
-			</BaseContainer>,
-			<Modal key={'Modal'}
-			       animationType={'fade'}
-			       visible={this.welfareMobx.isModalVisible}
-			>
-
-				<Button onLongPress={this.actionSheetToSaveImage}
-				        onPress={() => this.setModalViewData(false, '', '')}
-				        style={{backgroundColor: 'white', flex: 1}}
-				        activeOpacity={0.9}
-				>
-					<CustomImage style={styles.container}
-					             source={{uri: this.welfareMobx.imageLargeUrl}}
-					             resizeMode={'cover'}
-					/>
-				</Button>
-
-			</Modal>
-		];
+			</BaseContainer>
+		);
 	}
 }
 
