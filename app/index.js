@@ -11,6 +11,8 @@ import {Toast, LoadingSpinner} from './components';
 import {observer, Provider} from 'mobx-react';
 import * as RootStore  from './store/RootStore';
 
+import SplashScreen from 'react-native-splash-screen';
+
 
 @observer
 export default class index extends React.Component<any> {
@@ -19,6 +21,11 @@ export default class index extends React.Component<any> {
 
 	constructor(props: Props) {
 		super(props);
+	}
+
+	async componentDidMount() {
+		global.Toast = this.toast;
+		SplashScreen.hide();
 	}
 
 	render() {

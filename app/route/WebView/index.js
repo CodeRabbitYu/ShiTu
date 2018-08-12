@@ -216,18 +216,6 @@ export default class index extends React.Component<Props, State> {
 	}
 }
 
-
-const ActionButtonItem = ({iconName, onPress, buttonColor}: {iconName: string, onPress?: Function, buttonColor: string}) => (
-	<ActionButton.Item buttonColor={'red'}
-											 onPress={onPress}
-											 size={40}
-											 hideShadow={false}
-											 style={styles.actionItemStyle} >
-		<View style={{height: 30, width: 30, backgroundColor: 'red'}}/>
-		{/* <Icon name={iconName} style={styles.actionButtonIcon} />*/}
-	</ActionButton.Item>
-);
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -236,9 +224,9 @@ const styles = StyleSheet.create({
 		width: System.SCREEN_WIDTH,
 	},
 	webView: {
-		height: System.Android ? 200 : System.SCREEN_HEIGHT,
+		height: System.SCREEN_HEIGHT,
 		width: System.SCREEN_WIDTH,
-		marginTop: System.Android ? 24 : 0,
+		// marginTop: 0,
 		backgroundColor: 'white'
 		// marginBottom:40,
 	},

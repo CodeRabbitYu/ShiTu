@@ -85,7 +85,7 @@ class Fetch {
   	let _url = url;
   	const _config = { indicator: true, timeout: 30000, trusty: false, ...config};
   	const _headers = {'Content-Type': 'application/json',
-		  'User-Agent': 'ShiTu Android 8.0.0/1.0.0',
+		  'User-Agent': 'ShiTu',
 		  ...header };
 
   	// let userData = await AsyncStorage.getItem('USER_TOKEN');
