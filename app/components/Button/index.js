@@ -9,7 +9,8 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	View,
-	Text
+	Text,
+	ViewPropTypes,
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -47,7 +48,7 @@ export default class Button extends React.Component<Props> {
   static propTypes = {
   	onPress: PropTypes.func.isRequired,
   	disabled: PropTypes.bool,
-  	style: View.propTypes.style,
+  	style: ViewPropTypes.style,
   	activeOpacity: PropTypes.number,
   	title: PropTypes.string,
   	titleStyle: Text.propTypes.style,
