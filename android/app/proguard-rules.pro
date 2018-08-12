@@ -68,3 +68,8 @@
 -dontwarn java.nio.file.*
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
+
+# bugly
+
+#-dontwarn com.tencent.bugly.**
+#-keep public class com.tencent.bugly.**{*;}

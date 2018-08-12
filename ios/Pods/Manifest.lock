@@ -1,5 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
+  - Bugly (2.5.0)
   - BVLinearGradient (2.4.0):
     - React
   - DoubleConversion (1.1.5)
@@ -77,6 +78,7 @@ PODS:
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
+  - Bugly
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
@@ -124,6 +126,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   BVLinearGradient: 4b3f3bdf1ac1a52a5ef5e65c9585d793a7c3f825
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
@@ -137,6 +140,6 @@ SPEC CHECKSUMS:
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 21509d908459d70ec6a1fe88193c91159419d7e7
+PODFILE CHECKSUM: ff40f29aae42643ba35774f11c91c9623a26289c
 
 COCOAPODS: 1.4.0
