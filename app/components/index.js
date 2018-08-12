@@ -8,6 +8,7 @@ import { Theme } from 'teaset';
 import CustomImage from './CustomImage';
 
 import Button from './Button';
+import GradientButton from './GradientButton';
 import CustomIcon from './CustomIcon';
 import TableList from './TableList';
 import MasonryList from './MasonryList';
@@ -19,7 +20,7 @@ import LoadingSpinner from './LoadingSpinner';
 import MyTextInput from './MyTextInput';
 
 
-export { Button, CustomIcon, Theme, TableList,
+export { Button, GradientButton, CustomIcon, Theme, TableList,
 	CustomImage, MasonryList, ProgressBar, NavigatorBar, BaseContainer, Toast, LoadingSpinner,
 	MyTextInput
 };

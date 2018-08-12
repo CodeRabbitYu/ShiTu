@@ -12,7 +12,6 @@ import {
 	FlatList,
 
 } from 'react-native';
-import { LargeList } from 'react-native-largelist';
 import BaseContainer from '../../components/BaseContainer';
 
 import { MyTextInput as TextInput } from '../../components';

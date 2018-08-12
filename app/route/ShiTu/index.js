@@ -12,16 +12,18 @@ import {
 	StatusBar
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
-const AnimationButton = Animatable.createAnimatableComponent(Button);
-const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
+
 
 import {ShiTuMobx} from '../../mobx/ShiTu';
 
-import { Button, Theme, BaseContainer } from '../../components';
+import { Button, Theme, BaseContainer, GradientButton } from '../../components';
 import { System } from '../../utils';
 import {observer, inject} from 'mobx-react';
 import {PowerStore} from '../../store/PowerStore';
+
+import * as Animatable from 'react-native-animatable';
+const AnimationButton = Animatable.createAnimatableComponent(GradientButton);
+const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
 
 
 type Props = {
@@ -51,9 +53,9 @@ export class ShiTu extends Component<Props> {
 					<AnimationButton title={'点我寻找!'}
 						animation="bounceInLeft"
 						useNativeDriver
-						style={styles.button}
 						titleStyle={styles.buttonTitle}
-						onPress={() => this.props.navigation.navigate('Sample')}
+						gradientStyle={styles.button}
+						onPress={() => alert('123')}
 					/>
 				</AnimationImageBackground>
 			</BaseContainer>

@@ -23,11 +23,6 @@ import WebView from './route/WebView';
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
 
-import { GankTab } from './route/News/route';
-
-import Sample from './test/sample';
-import {Text} from 'react-native';
-
 const MyTab = createBottomTabNavigator({
 
 	ShiTu: {
@@ -70,9 +65,6 @@ export const MyApp = createStackNavigator({
 	},
 	WebView: {
   	screen: WebView,
-	},
-	Sample: {
-		screen: Sample,
 	},
 
 }, {
