@@ -24,15 +24,29 @@ type Props = {
 };
 export class Main extends Component<Props> {
 
-	componentDidMount() {
+	constructor(props) {
+		super(props);
+		this.state = {
+			text: '',
+		};
+	}
 
+	componentDidMount() {
+		this.setState({
+			text: '33333',
+		})
 	}
 
 	render() {
 		return (
 			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}>
 				<Text>Main</Text>
-				{/*<TextInput placeholder='11111111' style={{height: 44, backgroundColor: 'red'}}/>*/}
+				<TextInput
+					placeholder='11111111'
+					style={{height: 44, backgroundColor: 'red'}}
+					onChangeText={(text) => this.setState({text: text})}
+					value={this.state.text}
+				/>
 
 			</BaseContainer>
 		);

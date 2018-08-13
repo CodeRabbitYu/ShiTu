@@ -7,11 +7,11 @@ import React, {Component} from 'react';
 import {Platform, TextInput} from 'react-native';
 
 type Props = {
-	defaultValue: any
+	defaultValue: string,
+	value: string,
 }
 class MyTextInput extends Component<Props> {
 	shouldComponentUpdate(nextProps) {
-
 		return Platform.OS !== 'ios' || (this.props.value === nextProps.value &&
 			(nextProps.defaultValue === 'undefined' || nextProps.defaultValue === '' )) ||
 			(this.props.defaultValue === nextProps.defaultValue &&

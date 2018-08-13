@@ -44,7 +44,6 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		614D31BF96D6419B8C0AB156 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A92C234FAA940C29E700BEA /* EvilIcons.ttf */; };
 		61D274AF17DD6787534F3EF1 /* libPods-ShiTu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E09899CCF2F0727B574FA4B3 /* libPods-ShiTu.a */; };
-		7C9A0F5E1ED24E32B10AB5EF /* STTVTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20E64B12EB94686A031CF5C /* STTVTableView.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8954F6A534884F0C96A1478D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A61C8C72B6A24B13A7D1C269 /* Zocial.ttf */; };
 		95EA77E0E1DA44078DA669AA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CC10FB6A5414EEF910461FC /* MaterialCommunityIcons.ttf */; };
@@ -413,7 +412,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				EE5D2E21F28645F191B2D52F /* libRNVectorIcons.a in Frameworks */,
-				7C9A0F5E1ED24E32B10AB5EF /* STTVTableView.framework in Frameworks */,
 				61D274AF17DD6787534F3EF1 /* libPods-ShiTu.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1443,7 +1441,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-largelist/ios/STTVTableView",
 				);
 				INFOPLIST_FILE = ShiTu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1472,7 +1469,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-largelist/ios/STTVTableView",
 				);
 				INFOPLIST_FILE = ShiTu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
