@@ -17,6 +17,8 @@ PODS:
     - React
     - SDWebImage/Core
     - SDWebImage/GIF
+  - react-native-image-picker (0.14.3):
+    - React
   - react-native-splash-screen (3.1.1):
     - React
   - React/Core (0.55.4):
@@ -84,6 +86,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - react-native-fast-image (from `../node_modules/react-native-fast-image`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -115,6 +118,8 @@ EXTERNAL SOURCES:
     :path: ../node_modules/react-native
   react-native-fast-image:
     :path: ../node_modules/react-native-fast-image
+  react-native-image-picker:
+    :path: ../node_modules/react-native-image-picker
   react-native-splash-screen:
     :path: ../node_modules/react-native-splash-screen
   rn-fetch-blob:
@@ -134,12 +139,13 @@ SPEC CHECKSUMS:
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
+  react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
   react-native-splash-screen: 8e3f866dc79bfe533baeffd0a38c33f7a7eae7f8
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: ff40f29aae42643ba35774f11c91c9623a26289c
+PODFILE CHECKSUM: 25dfcad4b07acdd0c9af190b576d3667d0cad052
 
 COCOAPODS: 1.4.0

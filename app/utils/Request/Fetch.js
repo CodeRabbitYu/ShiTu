@@ -32,7 +32,6 @@ function throwError(json) {
 	throw error;
 }
 function checkStatus (resp, json) {
-	// console.log(resp, json);
 	if (resp.respInfo.status === 200 && resp.respInfo.status < 300) {
 		return json;
 	} else {
@@ -43,7 +42,7 @@ function checkStatus (resp, json) {
 }
 
 class Fetch {
-  // 框架可以用过cancel 取消某个网络请求
+	// 框架可以用过cancel 取消某个网络请求
   /**
    * 设置Header请求头
    */
@@ -75,18 +74,20 @@ class Fetch {
    * @param url               请求网址
    * @param params            请求参数
    * @param config            网络配置文件
-   * @param header            请求头
+   * @param headers           请求头
    * @returns {Promise.<TResult>}
    *
    */
-  static fetch<T>({method, url, params = {}, config = {}, header = {}}): Promise<T> {
+  static fetch<T>({method, url, params = {}, config = {}, headers}): Promise<T> {
   	let _method;
   	let _params;
   	let _url = url;
   	const _config = { indicator: true, timeout: 30000, trusty: false, ...config};
-  	const _headers = {'Content-Type': 'application/json',
+  	const _headers = {
+  		'Content-Type': 'application/json',
 		  'User-Agent': 'ShiTu',
-		  ...header };
+		  ...headers
+  	};
 
   	// let userData = await AsyncStorage.getItem('USER_TOKEN');
 
@@ -103,6 +104,7 @@ class Fetch {
 
   	if (__DEV__) {
   		console.log('_url:', _url);
+  		// console.log('_params:', _params);
   		// console.log('_config:', _config);
   		// console.log('_method:', _method);
   		// console.log('_header:', _headers);
@@ -127,14 +129,14 @@ class Fetch {
    *
    * @param url       请求网址
    * @param params    参数
-   * @param header    请求头
+   * @param headers
    * @param config    fetchblob配置
    * @returns
    *
    */
-  static get<T>( url, params = {}, header = {}, config = {}): Promise<T> {
+  static get<T>( url, params = {}, headers = {}, config = {}): Promise<T> {
 
-  	return Fetch.fetch({method: 'get', url, params, header, config });
+  	return Fetch.fetch({method: 'get', url, params, headers, config });
   	// .then((data)=>{
   	//   // console.log(data);
   	//   return data;
@@ -145,8 +147,8 @@ class Fetch {
   	// })
   }
 
-  static post(url, params = {}, header = {}, config = {} ): Promise {
-  	return Fetch.fetch({method: 'post', url, params, header, config });
+  static post(url, params = {}, headers = {}, config = {} ): Promise {
+  	return Fetch.fetch({method: 'post', url, params, headers, config });
   	// .then((data)=>{
   	//   // console.log(data);
   	//   return data;
@@ -155,6 +157,25 @@ class Fetch {
   	//   // console.log(error.msg);
   	//   throw error;
   	// })
+  }
+
+  static upload(url, params = {}, _headers = {}, config = {} ): Promise {
+  	const headers = {'Content-Type': 'multipart/form-data', ..._headers};
+	  return RNFetchBlob
+		  .config(config)
+		  .fetch('POST', url, headers, params)
+		  .then((response) => response.json())
+		  .then((response) => {
+			  // 上传信息返回
+			  // console.log(response);
+			  return response;
+		  })
+		  .catch((error) => {
+			  // 错误信息
+			  // console.log(error);
+			  throw error;
+		  });
+
   }
 }
 

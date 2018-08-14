@@ -25,6 +25,9 @@ import * as Animatable from 'react-native-animatable';
 const AnimationButton = Animatable.createAnimatableComponent(GradientButton);
 const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
 
+import { ActionSheet } from 'teaset';
+import ImagePicker from 'react-native-image-picker';
+
 
 type Props = {
   navigation: any,
@@ -42,6 +45,56 @@ export class ShiTu extends Component<Props> {
 		this.shiTuMobx = new ShiTuMobx();
 	}
 
+
+	selectedImagePicker = (type: string) => {
+
+		const options = {
+			quality: 0.5,
+			allowsEditing: false,
+			noData: true,
+			storageOptions: {
+				skipBackup: true,
+				path: 'ShiTu'
+			}
+		};
+
+		const launchType = `launch${type}`;
+
+		ImagePicker[launchType](options, async(imageResponse)  => {
+			console.log('imageResponse', imageResponse);
+
+			const imageData = await this.shiTuMobx.uploadImage(imageResponse);
+
+			console.log('imageData', imageData);
+
+			const params = {
+				token: imageData.key,
+			};
+
+			const searchDetail = await this.shiTuMobx.getSearchDetail(params);
+
+			this.props.navigation.navigate('WebView', {uri: searchDetail.data.webURL});
+
+		});
+
+	}
+
+	openImagePicker = async () => {
+
+		const items = [
+			{
+				title: '拍照',
+				onPress: () => this.selectedImagePicker('Camera')
+			},
+			{
+				title: '选择相册',
+				onPress: () => this.selectedImagePicker('ImageLibrary')
+			},
+		];
+		const cancelItem = {title: '取消'};
+		ActionSheet.show(items, cancelItem);
+	}
+
 	render() {
 		return (
 			<BaseContainer title={'识兔'} isTopNavigator={true}>
@@ -55,7 +108,7 @@ export class ShiTu extends Component<Props> {
 						useNativeDriver
 						titleStyle={styles.buttonTitle}
 						gradientStyle={styles.button}
-						onPress={() => alert('123')}
+						onPress={this.openImagePicker}
 					/>
 				</AnimationImageBackground>
 			</BaseContainer>

@@ -16,7 +16,7 @@ import { System } from './utils';
 import { CustomIcon, Theme } from './components';
 
 import { ShiTu } from './route/ShiTu';
-import { News, Welfare, WelfareDetail, BuDeJie, BuDeJieDetail } from './route/News';
+import { News, Welfare, BuDeJie, BuDeJieDetail } from './route/News';
 import { Main } from './route/Main';
 import WebView from './route/WebView';
 
@@ -53,9 +53,6 @@ const MyTab = createBottomTabNavigator({
 export const MyApp = createStackNavigator({
 	MyTab: {
 		screen: MyTab,
-	},
-	WelfareDetail: {
-		screen: WelfareDetail,
 	},
 	BuDeJie: {
 		screen: BuDeJie,

@@ -14,7 +14,6 @@ import {observer} from 'mobx-react';
 import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
 
 import { Welfare } from './Welfare';
-import { WelfareDetail } from './WelfareDetail';
 import { BuDeJie } from './BuDeJie';
 import { BuDeJieDetail } from './BuDeJieDetail';
 
@@ -86,7 +85,6 @@ class News extends React.Component<any, State> {
 
 export {
 	News,
-	WelfareDetail,
 	Welfare,
 	BuDeJie,
 	BuDeJieDetail,

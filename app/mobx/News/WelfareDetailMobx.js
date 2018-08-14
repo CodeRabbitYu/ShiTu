@@ -22,9 +22,10 @@ class WelfareDetailMobx {
 
 	@action.bound
 	saveImageWithIOS = async (url: string) => {
+		console.log('2222222');
 		try {
-			await  CameraRoll.saveToCameraRoll(url, 'photo');
-			alert('保存成功');
+			await  CameraRoll.saveToCameraRoll('http://p2oxs1iv5.bkt.clouddn.com/lzp.png', 'photo');
+			alert('保存成功1111');
 		} catch (e) {
 			alert('保存失败');
 		}

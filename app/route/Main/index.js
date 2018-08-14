@@ -46,6 +46,8 @@ export class Main extends Component<Props> {
 					style={{height: 44, backgroundColor: 'red'}}
 					onChangeText={(text) => this.setState({text: text})}
 					value={this.state.text}
+					clearButtonMode={'always'}
+					
 				/>
 
 			</BaseContainer>
