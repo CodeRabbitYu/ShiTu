@@ -80,7 +80,8 @@ export class Welfare extends React.Component<Props> {
 				<Button
 					onLongPress={() => this.actionSheetToSaveImage(item)}
 					onPress={() => this.customPopView && this.customPopView.close()}>
-					<CustomImage source={{uri: item.largeUrl}} resizeMode='cover'
+					<CustomImage source={{uri: item.largeUrl}}
+					             resizeMode='cover'
 					             style={{backgroundColor: 'white', width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}
 					/>
 				</Button>
