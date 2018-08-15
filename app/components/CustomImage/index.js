@@ -11,8 +11,7 @@ import {observer} from 'mobx-react';
 import {observable, action} from 'mobx';
 
 type Props = {
-  useCustomImage: boolean;
-  ...any;
+	...Image.propTypes;
 }
 
 let CustomImage;
@@ -20,20 +19,11 @@ let CustomImage;
 @observer
 export default class index extends React.Component<Props, any> {
 
-  static defaultProps = {
-  	useCustomImage: true,
-  };
 
   @observable imageLoadedError: boolean = false;
 
   constructor(props: Props) {
   	super(props);
-
-  	if (props.useCustomImage) {
-  		CustomImage = FastImage;
-  	} else {
-  		CustomImage = FastImage;
-  	}
   }
 
   @action.bound
@@ -48,7 +38,7 @@ export default class index extends React.Component<Props, any> {
   	const { source, style } = this.props;
   	return (
   		<View style={[styles.customImageView]}>
-  			<CustomImage
+  			<FastImage
   				style={style}
   				source = {
   					!this.imageLoadedError

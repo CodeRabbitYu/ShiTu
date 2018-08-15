@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { MyApp } from './router';
+import { AuthLoadingRouter } from './routers/AuthLoading';
 import {View} from 'react-native';
 import {Toast, LoadingSpinner} from './components';
 import {observer, Provider} from 'mobx-react';
@@ -33,7 +33,7 @@ export default class index extends React.Component<any> {
 		return (
 			<Provider {...RootStore}>
 				<View style={{backgroundColor: 'transparent', flex: 1}}>
-					<MyApp />
+					<AuthLoadingRouter />
 					<Toast ref={(t: any) => this.toast = t}/>
 					<LoadingSpinner isVisible={RootStore.configStore.isLoading}/>
 				</View>

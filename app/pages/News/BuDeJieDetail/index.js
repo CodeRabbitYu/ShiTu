@@ -43,7 +43,6 @@ export class BuDeJieDetail extends React.Component<Props> {
   		return (
   			<ScrollView>
   				<CustomImage source={{uri: cdn_img}}
-  					useCustomImage={false}
   					// resizeMode={'contain'}
   					style={[styles.picture, {height: imageHeight}]}
   				/>

@@ -12,13 +12,14 @@ import {
 	createStackNavigator,
 } from 'react-navigation';
 
-import { System } from './utils';
-import { CustomIcon, Theme } from './components';
+import { System } from '../utils/index';
+import { CustomIcon, Theme } from '../components/index';
 
-import { ShiTu } from './route/ShiTu';
-import { News, Welfare, BuDeJie, BuDeJieDetail } from './route/News';
-import { Main } from './route/Main';
-import WebView from './route/WebView';
+import { ShiTu } from '../pages/ShiTu/index';
+import { News, Welfare, BuDeJie, BuDeJieDetail } from '../pages/News/index';
+import { Main } from '../pages/Main/index';
+import WebView from '../pages/WebView/index';
+import {Login} from '../pages/Login';
 
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
@@ -50,7 +51,7 @@ const MyTab = createBottomTabNavigator({
 
 });
 
-export const MyApp = createStackNavigator({
+export const AppRouter = createStackNavigator({
 	MyTab: {
 		screen: MyTab,
 	},
@@ -63,7 +64,9 @@ export const MyApp = createStackNavigator({
 	WebView: {
   	screen: WebView,
 	},
-
+	Login: {
+		screen: Login,
+	}
 }, {
 	// 快速定制导航条，新版识兔中所有的导航都是重写的，所以这里会将全部的导航置空
 	navigationOptions: () => ({

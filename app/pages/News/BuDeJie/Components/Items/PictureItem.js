@@ -29,7 +29,6 @@ const renderPicture = (props: Props) => {
 		return (
 			<View>
 				<Image source={{uri: cdn_img}}
-										 useCustomImage={true}
 										 resizeMode={'cover'}
 										 style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
 				/>

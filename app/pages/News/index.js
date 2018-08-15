@@ -4,21 +4,18 @@
  */
 
 import React from 'react';
-import {Text, View} from 'react-native';
 
-import {System} from '../../utils';
 import { BaseContainer} from '../../components';
 
 import {observer} from 'mobx-react';
 
-import ScrollableTabView, {ScrollableTabBar, DefaultTabBar} from 'react-native-scrollable-tab-view';
+import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
 
 import { Welfare } from './Welfare';
 import { BuDeJie } from './BuDeJie';
 import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type {NavigationState} from 'react-navigation';
-
 
 type State = {
   typeArr: Array<typeItem>

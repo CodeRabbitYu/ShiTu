@@ -103,12 +103,14 @@ export class ShiTu extends Component<Props> {
 					source={{uri: this.props.powerStore.ShiTuBackgroundImage}}
 					blurRadius={System.Android ? 5 : 5}
 				>
-					<AnimationButton title={'点我寻找!'}
+					<AnimationButton
+						title={'点我寻找!'}
 						animation="bounceInLeft"
 						useNativeDriver
 						titleStyle={styles.buttonTitle}
 						gradientStyle={styles.button}
 						onPress={this.openImagePicker}
+						btnStyle={styles.btnStyle}
 					/>
 				</AnimationImageBackground>
 			</BaseContainer>
@@ -124,9 +126,10 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 	},
 	button: {
-		padding: 10,
-		backgroundColor: '#4ECBFC',
 		borderRadius: 5,
+	},
+	btnStyle: {
+		padding: 10,
 		shadowColor: 'rgba(0, 0, 0, 0.15)',
 		shadowOffset: {
 			width: 0,
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
 		},
 		shadowRadius: 3,
 		shadowOpacity: 1,
-		elevation: 2
+		elevation: 2,
 	},
 	buttonTitle: {
 		color: 'white',
