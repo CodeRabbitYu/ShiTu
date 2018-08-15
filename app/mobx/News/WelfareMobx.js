@@ -100,7 +100,10 @@ class WelfareMobx {
 	}
 
   static handleImageToSmallSize(url) {
-  	return url.replace('large', 'bmiddle');
+
+		// thumbnail|缩略，quare|方形缩略图, thumb180, wap360, small|小图, bmiddle|中图，mw600|600, wap720, mw720|720, mw1024|1024, large|原图。
+
+  	return url.replace('large', 'wap360');
   }
 
   @action.bound
