@@ -33,7 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new ImagePickerPackage(),
             new RNFetchBlobPackage(),
-              new SplashScreenReactPackage(),
+            new SplashScreenReactPackage(),
             new LinearGradientPackage(),
             new FastImageViewPackage(),
             new VectorIconsPackage()
