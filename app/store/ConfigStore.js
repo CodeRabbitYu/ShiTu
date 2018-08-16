@@ -4,7 +4,11 @@
  */
 
 import {observable, action} from 'mobx';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, ActivityIndicator, View} from 'react-native';
+
+import { Toast, Theme} from 'teaset';
+import React from 'react';
+
 
 type ErrorInfo = {
 	message: string,
@@ -18,14 +22,33 @@ class ConfigStore {
 	@observable errorInfo: ErrorInfo;
 	@observable loadingType: string;
 
-	@action.bound showLoading(type?: string) {
-		this.loadingType = type ? type : 'normal';
-		this.isLoading = true;
+	static customKey = null;
+
+	@action.bound showLoading(text?: string) {
+		// this.loadingType = type ? type : 'normal';
+		// this.isLoading = true;
+
+		if (ConfigStore.customKey) return;
+		ConfigStore.customKey = Toast.show({
+			text: text,
+			icon:
+			<View style={{width: 50, height: 40, alignItems: 'center', justifyContent: 'center'}}>
+				<ActivityIndicator size='large' color='white' />
+			</View>,
+			position: 'center',
+			duration: 1000000,
+		});
+
 	}
 
 	@action.bound hideLoading() {
-		this.isLoading = false;
-		this.loadingType = 'normal';
+		// this.isLoading = false;
+		// this.loadingType = 'normal';
+
+		if (!ConfigStore.customKey) return;
+		Toast.hide(ConfigStore.customKey);
+		ConfigStore.customKey = null;
+
 	}
 
 	@action.bound showErrorView(e: ErrorInfo) {

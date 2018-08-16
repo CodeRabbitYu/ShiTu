@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import {View, ActivityIndicator, Modal} from 'react-native';
 
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 type Props = {
 	isVisible?: boolean,
@@ -13,8 +13,10 @@ type Props = {
 @observer
 export default class LoadingSpinner extends Component<Props> {
 
+
 	render() {
 		const { isVisible } = this.props;
+
 		return (
 			<Modal
 				transparent={true}

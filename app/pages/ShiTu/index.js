@@ -27,14 +27,16 @@ const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackg
 
 import { ActionSheet } from 'teaset';
 import ImagePicker from 'react-native-image-picker';
+import {ConfigStore} from '../../store/ConfigStore';
 
 
 type Props = {
   navigation: any,
 	powerStore: PowerStore;
+	configStore: ConfigStore;
 };
 
-@inject('powerStore')
+@inject('configStore', 'powerStore')
 @observer
 export class ShiTu extends Component<Props> {
 
@@ -45,6 +47,9 @@ export class ShiTu extends Component<Props> {
 		this.shiTuMobx = new ShiTuMobx();
 	}
 
+	componentDidMount() {
+
+	}
 
 	selectedImagePicker = (type: string) => {
 
@@ -63,6 +68,8 @@ export class ShiTu extends Component<Props> {
 		ImagePicker[launchType](options, async(imageResponse)  => {
 			console.log('imageResponse', imageResponse);
 
+			this.props.configStore.showLoading();
+
 			const imageData = await this.shiTuMobx.uploadImage(imageResponse);
 
 			console.log('imageData', imageData);
@@ -72,6 +79,8 @@ export class ShiTu extends Component<Props> {
 			};
 
 			const searchDetail = await this.shiTuMobx.getSearchDetail(params);
+
+			this.props.configStore.hideLoading();
 
 			this.props.navigation.navigate('WebView', {uri: searchDetail.data.webURL});
 

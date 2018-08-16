@@ -126,7 +126,6 @@ export default class index extends React.Component<Props, State> {
 			'加载失败',
 			null,
 			[
-				// {text: '刷新', onPress: () => this._reload(),style: 'destructive'},
 				{text: '取消', onPress: () => this.props.navigation.goBack(), style: 'cancel'},
 			],
 			{ cancelable: false }
@@ -152,7 +151,6 @@ export default class index extends React.Component<Props, State> {
 				degrees={90}
 				// outRangeScale={1}
 				autoInactive={false}
-				onPress={() => { console.log('点击Action了'); }}
 			>
 				<ActionButton.Item buttonColor={'#F8D168'}
 													 style={styles.actionItemStyle}
