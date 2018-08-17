@@ -48,7 +48,16 @@ class ConfigStore {
 		if (!ConfigStore.customKey) return;
 		Toast.hide(ConfigStore.customKey);
 		ConfigStore.customKey = null;
+	}
 
+	@action.bound showToast(text) {
+		Toast.message(text);
+	}
+
+	@action.bound hideToast() {
+		if (!ConfigStore.customKey) return;
+		Toast.hide(ConfigStore.customKey);
+		ConfigStore.customKey = null;
 	}
 
 	@action.bound showErrorView(e: ErrorInfo) {
