@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {JokeItem} from './JokeItem';
 import {PictureItem} from './PictureItem';
+import {VideoItem} from './VideoItem';
 import type {RTBDJList} from '../../../../../servers/News/interfaces';
 import { Button } from '../../../../../components/index';
 import {BuDeJieDetail} from '../../../index';
@@ -20,6 +21,7 @@ type Props = {
   itemData: RTBDJList;
   itemPress: Function;
   picturePress: Function;
+	videoPress: Function;
 };
 export class ContainerItem extends React.Component<Props> {
 
@@ -62,7 +64,7 @@ export class ContainerItem extends React.Component<Props> {
 			return (
 				<View>
 					<JokeItem jokeData={jokeData}/>
-					<PictureItem pictureData={pictureData} picturePress={this.props.picturePress}/>
+					<VideoItem pictureData={pictureData} videoPress={this.props.videoPress}/>
 				</View>
 			);
 		}

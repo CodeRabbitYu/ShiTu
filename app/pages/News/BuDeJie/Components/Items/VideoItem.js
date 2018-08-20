@@ -11,21 +11,32 @@ import {
 	Image,
 } from 'react-native';
 
-type Props = {};
-export default class VideoItem extends React.Component<Props> {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+import {CustomImage, Button} from '../../../../../components';
+import type {Picture} from '../../../../../servers/News/interfaces';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-	render() {
-		return (
-			<View style={styles.container}>
+type Props = {
+	pictureData: Picture;
+	videoPress: Function;
+};
+export const VideoItem = (props: Props) => {
+	const { cdn_img, containerHeight } = props.pictureData;
 
+	return (
+		<Button style={styles.container} onPress={props.videoPress}>
+			<View>
+				<CustomImage source={{uri: cdn_img}}
+				             style={[styles.picture, {height: containerHeight}]}/>
+				<View style={{position: 'absolute', left: SCREEN_WIDTH / 2 - 30, top: containerHeight / 2 - 30}}>
+					<Icon name={'play-circle'} size={60} color={'white'}/>
+				</View>
 			</View>
-		);
-	}
-}
+		</Button>
+	);
+};
+
+
+
 
 const styles = StyleSheet.create({
 	container: {

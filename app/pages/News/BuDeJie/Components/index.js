@@ -21,11 +21,12 @@ type Props = {
 	navigate: NavigationState;
 	itemPress: Function;
 	picturePress: Function;
+	videoPress: Function;
 };
 
 export const BaseItem = (props: Props) => {
 	const { userInfoData, toolBarData } = props.itemData;
-	const { itemData, itemPress, picturePress} = props;
+	const { itemData, itemPress, picturePress, videoPress} = props;
 
 	return (
 		<View>
@@ -33,6 +34,7 @@ export const BaseItem = (props: Props) => {
 			<ContainerItem itemData={itemData}
 			               itemPress={itemPress}
 			               picturePress={picturePress}
+			               videoPress={videoPress}
 			/>
 			<ToolBarView toolBarData={toolBarData}/>
 		</View>

@@ -57,6 +57,10 @@ export class BuDeJie extends React.Component<Props, any> {
 		this.props.navigate('WebView', {uri: item.weixin_url});
 	}
 
+	videoPress = (item: Picture) => {
+		this.props.navigate('WebView', {uri: item.weixin_url});
+	}
+
 	renderItem = ( {item}: {item: RTBDJList, index: number} ) => {
 		const { navigate } = this.props;
 		return (
@@ -66,6 +70,7 @@ export class BuDeJie extends React.Component<Props, any> {
 				          alert(item.text);
 			          }}
 			          picturePress={() => this.picturePress(item)}
+			          videoPress={() => this.videoPress(item)}
 			/>
 		);
 	}

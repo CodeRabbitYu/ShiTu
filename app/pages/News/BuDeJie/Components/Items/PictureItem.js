@@ -31,7 +31,7 @@ const renderPicture = (props: Props) => {
 	if (isLongPicture && containerHeight < maxImageHeight) {
 		return (
 			<View>
-				<Image source={{uri: cdn_img}}
+				<CustomImage source={{uri: cdn_img}}
 										 resizeMode={'cover'}
 										 style={[styles.picture, {height: System.SCREEN_HEIGHT * 0.5}]}
 				/>
@@ -43,7 +43,7 @@ const renderPicture = (props: Props) => {
 	} else if (containerHeight > maxImageHeight) {
 		return (
 			<View style={styles.promptView}>
-				<Text style={styles.promptTitle}>图片可能过大哦，请查看原图</Text>
+				<Text style={styles.promptTitle}>图片可能过长哦，请点击查看原图</Text>
 				<View style={styles.longPictureSignView}>
 					<Text style={styles.longPictureSignText}>点击查看原图</Text>
 				</View>
@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
 	},
 	picture: {
 		width: System.SCREEN_WIDTH - px2dp(40),
-		backgroundColor: 'blue'
 	},
 	promptView: {
 		flexDirection: 'row',
