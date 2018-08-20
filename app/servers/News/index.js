@@ -20,7 +20,6 @@ export async function loadWelfareData(page: number, type: RGankType = '福利', 
 	return await Fetch.get(url);
 }
 
-
 const BuDeJieValue = {
 	'All': 1,
 	'Video': 41,

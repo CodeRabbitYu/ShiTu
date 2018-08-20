@@ -20,11 +20,14 @@ type Props = {
   picturePress: Function;
 }
 
-const maxImageHeight = 8000;
+const maxImageHeight = 7000;
 
 
 const renderPicture = (props: Props) => {
 	const { cdn_img, isLongPicture, containerHeight } = props.pictureData;
+
+	console.log('pictureData', props.pictureData);
+
 	if (isLongPicture && containerHeight < maxImageHeight) {
 		return (
 			<View>
@@ -49,28 +52,55 @@ const renderPicture = (props: Props) => {
 	} else {
 		return (
 			<CustomImage source={{uri: cdn_img}}
-									 resizeMode={'contain'}
+									 // resizeMode={'contain'}
 									 style={[styles.picture, {height: containerHeight}]}/>
 		);
 	}
 };
 
-export const PictureItem = (props: Props) => {
+const GifSignView = () => {
+	return (
+		<View style={styles.gifView}>
+			<Text style={styles.gifText}>gif图</Text>
+		</View>
+	);
+}
 
+export const PictureItem = (props: Props) => {
+	const { is_gif } = props.pictureData;
 	return (
 		<Button style={styles.pictureView} onPress={props.picturePress}>
-			{renderPicture(props)}
+			<View>
+				{renderPicture(props)}
+				{is_gif === '1' && <GifSignView /> }
+			</View>
 		</Button>
 	);
 };
 
 const styles = StyleSheet.create({
+	gifView: {
+		borderRadius: px2dp(30),
+		height: px2dp(50),
+		width: px2dp(100),
+		position: 'absolute',
+		top: px2dp(20),
+		right: px2dp(20),
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'rgba(0,0,0,0.4)'
+	},
+	gifText: {
+		color: 'white',
+		fontSize: FONT_SIZE(13),
+	},
 	pictureView: {
-		marginHorizontal: px2dp(20),
-		marginVertical: px2dp(10),
+		paddingHorizontal: px2dp(20),
+		paddingVertical: px2dp(10),
 	},
 	picture: {
 		width: System.SCREEN_WIDTH - px2dp(40),
+		backgroundColor: 'blue'
 	},
 	promptView: {
 		flexDirection: 'row',

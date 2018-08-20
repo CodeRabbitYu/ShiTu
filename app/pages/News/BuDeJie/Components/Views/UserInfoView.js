@@ -27,18 +27,16 @@ export function UserInfoView(props: Props) {
 		_profile_image = 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png';
 	}
 	return (
-		<View>
-			<View style={{flexDirection: 'row'}}>
-				<Button activeOpacity={1} onPress={() => alert('点击用户信息')}>
-					<CustomImage source={{uri: _profile_image}} style={styles.icon}/>
-				</Button>
-				<Button style={styles.userDetailView} activeOpacity={1} onPress={() => alert('点击用户信息')}>
-					<View>
-						<Text style={styles.userText} numberOfLines={2}>{name}</Text>
-						<Text style={styles.userTime}>{theme_name}</Text>
-					</View>
-				</Button>
-			</View>
+		<View style={styles.userInfo}>
+			<Button activeOpacity={1} onPress={() => alert('点击用户信息')}>
+				<CustomImage source={{uri: _profile_image}} style={styles.icon}/>
+			</Button>
+			<Button style={styles.userDetailView} activeOpacity={1} onPress={() => alert('点击用户信息')}>
+				<View>
+					<Text style={styles.userText} numberOfLines={2}>{name}</Text>
+					<Text style={styles.userTime}>{theme_name}</Text>
+				</View>
+			</Button>
 		</View>
 	);
 }
@@ -47,6 +45,7 @@ export function UserInfoView(props: Props) {
 const styles = StyleSheet.create({
 	userInfo: {
 		flexDirection: 'row',
+		marginTop: px2dp(20)
 	},
 	icon: {
 		width: px2dp(80),
