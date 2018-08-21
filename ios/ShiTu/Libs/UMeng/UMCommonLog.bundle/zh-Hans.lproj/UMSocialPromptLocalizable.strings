@@ -1,0 +1,115 @@
+
+// -------------- FAQ log
+
+//core模块的平台相关
+"core_platform_error_2" = "[SCE10001]创建平台失败:%@。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+"core_platform_warn_1" = "[SCE10001]平台检查失败:%@，请检查是否实现 @selector(socialPlatformType)，参考UMSocialPlatformConfig.h头文件说明。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+
+"core_share_error_7" = "[SCE10007]出现报错2014，请使用 HTTPS 图片 URL。 https://developer.umeng.com/docs/66632/detail/67029?um_channel=sdk";
+"core_info_1" = "[SCI10005]初始化平台参数中redirectURL参数的作用。 https://developer.umeng.com/docs/66632/detail/67027?um_channel=sdk";
+"core_info_2" = "[SCI10006]分享/授权登录后如果无法返回应用（微信、QQ、微博等平台）。 https://developer.umeng.com/docs/66632/detail/67028?um_channel=sdk";
+//core handle 协议相关
+"core_auth_error_1" = "[SCE10001]未发现第三方或自定义平台相应类:%@\n请检查:\n1、平台类已实现<UMSocialPlatformProvider>协议\n2、此平台枚举值在正常枚举区间内，参考UMSocialPlatformConfig.h —> UMSocialPlatformType枚举。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+"core_auth_error_4" = "[SCE10001]未发现第三方或自定义平台相应类:%@\n请检查:\n1、平台类已实现<UMSocialPlatformProvider>协议\n2、此平台枚举值在正常枚举区间内，参考UMSocialPlatformConfig.h —> UMSocialPlatformType枚举。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+
+//core模块获得用户资料相关
+"core_getuserinfo_error_1" = "[SCE10001]未发现平台相应类:%@\n请检查:\n1、平台类已实现<UMSocialPlatformProvider>协议\n2、此平台枚举值在正常枚举区间内，参考UMSocialPlatformConfig.h —> UMSocialPlatformType枚举。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+
+//core模块分享相关
+"core_share_error_1" = "[SCE10008]传入平台('%@')的UMSocialMessageObject类型参数messageObject的数据类型无效，请检查\n1.messageObject是否空。\n2.messageObject.text和messageObject.shareObject是否同时为空。 https://developer.umeng.com/docs/66632/detail/67030?um_channel=sdk";
+"core_share_error_2" = "[SCE10001]未发现第三方或自定义平台相应类:%@\n请检查:\n1、平台类已实现<UMSocialPlatformProvider>协议\n2、此平台枚举值在正常枚举区间内，参考UMSocialPlatformConfig.h —> UMSocialPlatformType枚举。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+"core_share_error_4" = "[SCE10001]未发现第三方或自定义平台相应类:%@\n请检查:\n1、平台类已实现<UMSocialPlatformProvider>协议\n2、此平台枚举值在正常枚举区间内，参考UMSocialPlatformConfig.h —> UMSocialPlatformType枚举。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+"core_share_error_5" = "[SCE10001]未实现<UMSocialPlatformProvider>协议方法@selector(umSocial_ShareWithObject:withViewController:withCompletionHandler:)：%@。 https://developer.umeng.com/docs/66632/detail/67023?um_channel=sdk";
+
+// 分享面板
+"ui_info_1" = "[SUII10002]当前操作相关提示：分享面板无法弹出。 https://developer.umeng.com/docs/66632/detail/67033?um_channel=sdk";
+"ui_info_2" = "[SUII10003]分享面板图标不显示图片。 https://developer.umeng.com/docs/66632/detail/67034?um_channel=sdk";
+
+"core_share_error_6" = "[SUIE10001]平台%@分享时，传入的参数currentViewController应该是nil或者是继承UIViewController的子类。 https://developer.umeng.com/docs/66632/detail/67032?um_channel=sdk";
+"core_auth_error_6" = "[SUIE10001]平台%@分享时，传入的参数currentViewController应该是nil或者是继承UIViewController的子类。 https://developer.umeng.com/docs/66632/detail/67032?um_channel=sdk";
+"core_getuserinfo_error_3" = "[SUIE10001]平台%@分享时，传入的参数currentViewController应该是nil或者是继承UIViewController的子类。 https://developer.umeng.com/docs/66632/detail/67032?um_channel=sdk";
+
+//wechat
+"wechat_auth_error_1" = "[SCE10002]请检查是否设置了微信的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+
+"wechat_share_error_1" = "[SCE10002]请检查是否设置了微信的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+"wechat_share_error_2" = "[SCE10003]分享前，请检查微信是否安装。 https://developer.umeng.com/docs/66632/detail/67025?um_channel=sdk";
+"wechat_share_error_3" = "[SWE10001]当前的sdk不支持微信的OpenAPI,请更新最新的微信SDK。 https://developer.umeng.com/docs/66632/detail/67036?um_channel=sdk";
+"wechat_share_error_4" = "[SWE10002]微信分享不支持的分享类型，微信的分享类型为：文本，图片，网络链接，音乐链接，视频链接，Gif表情，文件。 https://developer.umeng.com/docs/66632/detail/67037?um_channel=sdk";
+"wechat_share_error_5" = "[SWE10003]下载UMShareImageObject的shareImage失败，请检查图片参数是否正确。（本地图片，请检查是否赋值，网络图片请检查是否为https，防止下载失败）。 https://developer.umeng.com/docs/66632/detail/67038?um_channel=sdk";
+
+"wechat_shareWebPage_warn_1" = "[SWE10003]微信分享网页链接的时候，提供的缩略图为错误的下载url或者下载失败,具体的原因如下:%@。 https://developer.umeng.com/docs/66632/detail/67038?um_channel=sdk";
+"wechat_shareWebPage_warn_2" = "[SWE10003]微信分享网页链接的时候，提供的缩略图为错误的下载url或者下载失败。 https://developer.umeng.com/docs/66632/detail/67038?um_channel=sdk";
+
+"wechat_shareImage_warn_1" = "[SWE10003]微信分享图片的时候，提供的缩略图为为错误的下载url或者下载失败,具体的原因如下:%@。 https://developer.umeng.com/docs/66632/detail/67038?um_channel=sdk";
+"wechat_shareImage_warn_2" = "[SWE10003]微信分享图片的时候，提供的缩略图为为错误的下载url或者下载失败。 https://developer.umeng.com/docs/66632/detail/67038?um_channel=sdk";
+// wechat info
+"wechat_info_1" = "[SWI10004]分享面板中不显示微信。 https://developer.umeng.com/docs/66632/detail/67039?um_channel=sdk";
+"wechat_info_2" = "[SWI10005]如何获取微信code。 https://developer.umeng.com/docs/66632/detail/67040?um_channel=sdk";
+"wechat_info_3" = "[SWI10007]微信分享报错提示，请请检查微信是否安装。 https://developer.umeng.com/docs/66632/detail/67042?um_channel=sdk";
+"wechat_info_4" = "[SWI10008]微信授权登录提示该链接无法访问。 https://developer.umeng.com/docs/66632/detail/67043?um_channel=sdk";
+"wechat_info_5" = "[SWI10009]微信分享报错'由于invalid_app无法分享到微信。 https://developer.umeng.com/docs/66632/detail/67044?um_channel=sdk";
+
+//qq
+"qq_auth_error_1" = "[SCE10002]请检查是否设置了QQ的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+"qq_auth_error_2" = "[SQE10001]授权失败，点击qq授权没有跳转，请查看是否设置了appid,查看初始化函数:[[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:???  appSecret:nil redirectURL:???];。 https://developer.umeng.com/docs/66632/detail/67045?um_channel=sdk";
+
+"qq_getuserinfo_error_1" = "[SCE10002]请检查是否设置了QQ的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+"qq_getuserinfo_info_1" = "[SCE10004]可设置获得用户信息时是否清除缓存，通过UMSocialGlobal的isClearCacheWhenGetUserInfo变量来改变,默认是每次都清除用户的授权缓存。 https://developer.umeng.com/docs/66632/detail/67026?um_channel=sdk";
+
+
+"qq_share_error_1" = "[SCE10002]请检查是否设置了QQ的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+"qq_share_error_2" = "[SCE10003]请检查是否安装了QQ。 https://developer.umeng.com/docs/66632/detail/67025?um_channel=sdk";
+"qq_share_error_3" = "[SQE10002]请检查当前的SDK是否支持API调用，如果不能请升级SDK或者QQ的版本。 https://developer.umeng.com/docs/66632/detail/67046?um_channel=sdk";
+"qq_share_error_4" = "[SQE10003]QQ分享不支持的分享类型，QQ的分享类型为：文本，图片，网络链接，音乐链接，视频链接。 https://developer.umeng.com/docs/66632/detail/67047?um_channel=sdk";
+
+"qq_shareWebPage_warn_1" = "[SQE10004]QQ分享网页链接的时提供的缩略图为错误的下载url或者下载失败,具体的原因如下:%@。 https://developer.umeng.com/docs/66632/detail/67048?um_channel=sdk";
+"qq_shareWebPage_warn_2" = "[SQE10004]QQ分享网页链接的时提供的缩略图为错误的下载url或者下载失败。 https://developer.umeng.com/docs/66632/detail/67048?um_channel=sdk";
+//info
+"qq_info_1" = "[SQI10005]QQ和TIM平台混淆问题。 https://developer.umeng.com/docs/66632/detail/67049?um_channel=sdk";
+"qq_info_2" = "[SQI10006]QQ登录时显示的应用名如何设置。 https://developer.umeng.com/docs/66632/detail/67050?um_channel=sdk";
+"qq_info_3" = "[SQI10007]QQ登录提示错误110406。 https://developer.umeng.com/docs/66632/detail/67051?um_channel=sdk";
+"qq_info_4" = "[SQI10008]QQ报错 100008 client request's app is not existed。 https://developer.umeng.com/docs/66632/detail/67053?um_channel=sdk";
+
+
+//sina
+"sina_auth_error_1" = "[SCE10002]请检查是否设置了sina的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+
+"sina_getuserinfo_error_1" = "[SCE10002]请检查是否设置了sina的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+
+"sina_share_error_1" = "[SCE10002]请检查是否设置了sina的URLSchema。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+"sina_share_error_2" = "[SSE10001]新浪分享不支持的分享类型，新浪的分享类型为：文本，图片，图文，网络链接，音乐链接，视频链接。 https://developer.umeng.com/docs/66632/detail/67329?um_channel=sdk";
+"sina_shareWebPage_error_1"="[SSE10002]新浪分享webpage类型(需要强制加入缩略图)错误，具体原因如下：%@。 https://developer.umeng.com/docs/66632/detail/67054?um_channel=sdk";
+"sina_shareText_Info_1" = "[SSI10003]新浪文本分享最大的字是140个，如果超过就不能分享成功，sdk默认开启截断功能，如果需要停止截断需要在调用分享前加入代码[UMSocialGlobal shareInstance].isTruncateShareText=NO。 https://developer.umeng.com/docs/66632/detail/67055?um_channel=sdk";
+//info
+"sina_info_1" = "[SSI10004]微博分享 网页(WebPage)类型，链接在微博只显示为'网页链接'的文字。 https://developer.umeng.com/docs/66632/detail/67056?um_channel=sdk";
+"sina_info_2" = "[SSI10005]微博登录报错'sso package or sign error'。 https://developer.umeng.com/docs/66632/detail/67058?um_channel=sdk";
+"sina_info_3" = "[SSI10006]微博授权实现关注官方微博功能。 https://developer.umeng.com/docs/66632/detail/67059?um_channel=sdk";
+"sina_info_4" = "[SSI10007]微博报错 redirect url mismatch。 https://developer.umeng.com/docs/66632/detail/67060?um_channel=sdk";
+
+// 钉钉支付宝
+// info
+"ding_error_1" = "[SDE10001]支付宝/钉钉返回鉴权失败。 https://developer.umeng.com/docs/66632/detail/67062?um_channel=sdk";
+
+//facebook
+"facebook_share_error_1" = "[SFE10001]facebook分享不支持的分享类型，facebook的分享类型为：文本，图片，网络链接，音乐链接，视频链接。(新版的facebook采用的是对话框的形式分享的，如果设置文本的话需要有publish_actions权限调用OpenAPI)。 https://developer.umeng.com/docs/66632/detail/67064?um_channel=sdk";
+//error
+"facebook_info_2" = "[SFI10002]FAQ: Facebook/Twitter分享点击分享后没有进入分享编辑页。 https://developer.umeng.com/docs/66632/detail/67065?um_channel=sdk";
+"facebook_info_3" = "[SFE10003]FAQ: Facebook分享失败，提示missing publish_actions permissions。 https://developer.umeng.com/docs/66632/detail/67066?um_channel=sdk";
+
+//twitter
+"twitter_auth_error_1" = "[SCE10002]请检查是否设置了 Twitter 的 URLScheme。 https://developer.umeng.com/docs/66632/detail/67024?um_channel=sdk";
+//info
+"twitter_info_1" = "[STI10001]Twitter如何获取TokenSecret。 https://developer.umeng.com/docs/66632/detail/67068?um_channel=sdk";
+"twitter_info_2" = "[STE10002]FAQ: Twitter 分享报错401。 https://developer.umeng.com/docs/66632/detail/67069?um_channel=sdk";
+
+// --------- sdk 内 log
+"core_version" = "UMShare版本号：%@。";
+// 实现handler协议提示
+"core_platform_warn_2" = "第三方或自定义平台异常：%@ > 未实现相应方法：@selector(umSocial_setAppKey:withAppSecret:withRedirectURL:)";
+"core_auth_error_2" = "未实现第三方或自定义<UMSocialPlatformProvider>协议方法@selector(umSocial_AuthorizeWithUserInfo:withViewController:withCompletionHandler:)：%@";
+"core_auth_error_3" = "未实现第三方或自定义<UMSocialPlatformProvider>协议方法@selector(umSocial_cancelAuthWithCompletionHandler:)：%@";
+"core_auth_error_5" = "未实现<UMSocialPlatformProvider>协议方法@selector(umSocial_AuthorizeWithUserInfo:withCompletionHandler:)：%@";
+"core_getuserinfo_error_2" = "未实现第三方或自定义<UMSocialPlatformProvider>协议方法@selector(umSocial_RequestForUserProfileWithViewController:completion:)：%@";
+"core_share_error_3" = "未实现第三方或自定义<UMSocialPlatformProvider>协议方法@selector(umSocial_ShareWithObject:withCompletionHandler:)：%@";
+

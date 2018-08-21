@@ -14,16 +14,14 @@ import {
 	ActivityIndicator
 } from 'react-native';
 
-import {loadBuDeJieData, loadWealPictureData} from '../../../servers/News';
 import { TableList, BaseContainer } from '../../../components';
 import type {RTBDJList, RTWeal} from '../../../servers/News/interfaces';
 import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 import { BaseItem } from './Components';
 import type {NavigationState} from 'react-navigation';
-import {ContainerItem} from './Components/Items/ContainerItem';
-import {ModalView} from './Components/Views/ModalView';
+import { Overlay } from 'teaset';
+import { Button, CustomImage } from '../../../components';
 
 import {Picture} from '../../../servers/News/interfaces';
 
@@ -52,9 +50,30 @@ export class BuDeJie extends React.Component<Props, any> {
 		}
 	}
 
-
 	picturePress = (item: Picture) => {
-		this.props.navigate('WebView', {uri: item.weixin_url});
+
+		if (item.isLongPicture || item.is_gif) {
+			this.props.navigate('WebView', {uri: item.weixin_url});
+		} else {
+			const overlayView = (
+				<Overlay.PopView
+					style={{alignItems: 'center', justifyContent: 'center'}}
+					overlayOpacity={1}
+					type='zoomIn'
+					ref={v => this.customPopView = v}
+				>
+					<Button
+						onLongPress={() => this.actionSheetToSaveImage(item)}
+						onPress={() => this.customPopView && this.customPopView.close()}>
+						<Image source={{uri: item.cdn_img}}
+							// resizeMode='cover'
+							     style={{backgroundColor: 'white', width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}
+						/>
+					</Button>
+				</Overlay.PopView>
+			);
+			Overlay.show(overlayView);
+		}
 	}
 
 	videoPress = (item: Picture) => {

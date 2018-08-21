@@ -1,0 +1,6 @@
+framework module UMCommonLog {
+  umbrella header "UMCommonLog.h"
+
+  export *
+  module * { export * }
+}

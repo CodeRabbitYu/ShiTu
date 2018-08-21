@@ -1,0 +1,173 @@
+/*
+ UMCommonLog.strings
+ testUMCommonLog
+ 
+ Created by 张军华 on 2017/12/11.
+ Copyright © 2017年 张军华. All rights reserved.
+ */
+
+//init  20000 - 20250
+analytics_init_error1 = "[AIE10012]Latitude或者longitude设置错误 https://developer.umeng.com/docs/66632/detail/66999?um_channel=sdk";
+analytics_init_error2 = "[AIE10013]puid 为空 https://developer.umeng.com/docs/66632/detail/67000?um_channel=sdk";
+analytics_init_error3 = "[AIE10013]puid 大于64字节 https://developer.umeng.com/docs/66632/detail/67000?um_channel=sdk";
+analytics_init_error4 = "[AIE10013]provider 大于32字节 https://developer.umeng.com/docs/66632/detail/67000?um_channel=sdk";
+analytics_init_error5 = "[AIE10005]请设置Dplus 场景 https://developer.umeng.com/docs/66632/detail/66990?um_channel=sdk";
+analytics_init_error6 = "数据库连接失败";
+analytics_init_error7 = "数据库已经打开";
+analytics_init_error8 = "修改表失败,TABLE %@ with columnName(%@)";
+analytics_init_error9 = "数据库运行失败,sql: %@, error: %s,errorCode:%d";
+analytics_init_error10 = "%@ 表创建失败";
+analytics_init_error11 = "%@ 表删除失败";
+analytics_init_error12 = "sql执行失败 %s";
+analytics_init_error13 = "%@ 表写入失败";
+analytics_init_error14 = "%@ 表修改失败";
+analytics_init_error15 = "[AIE10011]DeepLink url 不能大于 %d字节 https://developer.umeng.com/docs/66632/detail/66998?um_channel=sdk";
+analytics_init_error16 = "[AIE10011]DeepLink eventId %@ 不能大于 %d字节 https://developer.umeng.com/docs/66632/detail/66998?um_channel=sdk";
+analytics_init_error17 = "[AIE10006]%@是SDK保留字段，不能作为eventId使用 https://developer.umeng.com/docs/66632/detail/66991?um_channel=sdk";
+analytics_init_error18 = "[AIE1006]attributes中value 不能为 NSNull https://developer.umeng.com/docs/66632/detail/67191?um_channel=sdk";
+analytics_init_error19 = "[AIE10001]appkey 不能为空 https://developer.umeng.com/docs/66632/detail/66982?um_channel=sdk";
+analytics_init_error20 = "[AIE10005]MobClickGameAnalytics 是游戏API，请先设置游戏场景 https://developer.umeng.com/docs/66632/detail/66990?um_channel=sdk";
+analytics_init_error21 = "[AIE10014]MobClickGameAnalytics orderId 不能大于 1024字节 https://developer.umeng.com/docs/66632/detail/67001?um_channel=sdk";
+analytics_init_error22 = "[AIE10014]MobClickGameAnalytics currencyType 不能大于 3字节 https://developer.umeng.com/docs/66632/detail/67001?um_channel=sdk";
+analytics_init_error23 = "[AIE10005]DplusMobClick 是Dplus API，请先设置Dplus场景 https://developer.umeng.com/docs/66632/detail/66990?um_channel=sdk";
+
+analytics_init_error24 = "[AIE1008]Dplus key：%@ 是预制字段，不能使用 https://developer.umeng.com/docs/66632/detail/67191?um_channel=sdk";
+analytics_init_error25 = "[AIE10008]Dplus property value只能使用NSString,NSNumber,NSArray类型 NSArray只能是(NSString,NSNumber)类型且不能为空 https://developer.umeng.com/docs/66993/detail/id?um_channel=sdk";
+analytics_init_error26 = "[AIE10008]Dplus property的key只能是NSString类型且不能为空 https://developer.umeng.com/docs/66632/detail/66993?um_channel=sdk";
+analytics_init_error27 = "[AIE10008]Dplus property的value数组只能是NSString类型或NSNumber类型且不能为空 https://developer.umeng.com/docs/66632/detail/66993?um_channel=sdk";
+//analytics_init_error27 = "[AIE10027]Dplus array内容只能是NSString 或者 NSNumber类型";
+//analytics_init_error28 = "[AIE10028]Dplus 事件的key和value 必须是string类型,key不能大于%@字节，value不能大于%@字节";
+//analytics_init_error29 = "[AIE10029]Dplus property的value只能是NSString或者NSNumber类型且不能为空";
+analytics_init_error30 = "[AIE10010]Dplus eventList必须是NSArray类型 https://developer.umeng.com/docs/66632/detail/66996?um_channel=sdk";
+analytics_init_error31 = "[AIE10010]Dplus eventList已存入5个，无法再添加 https://developer.umeng.com/docs/66632/detail/66996?um_channel=sdk";
+analytics_init_error32 = "[AIE10008]Dplus property只能是NSDictionary类型 https://developer.umeng.com/docs/66632/detail/66993?um_channel=sdk";
+analytics_init_error33 = "[AIE10008]Dplus propertyName只能是NSString类型并且不能为空 https://developer.umeng.com/docs/66632/detail/66993?um_channel=sdk";
+
+analytics_init_error34 = "[AIE10006]关键字id, ts, du, dplus_st, %@是SDK保留字段，不能作为key使用。https://developer.umeng.com/docs/66632/detail/66991?um_channel=sdk";
+analytics_init_error35 = "[AIE10006]事件的key和value 必须是string类型,key不能大于%ld字节，value不能大于%ld字节 https://developer.umeng.com/docs/66991/detail/id?um_channel=sdk";
+analytics_init_error36 = "[AIE10008]Dplus eventName为空 https://developer.umeng.com/docs/66632/detail/66993?um_channel=sdk";
+analytics_init_error37 = "[AIE10006]关键字id, ts, du, dplus_st是友盟SDK保留字段，不能作为key使用。https://developer.umeng.com/docs/66632/detail/66991?um_channel=sdk";
+analytics_init_error38 = "make envelope failed code:%d";
+analytics_init_error39 = "获取内容失败";
+analytics_init_error40 = "[AIE10006]eventId %@ 不能大于 %d字节 https://developer.umeng.com/docs/66632/detail/66991?um_channel=sdk";
+analytics_init_error41 = "[AIE10011]DeepLink 请检查参数是否正确 https://developer.umeng.com/docs/66632/detail/66998?um_channel=sdk";
+analytics_init_error42 = "[AIE10010]Dplus eventList参数错误 https://developer.umeng.com/docs/66632/detail/66996?um_channel=sdk";
+
+analytics_init_error43 = "[AIE10009]Dplus 请检查预置事件参数 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+analytics_init_error44 = "[AIE10009]Dplus 预置事件的key和value 必须是string类型,key不能大于%d字节，value不能大于%d字节 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+analytics_init_error45 = "[AIE10009]Dplus 预置事件property的value只能是NSString或者NSNumber类型且不能为空 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+analytics_init_error46 = "[AIE10009]Dplus 预支事件property的key只能是NSString类型且不能为空 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+analytics_init_error47 = "[AIE10009]Dplus 预置事件property只能是NSDictionary类型 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+analytics_init_error48 = "[AIE10009]Dplus 预置事件property为空 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+analytics_init_error49 = "[AIE10009]Dplus 请检查预置事件property中的key和value是否正确 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+analytics_init_error50 = "[AIE10009]Dplus 预置事件propertyName只能是NSString类型并且不能为空 https://developer.umeng.com/docs/66632/detail/66994?um_channel=sdk";
+
+analytics_init_error51 = "[AIE10007]请检查参数是否正确 https://developer.umeng.com/docs/66632/detail/66992?um_channel=sdk";
+analytics_init_error52 = "[AIE10007]pageName不能为空 https://developer.umeng.com/docs/66632/detail/66992?um_channel=sdk";
+analytics_init_error53 = "[AIE10008]Dplus property为空 https://developer.umeng.com/docs/66632/detail/66993?um_channel=sdk";
+
+analytics_init_error54 = "[AIE10006]请检查参数是否正确 https://developer.umeng.com/docs/66632/detail/66991?um_channel=sdk";
+
+analytics_init_error55 = "[AIE10014]MobClickGameAnalytics level不能为空 https://developer.umeng.com/docs/66632/detail/67000?um_channel=sdk";
+analytics_init_error56 = "[AIE10014]MobClickGameAnalytics 请检查currencyAmount和virtualAmount是否正确 https://developer.umeng.com/docs/66632/detail/67001?um_channel=sdk";
+analytics_init_error57 = "[AIE10014]请检查参数是否正确 https://developer.umeng.com/docs/66632/detail/67001?um_channel=sdk";
+
+
+
+
+
+
+analytics_init_warn1 = "provider 为空";
+analytics_init_warn3 = "错误信息表内容不是jsonString";
+analytics_init_warn5 = "请检查property中的key和value值";
+analytics_init_warn6 = "app已经启动";
+analytics_init_warn7 = "attributes中value 不能为空";
+analytics_init_warn8 = "setUserLevel 方法已下线，请使用setUserLevelId方法";
+analytics_init_warn9 = "setUserID 方法已下线，请使用其他相关User的方法";
+
+analytics_init_warn10 = "[AIE10010]Dplus eventList为空 https://developer.umeng.com/docs/66632/detail/66996?um_channel=sdk";
+analytics_init_warn11 = "Dplus value:%@ 超出限制字节，已被截取到%ld字节";
+analytics_init_warn12 = "Dplus array内容只能是NSString类型";
+analytics_init_warn13 = "Dplus property为空";
+analytics_init_warn14 = "Dplus 请检查property中的key和value是否正确";
+analytics_init_warn15 = "Dplus propertyName在Property中不存在";
+analytics_init_warn16 = "Dplus propertyName在PreProperty中不存在";
+analytics_init_warn17 = "Dplus propertyName在SuperProperty中不存在";
+
+analytics_init_warn18 = "event label (%@) 不能大于%d字节";
+analytics_init_warn19 = "event事件在8小时内最多发送%d";
+analytics_init_warn20 = "track事件在8小时内最多发送%d";
+analytics_init_warn21 = "sessionId为空";
+analytics_init_warn22 = "不确定event 类型";
+
+analytics_init_warn23 = "[AIE10010]Dplus %@ 过长，截取%ld字节 https://developer.umeng.com/docs/66632/detail/66996?um_channel=sdk";
+
+
+
+
+
+
+
+
+
+analytics_init_info1 = "超级属性注册成功";
+analytics_init_info2 = "缓存数据存储完成";
+analytics_init_info3 = "session 开始：%@";
+analytics_init_info4 = "session 结束：%@";
+analytics_init_info5 = "Dplus registerPreProperty成功";
+analytics_init_info6 = "Dplus unregisterSuperProperty成功";
+analytics_init_info7 = "Dplus unregisterPreProperty成功";
+analytics_init_info8 = "Dplus getSuperProperty成功";
+analytics_init_info9 = "dladdr(%p, ...) failed";
+analytics_init_info10 = "Invalid Mach-O header magic value: %x";
+analytics_init_info11 = "LC_SEGMENT 0x%08x";
+analytics_init_info12 = "数据过大，进行拆包";
+analytics_init_info13 = "数据过大，进行Dplus拆包";
+analytics_init_info14 = "数据过大，进行analytics拆包";
+
+
+
+
+
+
+
+
+
+
+
+analytics_init_debug1 = "UMAnalytics sdk版本号：%@,app 版本号：%@";
+analytics_init_debug2 = "UMAnalytics发送配置：sdk_version:%@, device_id:%@, model:%@, os_version:%@, app_version:%@";
+analytics_init_debug3 = "UMAnalytics统计发送内容：active_user:%@, activate_msg:%@, sessions:%@, ekv:%@";
+analytics_init_debug4 = "UMAnalytics游戏统计发送内容：gkv:%@";
+analytics_init_debug5 = "UMAnalytics Dplus发送内容：Dplus:%@";
+analytics_init_debug6 = "UMAnalytics error:%@";
+analytics_init_debug7 = "UMAnalytics event:%@";
+analytics_init_debug8 = "UMAnalytics session:%@";
+analytics_init_debug9 = "UMAnalytics ekv:%@";
+analytics_init_debug10 = "UMAnalytics gkv:%@";
+analytics_init_debug11 = "UMAnalytics app被杀死";
+analytics_init_debug12 = "UMAnalytics pageDuration:%@";
+analytics_init_debug13 = "UMAnalytics pageBegin=%@, beginTime:%@";
+analytics_init_debug14 = "UMAnalytics pageEnd=%@, duration:%lld";
+analytics_init_debug15 = "UMAnalytics eventBegin eventId=%@, label=%@";
+analytics_init_debug16 = "UMAnalytics ekvBegin ekvEvent.id=%@, ekvEvent.key=%@";
+
+
+
+
+
+
+
+
+
+
+
+
+analytics_init_verbose1 = "UMAnalytics 发送日志：%@";
+analytics_init_verbose2 = "UIApplicationWillTerminateNotification arrived";
+analytics_init_verbose3 = "app inactivate enter";
+analytics_init_verbose4 = "viewDidAppear is: %@";
+analytics_init_verbose5 = "viewDidDisappear is: %@";
+
+
+

@@ -4,17 +4,16 @@
  */
 
 import {observable, action, runInAction} from 'mobx';
-import type {RTGankResult} from '../../servers/News/types';
+import type {RTGankResult} from '../../servers/News/interfaces';
 import {loadBuDeJieData, RTBuDeJieType} from '../../servers/News';
 import { System } from '../../utils';
-import type {UserInfo} from '../../servers/News/interfaces';
-// import {RootStore} from '../../store/RootStore';
+import {ConfigStore} from '../../store/ConfigStore';
 
 
 const ContainerHeight = System.SCREEN_HEIGHT - 49 - 64 - 54;
 const SpacingHeight = 80;
 
-class BuDeJieMobx{
+class BuDeJieMobx extends ConfigStore {
   @observable isRefreshing: boolean = true;
   @observable dataSource: Array<RTGankResult> = [];
   @observable maxtime: string = '';

@@ -13,13 +13,10 @@ class PowerStore {
 	@observable ShiTuBackgroundImage: string;
 
 	constructor() {
-
-
 		this.handleShiTuBackgroundImage();
-
-
 	}
 
+	@action
 	handleShiTuBackgroundImage = () => {
 		let image_url;
 
@@ -34,9 +31,6 @@ class PowerStore {
 				this.ShiTuBackgroundImage = image_url;
 			});
 		});
-
-
-
 	}
 
 	@action.bound

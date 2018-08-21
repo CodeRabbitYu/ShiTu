@@ -1,0 +1,6 @@
+framework module SecurityEnvSDK {
+  umbrella header "SecurityEnvSDK.h"
+
+  export *
+  module * { export * }
+}

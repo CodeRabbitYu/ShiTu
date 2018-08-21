@@ -1,0 +1,112 @@
+/*
+ UMCommonLog.strings
+ testUMCommonLog
+ 
+ Created by 张军华 on 2017/12/11.
+ Copyright © 2017年 张军华. All rights reserved.
+ */
+
+
+
+////////////////////////////////////////////////
+//init begin
+//init  20000 - 20250
+common_init_error1 = "[CIE10001]用户传入的appKey不合法，请到官网申请appkey，以免影响自己App的统计数据。网址如下：https://developer.umeng.com/docs/66632/detail/67191?um_channel=sdk";
+
+common_init_warn1 = "当前传入的appkey和用户以前设置过的appkey不一样。";
+common_init_warn2 = "当前传入的channel渠道为空。";
+common_init_warn3 = "检测用户正在使用UI无埋点功能，检测到UMABTest.framework和UMAutoEventBinding.framework同时并存，在需要release发布需要删除UMABTest.framework。";
+
+common_init_info1 = "正在使用国内Common组件化SDK版本。";
+common_init_info2 = "正在使用国际化Common组件化SDK版本。";
+
+common_init_debug1 = "UMCommon版本号：%@。";
+
+common_init_verbose1 = "";
+
+//init end
+////////////////////////////////////////////////
+
+////////////////////////////////////////////////
+//integration_test begin
+common_integrationtest_error1 = "experiment params invalid。";
+common_integrationtest_error2 = "unknow experiment group key。";
+common_integrationtest_error3 = "unknow experiment test key。";
+common_integrationtest_error4 = "experiment params invalid。";
+
+//client_test end
+////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////
+//deviceToken begin
+common_deviceToken_error1 = "error,tokenStringWithData, token inValid! [%ld]。";
+
+//deviceToken end
+////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////
+//Envelope begin
+
+common_envelope_error1 = "信封json创建失败";
+common_envelope_error2 = "信封raw size:(%d)超过最大限制,创建失败";
+common_envelope_error3 = "信封压缩数据失败";
+common_envelope_error4 = "信封打包失败";
+common_envelope_error5 = "信封创建失败";
+common_envelope_error6 = "信封size:(%d)超过最大限制，创建失败";
+common_envelope_error7 = "发送信封(%@)失败";
+common_envelope_error8 = "网络请求失败(Response Applog) {\"fail\": \"error\"}";
+common_envelope_error9 = "网络请求失败(Response Applog) {\"fail\": \"statusCode\":%d}";
+common_envelope_error10 = "网络请求失败(Error   Applog) %@";
+
+common_envelope_warn1 = "信封数量超过最大限制%d,并且删除此文件名为:%@";
+
+common_envelope_info1 = "准备发送信封";
+common_envelope_info2 = "信封名字的前缀:(%@)";
+
+common_envelope_debug1 = "当前正在发送网络请求，还不能打包信封(network running=YES)。";
+common_envelope_debug2 = "当前网络状态不可用。";
+common_envelope_debug3 = "当前本地有信封存在,还不能打包新的信封。";
+common_envelope_debug4 = "生成信封(%@)成功";
+common_envelope_debug5 = "准备发送信封(%@)...";
+common_envelope_debug6 = "发送信封(%@)成功";
+common_envelope_debug7 = "网络请求成功(Response Applog) {\"success\": \"ok\"}";
+common_envelope_debug8 = "将要打包的有状态数据:%@";
+common_envelope_debug9 = "信封SerialNum:%d";
+
+common_envelope_verbose1 = "";
+
+//Envelope end
+////////////////////////////////////////////////
+
+////////////////////////////////////////////////
+//SLEnvelope begin
+
+common_slenvelope_error1 = "无状态信封json创建失败";
+common_slenvelope_error2 = "无状态信封raw size:(%d)超过最大限制,创建失败";
+common_slenvelope_error3 = "无状态信封压缩数据失败";
+common_slenvelope_error4 = "无状态信封打包失败";
+common_slenvelope_error5 = "无状态信封创建失败";
+common_slenvelope_error6 = "无状态信封size:(%d)超过最大限制，创建失败";
+common_slenvelope_error7 = "发送无状态信封(%@)失败";
+common_slenvelope_error8 = "无状态信封(%@)不存在";
+common_slenvelope_error9 = "网络请求失败(SLResponse Applog) {\"fail\": \"statusCode\":%d}";
+
+common_slenvelope_warn1 = "";
+
+common_slenvelope_info1 = "";
+
+
+common_slenvelope_debug1 = "生成无状态信封(%@)成功";
+common_slenvelope_debug2 = "准备发送无状态信封(%@)...";
+common_slenvelope_debug3 = "发送无状态信封(%@)成功";
+common_slenvelope_debug4 = "网络请求成功(SLResponse Applog) {\"success\": \"ok\"}";
+common_slenvelope_debug5 = "将要打包的无状态数据:%@";
+
+common_slenvelope_verbose1 = "";
+
+
+//SLEnvelope end
+////////////////////////////////////////////////
+

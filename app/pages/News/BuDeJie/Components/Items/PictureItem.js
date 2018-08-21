@@ -26,7 +26,7 @@ const maxImageHeight = 7000;
 const renderPicture = (props: Props) => {
 	const { cdn_img, isLongPicture, containerHeight } = props.pictureData;
 
-	console.log('pictureData', props.pictureData);
+	// console.log('pictureData', props.pictureData);
 
 	if (isLongPicture && containerHeight < maxImageHeight) {
 		return (

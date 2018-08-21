@@ -1,0 +1,68 @@
+/*
+ UMPushLog.strings
+ UMessage
+ 
+ Created by shile on 2017/12/11.
+ Copyright © 2017年 shile. All rights reserved.
+ */
+
+//tag&alias
+push_tagandalias_debug1 = "%@ 方法调用参数是： [%@]";
+push_tagandalias_debug2 = "%@ 方法调用成功， 返回的内容是：[%@]， remainNumber [%ld]!";
+push_tagandalias_debug3 = "%@ 方法调用成功，name [%@] type [%@]!";
+
+push_tagandalias_warning1 = "%@ 长度为0";
+push_tagandalias_warning2 = "%@ 长度超过了限制[%ld],长度是[%ld]";
+push_tagandalias_warning3 = "%@ 类型不为NSString或者为nil。";
+
+push_tagandalias_error1 = "[PTAE10001] %@ 方法调用错误 ，token 为nil!，请查看：https://developer.umeng.com/docs/66632/detail/66964?um_channel=sdk";
+push_tagandalias_error2 = " %@ 方法调用错误 ，服务器异常或禁止请求，请检查是否调用错误！";
+push_tagandalias_error3 = "%@ 方法调用错误 ，error 是 %@，responseObject 内容是 %@!";
+push_tagandalias_error4 = "%@ 方法调用错误 ，请求过快，请检查是否调用正确!";
+
+push_tagandalias_error6 = "%@ 失败，name [%@] type [%@]![%@]";
+
+
+//应用内消息
+push_innermessage_warning1 = "已经有相同的label存在，label为%@：";
+
+push_innermessage_debug1 = "失败!error code:%d,sql:%@, result,SQL);";
+
+push_innermessage_error1 = "应用内消息统计回传失败,responseObject[%@],error[%@]";
+push_innermessage_error2 = "获取UPush应用内 开屏 消息失败，请检查是否在后台创建消息，如不需要开屏功能，请移除相关代码!";
+push_innermessage_error3 = "获取UPush应用内 开屏 消息失败 [%@]!";
+push_innermessage_error4 = "获取UPush应用内 插屏 消息失败 [%@]!";
+push_innermessage_error5 = "label 格式错误，label只能为字符串，且不能为nil,或空串!";
+push_innermessage_error6 = "每个app只允许创建10个CardMessage!";
+
+
+//UMessage
+push_umessage_info1 = "UMPush版本号：%@";
+
+push_umessage_debug1 = "payload 内容是： [%@]";
+push_umessage_debug2 = "launchOptions 为 nil 或 class [%@] 不是 NSDictionary";
+push_umessage_debug3 = "消息到达!内容是：[%@]";
+push_umessage_debug4 = "这条消息已经上传到服务器了!msgid是:%@";
+push_umessage_debug5 = "UMPushMessage 内容是：[%@]";
+push_umessage_debug6 = "消息中不包含Alert， 内容是：[%@]";
+push_umessage_debug7 = "今天已经回传过 register 请求了";
+push_umessage_debug8 = "今天已经回传过 launch 请求了";
+push_umessage_debug9 = "responseDic 返回格式错误，内容是：[%@]";
+push_umessage_debug10 = "responseDic内容是：[%@]";
+push_umessage_debug11 = "clickPolicy 详情：[%d]";
+push_umessage_debug12 = "消息不属于友盟!";
+push_umessage_debug13 = "register devicetoken [%@]!";
+push_umessage_debug14 = "register AppKey [%@]!";
+
+push_umessage_error1 = "userInfo 不包含msgid，或者消息不来自UPush!";
+push_umessage_error3 = "UMPushMessage init异常：[%@]";
+push_umessage_error4 = "application:didFailToRegisterForRemoteNotificationsWithError: [%@]";
+push_umessage_error5 = "token错误! [%ld]";
+push_umessage_error6 = "tagClass错误! tagClass是 [%@]";
+push_umessage_error7 = "错误! 每一最多只能发送[%ld]个tag,当前数量是[%ld]!";
+push_umessage_error8 = "WeightedTagClass错误! tagClass是 [%@]";
+
+
+
+
+
