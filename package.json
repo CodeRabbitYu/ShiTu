@@ -22,8 +22,8 @@
     "react-native-ultimate-listview": "^3.3.0",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.11.2",
-    "rn-fetch-blob": "^0.10.11",
-    "teaset": "^0.5.8"
+    "rn-fetch-blob": "^0.10.12",
+    "teaset": "0.5.9"
   },
   "devDependencies": {
     "axios": "^0.18.0",

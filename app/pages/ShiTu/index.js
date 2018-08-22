@@ -9,7 +9,8 @@ import {
 	Text,
 	View,
 	ImageBackground,
-	StatusBar
+	StatusBar,
+	NativeModules
 } from 'react-native';
 
 
@@ -28,6 +29,10 @@ const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackg
 import { ActionSheet } from 'teaset';
 import ImagePicker from 'react-native-image-picker';
 import {ConfigStore} from '../../store/ConfigStore';
+
+import UMShare from '../../native/UMeng/UMShare';
+import SharePlatform from '../../native/UMeng/SharePlatform';
+
 
 
 type Props = {
@@ -89,6 +94,23 @@ export class ShiTu extends Component<Props> {
 	}
 
 	openImagePicker = async () => {
+
+
+		// UMShare.authLogin(SharePlatform.QQ, (result) => {
+		// 	console.log(result);
+		// 	// code: 0成功、1失败、2取消
+		// 	if(result.code === 0) {
+		// 		console.log('授权登录成功:' +
+		// 			'userId: ' + result.uid +
+		// 			'accessToken: ' + result.accessToken +
+		// 			'userName: ' + result.userName +
+		// 			'userGender: ' + result.userGender +
+		// 			'userAvatar: ' + result.userAvatar
+		// 		);
+		// 	} else {
+		// 		// TODO...
+		// 	}
+		// });
 
 		const items = [
 			{

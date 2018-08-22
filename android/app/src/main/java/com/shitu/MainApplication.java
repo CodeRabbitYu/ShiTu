@@ -2,6 +2,7 @@ package com.shitu;
 
 import android.app.Application;
 import com.facebook.react.ReactApplication;
+import me.vanpan.rctqqsdk.QQSDKPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new QQSDKPackage(),
             new ImagePickerPackage(),
             new RNFetchBlobPackage(),
             new SplashScreenReactPackage(),

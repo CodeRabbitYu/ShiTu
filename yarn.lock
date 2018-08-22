@@ -5168,7 +5168,7 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
 
-rn-fetch-blob@^0.10.11:
+rn-fetch-blob@^0.10.12:
   version "0.10.12"
   resolved "https://registry.yarnpkg.com/rn-fetch-blob/-/rn-fetch-blob-0.10.12.tgz#7b9a309149eb136a1b063b282a1847a205297924"
   dependencies:
@@ -5633,7 +5633,7 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-teaset@^0.5.8:
+teaset@0.5.9:
   version "0.5.9"
   resolved "https://registry.yarnpkg.com/teaset/-/teaset-0.5.9.tgz#4135c9b7358e4920112baacf5993f4f66b990cbd"
   dependencies:
