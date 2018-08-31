@@ -24,9 +24,9 @@ const maxImageHeight = 7000;
 
 
 const renderPicture = (props: Props) => {
-	const { cdn_img, isLongPicture, containerHeight } = props.pictureData;
+	const { cdn_img, isLongPicture, containerHeight, is_gif, gifFistFrame } = props.pictureData;
 
-	// console.log('pictureData', props.pictureData);
+	// console.log('pictureData', props.pictureData)
 
 	if (isLongPicture && containerHeight < maxImageHeight) {
 		return (
@@ -49,6 +49,21 @@ const renderPicture = (props: Props) => {
 				</View>
 			</View>
 		);
+	} else if (is_gif === '1') {
+
+		// let gitImage = this.gifError
+		// 	?
+		// 	'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png'
+		// 	: gifFistFrame;
+
+		return (
+			<CustomImage source={{uri: gifFistFrame}}
+									 // resizeMode={'contain'}
+				           style={[styles.picture, {height: containerHeight}]}
+				           // onLoadEnd={() => this.gifError = false}
+				           // onError={() => this.gifError = true}
+			/>
+		);
 	} else {
 		return (
 			<CustomImage source={{uri: cdn_img}}
@@ -61,7 +76,7 @@ const renderPicture = (props: Props) => {
 const GifSignView = () => {
 	return (
 		<View style={styles.gifView}>
-			<Text style={styles.gifText}>gif图</Text>
+			<Text style={styles.gifText}>GIF图</Text>
 		</View>
 	);
 }
@@ -92,7 +107,8 @@ const styles = StyleSheet.create({
 	},
 	gifText: {
 		color: 'white',
-		fontSize: FONT_SIZE(13),
+		fontSize: FONT_SIZE(14),
+		fontWeight: 'bold'
 	},
 	pictureView: {
 		paddingHorizontal: px2dp(20),

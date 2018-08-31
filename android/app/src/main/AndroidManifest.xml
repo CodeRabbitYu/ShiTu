@@ -16,6 +16,7 @@
 
 
 
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -30,12 +31,15 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-     <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+             <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+             <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+             <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+             <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         </intent-filter>
       </activity>
+        <meta-data android:name="PUSH_APPID" android:value="${GETUI_APP_ID}" />
+        <meta-data android:name="PUSH_APPKEY" android:value="${GETUI_APP_KEY}" />
+        <meta-data android:name="PUSH_APPSECRET" android:value="${GETUI_APP_SECRET}" />
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 

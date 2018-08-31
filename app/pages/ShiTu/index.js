@@ -13,6 +13,10 @@ import {
 	NativeModules
 } from 'react-native';
 
+// const InterestQQ = NativeModules.InterestQQ;
+
+// import * as QQ from 'react-native-qqsdk';
+// import * as QQ from 'react-native-interest-qq';
 
 
 import {ShiTuMobx} from '../../mobx/ShiTu';
@@ -29,10 +33,6 @@ const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackg
 import { ActionSheet } from 'teaset';
 import ImagePicker from 'react-native-image-picker';
 import {ConfigStore} from '../../store/ConfigStore';
-
-import UMShare from '../../native/UMeng/UMShare';
-import SharePlatform from '../../native/UMeng/SharePlatform';
-
 
 
 type Props = {
@@ -95,13 +95,37 @@ export class ShiTu extends Component<Props> {
 
 	openImagePicker = async () => {
 
+		// console.log('NativeModules', NativeModules.InterestQQ);
+
+		// NativeModules.InterestQQ.ssoLogin()
+		// 	.then(() => { console.log('Installed'); })
+		// 	.catch(() => { console.log('not installed'); });
+		//
+		// NativeModules.InterestQQ.testPrint("Jack", {
+		// 	height: '1.78m',
+		// 	weight: '7kg'
+		// });
+		//
+		// NativeModules.InterestQQ.checkClientInstalled()
+		// 	.then(result => {
+		// 		console.log('result', result);
+		// 	})
+		// 	.catch(e => {
+		// 		console.log('e', e);
+		// 	});
+
+
+
+		// QQ.shareText('分享文字',QQ.shareScene.QQ)
+		// 	.then((result)=>{console.log('result is', result)})
+		// 	.catch((error)=>{console.log('error is', error)});
 
 		// UMShare.authLogin(SharePlatform.QQ, (result) => {
 		// 	console.log(result);
 		// 	// code: 0成功、1失败、2取消
 		// 	if(result.code === 0) {
 		// 		console.log('授权登录成功:' +
-		// 			'userId: ' + result.uid +
+		// 			'userId: ' + result.uid +QQShareType
 		// 			'accessToken: ' + result.accessToken +
 		// 			'userName: ' + result.userName +
 		// 			'userGender: ' + result.userGender +
@@ -112,18 +136,18 @@ export class ShiTu extends Component<Props> {
 		// 	}
 		// });
 
-		const items = [
-			{
-				title: '拍照',
-				onPress: () => this.selectedImagePicker('Camera')
-			},
-			{
-				title: '选择相册',
-				onPress: () => this.selectedImagePicker('ImageLibrary')
-			},
-		];
-		const cancelItem = {title: '取消'};
-		ActionSheet.show(items, cancelItem);
+		// const items = [
+		// 	{
+		// 		title: '拍照',
+		// 		onPress: () => this.selectedImagePicker('Camera')
+		// 	},
+		// 	{
+		// 		title: '选择相册',
+		// 		onPress: () => this.selectedImagePicker('ImageLibrary')
+		// 	},
+		// ];
+		// const cancelItem = {title: '取消'};
+		// ActionSheet.show(items, cancelItem);
 	}
 
 	render() {

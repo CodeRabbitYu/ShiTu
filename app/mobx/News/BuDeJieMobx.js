@@ -38,12 +38,12 @@ class BuDeJieMobx extends ConfigStore {
 			  }
 
 
-			  const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, containerHeight, isLongPicture, weixin_url, theme_name, is_gif } = item;
+			  const { text, profile_image, name, passtime, love, hate, repost, comment, cdn_img, containerHeight, isLongPicture, weixin_url, theme_name, is_gif, gifFistFrame } = item;
 
 			  const userInfoData = { profile_image, name, passtime, theme_name, type };
 			  const toolBarData = { love, hate, repost, comment, type };
 			  const jokeData = { text, type };
-			  const pictureData = { cdn_img, imageHeight, isLongPicture, containerHeight, weixin_url, is_gif, type, ...jokeData };
+			  const pictureData = { cdn_img, imageHeight, isLongPicture, containerHeight, weixin_url, is_gif, type, gifFistFrame, ...jokeData };
 
 			  item.userInfoData = userInfoData;
 			  item.toolBarData = toolBarData;

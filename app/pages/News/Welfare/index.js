@@ -95,7 +95,7 @@ export class Welfare extends React.Component<Props> {
 			<Button
 				onPress={() => this.showPopCustom(item)}
 			>
-				<Image source={{uri: item.url}}
+				<CustomImage source={{uri: item.url}}
 				       style={[
 					       styles.cell,
 					       { height: item.height, backgroundColor: 'white'},

@@ -65,7 +65,7 @@ export class BuDeJie extends React.Component<Props, any> {
 					<Button
 						onLongPress={() => this.actionSheetToSaveImage(item)}
 						onPress={() => this.customPopView && this.customPopView.close()}>
-						<Image source={{uri: item.cdn_img}}
+						<CustomImage source={{uri: item.cdn_img}}
 							// resizeMode='cover'
 							     style={{backgroundColor: 'white', width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}
 						/>
