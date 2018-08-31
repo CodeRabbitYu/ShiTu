@@ -43,7 +43,9 @@ class WelfareMobx {
 
 		try {
 			// 下载图片
-			await FetchBlob.config(config).fetch('GET', url);
+			await FetchBlob.config(config)
+				.fetch('GET', url)
+				.then((res) => FetchBlob.fs.scanFile([ { path: Dirs.DCIMDir + imageName} ]))
 			alert('保存成功');
 		} catch (e) {
 			console.log(e);
