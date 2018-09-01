@@ -136,18 +136,18 @@ export class ShiTu extends Component<Props> {
 		// 	}
 		// });
 
-		// const items = [
-		// 	{
-		// 		title: '拍照',
-		// 		onPress: () => this.selectedImagePicker('Camera')
-		// 	},
-		// 	{
-		// 		title: '选择相册',
-		// 		onPress: () => this.selectedImagePicker('ImageLibrary')
-		// 	},
-		// ];
-		// const cancelItem = {title: '取消'};
-		// ActionSheet.show(items, cancelItem);
+		const items = [
+			{
+				title: '拍照',
+				onPress: () => this.selectedImagePicker('Camera')
+			},
+			{
+				title: '选择相册',
+				onPress: () => this.selectedImagePicker('ImageLibrary')
+			},
+		];
+		const cancelItem = {title: '取消'};
+		ActionSheet.show(items, cancelItem);
 	}
 
 	render() {
