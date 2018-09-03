@@ -21,18 +21,25 @@ const badegeNumber = 30;
 const badegeRadius = badegeNumber / 2;
 
 type Props = {
-	navigation: any
+	navigation: any,
+	defaultValue: string,
 };
 export class Main extends Component<Props> {
 
 	constructor(props) {
 		super(props);
+
 		this.state = {
-			text: '',
+			value: '',
+			defaultValue: '测试默认value' || this.props.defaultValue,
 		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.setState({
+			isReady: true
+		});
+	}
 
 	login = (type) => {
 
@@ -64,22 +71,18 @@ export class Main extends Component<Props> {
 					/>
 				</View>
 
-				<TextInput
-					placeholder='11111111'
+				<MyTextInput
+					placeholder='iOS无法输入中文解决方式'
 					style={{height: 44, backgroundColor: 'red', marginTop: 10}}
 					onChangeText={(text) => this.setState({text: text})}
-					value={this.state.text}
+					value={this.state.defaultValue}
+					defaultValue={this.state.defaultValue}
 					clearButtonMode={'always'}
 					onChange={(e) => {
 						console.log('nativeEvent', e.nativeEvent);
 					}}
 
 				/>
-
-				<Button title={'提交'} onPress={() => {
-
-				}}/>
-
 			</BaseContainer>
 		);
 	}

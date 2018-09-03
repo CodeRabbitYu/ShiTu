@@ -41,5 +41,7 @@ export const VideoItem = (props: Props) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		marginHorizontal: px2dp(20),
+		marginVertical: px2dp(10),
 	},
 });

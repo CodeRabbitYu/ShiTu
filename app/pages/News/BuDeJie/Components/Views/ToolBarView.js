@@ -93,7 +93,6 @@ export class ToolBarView extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-
 	toolBar: {
 		height: px2dp(60),
 		flexDirection: 'row',

@@ -13,6 +13,7 @@ import {
 import {Button, CustomImage} from '../../../../../components';
 import type {UserInfo} from '../../../../../servers/News/interfaces';
 
+
 type Props = {
   userInfoData: UserInfo;
 };
@@ -31,6 +32,7 @@ export function UserInfoView(props: Props) {
 			<Button activeOpacity={1} onPress={() => alert('点击用户信息')}>
 				<CustomImage source={{uri: _profile_image}} style={styles.icon}/>
 			</Button>
+
 			<Button style={styles.userDetailView} activeOpacity={1} onPress={() => alert('点击用户信息')}>
 				<View>
 					<Text style={styles.userText} numberOfLines={2}>{name}</Text>

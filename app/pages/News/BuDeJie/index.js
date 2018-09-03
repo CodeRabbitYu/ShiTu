@@ -24,6 +24,7 @@ import { Overlay } from 'teaset';
 import { Button, CustomImage } from '../../../components';
 
 import {Picture} from '../../../servers/News/interfaces';
+import PlaceholderView from './Components/Views/PlaceholderView';
 
 type Props = {
 	type: number;
@@ -106,6 +107,14 @@ export class BuDeJie extends React.Component<Props, any> {
 					keyExtractor={(item) => item.id}
 					initialNumToRender={10}
 					paginationType={'value'}
+					PaginationFetchingView={() => {
+						return [
+							<PlaceholderView type={this.props.type} key={'top'}/>,
+							<PlaceholderView type={this.props.type} key={'center'}/>,
+							<PlaceholderView type={this.props.type} key={'bottom'}/>,
+						];
+					}}
+
 				/>
 			</BaseContainer>
 

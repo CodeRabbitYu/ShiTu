@@ -42,10 +42,10 @@ class News extends React.Component<any, State> {
 		this.state = {
 			typeArr: [
 				{'title': '福利', 'type': '福利', 'navigate': navigate},
-				{'title': '图片', 'type': 10,   'navigate': navigate},
-				{'title': '全部', 'type': 1,    'navigate': navigate},
-				{'title': '视频', 'type': 41,   'navigate': navigate},
-				{'title': '笑话', 'type': 29,   'navigate': navigate},
+				{'title': '图片', 'type': 10,    'navigate': navigate},
+				{'title': '全部', 'type': 1,     'navigate': navigate},
+				{'title': '视频', 'type': 41,    'navigate': navigate},
+				{'title': '笑话', 'type': 29,    'navigate': navigate},
 			],
 		};
 	}
