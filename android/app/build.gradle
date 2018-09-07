@@ -164,6 +164,9 @@ android {
         sourceSets {
             main.jniLibs.srcDirs = ['libs']
         }
+        lintOptions {
+            abortOnError false
+        }
     }
 
 }
@@ -178,7 +181,7 @@ dependencies {
     compile project(':react-native-vector-icons')
 //    compile project(':react-native-interest-qq')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:26.1.0"
+    compile "com.android.support:appcompat-v7:27.1.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile 'com.tencent.bugly:crashreport:2.6.6.1'
     compile 'com.tencent.bugly:nativecrashreport:3.3.1'
