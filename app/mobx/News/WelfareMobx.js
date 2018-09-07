@@ -45,7 +45,7 @@ class WelfareMobx {
 			// 下载图片
 			await FetchBlob.config(config)
 				.fetch('GET', url)
-				.then(() => FetchBlob.fs.scanFile([ { path: Dirs.DCIMDir + imageName} ]))
+				.then(() => FetchBlob.fs.scanFile([ { path: Dirs.DCIMDir + imageName} ]));
 			alert('保存成功');
 		} catch (e) {
 			console.log(e);
@@ -103,7 +103,7 @@ class WelfareMobx {
 
   static handleImageToSmallSize(url) {
 
-		// thumbnail|缩略，quare|方形缩略图, thumb180, wap360, small|小图, bmiddle|中图，mw600|600, wap720, mw720|720, mw1024|1024, large|原图。
+  	// thumbnail|缩略，quare|方形缩略图, thumb180, wap360, small|小图, bmiddle|中图，mw600|600, wap720, mw720|720, mw1024|1024, large|原图。
 
   	return url.replace('large', 'wap360');
   }

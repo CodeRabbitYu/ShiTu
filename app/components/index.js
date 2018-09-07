@@ -18,9 +18,10 @@ import BaseContainer from './BaseContainer';
 import Toast from './Toast';
 import LoadingSpinner from './LoadingSpinner';
 import MyTextInput from './MyTextInput';
+import CustomToast from './CustomToast';
 
 
 export { Button, GradientButton, CustomIcon, Theme, TableList,
 	CustomImage, MasonryList, ProgressBar, NavigatorBar, BaseContainer, Toast, LoadingSpinner,
-	MyTextInput
+	MyTextInput, CustomToast
 };

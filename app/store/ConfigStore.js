@@ -4,10 +4,11 @@
  */
 
 import {observable, action} from 'mobx';
-import {AsyncStorage, ActivityIndicator, View} from 'react-native';
+import {AsyncStorage} from 'react-native';
 
 import { Toast, Theme} from 'teaset';
 import React from 'react';
+import { CustomToast } from '../components';
 
 
 type ErrorInfo = {
@@ -25,16 +26,11 @@ class ConfigStore {
 	static customKey = null;
 
 	@action.bound showLoading(text?: string) {
-		// this.loadingType = type ? type : 'normal';
-		// this.isLoading = true;
 
 		if (ConfigStore.customKey) return;
 		ConfigStore.customKey = Toast.show({
 			text: text,
-			icon:
-			<View style={{width: 50, height: 40, alignItems: 'center', justifyContent: 'center'}}>
-				<ActivityIndicator size='large' color='white' />
-			</View>,
+			icon: <CustomToast />,
 			position: 'center',
 			duration: 1000000,
 		});
@@ -42,8 +38,6 @@ class ConfigStore {
 	}
 
 	@action.bound hideLoading() {
-		// this.isLoading = false;
-		// this.loadingType = 'normal';
 
 		if (!ConfigStore.customKey) return;
 		Toast.hide(ConfigStore.customKey);

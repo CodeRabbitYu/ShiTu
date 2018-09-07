@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'bugly'
 
 import com.android.build.OutputFile
 
@@ -92,6 +93,11 @@ def enableSeparateBuildPerCPUArchitecture = false
  * Run Proguard to shrink the Java bytecode in release builds.
  */
 def enableProguardInReleaseBuilds = false
+
+bugly {
+    appId = "f7e825bdb6"
+    appKey = "e4952a50-71d0-4a25-acd0-0ced9a2a85b9"
+}
 
 android {
     compileSdkVersion 27

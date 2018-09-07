@@ -35,15 +35,14 @@ class PowerStore {
 
 	@action.bound
 	setShiTuBackgroundImage = async (url: string) => {
-
 		console.log('setShiTuBackgroundImage', url);
-
 		await AsyncStorage.setItem(ST_BACKGROUND_IMAGE, url);
-
 		runInAction(() => {
 			this.ShiTuBackgroundImage = url;
 		});
 	}
+
+
 
 }
 
