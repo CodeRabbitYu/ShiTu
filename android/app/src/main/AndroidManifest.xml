@@ -2,11 +2,8 @@
     package="com.shitu">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -42,6 +39,8 @@
         <meta-data android:name="PUSH_APPKEY" android:value="${GETUI_APP_KEY}" />
         <meta-data android:name="PUSH_APPSECRET" android:value="${GETUI_APP_SECRET}" />
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+
     </application>
 
 </manifest>
