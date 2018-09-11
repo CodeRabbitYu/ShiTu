@@ -148,6 +148,9 @@ android {
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {
+            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk/release")
+        }
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
@@ -172,7 +175,7 @@ android {
 
     walle {
         // 指定渠道包的输出路径
-        apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+        apkOutputFolder = new File("${project.rootDir}/apk/channels");
         // 定制渠道包的APK的文件名称
 //        apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
         apkFileNameFormat = 'ShiTu-${channel}-${buildType}-v${versionName}.apk';
