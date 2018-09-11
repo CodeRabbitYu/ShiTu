@@ -21,7 +21,8 @@ import { Main } from '../pages/Main/index';
 import WebView from '../pages/WebView/index';
 import {Login} from '../pages/Login';
 
-import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+// import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
 
 
 const MyTab = createBottomTabNavigator({

@@ -16,6 +16,7 @@ import {
 import BaseContainer from '../../components/BaseContainer';
 
 import { MyTextInput, Button, GradientButton } from '../../components';
+import {NavigationEvents} from 'react-navigation';
 
 const badegeNumber = 30;
 const badegeRadius = badegeNumber / 2;
@@ -53,7 +54,21 @@ export class Main extends Component<Props> {
 
 	render() {
 		return (
-			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}>
+			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}
+			               onWillBlur={(payload) => {
+			               	  console.log('页面将要失去焦点', payload);
+			               }}
+			               onDidBlur={(payload) => {
+				               console.log('页面已经失去焦点', payload);
+			               }}
+			               onWillFocus={(payload) => {
+			               	  console.log('页面将要获得焦点', payload);
+			               }}
+			               onDidFocus={(payload) => {
+				               console.log('页面已经获得焦点', payload);
+			               }}
+			>
+
 				<View style={{alignItems: 'center'}}>
 					<GradientButton
 						title={'切换路由的登录方式'}

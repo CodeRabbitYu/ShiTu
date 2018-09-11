@@ -12,7 +12,9 @@ import {
 import {observer} from 'mobx-react';
 import {SafeAreaView} from 'react-navigation';
 
-import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
+import { NavigationEvents } from 'react-navigation';
+
+import { NavigatorBar, LoadingSpinner } from '../index';
 import { Theme } from 'teaset';
 
 
@@ -36,6 +38,11 @@ type Props = {
 	bottomStyle?: any,
 	bottomBackgroundColor?: string,
 	bottomHeight?: number,
+
+	onWillFocus: Function,
+	onDidFocus: Function,
+	onWillBlur: Function,
+	onDidBlur: Function,
 
 	...NavigatorBar.Props
 }
@@ -93,7 +100,7 @@ export default class BaseContainer extends Component<Props> {
 
 
 	render() {
-		const {style, contentViewStyle, isTopNavigator, isHiddenNavBar} = this.props;
+		const {style, contentViewStyle, isTopNavigator, isHiddenNavBar, onWillFocus, onDidFocus, onWillBlur, onDidBlur} = this.props;
 
 		const backgroundColor = !isTopNavigator && Theme.isIPhoneX ? 'white' : null;
 		const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
@@ -106,6 +113,12 @@ export default class BaseContainer extends Component<Props> {
 				{this.renderContent()}
 				{/* {this.renderBottom()}*/}
 			</View>
+			<NavigationEvents
+				onWillFocus={onWillFocus}
+				onDidFocus={onDidFocus}
+				onWillBlur={onWillBlur}
+				onDidBlur={onDidBlur}
+			/>
 		</SafeAreaView>;
 	}
 }

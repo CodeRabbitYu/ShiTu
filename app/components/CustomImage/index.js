@@ -44,10 +44,6 @@ export default class index extends React.Component<Props, any> {
 							  source
 							  :
 							  { uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' };
-
-
-  	console.log(source);
-
   	return (
   		<View style={[styles.customImageView]}>
   			<FastImage
