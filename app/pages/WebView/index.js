@@ -57,32 +57,32 @@ export default class index extends React.Component<Props, State> {
 	}
 
 
-	_reload = () => {
+	reload = () => {
 		console.log('刷新');
 		this.webView.reload();
 	};
-	_goForward = () => {
+	goForward = () => {
 		console.log('去前面的页面');
 		this.state.isForWard ? this.webView.goForward() : null;
 	};
 
-	_goBack = () => {
+	goBack = () => {
 		console.log('返回上级页面');
 		this.state.isGoBack ? this.webView.goBack() : null;
 	};
 
-	_close = () => {
+	close = () => {
 		console.log('关闭');
 		const {goBack} = this.props.navigation;
 		goBack();
 	};
 
-	_onShouldStartLoadWithRequest = (data) => {
+	onShouldStartLoadWithRequest = (data) => {
 		console.log('_onShouldStartLoadWithRequest', data);
 		// return true;
 	}
 
-	_onNavigationStateChange = (navState) => {
+	onNavigationStateChange = (navState) => {
 		// console.log(navState);
 		// 可以跳转新页面，但这个只是测试代码
 		// if(navState.url !== this.state.url){
@@ -133,7 +133,7 @@ export default class index extends React.Component<Props, State> {
 	}
 
 
-	_renderActionButton = () => {
+	renderActionButton = () => {
 		return (
 			<ActionButton buttonColor="rgba(231,76,60,1)"
 				// 是否自动打开
@@ -156,25 +156,25 @@ export default class index extends React.Component<Props, State> {
 													 style={styles.actionItemStyle}
 													 size={40}
 													 hideShadow={false}
-													 onPress={this._reload}
+													 onPress={this.reload}
 				>
 					<Icon name="ios-refresh-outline" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
 				</ActionButton.Item>
 				<ActionButton.Item buttonColor={this.state.isForWard ? '#1abc9c' : '#dddddd'}
-													 onPress={this._goForward}
+													 onPress={this.goForward}
 													 size={40}
 													 // hideShadow={false}
 													 style={styles.actionItemStyle} >
 					<Icon name="ios-arrow-forward-outline" style={styles.actionButtonIcon} />
 				</ActionButton.Item>
 				<ActionButton.Item buttonColor={this.state.isGoBack ? '#3498db' : '#dddddd'}
-													 onPress={this._goBack}
+													 onPress={this.goBack}
 													 size={40}
 													 style={styles.actionItemStyle}>
 					<Icon name="ios-arrow-back-outline" style={styles.actionButtonIcon} />
 				</ActionButton.Item>
 				<ActionButton.Item buttonColor={'#9b59b6'}
-													 onPress={this._close}
+													 onPress={this.close}
 													 size={40}
 													 style={styles.actionItemStyle}
 				>
@@ -197,8 +197,8 @@ export default class index extends React.Component<Props, State> {
 					domStorageEnabled={true}
 					scalesPageToFit={true}
 					automaticallyAdjustContentInsets={false}
-					onNavigationStateChange={this._onNavigationStateChange}
-					// onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest}
+					onNavigationStateChange={this.onNavigationStateChange}
+					// onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
 					renderError={this.renderError}
 					onLoad={this.onLoad}
 					onLoadEnd={this.onLoadEnd}
@@ -207,7 +207,7 @@ export default class index extends React.Component<Props, State> {
 
 				/>
 
-				{this._renderActionButton()}
+				{this.renderActionButton()}
 
 			</BaseContainer>
 		);

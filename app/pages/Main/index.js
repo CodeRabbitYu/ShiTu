@@ -16,7 +16,8 @@ import {
 import BaseContainer from '../../components/BaseContainer';
 
 import { MyTextInput, Button, GradientButton } from '../../components';
-import {NavigationEvents} from 'react-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {Label, ListRow, PopoverPicker} from 'teaset';
 
 const badegeNumber = 30;
 const badegeRadius = badegeNumber / 2;
@@ -30,9 +31,19 @@ export class Main extends Component<Props> {
 	constructor(props) {
 		super(props);
 
+		this.items = [
+			'扫一扫',
+			'加好友/群',
+			'首付款',
+			'高能舞室',
+		];
+
 		this.state = {
 			value: '',
 			defaultValue: '测试默认value' || this.props.defaultValue,
+			selectedIndex: null,
+			modalSelectedIndex: null,
+
 		};
 	}
 
@@ -52,9 +63,47 @@ export class Main extends Component<Props> {
 
 	}
 
+	openModalPress = (popView) => {
+
+		const blackStyle = {
+			backgroundColor: '#fff',
+			// paddingTop: 8,
+			paddingBottom: 8,
+			paddingLeft: 12,
+			paddingRight: 12,
+		};
+
+		popView.measure((x, y, width, height, pageX, pageY) => {
+
+			PopoverPicker.show(
+				{x: pageX + 1, y: pageY, width, height},
+				this.items,
+				this.state.modalSelectedIndex,
+				(item, index) => this.setState({modalSelectedIndex: index}),
+				{showArrow: true,
+					align: 'end',
+					popoverStyle: blackStyle,
+					overlayOpacity: 0.3,
+					directionInsets: -3,
+				}
+			);
+		});
+	}
+
+	renderRightView = () => {
+		return (
+			<Button onPress={() => this.openModalPress(this.popView)} >
+				<View ref={e => this.popView = e} style={{marginRight: px2dp(20)}}>
+					<Icon name={'md-add'} size={30} color={'white'}/>
+				</View>
+			</Button>
+		);
+	}
+
 	render() {
 		return (
 			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}
+			               rightView={this.renderRightView()}
 			               onWillBlur={(payload) => {
 			               	  console.log('页面将要失去焦点', payload);
 			               }}
@@ -67,6 +116,7 @@ export class Main extends Component<Props> {
 			               onDidFocus={(payload) => {
 				               console.log('页面已经获得焦点', payload);
 			               }}
+
 			>
 
 				<View style={{alignItems: 'center'}}>
