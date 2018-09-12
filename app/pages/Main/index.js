@@ -47,7 +47,11 @@ export class Main extends Component<Props> {
 		};
 	}
 
+
 	componentDidMount() {
+
+
+
 		this.setState({
 			isReady: true
 		});
@@ -68,7 +72,7 @@ export class Main extends Component<Props> {
 		const blackStyle = {
 			backgroundColor: '#fff',
 			// paddingTop: 8,
-			paddingBottom: 8,
+			// paddingBottom: 8,
 			paddingLeft: 12,
 			paddingRight: 12,
 		};

@@ -4,10 +4,12 @@
  */
 
 import {observable, action, runInAction} from 'mobx';
-import type {RTGankResult} from '../../servers/News/interfaces';
-import {loadBuDeJieData, RTBuDeJieType} from '../../servers/News';
+import type {RTBDJList, RTGankResult} from '../../servers/News/interfaces';
+import {loadBuDeJieData} from '../../servers/News';
+import type {RTBuDeJieType} from '../../servers/News';
 import { System } from '../../utils';
 import {ConfigStore} from '../../store/ConfigStore';
+import {Joke, Picture, RTBDJResult, ToolBar, UserInfo} from '../../servers/News/interfaces';
 
 
 const ContainerHeight = System.SCREEN_HEIGHT - 49 - 64 - 54;
@@ -15,15 +17,17 @@ const SpacingHeight = 80;
 
 class BuDeJieMobx extends ConfigStore {
   @observable isRefreshing: boolean = true;
-  @observable dataSource: Array<RTGankResult> = [];
+  @observable dataSource: Array<RTBDJList>;
   @observable maxtime: string = '';
 
   @action
-  async fetchBuDeJieData(type: RTBuDeJieType, value) {
+  async fetchBuDeJieData(type: RTBuDeJieType, value: string) {
   	try {
-		  const dataSource = await loadBuDeJieData(type, value);
+		  const dataSource: RTBDJResult = await loadBuDeJieData(type, value);
 
-		  dataSource.list.map(item => {
+		  // console.log('ssssssssssss', dataSource.info.count);
+
+		  dataSource.list.map((item: RTBDJList) => {
 			  const imageHeight = System.SCREEN_WIDTH * item.height / item.width;
 
 			  item.imageHeight = imageHeight;
@@ -51,10 +55,7 @@ class BuDeJieMobx extends ConfigStore {
 			  item.pictureData = pictureData;
 
 		  });
-
-
-		  // console.log(dataSource);
-
+		  
 		  runInAction(() => {
 			  this.dataSource = dataSource.list;
 			  this.maxtime = dataSource.info.maxid;

@@ -3,9 +3,9 @@
  * Created by Rabbit on 2018/8/6.
  */
 
-import {observable, computed, action, runInAction, autorun} from 'mobx';
+import {observable, action} from 'mobx';
 import {ConfigStore} from '../../store/ConfigStore';
-import {Response} from 'react-native-image-picker';
+import type {Response} from 'react-native-image-picker';
 import {fetchUpLoadToken, upLoadImage, fetchSearchDetail} from '../../servers/ShiTu';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -46,7 +46,7 @@ class ShiTuMobx extends ConfigStore {
 	}
 
 	@action.bound
-	getSearchDetail = async (params) => {
+	getSearchDetail = async (params: any) => {
 		const searchDetail = await fetchSearchDetail(params);
 
 		console.log('searchDetail', searchDetail);

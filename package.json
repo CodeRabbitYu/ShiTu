@@ -23,7 +23,7 @@
     "react-native-splash-screen": "^3.1.1",
     "react-native-ultimate-listview": "^3.3.0",
     "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^2.13.0",
+    "react-navigation": "git+https://github.com/react-navigation/react-navigation.git",
     "rn-fetch-blob": "^0.10.12",
     "rn-placeholder": "^1.2.0",
     "teaset": "0.5.9"
@@ -39,7 +39,7 @@
     "eslint-plugin-flowtype": "^2.49.3",
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-react-native": "^3.2.1",
-    "flow-bin": "^0.76.0",
+    "flow-bin": "^0.80.0",
     "immutable": "^3.8.2",
     "jest": "^23.4.1",
     "mobx": "4.3.1",

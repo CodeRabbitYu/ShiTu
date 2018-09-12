@@ -4,23 +4,25 @@
  */
 
 import { Fetch, Config } from '../../utils';
-import {RTGankResult} from '../News/interfaces';
 
-export async function fetchUpLoadToken(): Promise<RTGankResult> {
+import {RTSearchDetail, RTUploadImage, RTUploadToken} from './interfaces';
+
+export async function fetchUpLoadToken(): Promise<RTUploadToken> {
 
 	const url = Config.api.qiniu.upLoadToken;
 
 	return await Fetch.get(url);
+
 }
 
-export async function upLoadImage(params): Promise<RTGankResult> {
+export async function upLoadImage(params: any): Promise<RTUploadImage> {
 
 	const url = Config.qiniu.upload;
 
 	return await Fetch.upload(url, params);
 }
 
-export async function fetchSearchDetail(params) {
+export async function fetchSearchDetail(params: any): Promise<RTSearchDetail> {
 	const url = Config.api.shitu.detailURL;
 
 	return await Fetch.post(url, params);

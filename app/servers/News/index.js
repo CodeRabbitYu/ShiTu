@@ -5,7 +5,7 @@
 
 import { Fetch } from '../../utils';
 
-import {RTWeal, RTGankResult, RTBDJResult} from './interfaces';
+import {RTGankResult, RTBDJResult} from './interfaces';
 
 type RGankType = '福利' | 'iOS' | 'Android';
 
@@ -30,6 +30,7 @@ const BuDeJieValue = {
 export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
 
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
+
 	const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
 
 	return await Fetch.get(url);
@@ -37,9 +38,7 @@ export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Pro
 	// const data = await fetch('http://api.budejie.com/api/api_open.php?a=list&c=data&type=10');
 	// console.log(await data.json());
 	//
-	// const _data = await data.json()
-	//
-	// return _data;
+	// return await data.json();
 
 	// console.log(url)
 }

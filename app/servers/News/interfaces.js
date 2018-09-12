@@ -3,6 +3,11 @@
  * Created by Rabbit on 2018/5/4.
  */
 
+export interface RTGankResult {
+	error: boolean;
+	results: Array<RTWeal>;
+}
+
 export interface RTWeal {
   _id: string;
   createdAt: string;
@@ -19,9 +24,11 @@ export interface RTWeal {
   width: number;
 }
 
-export interface RTGankResult {
-  error: boolean;
-  results: RTWeal[];
+/** @desc 不得姐总数据源 */
+export interface RTBDJResult {
+	info: RTBDJInfo;
+	list: Array<RTBDJList>;
+	// list: RTBDJList[];
 }
 
 /** @desc 不得姐单条数据 */
@@ -56,17 +63,17 @@ export interface RTBDJList {
   playcount: string;
   playfcount: string;
   cai: string;
-  top_cmt: Array<>;
+  top_cmt: Array<any>;
   weixin_url: string;
-  themes: Array<>;
+  themes: Array<any>;
   image1: string;
   image2: string;
   is_gif: string;
   image0: string;
   image_small: string;
   cdn_img: string;
-  width: string;
-  height: string;
+  width: number;
+  height: number;
   tag: string;
   t: string;
   ding: string;
@@ -74,11 +81,12 @@ export interface RTBDJList {
   isLongPicture: boolean;
   imageHeight: number;
   containerHeight: number;
+	gifFistFrame: string;
 
-  userInfoData: UserInfo;
-  toolBarData: ToolBar;
-  jokeData: Joke;
-  pictureData: Picture;
+  userInfoData: UserInfo | any;
+  toolBarData: ToolBar | any;
+  jokeData: Joke | any;
+  pictureData: Picture | any;
 }
 
 /** @desc 不得姐参数 */
@@ -90,19 +98,12 @@ export interface RTBDJInfo {
   maxtime: string;
 }
 
-/** @desc 不得姐总数据源 */
-export interface RTBDJResult {
-  info: RTBDJInfo;
-  list: RTBDJList[];
-}
-
-
-
 /** @desc 用户信息 */
 export interface UserInfo extends RTBDJList{
   profile_image: string;
   name: string;
   passtime: string;
+	// [...RTBDJList]
 }
 
 /** @desc 底部功能条 */
@@ -121,10 +122,11 @@ export interface Joke extends RTBDJList {
 /** @desc 图片 */
 export interface Picture extends RTBDJList{
   cdn_img: string;
-  height: string;
-  width: string;
+  height: number;
+  width: number;
   isLongPicture: boolean;
   imageHeight: number;
   containerHeight: number;
 	weixin_url: string,
+	gifFistFrame: string,
 }

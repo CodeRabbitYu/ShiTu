@@ -21,7 +21,7 @@ import {
 
 import {ShiTuMobx} from '../../mobx/ShiTu';
 
-import { Button, Theme, BaseContainer, GradientButton } from '../../components';
+import { BaseContainer, GradientButton } from '../../components';
 import { System } from '../../utils';
 import {observer, inject} from 'mobx-react';
 import {PowerStore} from '../../store/PowerStore';
@@ -31,12 +31,12 @@ const AnimationButton = Animatable.createAnimatableComponent(GradientButton);
 const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
 
 import { ActionSheet } from 'teaset';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
 import {ConfigStore} from '../../store/ConfigStore';
-
+import type {NavigationScreenProp} from 'react-navigation';
 
 type Props = {
-  navigation: any,
+  navigation: NavigationScreenProp<*>,
 	powerStore: PowerStore;
 	configStore: ConfigStore;
 };
