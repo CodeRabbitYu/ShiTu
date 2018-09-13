@@ -11,6 +11,7 @@ import {
 	Image,
 	FlatList,
 	TextInput,
+	TouchableOpacity,
 
 } from 'react-native';
 import BaseContainer from '../../components/BaseContainer';
@@ -18,21 +19,83 @@ import BaseContainer from '../../components/BaseContainer';
 import { MyTextInput, Button, GradientButton } from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Label, ListRow, PopoverPicker} from 'teaset';
+import Theme from 'teaset/themes/Theme';
 
 type Props = {
 	navigation: any,
 	defaultValue: string,
 };
+
+class Item extends Component<Props> {
+	// static propTypes = {
+	// 	...TouchableOpacity.propTypes,
+	// 	title: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+	// 	selected: PropTypes.bool,
+	// };
+
+	buildProps() {
+		let {style, title, accessory, selected, ...others} = this.props;
+
+		style = [{
+			backgroundColor: Theme.poppItemColor,
+			paddingLeft: Theme.poppItemPaddingLeft,
+			paddingRight: Theme.poppItemPaddingRight,
+			paddingTop: Theme.poppItemPaddingTop,
+			paddingBottom: Theme.poppItemPaddingBottom,
+			borderColor: 'red',
+			borderBottomWidth: 1,
+			flexDirection: 'row',
+			alignItems: 'center',
+		}].concat(style);
+		const imageStyle = {
+			width: Theme.poppAccessoryWidth,
+			height: Theme.poppAccessoryHeight,
+			tintColor: Theme.poppAccessoryCheckColor,
+		};
+		accessory = (
+			<View style={{paddingLeft: Theme.poppAccessoryPaddingLeft}}>
+				<Image style={imageStyle} source={selected ? require('teaset/icons/check.png') : null} />
+			</View>
+		);
+		if (typeof title === 'string' || typeof title === 'number') {
+			const titleStyle = {
+				color: Theme.poppItemTitleColor,
+				fontSize: Theme.poppItemFontSize,
+				overflow: 'hidden',
+				flexGrow: 1,
+				flexShrink: 1,
+			};
+			title = <Text style={titleStyle} numberOfLines={1}>{title}</Text>;
+		}
+
+		this.props = {style, title, accessory, selected, ...others};
+	}
+
+	render() {
+		this.buildProps();
+
+		const {title, accessory, ...others} = this.props;
+		return (
+			<TouchableOpacity {...others}>
+				{title}
+				{accessory}
+			</TouchableOpacity>
+		);
+	}
+}
+
 export class Main extends Component<Props, any> {
 
 	items: Array<any>;
 	popView: any;
-	
-	static navigationOptions = ({
-		tabBarOnPress: async (obj: any) => {
-			console.log(obj);
-		}
-	})
+
+	// tabbar点击事件代码
+
+	// static navigationOptions = ({
+	// 	// 	tabBarOnPress: async (obj: any) => {
+	// 	// 		console.log(obj);
+	// 	// 	}
+	// 	// })
 
 	constructor(props: Props) {
 		super(props);
@@ -55,9 +118,6 @@ export class Main extends Component<Props, any> {
 
 
 	componentDidMount() {
-
-
-
 		this.setState({
 			isReady: true
 		});
@@ -83,8 +143,9 @@ export class Main extends Component<Props, any> {
 			paddingRight: 12,
 		};
 
-		popView.measure((x, y, width, height, pageX, pageY) => {
+		PopoverPicker.PopoverPickerView.Item = Item;
 
+		popView.measure((x, y, width, height, pageX, pageY) => {
 			PopoverPicker.show(
 				{x: pageX + 1, y: pageY, width, height},
 				this.items,
