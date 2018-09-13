@@ -55,7 +55,7 @@ class BuDeJieMobx extends ConfigStore {
 			  item.pictureData = pictureData;
 
 		  });
-		  
+
 		  runInAction(() => {
 			  this.dataSource = dataSource.list;
 			  this.maxtime = dataSource.info.maxid;

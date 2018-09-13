@@ -19,16 +19,22 @@ import { MyTextInput, Button, GradientButton } from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Label, ListRow, PopoverPicker} from 'teaset';
 
-const badegeNumber = 30;
-const badegeRadius = badegeNumber / 2;
-
 type Props = {
 	navigation: any,
 	defaultValue: string,
 };
-export class Main extends Component<Props> {
+export class Main extends Component<Props, any> {
 
-	constructor(props) {
+	items: Array<any>;
+	popView: any;
+	
+	static navigationOptions = ({
+		tabBarOnPress: async (obj: any) => {
+			console.log(obj);
+		}
+	})
+
+	constructor(props: Props) {
 		super(props);
 
 		this.items = [
@@ -57,7 +63,7 @@ export class Main extends Component<Props> {
 		});
 	}
 
-	login = (type) => {
+	login = (type: string) => {
 
 		if (type === 'router') {
 			this.props.navigation.navigate('AuthRouter', {type});
@@ -67,7 +73,7 @@ export class Main extends Component<Props> {
 
 	}
 
-	openModalPress = (popView) => {
+	openModalPress = (popView: any) => {
 
 		const blackStyle = {
 			backgroundColor: '#fff',
