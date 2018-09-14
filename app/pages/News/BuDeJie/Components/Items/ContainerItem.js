@@ -15,7 +15,6 @@ import {PictureItem} from './PictureItem';
 import {VideoItem} from './VideoItem';
 import type {RTBDJList} from '../../../../../servers/News/interfaces';
 import { Button } from '../../../../../components/index';
-import {BuDeJieDetail} from '../../../index';
 
 type Props = {
   itemData: RTBDJList;
@@ -23,7 +22,7 @@ type Props = {
   picturePress: Function;
 	videoPress: Function;
 };
-export class ContainerItem extends React.Component<Props> {
+class ContainerItem extends React.Component<Props> {
 
 	renderItem() {
 		const { jokeData, pictureData, type } = this.props.itemData;
@@ -79,3 +78,5 @@ export class ContainerItem extends React.Component<Props> {
 		);
 	}
 }
+
+export { ContainerItem };

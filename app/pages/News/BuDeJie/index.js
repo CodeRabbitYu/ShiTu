@@ -14,27 +14,31 @@ import {
 	ActivityIndicator
 } from 'react-native';
 
-import { TableList, BaseContainer } from '../../../components';
+import { TableList } from '../../../components';
+import BaseContainer from '../../../components/BaseContainer';
+
 import type {RTBDJList, RTWeal} from '../../../servers/News/interfaces';
 import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
 import { observer } from 'mobx-react';
-import { BaseItem } from './Components';
+import { BaseItem } from './Components/BaseItem';
 import type {NavigationState} from 'react-navigation';
 import { Overlay } from 'teaset';
 import { Button, CustomImage } from '../../../components';
 
 import {Picture} from '../../../servers/News/interfaces';
 import PlaceholderView from './Components/Views/PlaceholderView';
+import type {RTBuDeJieType} from '../../../servers/News';
 
 type Props = {
-	type: number;
+	type: RTBuDeJieType | string;
 	navigate: NavigationState
 };
 
 @observer
-export class BuDeJie extends React.Component<Props, any> {
+class BuDeJie extends React.Component<Props, any> {
 
 	buDeJieMobx: BuDeJieMobx;
+	customPopView: any;
 
 	constructor(props: Props) {
 		super(props);
@@ -121,3 +125,5 @@ export class BuDeJie extends React.Component<Props, any> {
 		);
 	}
 }
+
+export { BuDeJie };

@@ -15,10 +15,10 @@ import com.android.build.OutputFile
  *
  * project.ext.react = [
  *   // the name of the generated asset file containing your JS bundle
- *   bundleAssetName: "index_old.android.bundle",
+ *   bundleAssetName: "index.android.bundle",
  *
  *   // the entry file for bundle generation
- *   entryFile: "index_old.android.js",
+ *   entryFile: "index.android.js",
  *
  *   // whether to bundle JS and assets in debug mode
  *   bundleInDebug: false,
@@ -101,24 +101,18 @@ bugly {
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.shitu"
-        minSdkVersion 16
-        targetSdkVersion 27
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        manifestPlaceholders = [
-                GETUI_APP_ID : "VFCHJyEqyX6WRToet5jzi8",
-                GETUI_APP_KEY : "lihysxLEvS7b7YWqW7TU43",
-                GETUI_APP_SECRET : "5Kce5OmjVXArqZVie3s473"
-        ]
     }
     splits {
         abi {
@@ -139,7 +133,6 @@ android {
         }
     }
     buildTypes {
-
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -163,7 +156,6 @@ android {
         }
     }
 
-
     android {
         sourceSets {
             main.jniLibs.srcDirs = ['libs']
@@ -182,21 +174,18 @@ android {
         // 渠道配置文件
         channelFile = new File("${project.getProjectDir()}/channel")
     }
-
 }
 
 dependencies {
-    compile project(':react-native-getui')
-    compile project(':react-native-image-picker')
     compile project(':rn-fetch-blob')
+    compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
     compile project(':react-native-linear-gradient')
+    compile project(':react-native-image-picker')
     compile project(':react-native-fast-image')
-    compile project(':react-native-vector-icons')
-//    compile project(':react-native-interest-qq')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:27.1.1"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
     compile 'com.tencent.bugly:crashreport:2.6.6.1'
     compile 'com.tencent.bugly:nativecrashreport:3.3.1'
     compile 'com.meituan.android.walle:library:1.1.6'

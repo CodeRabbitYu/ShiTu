@@ -14,12 +14,12 @@ import {
 	TouchableOpacity,
 
 } from 'react-native';
-import BaseContainer from '../../components/BaseContainer';
 
 import { MyTextInput, Button, GradientButton } from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Label, ListRow, PopoverPicker} from 'teaset';
 import Theme from 'teaset/themes/Theme';
+import BaseContainer from '../../components/BaseContainer';
 
 type Props = {
 	navigation: any,
@@ -88,19 +88,22 @@ export class Main extends Component<Props, any> {
 
 	items: Array<any>;
 	popView: any;
-
-	// tabbar点击事件代码
-
+	
 	// static navigationOptions = ({
-	// 	// 	tabBarOnPress: async (obj: any) => {
-	// 	// 		console.log(obj);
-	// 	// 	}
-	// 	// })
+	// 	tabBarOnPress: async (obj: any) => {
+	// 		console.log(obj);
+	// 		alert('123')
+	// 	}
+	// })
 
 	constructor(props: Props) {
 		super(props);
 
 		this.items = [
+			// {title: '扫一扫', style: {backgroundColor: 'red'}},
+			// {title: '加好友/群', style: {backgroundColor: 'red'}},
+			// {title: '首付款', style: {backgroundColor: 'red'}},
+			// {title: '高能舞室', style: {backgroundColor: 'red'}},
 			'扫一扫',
 			'加好友/群',
 			'首付款',
@@ -118,6 +121,9 @@ export class Main extends Component<Props, any> {
 
 
 	componentDidMount() {
+
+
+
 		this.setState({
 			isReady: true
 		});
@@ -207,17 +213,16 @@ export class Main extends Component<Props, any> {
 					/>
 				</View>
 
-				<MyTextInput
+				<TextInput
 					placeholder='iOS无法输入中文解决方式'
 					style={{height: 44, backgroundColor: 'red', marginTop: 10}}
 					onChangeText={(text) => this.setState({text: text})}
-					value={this.state.defaultValue}
+					// value={this.state.defaultValue}
 					defaultValue={this.state.defaultValue}
 					clearButtonMode={'always'}
 					onChange={(e) => {
 						console.log('nativeEvent', e.nativeEvent);
 					}}
-
 				/>
 			</BaseContainer>
 		);

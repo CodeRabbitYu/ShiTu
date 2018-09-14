@@ -1,22 +1,26 @@
-import { AppRegistry, YellowBox, Text, TextInput } from 'react-native';
+/** @format */
+
+import {AppRegistry, YellowBox} from 'react-native';
 
 import { configure } from 'mobx';
-configure({ enforceActions: true });
+configure({ enforceActions: 'observed' });
 
 import { Theme } from 'teaset';
-import './app/utils';
+import './app/utils/Global';
 import DefaultTheme from './app/resource/thems/DefaultTheme';
-import {addCustomProps} from './app/utils';
-
-// 处理iOS系统文字
-addCustomProps(Text, {allowFontScaling: false});
-addCustomProps(TextInput, {allowFontScaling: false});
 
 Theme.set(DefaultTheme);
 
+// import App from './app/index';
+
+import applyDecoratedDescriptor from '@babel/runtime/helpers/esm/applyDecoratedDescriptor';
+import initializerDefineProperty from '@babel/runtime/helpers/esm/initializerDefineProperty';
++Object.assign(babelHelpers, { applyDecoratedDescriptor, initializerDefineProperty })
+
+const App = require('./app/index').default;
 
 
-import App from './app/index';
+import {name as appName} from './app.json';
 
 if (!__DEV__) {
 	global.console = {
@@ -31,12 +35,8 @@ if (!__DEV__) {
 	};
 }
 
-// YellowBox.ignoreWarnings(['Warning: isMounted(...)']);
+YellowBox.ignoreWarnings(['Require cycle:']);
 
-// 关闭指定警告
-console.ignoredYellowBox = [ 'Warning: isMounted(...)', ];
+// console.ignoredYellowBox = [ 'Warning: isMounted(...)', 'Require cycle: app/utils'];
 
-// 关闭全部的警告
-// console.disableYellowBox = true;
-
-AppRegistry.registerComponent('ShiTu', () => App);
+AppRegistry.registerComponent(appName, () => App);

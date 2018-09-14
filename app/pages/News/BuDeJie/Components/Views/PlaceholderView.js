@@ -111,7 +111,7 @@ const ContentPlaceHolderView = ({type}: {type: type}) => {
 			/>
 		</View>
 	);
-}
+};
 
 const ToolBarPlaceHolderView = () => {
 	return (
@@ -136,7 +136,7 @@ const ToolBarItem = () => {
 			<View style={{marginLeft: px2dp(2)}} />
 		</View>
 	);
-}
+};
 
 
 const UserInfoPlaceHolderView = () => {
@@ -168,7 +168,7 @@ const UserInfoPlaceHolderView = () => {
 			</View>
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	userInfo: {

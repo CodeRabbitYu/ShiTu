@@ -3,13 +3,13 @@
  * Created by Rabbit on 2018/8/13.
  */
 
-import { Fetch, Config } from '../../utils';
+import { Fetch} from '../../utils';
 
 import {RTSearchDetail, RTUploadImage, RTUploadToken} from './interfaces';
 
 export async function fetchUpLoadToken(): Promise<RTUploadToken> {
 
-	const url = Config.api.qiniu.upLoadToken;
+	const url = ApiConfig.api.qiniu.upLoadToken;
 
 	return await Fetch.get(url);
 
@@ -17,13 +17,13 @@ export async function fetchUpLoadToken(): Promise<RTUploadToken> {
 
 export async function upLoadImage(params: any): Promise<RTUploadImage> {
 
-	const url = Config.qiniu.upload;
+	const url = ApiConfig.qiniu.upload;
 
 	return await Fetch.upload(url, params);
 }
 
 export async function fetchSearchDetail(params: any): Promise<RTSearchDetail> {
-	const url = Config.api.shitu.detailURL;
+	const url = ApiConfig.api.shitu.detailURL;
 
 	return await Fetch.post(url, params);
 }

@@ -16,7 +16,7 @@ import { System } from '../utils/index';
 import { CustomIcon, Theme } from '../components/index';
 
 import { ShiTu } from '../pages/ShiTu/index';
-import { News, Welfare, BuDeJie, BuDeJieDetail } from '../pages/News/index';
+import { News, Welfare, BuDeJie, BuDeJieDetail } from '../pages/News/News';
 import { Main } from '../pages/Main/index';
 import WebView from '../pages/WebView/index';
 import {Login} from '../pages/Login';
@@ -26,7 +26,6 @@ import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackV
 
 
 const MyTab = createBottomTabNavigator({
-
 	ShiTu: {
 		screen: ShiTu,
 		navigationOptions: () => TabOptions('识兔', 'ShiTu'),
@@ -40,7 +39,7 @@ const MyTab = createBottomTabNavigator({
 		navigationOptions: () => TabOptions('我的', 'Main'),
 	},
 }, {
-	initialRouteName: 'ShiTu',
+	initialRouteName: 'Main',
 	backBehavior: 'none',
 	tabBarOptions: {
 		style: {
@@ -124,5 +123,5 @@ const TabOptions = (tabBarTitle, tabBarIconName) => {
 		);
 	});
 	const tabBarVisible = true;
-	return { title, tabBarIcon, tabBarVisible };
+	return { title, tabBarVisible, tabBarIcon };
 };

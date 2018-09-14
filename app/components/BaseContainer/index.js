@@ -48,7 +48,7 @@ type Props = {
 }
 
 @observer
-export default class BaseContainer extends Component<Props> {
+class BaseContainer extends Component<Props> {
 
 	componentWillUnmount() {
 		// Toast.close(0);
@@ -130,3 +130,5 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 });
+
+export default BaseContainer;

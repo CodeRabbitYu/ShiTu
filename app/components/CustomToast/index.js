@@ -21,7 +21,7 @@ const CustomToast = (props: Props) => {
 			<ActivityIndicator size='large' color='white' />
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {

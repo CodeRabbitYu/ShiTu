@@ -6,7 +6,7 @@
 import { Dimensions, PixelRatio, Platform } from 'react-native';
 import { FontSize } from './FontSize';
 import { Px2Dp } from './Tool';
-// import Config from './Config';
+import { ApiConfig } from './ApiConfig';
 
 
 const {height, width} = Dimensions.get('window');
@@ -29,6 +29,8 @@ global.pixel = 1 / PixelRatio;
 global.FONT_SIZE = FontSize;
 // 屏幕适配
 global.px2dp = Px2Dp;
+// ApiConfig
+global.ApiConfig = ApiConfig;
 
 // global.Config = Config;
 

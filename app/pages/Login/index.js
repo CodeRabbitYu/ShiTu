@@ -14,10 +14,11 @@ import {
 	AsyncStorage
 } from 'react-native';
 
-import { Button, GradientButton} from '../../components';
+import { Button, GradientButton, } from '../../components';
+import BaseContainer from '../../components/BaseContainer';
+
 import {observer} from 'mobx-react';
 import {LoginMobx} from '../../mobx/Login';
-import BaseContainer from '../../components/BaseContainer';
 
 type Props = {
 	sec: number,

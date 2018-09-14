@@ -4,24 +4,20 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+//import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
-import com.getui.reactnativegetui.GetuiPackage;
-//import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.imagepicker.ImagePickerPackage;
 
 import com.dylanvann.fastimage.FastImageViewPackage;
-import com.imagepicker.ImagePickerPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.tencent.bugly.crashreport.CrashReport;
-
-//import com.interestqq.rabbit.interestqq.InterestQQPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,21 +26,18 @@ public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
+    public boolean getUseDeveloperSupport() { return BuildConfig.DEBUG; }
 
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new GetuiPackage(),
-            new ImagePickerPackage(),
             new RNFetchBlobPackage(),
+            new VectorIconsPackage(),
             new SplashScreenReactPackage(),
             new LinearGradientPackage(),
-            new FastImageViewPackage(),
-            new VectorIconsPackage()
+            new ImagePickerPackage(),
+            new FastImageViewPackage()
       );
     }
 
@@ -71,5 +64,4 @@ public class MainApplication extends Application implements ReactApplication {
     super.attachBaseContext(base);
     MultiDex.install(getBaseContext());
   }
-
 }

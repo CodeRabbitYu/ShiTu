@@ -20,14 +20,15 @@ export async function loadWelfareData(page: number, type: RGankType = '福利', 
 	return await Fetch.get(url);
 }
 
-const BuDeJieValue = {
-	'All': 1,
-	'Video': 41,
-	'Picture': 10,
-	'Joke': 29
-};
+// const BuDeJieValue = {
+// 	'All': 1,
+// 	'Video': 41,
+// 	'Picture': 10,
+// 	'Joke': 29
+// };
 
-export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
+// export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
+export type RTBuDeJieType = 1 | 41 | 10 | 29;
 
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
 

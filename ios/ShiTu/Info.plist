@@ -20,40 +20,8 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array/>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>wechat</string>
-		<string>weixin</string>
-		<string>sinaweibohd</string>
-		<string>sinaweibo</string>
-		<string>sinaweibosso</string>
-		<string>weibosdk</string>
-		<string>weibosdk2.5</string>
-		<string>mqqopensdkapiV4</string>
-		<string>mqqbrowser</string>
-		<string>mttbrowser</string>
-		<string>tim</string>
-		<string>timapi</string>
-		<string>timopensdkfriend</string>
-		<string>timwpa</string>
-		<string>timgamebindinggroup</string>
-		<string>timapiwallet</string>
-		<string>timOpensdkSSoLogin</string>
-		<string>wtlogintim</string>
-		<string>timopensdkgrouptribeshare</string>
-		<string>timopensdkapiV4</string>
-		<string>timopensdkdataline</string>
-		<string>wtlogintimV1</string>
-		<string>timapiV1</string>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -74,7 +42,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>App需要您的同意,才能访问相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>App需要您的同意,才能访问照片库</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -101,6 +69,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

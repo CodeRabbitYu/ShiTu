@@ -3,7 +3,6 @@ package com.shitu;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
-import com.getui.reactnativegetui.GetuiModule;
 
 import org.devio.rn.splashscreen.SplashScreen;
 
@@ -14,7 +13,6 @@ public class MainActivity extends ReactActivity {
         SplashScreen.show(this, R.style.SplashScreenTheme);
 
         super.onCreate(savedInstanceState);
-        GetuiModule.initPush(this);
 
     }
 

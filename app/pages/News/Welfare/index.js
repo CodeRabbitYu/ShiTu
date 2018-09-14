@@ -12,7 +12,8 @@ import {
 	ActivityIndicator,
 	Modal, TouchableWithoutFeedback
 } from 'react-native';
-import { MasonryList, BaseContainer } from '../../../components';
+import { MasonryList } from '../../../components';
+import BaseContainer from '../../../components/BaseContainer';
 
 import { WelfareMobx } from '../../../mobx/News';
 
@@ -32,9 +33,10 @@ type Props = {
 
 @inject('powerStore')
 @observer
-export class Welfare extends React.Component<Props> {
+class Welfare extends React.Component<Props> {
 
 	welfareMobx: WelfareMobx;
+	customPopView: any;
 
 	constructor(props: Props) {
 		super(props);
@@ -155,3 +157,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 });
+
+export {Welfare};

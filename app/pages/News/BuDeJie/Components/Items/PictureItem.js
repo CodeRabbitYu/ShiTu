@@ -79,7 +79,7 @@ const GifSignView = () => {
 			<Text style={styles.gifText}>GIF图</Text>
 		</View>
 	);
-}
+};
 
 export const PictureItem = (props: Props) => {
 	const { is_gif } = props.pictureData;

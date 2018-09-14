@@ -7,22 +7,14 @@
 
 #import "AppDelegate.h"
 
-#import <React/RCTLinkingManager.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
-//#import <UMShare/UMShare.h>
-//#import <UMCommon/UMCommon.h>
-
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
- 
-//  [UMConfigure initWithAppkey:@"5b7d22a7b27b0a541c00000f" channel:@"App Store"];
-//  [[UMSocialManager defaultManager] openLog:true];
- 
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
@@ -44,11 +36,4 @@
   return YES;
 }
 
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-    sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-  {
-    return [RCTLinkingManager application:application openURL:url
-                        sourceApplication:sourceApplication annotation:annotation];
-  }
 @end

@@ -8,34 +8,31 @@ import React from 'react';
 import FastImage from 'react-native-fast-image';
 import { Image, StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
-import {observable, action} from 'mobx';
+// import {observable, action} from 'mobx';
 
 type Props = {
 	...Image.propTypes;
 }
 
 @observer
-export default class index extends React.Component<Props, any> {
+class CustomImage extends React.Component<Props, any> {
 
-
-  @observable imageLoadedError: boolean = false;
-
-  constructor(props: Props) {
+	constructor(props: Props) {
   	super(props);
   	this.state = {
 		  imageLoading: true
 	  };
-  }
+	}
 
-  imageLoadError() {
+	imageLoadError() {
   	console.log('onError');
   	// this.imageLoadedError = true;
 	  this.setState({ imageLoading: false });
 
   	this.props.onError && this.props.onError();
-  }
+	}
 
-  render() {
+	render() {
   	let { source } = this.props;
   	const { style, resizeMode } = this.props;
 
@@ -56,7 +53,7 @@ export default class index extends React.Component<Props, any> {
   		</View>
 
   	);
-  }
+	}
 }
 
 const styles = StyleSheet.create({
@@ -65,3 +62,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 });
+
+export default CustomImage;

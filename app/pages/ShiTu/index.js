@@ -21,7 +21,8 @@ import {
 
 import {ShiTuMobx} from '../../mobx/ShiTu';
 
-import { BaseContainer, GradientButton } from '../../components';
+import { GradientButton } from '../../components';
+import BaseContainer from '../../components/BaseContainer';
 import { System } from '../../utils';
 import {observer, inject} from 'mobx-react';
 import {PowerStore} from '../../store/PowerStore';
