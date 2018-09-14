@@ -44,7 +44,7 @@ class ConfigStore {
 		ConfigStore.customKey = null;
 	}
 
-	@action.bound showToast(text) {
+	@action.bound showToast(text: string) {
 		Toast.message(text);
 	}
 
