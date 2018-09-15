@@ -174,7 +174,7 @@ export default class ScrollableTabBar extends Component {
 
   	const key = I18nManager.isRTL ? 'right' : 'left';
   	const dynamicTabUnderline = {
-  		[`${key}`]: this.state._leftTabUnderline,
+  		left: this.state._leftTabUnderline,
   		width: this.state._widthTabUnderline
   	};
 

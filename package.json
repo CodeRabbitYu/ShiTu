@@ -15,9 +15,10 @@
     "react-native-fast-image": "^5.0.3",
     "react-native-image-picker": "^0.26.10",
     "react-native-linear-gradient": "^2.4.2",
+    "react-native-scrollable-tab-view": "git+https://github.com/happypancake/react-native-scrollable-tab-view.git",
     "react-native-splash-screen": "^3.1.1",
     "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^2.14.0",
+    "react-navigation": "git+https://github.com/react-navigation/react-navigation.git",
     "rn-fetch-blob": "^0.10.13",
     "rn-placeholder": "^1.2.0",
     "teaset": "^0.5.9"

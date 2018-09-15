@@ -15,7 +15,7 @@ Theme.set(DefaultTheme);
 
 import applyDecoratedDescriptor from '@babel/runtime/helpers/esm/applyDecoratedDescriptor';
 import initializerDefineProperty from '@babel/runtime/helpers/esm/initializerDefineProperty';
-+Object.assign(babelHelpers, { applyDecoratedDescriptor, initializerDefineProperty })
+Object.assign(babelHelpers, { applyDecoratedDescriptor, initializerDefineProperty })
 
 const App = require('./app/index').default;
 

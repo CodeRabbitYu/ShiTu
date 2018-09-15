@@ -9,7 +9,9 @@ import BaseContainer from '../../components/BaseContainer';
 
 import {observer} from 'mobx-react';
 
-import ScrollableTabView from '../../components/ScrollableTabView';
+// import ScrollableTabView from '../../components/ScrollableTabView';
+import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
+
 
 import { Welfare } from './Welfare';
 import { BuDeJie } from './BuDeJie';
@@ -57,7 +59,8 @@ class News extends React.Component<any, State> {
 		return (
 			<BaseContainer title={'百思不得姐'} isTopNavigator={true}>
 				<ScrollableTabView
-					renderTabBar={() => <ScrollableTabView.DefaultTabBar />}
+					renderTabBar={() => <DefaultTabBar />}
+					// renderTabBar={() => <ScrollableTabView.DefaultTabBar />}
 					tabBarActiveTextColor='#4ECBFC'
 					tabBarInactiveTextColor='black'
 					tabBarBackgroundColor='white'

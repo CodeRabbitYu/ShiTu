@@ -4,7 +4,8 @@ import {
 	Text,
 	View,
 	Animated,
-	TouchableOpacity
+	TouchableOpacity,
+	ViewPropTypes
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -17,10 +18,12 @@ export default class DefaultTabBar extends Component {
   	activeTextColor: PropTypes.string,
   	inactiveTextColor: PropTypes.string,
   	textStyle: Text.propTypes.style,
-  	// tabStyle: View.propTypes.style,
+  	tabStyle: ViewPropTypes.style,
   	renderTab: PropTypes.func,
-  	// underlineStyle: View.propTypes.style
+  	// underlineStyle: View.propTypes.style,
+  	underlineStyle: ViewPropTypes.style
   };
+
   static defaultProps = {
   	activeTextColor: 'navy',
   	inactiveTextColor: 'black',
@@ -60,7 +63,7 @@ export default class DefaultTabBar extends Component {
   		bottom: 0
   	};
 
-  	const left = this.props.scrollValue.interpolate({
+  	const translateX = this.props.scrollValue.interpolate({
   		inputRange: [0, 1],
   		outputRange: [0, containerWidth / numberOfTabs]
   	});
@@ -77,9 +80,19 @@ export default class DefaultTabBar extends Component {
   				const renderTab = this.props.renderTab || this.renderTab;
   				return renderTab(name, page, isTabActive, this.props.goToPage);
   			})}
-  			<Animated.View
-  				style={[tabUnderlineStyle, { left }, this.props.underlineStyle]}
-  			/>
+			  <Animated.View
+				  style={[
+					  tabUnderlineStyle,
+					  {
+						  translateX
+					  },
+					  this.props.underlineStyle,
+				  ]}
+			  />
+			  {/*<Animated.View*/}
+				  {/*style={[tabUnderlineStyle, { left }, this.props.underlineStyle]}*/}
+			  {/*/>*/}
+
   		</View>
   	);
   }
