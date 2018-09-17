@@ -99,7 +99,9 @@ export class Login extends React.Component<Props, any> {
 		this.codeRef.blur();
 
 
-		this.props.navigation.navigate('AppRouter');
+		// this.props.navigation.navigate('AppRouter');
+		this.props.navigation.navigate('Register');
+
 
 	}
 

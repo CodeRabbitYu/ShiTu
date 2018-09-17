@@ -35,7 +35,7 @@ export default class index extends React.Component<any> {
 				<View style={{flex: 1, backgroundColor: 'white'}}>
 					<AuthLoadingRouter
 						persistenceKey={navigationPersistenceKey}
-						renderLoadingExperimental={() => <ActivityIndicator size='large' color='white' />}
+						renderLoadingExperimental={() => <ActivityIndicator size='large' color='black' />}
 					/>
 					<Toast ref={(t: any) => this.toast = t}/>
 				</View>

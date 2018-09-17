@@ -20,6 +20,7 @@ import { News, Welfare, BuDeJie, BuDeJieDetail } from '../pages/News/News';
 import { Main } from '../pages/Main/index';
 import WebView from '../pages/WebView/index';
 import {Login} from '../pages/Login';
+import {Register} from '../pages/Login/Register';
 
 // import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
@@ -66,6 +67,9 @@ export const AppRouter = createStackNavigator({
 	},
 	Login: {
 		screen: Login,
+	},
+	Register: {
+		screen: Register,
 	}
 }, {
 	// 快速定制导航条，新版识兔中所有的导航都是重写的，所以这里会将全部的导航置空

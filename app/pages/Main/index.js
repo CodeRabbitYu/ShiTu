@@ -26,7 +26,7 @@ type Props = {
 	defaultValue: string,
 };
 
-class Item extends Component<Props> {
+class Item extends Component<any> {
 	// static propTypes = {
 	// 	...TouchableOpacity.propTypes,
 	// 	title: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
@@ -54,7 +54,7 @@ class Item extends Component<Props> {
 		};
 		accessory = (
 			<View style={{paddingLeft: Theme.poppAccessoryPaddingLeft}}>
-				<Image style={imageStyle} source={selected ? require('teaset/icons/check.png') : null} />
+				{/*<Image style={imageStyle} source={selected ? require('teaset/icons/check.png') : null} />*/}
 			</View>
 		);
 		if (typeof title === 'string' || typeof title === 'number') {
@@ -122,12 +122,11 @@ export class Main extends Component<Props, any> {
 
 	componentDidMount() {
 
-
-
 		this.setState({
 			isReady: true
 		});
 	}
+
 
 	login = (type: string) => {
 
@@ -213,20 +212,12 @@ export class Main extends Component<Props, any> {
 					/>
 				</View>
 
-				<TextInput
-					placeholder='iOS无法输入中文解决方式'
-					style={{height: 44, backgroundColor: 'red', marginTop: 10}}
-					onChangeText={(text) => this.setState({text: text})}
-					// value={this.state.defaultValue}
-					defaultValue={this.state.defaultValue}
-					clearButtonMode={'always'}
-					onChange={(e) => {
-						console.log('nativeEvent', e.nativeEvent);
-					}}
-				/>
+
+				{/* 删除为了修复0.57版本之前TextInput不能输入中文的bug */}
 			</BaseContainer>
 		);
 	}
+
 }
 
 const styles = StyleSheet.create({
