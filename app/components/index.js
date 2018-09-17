@@ -18,9 +18,10 @@ import Toast from './Toast';
 import LoadingSpinner from './LoadingSpinner';
 import MyTextInput from './MyTextInput';
 import CustomToast from './CustomToast';
+import ErrorView from './ErrorView';
 
 
 export { Button, GradientButton, CustomIcon, Theme, TableList,
 	CustomImage, MasonryList, ProgressBar, NavigatorBar, Toast, LoadingSpinner,
-	MyTextInput, CustomToast
+	MyTextInput, CustomToast, ErrorView
 };

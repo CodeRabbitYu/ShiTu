@@ -9,13 +9,8 @@ import {NavigationBar, Theme} from 'teaset';
 import LinearGradient from 'react-native-linear-gradient';
 
 
-import { withNavigation, StackActions } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import {System} from '../../utils';
-
-
-const popAction = StackActions.pop({
-	n: 1,
-});
 
 export type Props = {
   leftView?: any,
@@ -42,7 +37,7 @@ class NavigatorBar extends React.PureComponent<Props> {
 		if (backButtonPress) {
 			backButtonPress();
 		} else {
-			this.props.navigation.dispatch(popAction);
+			this.props.navigation.goBack();
 		}
 	}
 

@@ -14,7 +14,7 @@ import {SafeAreaView} from 'react-navigation';
 
 import { NavigationEvents } from 'react-navigation';
 
-import { NavigatorBar, LoadingSpinner } from '../index';
+import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
 import { Theme } from 'teaset';
 
 

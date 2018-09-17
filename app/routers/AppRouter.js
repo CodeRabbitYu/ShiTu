@@ -48,9 +48,40 @@ const MyTab = createBottomTabNavigator({
 			backgroundColor: 'white'
 		},
 		showLabel: false,
-	},
-
+	}
 });
+
+MyTab.navigationOptions = ({navigation}) => {
+
+	const routes = navigation.state.routes;
+
+	const params = routes ? routes[navigation.state.index].params : null;
+
+	const headerTitle = params ? params.title : '';
+
+	const headerTitleStyle = {
+		fontSize: System.iOS ? 23 : 20,
+		color: 'white',
+		flex: 1,
+		textAlign: 'center',
+		paddingTop: System.Android ? 17 : null,
+	};
+	const headerBackTitle = null;
+	const headerTintColor = 'white';
+	const headerStyle = {
+		backgroundColor: Theme.navColor,
+		shadowColor: 'transparent',
+		shadowOpacity: 0,
+		borderBottomWidth: 0,
+		borderBottomColor: 'transparent',
+		elevation: 0,
+	};
+
+	// 识兔这里的导航都是手动控制的，所以这里设置为null就可以隐藏了。
+	const header = null;
+
+	return { headerTitle, headerStyle, headerTitleStyle, headerBackTitle, headerTintColor, header };
+}
 
 export const AppRouter = createStackNavigator({
 	MyTab: {
@@ -81,42 +112,10 @@ export const AppRouter = createStackNavigator({
 	transitionConfig: () => ({
 		screenInterpolator: StackViewStyleInterpolator.forHorizontal,
 	})
-	// navigationOptions: ({navigation}) => NavigatorOptions(navigation),
 	// headerTransitionPreset: 'fade-in-place',
 	// headerMode: 'float',
 	// mode: 'modal'
 });
-
-const NavigatorOptions = (navigation) => {
-
-	const routes = navigation.state.routes;
-
-	const params = routes ? routes[navigation.state.index].params : null;
-
-	const headerTitle = params ? params.title : '';
-
-	const headerTitleStyle = {
-		fontSize: System.iOS ? 23 : 20,
-		color: 'white',
-		flex: 1,
-		textAlign: 'center',
-		paddingTop: System.Android ? 17 : null,
-	};
-	const headerBackTitle = null;
-	const headerTintColor = 'white';
-	const headerStyle = {
-		backgroundColor: Theme.navColor,
-		shadowColor: 'transparent',
-		shadowOpacity: 0,
-		borderBottomWidth: 0,
-		borderBottomColor: 'transparent',
-		elevation: 0,
-	};
-
-	const header = null;
-
-	return { headerTitle, headerStyle, headerTitleStyle, headerBackTitle, headerTintColor, header };
-};
 
 const TabOptions = (tabBarTitle, tabBarIconName) => {
 	const title = tabBarTitle;
