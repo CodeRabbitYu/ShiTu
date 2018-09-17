@@ -6,13 +6,14 @@
 import React from 'react';
 
 import { AuthLoadingRouter } from './routers/AuthLoading';
-import {View, NativeAppEventEmitter, Alert} from 'react-native';
+import {View, NativeAppEventEmitter, Alert, ActivityIndicator} from 'react-native';
 import {Toast} from './components';
 import { Provider} from 'mobx-react';
 import * as RootStore  from './store/RootStore';
 
 import SplashScreen from 'react-native-splash-screen';
 
+const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV' : null;
 
 export default class index extends React.Component<any> {
 
@@ -31,8 +32,11 @@ export default class index extends React.Component<any> {
 
 		return (
 			<Provider {...RootStore}>
-				<View style={{backgroundColor: 'red', flex: 1}}>
-					<AuthLoadingRouter />
+				<View style={{flex: 1, backgroundColor: 'white'}}>
+					<AuthLoadingRouter
+						persistenceKey={navigationPersistenceKey}
+						renderLoadingExperimental={() => <ActivityIndicator size='large' color='white' />}
+					/>
 					<Toast ref={(t: any) => this.toast = t}/>
 				</View>
 			</Provider>
