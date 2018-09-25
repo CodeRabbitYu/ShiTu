@@ -10,7 +10,6 @@ import { Toast, Theme} from 'teaset';
 import React from 'react';
 import { CustomToast } from '../components';
 
-
 type ErrorInfo = {
 	message: string,
 	code: number,
@@ -26,7 +25,6 @@ class ConfigStore {
 	static customKey = null;
 
 	@action.bound showLoading(text?: string) {
-
 		if (ConfigStore.customKey) return;
 		ConfigStore.customKey = Toast.show({
 			text: text,

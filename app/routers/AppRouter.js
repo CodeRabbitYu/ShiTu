@@ -43,9 +43,13 @@ const MyTab = createBottomTabNavigator({
 	initialRouteName: 'ShiTu',
 	backBehavior: 'none',
 	tabBarOptions: {
-		style: {
+		tabStyle: {
 			height: 49,
-			backgroundColor: 'white'
+			// backgroundColor: 'red'
+		},
+		style: {
+			height: 39,
+			// backgroundColor: 'blue',
 		},
 		showLabel: false,
 	}
@@ -122,7 +126,7 @@ const TabOptions = (tabBarTitle, tabBarIconName) => {
 	const tabBarIcon = (({tintColor, focused}: {tintColor?: string, focused: boolean}) => {
 		const color = focused ? Theme.tabBarColor : '#aaa';
 		return (
-			<CustomIcon name={tabBarIconName} size={30} color={color}/>
+			<CustomIcon name={tabBarIconName} size={35} color={color}/>
 		);
 	});
 	const tabBarVisible = true;

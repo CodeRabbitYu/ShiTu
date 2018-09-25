@@ -10,7 +10,7 @@ import {
 	View,
 	ImageBackground,
 	StatusBar,
-	NativeModules
+	NativeModules, DeviceInfo
 } from 'react-native';
 
 // const InterestQQ = NativeModules.InterestQQ;
@@ -31,7 +31,7 @@ import * as Animatable from 'react-native-animatable';
 const AnimationButton = Animatable.createAnimatableComponent(GradientButton);
 const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
 
-import { ActionSheet } from 'teaset';
+import {ActionSheet, Theme} from 'teaset';
 import * as ImagePicker from 'react-native-image-picker';
 import {ConfigStore} from '../../store/ConfigStore';
 import type {NavigationScreenProp} from 'react-navigation';
@@ -44,7 +44,7 @@ type Props = {
 
 @inject('configStore', 'powerStore')
 @observer
-export class ShiTu extends Component<Props> {
+class ShiTu extends Component<Props> {
 
 	shiTuMobx: ShiTuMobx;
 
@@ -54,7 +54,8 @@ export class ShiTu extends Component<Props> {
 	}
 
 	componentDidMount() {
-
+		console.log('statusBarHeight', Theme.statusBarHeight);
+		console.log('navBarContentHeight', Theme.navBarContentHeight);
 	}
 
 	selectedImagePicker = (type: string) => {
@@ -200,3 +201,5 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 	}
 });
+
+export {ShiTu};

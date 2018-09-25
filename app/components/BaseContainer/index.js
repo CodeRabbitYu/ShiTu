@@ -105,21 +105,23 @@ class BaseContainer extends Component<Props> {
 		const backgroundColor = !isTopNavigator && Theme.isIPhoneX ? 'white' : null;
 		const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
-		return <SafeAreaView style={[styles.container, style]}
+		return (
+			<View style={[styles.container, style]}
 		                     forceInset={{ bottom: 'never', top: 'never' }}
-		>
-			{ !isHiddenNavBar && this.renderNavView() }
-			<View style={[styles.contentView, {marginTop, backgroundColor}, style, contentViewStyle]}>
-				{this.renderContent()}
-				{/* {this.renderBottom()}*/}
+			>
+				{ !isHiddenNavBar && this.renderNavView() }
+				<View style={[styles.contentView, {marginTop, backgroundColor}, style, contentViewStyle]}>
+					{this.renderContent()}
+					 {/*{this.renderBottom()}*/}
+				</View>
+				<NavigationEvents
+					onWillFocus={onWillFocus}
+					onDidFocus={onDidFocus}
+					onWillBlur={onWillBlur}
+					onDidBlur={onDidBlur}
+				/>
 			</View>
-			<NavigationEvents
-				onWillFocus={onWillFocus}
-				onDidFocus={onDidFocus}
-				onWillBlur={onWillBlur}
-				onDidBlur={onDidBlur}
-			/>
-		</SafeAreaView>;
+		);
 	}
 }
 const styles = StyleSheet.create({

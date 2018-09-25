@@ -7,7 +7,8 @@ import React from 'react';
 
 import BaseContainer from '../../components/BaseContainer';
 
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
+
 
 // import ScrollableTabView from '../../components/ScrollableTabView';
 import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
@@ -18,7 +19,6 @@ import { BuDeJie } from './BuDeJie';
 import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type {NavigationState} from 'react-navigation';
-import {inject} from 'mobx-react/index';
 import type {RTBuDeJieType} from '../../servers/News';
 
 type State = {

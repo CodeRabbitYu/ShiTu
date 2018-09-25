@@ -54,7 +54,7 @@ class Item extends Component<any> {
 		};
 		accessory = (
 			<View style={{paddingLeft: Theme.poppAccessoryPaddingLeft}}>
-				{/*<Image style={imageStyle} source={selected ? require('teaset/icons/check.png') : null} />*/}
+				{/* <Image style={imageStyle} source={selected ? require('teaset/icons/check.png') : null} />*/}
 			</View>
 		);
 		if (typeof title === 'string' || typeof title === 'number') {
@@ -88,6 +88,7 @@ export class Main extends Component<Props, any> {
 
 	items: Array<any>;
 	popView: any;
+	input: any;
 	
 	// static navigationOptions = ({
 	// 	tabBarOnPress: async (obj: any) => {
@@ -214,10 +215,25 @@ export class Main extends Component<Props, any> {
 
 
 				{/* 删除为了修复0.57版本之前TextInput不能输入中文的bug */}
+				<TextInput
+					defaultValue={'重复测试'}
+					onChangeText={(e) => {
+						this.setState({
+							value: e
+						});
+					}}
+					ref={e => this.input = e}
+					value={this.state.e}
+					style={{backgroundColor: 'red', width: SCREEN_WIDTH, height: 44}}
+					blurOnSubmit={false}
+					onSubmitEditing={() => {
+						this.input.clear();
+					}}
+				/>
+
 			</BaseContainer>
 		);
 	}
-
 }
 
 const styles = StyleSheet.create({

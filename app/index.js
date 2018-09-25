@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
+import {View, ActivityIndicator, SafeAreaView} from 'react-native';
 
 import { AuthLoadingRouter } from './routers/AuthLoading';
-import {View, NativeAppEventEmitter, Alert, ActivityIndicator} from 'react-native';
+// import {SafeAreaView} from 'react-navigation';
 import {Toast} from './components';
 import { Provider} from 'mobx-react';
 import * as RootStore  from './store/RootStore';
@@ -22,7 +23,6 @@ export default class index extends React.Component<any> {
 	constructor(props: any) {
 		super(props);
 	}
-	
 	componentDidMount() {
 		global.Toast = this.toast;
 		SplashScreen.hide();
@@ -32,7 +32,17 @@ export default class index extends React.Component<any> {
 
 		return (
 			<Provider {...RootStore}>
-				<View style={{flex: 1, backgroundColor: 'white'}}>
+				<View style={{
+					flex: 1,
+					backgroundColor: 'white',
+					// shadowColor: 'transparent',
+					// shadowOpacity: 0,
+					// borderBottomWidth: 0,
+					// borderBottomColor: 'transparent',
+					// marginBottom: -39
+				}}
+				              // forceInset={{ bottom: 'always', top: 'never' }}
+				>
 					<AuthLoadingRouter
 						persistenceKey={navigationPersistenceKey}
 						renderLoadingExperimental={() => <ActivityIndicator size='large' color='black' />}

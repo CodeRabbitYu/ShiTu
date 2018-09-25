@@ -6,8 +6,8 @@ import android.support.multidex.MultiDex;
 
 //import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -32,8 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
             new VectorIconsPackage(),
+            new RNFetchBlobPackage(),
             new SplashScreenReactPackage(),
             new LinearGradientPackage(),
             new ImagePickerPackage(),
