@@ -48,7 +48,7 @@ const MyTab = createBottomTabNavigator({
 			// backgroundColor: 'red'
 		},
 		style: {
-			height: 39,
+			height: iOS ? 39 : 49,
 			// backgroundColor: 'blue',
 		},
 		showLabel: false,

@@ -12,7 +12,7 @@ import {
 	FlatList,
 	TextInput,
 	TouchableOpacity,
-
+	BackHandler
 } from 'react-native';
 
 import { MyTextInput, Button, GradientButton } from '../../components';
@@ -97,6 +97,9 @@ export class Main extends Component<Props, any> {
 	// 	}
 	// })
 
+	_didFocusSubscription: any;
+	_willBlurSubscription: any;
+
 	constructor(props: Props) {
 		super(props);
 
@@ -116,16 +119,29 @@ export class Main extends Component<Props, any> {
 			defaultValue: '测试默认value' || this.props.defaultValue,
 			selectedIndex: null,
 			modalSelectedIndex: null,
-
 		};
+		this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+			BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+		);
 	}
-
 
 	componentDidMount() {
 
-		this.setState({
-			isReady: true
-		});
+		this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+			BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+		);
+	}
+
+	onBackButtonPressAndroid = () => {
+		alert('123');
+
+		return true;
+	};
+
+
+	componentWillUnmount() {
+		this._didFocusSubscription && this._didFocusSubscription.remove();
+		this._willBlurSubscription && this._willBlurSubscription.remove();
 	}
 
 
@@ -182,16 +198,16 @@ export class Main extends Component<Props, any> {
 			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}
 			               rightView={this.renderRightView()}
 			               onWillBlur={(payload) => {
-			               	  console.log('页面将要失去焦点', payload);
+			               	  console.log('Main页面将要失去焦点', payload);
 			               }}
 			               onDidBlur={(payload) => {
-				               console.log('页面已经失去焦点', payload);
+				               console.log('Main页面已经失去焦点', payload);
 			               }}
 			               onWillFocus={(payload) => {
-			               	  console.log('页面将要获得焦点', payload);
+			               	  console.log('Main页面将要获得焦点', payload);
 			               }}
 			               onDidFocus={(payload) => {
-				               console.log('页面已经获得焦点', payload);
+				               console.log('Main页面已经获得焦点', payload);
 			               }}
 
 			>
@@ -214,22 +230,7 @@ export class Main extends Component<Props, any> {
 				</View>
 
 
-				{/* 删除为了修复0.57版本之前TextInput不能输入中文的bug */}
-				<TextInput
-					defaultValue={'重复测试'}
-					onChangeText={(e) => {
-						this.setState({
-							value: e
-						});
-					}}
-					ref={e => this.input = e}
-					value={this.state.e}
-					style={{backgroundColor: 'red', width: SCREEN_WIDTH, height: 44}}
-					blurOnSubmit={false}
-					onSubmitEditing={() => {
-						this.input.clear();
-					}}
-				/>
+				
 
 			</BaseContainer>
 		);

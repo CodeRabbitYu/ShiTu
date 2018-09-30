@@ -105,6 +105,10 @@ export class Login extends React.Component<Props, any> {
 
 	}
 
+	componentWillUnmount() {
+		console.log('Login componentWillUnmount');
+	}
+
 	render() {
 
 		const { params } = this.props.navigation.state;
@@ -112,7 +116,20 @@ export class Login extends React.Component<Props, any> {
 		const isTopNavigator = !params && true;
 
 		return (
-			<BaseContainer title='登录' isTopNavigator={isTopNavigator} style={styles.container}>
+			<BaseContainer title='登录' isTopNavigator={isTopNavigator} style={styles.container}
+			               onWillBlur={(payload) => {
+				               console.log('Login页面将要失去焦点', payload);
+			               }}
+			               onDidBlur={(payload) => {
+				               console.log('Login页面已经失去焦点', payload);
+			               }}
+			               onWillFocus={(payload) => {
+				               console.log('Login页面将要获得焦点', payload);
+			               }}
+			               onDidFocus={(payload) => {
+				               console.log('Login页面已经获得焦点', payload);
+			               }}
+			>
 				<ScrollView style={styles.scrollView} keyboardShouldPersistTaps={'always'}>
 					<View style={styles.textInputBox}>
 						<View style={[styles.textInputView, styles.phoneInputView]}>
