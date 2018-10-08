@@ -45,11 +45,11 @@ const MyTab = createBottomTabNavigator({
 	tabBarOptions: {
 		tabStyle: {
 			height: 49,
-			// backgroundColor: 'red'
 		},
 		style: {
-			height: iOS ? 39 : 49,
-			// backgroundColor: 'blue',
+		},
+		safeAreaInset: {
+			bottom: 'always', top: 'never'
 		},
 		showLabel: false,
 	}

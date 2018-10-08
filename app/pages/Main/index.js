@@ -89,11 +89,15 @@ export class Main extends Component<Props, any> {
 	items: Array<any>;
 	popView: any;
 	input: any;
-	
+
+
 	// static navigationOptions = ({
-	// 	tabBarOnPress: async (obj: any) => {
-	// 		console.log(obj);
-	// 		alert('123')
+	// 	tabBarButtonComponent: () => {
+	// 		return (
+	// 			<TouchableOpacity style={{backgroundColor: 'red'}}>
+	// 				<Text>123</Text>
+	// 			</TouchableOpacity>
+	// 		);
 	// 	}
 	// })
 
