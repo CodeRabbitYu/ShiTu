@@ -57,7 +57,7 @@ class News extends React.Component<any, State> {
 
 	render() {
 		return (
-			<BaseContainer title={'百思不得姐'} isTopNavigator={true}>
+			<BaseContainer title={'百思不得姐'} isTopNavigator={true} >
 				<ScrollableTabView
 					renderTabBar={() => <DefaultTabBar />}
 					// renderTabBar={() => <ScrollableTabView.DefaultTabBar />}

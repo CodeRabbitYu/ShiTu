@@ -103,6 +103,7 @@ class BuDeJie extends React.Component<Props, any> {
 		return (
 			<BaseContainer store={this.buDeJieMobx}
 			               isHiddenNavBar={true}
+			               isTopNavigator={true}
 			>
 				<TableList
 					style={{backgroundColor: 'white'}}

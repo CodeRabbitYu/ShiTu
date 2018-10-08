@@ -1,5 +1,4 @@
 /**
- * @flow
  * Created by Rabbit on 2018/8/6.
  */
 
@@ -33,5 +32,6 @@ global.px2dp = Px2Dp;
 global.ApiConfig = ApiConfig;
 
 // global.Config = Config;
+global.isIPhoneX = Theme.isIPhoneX;
 
 global.Theme = Theme;

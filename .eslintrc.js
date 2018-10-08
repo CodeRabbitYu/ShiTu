@@ -13,6 +13,7 @@ module.exports = {
 		"iOS": true,
 		"Android": true,
 		"Toast": true,
+		"isIPhoneX": true,
 	},
 	"extends": [
 		"eslint:recommended",

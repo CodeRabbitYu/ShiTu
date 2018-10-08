@@ -124,6 +124,7 @@ class Welfare extends React.Component<Props> {
 		return (
 			<BaseContainer key={'base'}
 			               isHiddenNavBar={true}
+			               isTopNavigator={true}
 			               store={this.welfareMobx}
 			>
 				<MasonryList

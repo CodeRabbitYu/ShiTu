@@ -28,7 +28,6 @@ type Props = {
 };
 
 type State = {
-	progress: number,
 	active: boolean,
 	uri: string,
 	isGoBack: boolean,
@@ -77,12 +76,12 @@ export default class index extends React.Component<Props, State> {
 		goBack();
 	};
 
-	onShouldStartLoadWithRequest = (data) => {
+	onShouldStartLoadWithRequest = (data: any) => {
 		console.log('_onShouldStartLoadWithRequest', data);
 		// return true;
 	}
 
-	onNavigationStateChange = (navState) => {
+	onNavigationStateChange = (navState: any) => {
 		// console.log(navState);
 		// 可以跳转新页面，但这个只是测试代码
 		// if(navState.url !== this.state.url){
@@ -103,7 +102,7 @@ export default class index extends React.Component<Props, State> {
 
 	renderError = () => {
 		return (
-			<Button onPress={this._reload}>
+			<Button onPress={this.reload}>
 				<Text>出错啦！请点击刷新页面</Text>
 			</Button>
 		);
@@ -144,7 +143,7 @@ export default class index extends React.Component<Props, State> {
 				// 						hideShadow={System.iOS ? true : true}
 				position="right"
 				spacing={10}
-				// offsetY={10}
+				offsetY={isIPhoneX ? 34 + 44 : 44 }
 				// offsetX={10}
 				size={50}
 				backdrop={false}
@@ -158,20 +157,20 @@ export default class index extends React.Component<Props, State> {
 													 hideShadow={false}
 													 onPress={this.reload}
 				>
-					<Icon name="ios-refresh-outline" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+					<Icon name="ios-refresh" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
 				</ActionButton.Item>
 				<ActionButton.Item buttonColor={this.state.isForWard ? '#1abc9c' : '#dddddd'}
 													 onPress={this.goForward}
 													 size={40}
 													 // hideShadow={false}
 													 style={styles.actionItemStyle} >
-					<Icon name="ios-arrow-forward-outline" style={styles.actionButtonIcon} />
+					<Icon name="ios-arrow-forward" style={styles.actionButtonIcon} />
 				</ActionButton.Item>
 				<ActionButton.Item buttonColor={this.state.isGoBack ? '#3498db' : '#dddddd'}
 													 onPress={this.goBack}
 													 size={40}
 													 style={styles.actionItemStyle}>
-					<Icon name="ios-arrow-back-outline" style={styles.actionButtonIcon} />
+					<Icon name="ios-arrow-back" style={styles.actionButtonIcon} />
 				</ActionButton.Item>
 				<ActionButton.Item buttonColor={'#9b59b6'}
 													 onPress={this.close}
@@ -188,7 +187,7 @@ export default class index extends React.Component<Props, State> {
 
 	render() {
 		return (
-			<BaseContainer style={styles.container}>
+			<BaseContainer style={styles.container} bottomHeight={10}>
 				<WebView
 					ref={ref => this.webView = ref}
 					style={styles.webView}

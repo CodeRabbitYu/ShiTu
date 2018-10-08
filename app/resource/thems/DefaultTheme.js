@@ -3,7 +3,7 @@
  */
 
 export default {
-	fitIPhoneX: false,
+	fitIPhoneX: true,
 
 	mainColor: '#4ECBFC',
 

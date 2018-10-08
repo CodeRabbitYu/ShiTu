@@ -89,6 +89,7 @@ class BaseContainer extends Component<Props> {
 	}
 
 	renderBottom() {
+
 		const { bottomStyle, bottomBackgroundColor, bottomHeight = 39, isTopNavigator} = this.props;
 
 		const backgroundColor = bottomBackgroundColor ? bottomBackgroundColor : 'white';
@@ -106,13 +107,13 @@ class BaseContainer extends Component<Props> {
 		const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
 		return (
-			<View style={[styles.container, style]}
-		                     forceInset={{ bottom: 'never', top: 'never' }}
+			<SafeAreaView style={[styles.container, style]}
+			              forceInset={{ bottom: 'never', top: 'never' }}
 			>
 				{ !isHiddenNavBar && this.renderNavView() }
 				<View style={[styles.contentView, {marginTop, backgroundColor}, style, contentViewStyle]}>
 					{this.renderContent()}
-					 {/*{this.renderBottom()}*/}
+					{this.renderBottom()}
 				</View>
 				<NavigationEvents
 					onWillFocus={onWillFocus}
@@ -120,7 +121,7 @@ class BaseContainer extends Component<Props> {
 					onWillBlur={onWillBlur}
 					onDidBlur={onDidBlur}
 				/>
-			</View>
+			</SafeAreaView>
 		);
 	}
 }
