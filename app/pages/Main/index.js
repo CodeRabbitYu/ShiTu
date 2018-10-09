@@ -21,69 +21,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Label, ListRow, PopoverPicker, Badge} from 'teaset';
 import Theme from 'teaset/themes/Theme';
 import BaseContainer from '../../components/BaseContainer';
+import PopoverPickerViewItem from './Components/PopoverPickerViewItem';
 
 type Props = {
 	navigation: any,
 	defaultValue: string,
 };
-
-class Item extends Component<any> {
-	// static propTypes = {
-	// 	...TouchableOpacity.propTypes,
-	// 	title: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
-	// 	selected: PropTypes.bool,
-	// };
-
-	buildProps() {
-		let {style, title, accessory, selected, ...others} = this.props;
-
-		style = [{
-			backgroundColor: Theme.poppItemColor,
-			paddingLeft: Theme.poppItemPaddingLeft,
-			paddingRight: Theme.poppItemPaddingRight,
-			paddingTop: Theme.poppItemPaddingTop,
-			paddingBottom: Theme.poppItemPaddingBottom,
-			borderColor: 'red',
-			borderBottomWidth: 1,
-			flexDirection: 'row',
-			alignItems: 'center',
-		}].concat(style);
-		const imageStyle = {
-			width: Theme.poppAccessoryWidth,
-			height: Theme.poppAccessoryHeight,
-			tintColor: Theme.poppAccessoryCheckColor,
-		};
-		accessory = (
-			<View style={{paddingLeft: Theme.poppAccessoryPaddingLeft}}>
-				{/* <Image style={imageStyle} source={selected ? require('teaset/icons/check.png') : null} />*/}
-			</View>
-		);
-		if (typeof title === 'string' || typeof title === 'number') {
-			const titleStyle = {
-				color: Theme.poppItemTitleColor,
-				fontSize: Theme.poppItemFontSize,
-				overflow: 'hidden',
-				flexGrow: 1,
-				flexShrink: 1,
-			};
-			title = <Text style={titleStyle} numberOfLines={1}>{title}</Text>;
-		}
-
-		this.props = {style, title, accessory, selected, ...others};
-	}
-
-	render() {
-		this.buildProps();
-
-		const {title, accessory, ...others} = this.props;
-		return (
-			<TouchableOpacity {...others}>
-				{title}
-				{accessory}
-			</TouchableOpacity>
-		);
-	}
-}
 
 export class Main extends Component<Props, any> {
 
@@ -131,7 +74,7 @@ export class Main extends Component<Props, any> {
 			selectedIndex: null,
 			modalSelectedIndex: null,
 		};
-		this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+		this._didFocusSubscription = props.navigation.addListener('didFocus', (payload: any) =>
 			BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
 		);
 	}
@@ -150,7 +93,7 @@ export class Main extends Component<Props, any> {
 
 
 
-		this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+		this._willBlurSubscription = this.props.navigation.addListener('willBlur', (payload: any) =>
 			BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
 		);
 	}
@@ -189,7 +132,7 @@ export class Main extends Component<Props, any> {
 			paddingRight: 12,
 		};
 
-		PopoverPicker.PopoverPickerView.Item = Item;
+		PopoverPicker.PopoverPickerView.Item = PopoverPickerViewItem;
 
 		popView.measure((x, y, width, height, pageX, pageY) => {
 			PopoverPicker.show(
