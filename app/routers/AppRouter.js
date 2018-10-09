@@ -24,6 +24,7 @@ import {Register} from '../pages/Login/Register';
 
 // import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
+import {View} from "react-native";
 
 
 const MyTab = createBottomTabNavigator({
@@ -44,7 +45,8 @@ const MyTab = createBottomTabNavigator({
 	backBehavior: 'none',
 	tabBarOptions: {
 		tabStyle: {
-			height: 49,
+			marginTop: 10,
+			// height: 49,
 		},
 		style: {
 		},
@@ -126,7 +128,9 @@ const TabOptions = (tabBarTitle, tabBarIconName) => {
 	const tabBarIcon = (({tintColor, focused}: {tintColor?: string, focused: boolean}) => {
 		const color = focused ? Theme.tabBarColor : '#aaa';
 		return (
-			<CustomIcon name={tabBarIconName} size={35} color={color}/>
+			<View style={{marginTop: 3}}>
+				<CustomIcon name={tabBarIconName} size={35} color={color}/>
+			</View>
 		);
 	});
 	const tabBarVisible = true;

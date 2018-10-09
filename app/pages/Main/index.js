@@ -12,12 +12,13 @@ import {
 	FlatList,
 	TextInput,
 	TouchableOpacity,
-	BackHandler
+	BackHandler,
+	DeviceEventEmitter
 } from 'react-native';
 
 import { MyTextInput, Button, GradientButton } from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Label, ListRow, PopoverPicker} from 'teaset';
+import {Label, ListRow, PopoverPicker, Badge} from 'teaset';
 import Theme from 'teaset/themes/Theme';
 import BaseContainer from '../../components/BaseContainer';
 
@@ -89,17 +90,23 @@ export class Main extends Component<Props, any> {
 	items: Array<any>;
 	popView: any;
 	input: any;
+	badgeNumber: number = 10;
+	listener: DeviceEventEmitter;
 
+	static navigationOptions = ({navigation}: {navigation: any}) => {
 
-	// static navigationOptions = ({
-	// 	tabBarButtonComponent: () => {
-	// 		return (
-	// 			<TouchableOpacity style={{backgroundColor: 'red'}}>
-	// 				<Text>123</Text>
-	// 			</TouchableOpacity>
-	// 		);
-	// 	}
-	// })
+		const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
+
+		const tabBarButtonComponent = (props: any) => {
+			return [
+				<TouchableOpacity {...props} activeOpacity={1}
+				                  style={{width: SCREEN_WIDTH / 3, marginTop: 10}}
+				                  key={'tabBar'}/>,
+				<Badge count={badgeNumber} key={'Badge'} style={{position: 'absolute', left: SCREEN_WIDTH - 50, top: 5}}/>
+			];
+		}
+		return {tabBarButtonComponent};
+	}
 
 	_didFocusSubscription: any;
 	_willBlurSubscription: any;
@@ -131,6 +138,18 @@ export class Main extends Component<Props, any> {
 
 	componentDidMount() {
 
+		this.listener = DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+			// console.log(badgeNumber);
+			// alert(badgeNumber);
+
+			this.props.navigation.setParams({
+				badgeNumber: badgeNumber,
+			});
+
+		});
+
+
+
 		this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
 			BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
 		);
@@ -146,6 +165,7 @@ export class Main extends Component<Props, any> {
 	componentWillUnmount() {
 		this._didFocusSubscription && this._didFocusSubscription.remove();
 		this._willBlurSubscription && this._willBlurSubscription.remove();
+		this.listener.remove();
 	}
 
 
@@ -197,6 +217,15 @@ export class Main extends Component<Props, any> {
 		);
 	}
 
+	addBadgeNumber = () => {
+
+		DeviceEventEmitter.emit('badgeNumber', this.badgeNumber++);
+
+		// this.props.navigation.setParams({
+		// 	badgeNumber: this.badgeNumber++,
+		// });
+	}
+
 	render() {
 		return (
 			<BaseContainer style={styles.container} isTopNavigator={true} title={'我的'}
@@ -227,6 +256,14 @@ export class Main extends Component<Props, any> {
 					<GradientButton
 						title={'直接跳转的登录方式'}
 						onPress={() => this.login('navigate')}
+						gradientStyle={styles.gradientStyle}
+						titleStyle={styles.btnTitleStyle}
+						btnStyle={styles.btnStyle}
+					/>
+
+					<GradientButton
+						title={'添加通知数量'}
+						onPress={this.addBadgeNumber}
 						gradientStyle={styles.gradientStyle}
 						titleStyle={styles.btnTitleStyle}
 						btnStyle={styles.btnStyle}
