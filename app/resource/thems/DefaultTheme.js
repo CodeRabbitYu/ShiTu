@@ -3,12 +3,12 @@
  */
 
 export default {
-	fitIPhoneX: true,
+  fitIPhoneX: true,
 
-	mainColor: '#4ECBFC',
+  mainColor: '#4ECBFC',
 
-	navColor: '#4ECBFC',
-	tabBarColor: '#4ECBFC',
+  navColor: '#4ECBFC',
+  tabBarColor: '#4ECBFC',
 
-	transparentColor: 'transparent',
+  transparentColor: 'transparent'
 };

@@ -5,5 +5,4 @@
 import { BuDeJieMobx } from './BuDeJieMobx';
 import { WelfareMobx } from './WelfareMobx';
 
-
 export { WelfareMobx, BuDeJieMobx };

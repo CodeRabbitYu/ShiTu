@@ -7,15 +7,14 @@ import { FontSize } from './FontSize';
 import { Px2Dp } from './Tool';
 import { ApiConfig } from './ApiConfig';
 
+const { height, width } = Dimensions.get('window');
 
-const {height, width} = Dimensions.get('window');
-
-import {Theme} from 'teaset';
+import { Theme } from 'teaset';
 
 // 系统是iOS
-global.iOS = (Platform.OS === 'ios');
+global.iOS = Platform.OS === 'ios';
 // 系统是安卓
-global.Android = (Platform.OS === 'android');
+global.Android = Platform.OS === 'android';
 // 获取屏幕宽度
 global.SCREEN_WIDTH = width;
 // 获取屏幕高度

@@ -5,24 +5,23 @@
 
 import React from 'react';
 
-import {
-	createStackNavigator,
-} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 import { Login } from '../pages/Login';
 
-
-export const AuthRouter = createStackNavigator({
-	Login: {
-		screen: Login
-	}
-
-}, {
-	navigationOptions: () => ({
-		header: null,
-		gesturesEnabled: true,
-	}),
-	// headerTransitionPreset: 'fade-in-place',
-	// headerMode: 'float',
-	mode: 'modal'
-});
+export const AuthRouter = createStackNavigator(
+  {
+    Login: {
+      screen: Login
+    }
+  },
+  {
+    navigationOptions: () => ({
+      header: null,
+      gesturesEnabled: true
+    }),
+    // headerTransitionPreset: 'fade-in-place',
+    // headerMode: 'float',
+    mode: 'modal'
+  }
+);

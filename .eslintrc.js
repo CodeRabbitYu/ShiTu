@@ -19,6 +19,7 @@ module.exports = {
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:flowtype/recommended",
+		"plugin:prettier/recommended",
 	],
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -36,10 +37,7 @@ module.exports = {
 		// 启用严格模式
 		'strict': 'error',
 		// 空格方式,使用tab
-		"indent": [
-			"error",
-			"tab",
-		],
+
 		// 处理器类型的转义
 		"linebreak-style": [
 			"error",

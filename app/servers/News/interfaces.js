@@ -4,8 +4,8 @@
  */
 
 export interface RTGankResult {
-	error: boolean;
-	results: Array<RTWeal>;
+  error: boolean;
+  results: Array<RTWeal>;
 }
 
 export interface RTWeal {
@@ -17,7 +17,7 @@ export interface RTWeal {
   source: string;
   type: string;
   url: string;
-  largeUrl: string,
+  largeUrl: string;
   used: boolean;
   who: string;
   height: number;
@@ -26,9 +26,9 @@ export interface RTWeal {
 
 /** @desc 不得姐总数据源 */
 export interface RTBDJResult {
-	info: RTBDJInfo;
-	list: Array<RTBDJList>;
-	// list: RTBDJList[];
+  info: RTBDJInfo;
+  list: Array<RTBDJList>;
+  // list: RTBDJList[];
 }
 
 /** @desc 不得姐单条数据 */
@@ -81,7 +81,7 @@ export interface RTBDJList {
   isLongPicture: boolean;
   imageHeight: number;
   containerHeight: number;
-	gifFistFrame: string;
+  gifFistFrame: string;
 
   userInfoData: UserInfo | any;
   toolBarData: ToolBar | any;
@@ -99,15 +99,15 @@ export interface RTBDJInfo {
 }
 
 /** @desc 用户信息 */
-export interface UserInfo extends RTBDJList{
+export interface UserInfo extends RTBDJList {
   profile_image: string;
   name: string;
   passtime: string;
-	// [...RTBDJList]
+  // [...RTBDJList]
 }
 
 /** @desc 底部功能条 */
-export interface ToolBar extends RTBDJList{
+export interface ToolBar extends RTBDJList {
   love: string;
   hate: string;
   repost: string;
@@ -120,13 +120,13 @@ export interface Joke extends RTBDJList {
 }
 
 /** @desc 图片 */
-export interface Picture extends RTBDJList{
+export interface Picture extends RTBDJList {
   cdn_img: string;
   height: number;
   width: number;
   isLongPicture: boolean;
   imageHeight: number;
   containerHeight: number;
-	weixin_url: string,
-	gifFistFrame: string,
+  weixin_url: string;
+  gifFistFrame: string;
 }

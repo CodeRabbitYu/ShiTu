@@ -6,7 +6,6 @@ export { default as System } from './System';
 
 import { Fetch, Axios } from './Request/index';
 
-import {addCustomProps} from './addCustomProps';
+import { addCustomProps } from './addCustomProps';
 
-
-export { Fetch, Axios, addCustomProps};
+export { Fetch, Axios, addCustomProps };

@@ -20,8 +20,19 @@ import MyTextInput from './MyTextInput';
 import CustomToast from './CustomToast';
 import ErrorView from './ErrorView';
 
-
-export { Button, GradientButton, CustomIcon, Theme, TableList,
-	CustomImage, MasonryList, ProgressBar, NavigatorBar, Toast, LoadingSpinner,
-	MyTextInput, CustomToast, ErrorView
+export {
+  Button,
+  GradientButton,
+  CustomIcon,
+  Theme,
+  TableList,
+  CustomImage,
+  MasonryList,
+  ProgressBar,
+  NavigatorBar,
+  Toast,
+  LoadingSpinner,
+  MyTextInput,
+  CustomToast,
+  ErrorView
 };
