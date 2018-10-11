@@ -143,10 +143,7 @@ export default class index_old extends Component<Props> {
   };
 
   onPaginate = () => {
-    if (
-      this.state.paginationStatus !== PaginationStatus.ALL_LOADED &&
-      !this.state.isRefreshing
-    ) {
+    if (this.state.paginationStatus !== PaginationStatus.ALL_LOADED && !this.state.isRefreshing) {
       console.log('onPaginate()');
       this.setState({ paginationStatus: PaginationStatus.WAITING });
       this.props.onFetch(this.getPage() + 1, this.postPaginate, this.endFetch);
@@ -263,9 +260,7 @@ export default class index_old extends Component<Props> {
 
     return (
       <View style={styles.fetchingView}>
-        <Text style={styles.paginationViewText}>
-          {this.props.waitingSpinnerText}
-        </Text>
+        <Text style={styles.paginationViewText}>{this.props.waitingSpinnerText}</Text>
       </View>
     );
   };
@@ -295,13 +290,8 @@ export default class index_old extends Component<Props> {
 
         return (
           <View style={styles.paginationView}>
-            <ActivityIndicator
-              color={this.props.spinnerColor}
-              size={this.props.waitingSpinnerSize}
-            />
-            <Text style={[styles.paginationViewText, { marginLeft: 5 }]}>
-              {this.props.waitingSpinnerText}
-            </Text>
+            <ActivityIndicator color={this.props.spinnerColor} size={this.props.waitingSpinnerSize} />
+            <Text style={[styles.paginationViewText, { marginLeft: 5 }]}>{this.props.waitingSpinnerText}</Text>
           </View>
         );
       }
@@ -323,10 +313,7 @@ export default class index_old extends Component<Props> {
   };
 
   renderEmptyView = () => {
-    if (
-      this.state.paginationStatus !== PaginationStatus.FIRST_LOAD &&
-      this.props.emptyView
-    ) {
+    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && this.props.emptyView) {
       return this.props.emptyView();
     }
 
@@ -336,20 +323,11 @@ export default class index_old extends Component<Props> {
   renderFooter = () => {
     if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
       return this.paginationFetchingView();
-    } else if (
-      this.state.paginationStatus === PaginationStatus.WAITING &&
-      this.props.autoPagination === false
-    ) {
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
       return this.paginationWaitingView(this.onPaginate);
-    } else if (
-      this.state.paginationStatus === PaginationStatus.WAITING &&
-      this.props.autoPagination === true
-    ) {
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
       return this.paginationWaitingView();
-    } else if (
-      this.getRows().length !== 0 &&
-      this.state.paginationStatus === PaginationStatus.ALL_LOADED
-    ) {
+    } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
       return this.paginationAllLoadedView();
     }
 
@@ -363,9 +341,7 @@ export default class index_old extends Component<Props> {
           onRefresh={this.onRefresh}
           refreshing={this.state.isRefreshing}
           colors={this.props.refreshableColors}
-          progressBackgroundColor={
-            this.props.refreshableProgressBackgroundColor
-          }
+          progressBackgroundColor={this.props.refreshableProgressBackgroundColor}
           size={this.props.refreshableSize}
           tintColor={this.props.refreshableTintColor}
           title={this.props.refreshableTitle}

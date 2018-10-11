@@ -9,13 +9,7 @@ import { loadBuDeJieData } from '../../servers/News';
 import type { RTBuDeJieType } from '../../servers/News';
 import { System } from '../../utils';
 import { ConfigStore } from '../../store/ConfigStore';
-import {
-  Joke,
-  Picture,
-  RTBDJResult,
-  ToolBar,
-  UserInfo
-} from '../../servers/News/interfaces';
+import { Joke, Picture, RTBDJResult, ToolBar, UserInfo } from '../../servers/News/interfaces';
 
 const ContainerHeight = System.SCREEN_HEIGHT - 49 - 64 - 54;
 const SpacingHeight = 80;
@@ -42,10 +36,7 @@ class BuDeJieMobx extends ConfigStore {
         item.containerHeight = imageHeight;
         item.isLongPicture = false;
 
-        if (
-          imageHeight > ContainerHeight &&
-          imageHeight < System.SCREEN_HEIGHT
-        ) {
+        if (imageHeight > ContainerHeight && imageHeight < System.SCREEN_HEIGHT) {
           item.containerHeight = imageHeight - SpacingHeight;
           item.isLongPicture = false;
         } else if (imageHeight > System.SCREEN_HEIGHT && item.is_gif === '0') {

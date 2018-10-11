@@ -38,8 +38,7 @@ class CustomImage extends React.Component<Props, any> {
     source = this.state.imageLoading
       ? source
       : {
-          uri:
-            'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png'
+          uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png'
         };
     return (
       <View style={[styles.customImageView]}>

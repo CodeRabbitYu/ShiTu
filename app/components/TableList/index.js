@@ -97,9 +97,7 @@ type OptionalProps<ItemT> = {
   numColumns?: number
 };
 
-export type Props<ItemT> = RequiredProps<ItemT> &
-  OptionalProps<ItemT> &
-  VirtualizedListProps;
+export type Props<ItemT> = RequiredProps<ItemT> & OptionalProps<ItemT> & VirtualizedListProps;
 
 type State<ItemT> = {
   dataSource: Array<ItemT>,
@@ -145,10 +143,7 @@ const defaultProps = {
 
 export type DefaultProps = typeof defaultProps;
 
-export default class index<ItemT> extends React.Component<
-  Props<ItemT>,
-  State<ItemT>
-> {
+export default class index<ItemT> extends React.Component<Props<ItemT>, State<ItemT>> {
   static defaultProps: DefaultProps = defaultProps;
 
   mounted: boolean;
@@ -196,15 +191,10 @@ export default class index<ItemT> extends React.Component<
   };
 
   onPaginate = () => {
-    if (
-      this.state.paginationStatus !== PaginationStatus.ALL_LOADED &&
-      !this.state.isRefreshing
-    ) {
+    if (this.state.paginationStatus !== PaginationStatus.ALL_LOADED && !this.state.isRefreshing) {
       console.log('onPaginate()');
       this.setState({ paginationStatus: PaginationStatus.WAITING });
-      const value = this.getPaginationTypeForPage()
-        ? this.getValue() + 1
-        : this.getValue();
+      const value = this.getPaginationTypeForPage() ? this.getValue() + 1 : this.getValue();
       this.props.onFetch(value, this.postPaginate, this.endFetch);
     }
   };
@@ -225,8 +215,7 @@ export default class index<ItemT> extends React.Component<
 
   getValue = (): ?string | ?number => this.value;
 
-  getPaginationTypeForPage = (): boolean =>
-    this.props.paginationType === 'page';
+  getPaginationTypeForPage = (): boolean => this.props.paginationType === 'page';
 
   setPage = (page: number) => (this.page = page);
 
@@ -246,22 +235,13 @@ export default class index<ItemT> extends React.Component<
     }
   }
 
-  scrollToIndex(params: {
-    animated?: ?boolean,
-    index: number,
-    viewOffset?: number,
-    viewPosition?: number
-  }) {
+  scrollToIndex(params: { animated?: ?boolean, index: number, viewOffset?: number, viewPosition?: number }) {
     if (this._flatList) {
       this._flatList.scrollToIndex(params);
     }
   }
 
-  scrollToItem(params: {
-    animated?: ?boolean,
-    item: ItemT,
-    viewPosition?: number
-  }) {
+  scrollToItem(params: { animated?: ?boolean, item: ItemT, viewPosition?: number }) {
     if (this._flatList) {
       this._flatList.scrollToItem(params);
     }
@@ -285,9 +265,7 @@ export default class index<ItemT> extends React.Component<
 
   postPaginate = (rows: Array<any> = []) => {
     // this.setPage(this.getPage() + 1)
-    this.getPaginationTypeForPage()
-      ? this.setValue(this.getValue() + 1)
-      : this.setValue(this.getValue());
+    this.getPaginationTypeForPage() ? this.setValue(this.getValue() + 1) : this.setValue(this.getValue());
     let mergedRows = [];
     let paginationStatus;
     if (rows.length === 0) {
@@ -339,9 +317,7 @@ export default class index<ItemT> extends React.Component<
 
     return (
       <View style={styles.fetchingView}>
-        <Text style={styles.paginationViewText}>
-          {this.props.waitingSpinnerText}
-        </Text>
+        <Text style={styles.paginationViewText}>{this.props.waitingSpinnerText}</Text>
       </View>
     );
   };
@@ -369,13 +345,8 @@ export default class index<ItemT> extends React.Component<
 
         return (
           <View style={styles.paginationView}>
-            <ActivityIndicator
-              color={this.props.spinnerColor}
-              size={this.props.waitingSpinnerSize}
-            />
-            <Text style={[styles.paginationViewText, { marginLeft: 5 }]}>
-              {this.props.waitingSpinnerText}
-            </Text>
+            <ActivityIndicator color={this.props.spinnerColor} size={this.props.waitingSpinnerSize} />
+            <Text style={[styles.paginationViewText, { marginLeft: 5 }]}>{this.props.waitingSpinnerText}</Text>
           </View>
         );
       }
@@ -387,20 +358,11 @@ export default class index<ItemT> extends React.Component<
   renderFooter = () => {
     if (this.state.paginationStatus === PaginationStatus.FIRST_LOAD) {
       return this.PaginationFetchingView();
-    } else if (
-      this.state.paginationStatus === PaginationStatus.WAITING &&
-      this.props.autoPagination === false
-    ) {
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === false) {
       return this.PaginationWaitingView(this.onPaginate);
-    } else if (
-      this.state.paginationStatus === PaginationStatus.WAITING &&
-      this.props.autoPagination === true
-    ) {
+    } else if (this.state.paginationStatus === PaginationStatus.WAITING && this.props.autoPagination === true) {
       return this.PaginationWaitingView();
-    } else if (
-      this.getRows().length !== 0 &&
-      this.state.paginationStatus === PaginationStatus.ALL_LOADED
-    ) {
+    } else if (this.getRows().length !== 0 && this.state.paginationStatus === PaginationStatus.ALL_LOADED) {
       return this.PaginationAllLoadedView();
     }
     return null;
@@ -413,9 +375,7 @@ export default class index<ItemT> extends React.Component<
           onRefresh={this.onRefresh}
           refreshing={this.state.isRefreshing}
           colors={this.props.refreshableColors}
-          progressBackgroundColor={
-            this.props.refreshableProgressBackgroundColor
-          }
+          progressBackgroundColor={this.props.refreshableProgressBackgroundColor}
           size={this.props.refreshableSize}
           tintColor={this.props.refreshableTintColor}
           title={this.props.refreshableTitle}
@@ -429,10 +389,7 @@ export default class index<ItemT> extends React.Component<
     const { numColumns, ListEmptyComponent } = this.props;
 
     let emptyView;
-    if (
-      this.state.paginationStatus !== PaginationStatus.FIRST_LOAD &&
-      ListEmptyComponent
-    ) {
+    if (this.state.paginationStatus !== PaginationStatus.FIRST_LOAD && ListEmptyComponent) {
       emptyView = <ListEmptyComponent />;
     }
 

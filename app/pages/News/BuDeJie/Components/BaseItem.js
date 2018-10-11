@@ -6,13 +6,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import {
-  RTBDJList,
-  ToolBar,
-  UserInfo,
-  Joke,
-  Picture
-} from '../../../../servers/News/interfaces';
+import { RTBDJList, ToolBar, UserInfo, Joke, Picture } from '../../../../servers/News/interfaces';
 import { ContainerItem } from './Items/ContainerItem';
 import type { NavigationState } from 'react-navigation';
 

@@ -9,7 +9,8 @@
     "test": "jest"
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "printWidth": 115
   },
   "dependencies": {
     "axios": "^0.18.0",

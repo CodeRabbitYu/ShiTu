@@ -6,11 +6,7 @@
 import { observable, action } from 'mobx';
 import { ConfigStore } from '../../store/ConfigStore';
 import type { Response } from 'react-native-image-picker';
-import {
-  fetchUpLoadToken,
-  upLoadImage,
-  fetchSearchDetail
-} from '../../servers/ShiTu';
+import { fetchUpLoadToken, upLoadImage, fetchSearchDetail } from '../../servers/ShiTu';
 import RNFetchBlob from 'rn-fetch-blob';
 
 class ShiTuMobx extends ConfigStore {

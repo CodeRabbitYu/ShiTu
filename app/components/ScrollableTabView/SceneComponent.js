@@ -6,9 +6,7 @@ const SceneComponent = Props => {
   const { shouldUpdated, ...props } = Props;
   return (
     <View {...props}>
-      <StaticContainer shouldUpdate={shouldUpdated}>
-        {props.children}
-      </StaticContainer>
+      <StaticContainer shouldUpdate={shouldUpdated}>{props.children}</StaticContainer>
     </View>
   );
 };

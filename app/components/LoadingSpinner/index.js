@@ -16,15 +16,8 @@ export default class LoadingSpinner extends Component<Props> {
     const { isVisible } = this.props;
 
     return (
-      <Modal
-        transparent={true}
-        onRequestClose={() => {}}
-        visible={isVisible}
-        animationType={'fade'}
-      >
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+      <Modal transparent={true} onRequestClose={() => {}} visible={isVisible} animationType={'fade'}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <View
             style={{
               justifyContent: 'center',

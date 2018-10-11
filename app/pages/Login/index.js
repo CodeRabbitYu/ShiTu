@@ -4,15 +4,7 @@
  */
 
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  AsyncStorage
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 
 import { Button, GradientButton } from '../../components';
 import BaseContainer from '../../components/BaseContainer';
@@ -123,10 +115,7 @@ export class Login extends React.Component<Props, any> {
           console.log('Login页面已经获得焦点', payload);
         }}
       >
-        <ScrollView
-          style={styles.scrollView}
-          keyboardShouldPersistTaps={'always'}
-        >
+        <ScrollView style={styles.scrollView} keyboardShouldPersistTaps={'always'}>
           <View style={styles.textInputBox}>
             <View style={[styles.textInputView, styles.phoneInputView]}>
               <TextInput
@@ -140,11 +129,7 @@ export class Login extends React.Component<Props, any> {
                   this.loginMobx.setLoginData(text, 'mobile');
                 }}
               />
-              <TouchableOpacity
-                activeOpacity={1}
-                onPress={this.getVerifyCode}
-                style={styles.sendCodeView}
-              >
+              <TouchableOpacity activeOpacity={1} onPress={this.getVerifyCode} style={styles.sendCodeView}>
                 {this.state.sec === sec ? (
                   <Text style={styles.sendCode}>发送验证码</Text>
                 ) : (

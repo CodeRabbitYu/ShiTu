@@ -19,8 +19,7 @@ export function UserInfoView(props: Props) {
 
   _profile_image = profile_image;
   if (!profile_image) {
-    _profile_image =
-      'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png';
+    _profile_image = 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png';
   }
   return (
     <View style={styles.userInfo}>
@@ -28,11 +27,7 @@ export function UserInfoView(props: Props) {
         <CustomImage source={{ uri: _profile_image }} style={styles.icon} />
       </Button>
 
-      <Button
-        style={styles.userDetailView}
-        activeOpacity={1}
-        onPress={() => alert('点击用户信息')}
-      >
+      <Button style={styles.userDetailView} activeOpacity={1} onPress={() => alert('点击用户信息')}>
         <View>
           <Text style={styles.userText} numberOfLines={2}>
             {name}

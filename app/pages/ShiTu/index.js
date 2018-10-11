@@ -4,15 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  StatusBar,
-  NativeModules,
-  DeviceInfo
-} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, StatusBar, NativeModules, DeviceInfo } from 'react-native';
 
 // const InterestQQ = NativeModules.InterestQQ;
 
@@ -29,9 +21,7 @@ import { PowerStore } from '../../store/PowerStore';
 
 import * as Animatable from 'react-native-animatable';
 const AnimationButton = Animatable.createAnimatableComponent(GradientButton);
-const AnimationImageBackground = Animatable.createAnimatableComponent(
-  ImageBackground
-);
+const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackground);
 
 import { ActionSheet, Theme } from 'teaset';
 import * as ImagePicker from 'react-native-image-picker';

@@ -22,8 +22,7 @@ class PowerStore {
 
     AsyncStorage.getItem(ST_BACKGROUND_IMAGE, (error, result) => {
       if (result === null) {
-        image_url =
-          'https://ww1.sinaimg.cn/bmiddle/0065oQSqly1ftzsj15hgvj30sg15hkbw.jpg';
+        image_url = 'https://ww1.sinaimg.cn/bmiddle/0065oQSqly1ftzsj15hgvj30sg15hkbw.jpg';
       } else {
         image_url = result;
       }

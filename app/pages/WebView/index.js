@@ -152,10 +152,7 @@ export default class index extends React.Component<Props, State> {
           hideShadow={false}
           onPress={this.reload}
         >
-          <Icon
-            name="ios-refresh"
-            style={[styles.actionButtonIcon, { fontSize: 20 }]}
-          />
+          <Icon name="ios-refresh" style={[styles.actionButtonIcon, { fontSize: 20 }]} />
         </ActionButton.Item>
         <ActionButton.Item
           buttonColor={this.state.isForWard ? '#1abc9c' : '#dddddd'}
@@ -174,12 +171,7 @@ export default class index extends React.Component<Props, State> {
         >
           <Icon name="ios-arrow-back" style={styles.actionButtonIcon} />
         </ActionButton.Item>
-        <ActionButton.Item
-          buttonColor={'#9b59b6'}
-          onPress={this.close}
-          size={40}
-          style={styles.actionItemStyle}
-        >
+        <ActionButton.Item buttonColor={'#9b59b6'} onPress={this.close} size={40} style={styles.actionItemStyle}>
           <Icon name="md-close-circle" style={styles.actionButtonIcon} />
         </ActionButton.Item>
       </ActionButton>

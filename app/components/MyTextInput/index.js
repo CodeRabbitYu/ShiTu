@@ -15,8 +15,7 @@ class MyTextInput extends Component<Props> {
     return (
       Platform.OS !== 'ios' ||
       (this.props.value === nextProps.value &&
-        (nextProps.defaultValue === 'undefined' ||
-          nextProps.defaultValue === '')) ||
+        (nextProps.defaultValue === 'undefined' || nextProps.defaultValue === '')) ||
       (this.props.defaultValue === nextProps.defaultValue &&
         (nextProps.value === 'undefined' || nextProps.value === ''))
     );

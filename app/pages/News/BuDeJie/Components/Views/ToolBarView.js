@@ -66,11 +66,7 @@ export class ToolBarView extends React.Component<Props, State> {
     return this.state.buttonData.map((item, index) => {
       const color = item.selected ? 'red' : 'orange';
       return (
-        <Button
-          key={index}
-          onPress={() => this.toolItemPress(index)}
-          activeOpacity={1}
-        >
+        <Button key={index} onPress={() => this.toolItemPress(index)} activeOpacity={1}>
           <View style={styles.button}>
             <Icon name={item.icon} size={20} color={color} />
             <Text style={styles.buttonTitle}>{item.title}</Text>

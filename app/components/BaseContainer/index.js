@@ -50,14 +50,7 @@ class BaseContainer extends Component<Props> {
   }
 
   renderContent() {
-    const {
-      store,
-      children,
-      onErrorPress,
-      errorTitle,
-      imageSource,
-      errorStyle
-    } = this.props;
+    const { store, children, onErrorPress, errorTitle, imageSource, errorStyle } = this.props;
     if (!store) return children;
     const { isLoading, isError, errorInfo } = store;
     // console.log(errorInfo);
@@ -89,13 +82,7 @@ class BaseContainer extends Component<Props> {
     const { navBar, isTopNavigator, navStyle, ...navProps } = this.props;
     let navView = null;
     if (typeof navBar === 'undefined') {
-      navView = (
-        <NavigatorBar
-          {...navProps}
-          style={navStyle}
-          isTopNavigator={isTopNavigator}
-        />
-      );
+      navView = <NavigatorBar {...navProps} style={navStyle} isTopNavigator={isTopNavigator} />;
     } else {
       navView = navBar;
     }
@@ -103,16 +90,9 @@ class BaseContainer extends Component<Props> {
   }
 
   renderBottom() {
-    const {
-      bottomStyle,
-      bottomBackgroundColor,
-      bottomHeight = 39,
-      isTopNavigator
-    } = this.props;
+    const { bottomStyle, bottomBackgroundColor, bottomHeight = 39, isTopNavigator } = this.props;
 
-    const backgroundColor = bottomBackgroundColor
-      ? bottomBackgroundColor
-      : 'white';
+    const backgroundColor = bottomBackgroundColor ? bottomBackgroundColor : 'white';
     const height = !isTopNavigator && Theme.isIPhoneX ? bottomHeight : 0;
     return <View style={[{ height, backgroundColor }, bottomStyle]} />;
   }
@@ -130,24 +110,12 @@ class BaseContainer extends Component<Props> {
     } = this.props;
 
     const backgroundColor = !isTopNavigator && Theme.isIPhoneX ? 'white' : null;
-    const marginTop = !isHiddenNavBar
-      ? Theme.statusBarHeight + Theme.navBarContentHeight
-      : 0;
+    const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
     return (
-      <SafeAreaView
-        style={[styles.container, style]}
-        forceInset={{ bottom: 'never', top: 'never' }}
-      >
+      <SafeAreaView style={[styles.container, style]} forceInset={{ bottom: 'never', top: 'never' }}>
         {!isHiddenNavBar && this.renderNavView()}
-        <View
-          style={[
-            styles.contentView,
-            { marginTop, backgroundColor },
-            style,
-            contentViewStyle
-          ]}
-        >
+        <View style={[styles.contentView, { marginTop, backgroundColor }, style, contentViewStyle]}>
           {this.renderContent()}
           {this.renderBottom()}
         </View>

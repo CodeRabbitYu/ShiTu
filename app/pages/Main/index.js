@@ -1,6 +1,5 @@
 /**
  * @flow
- * @prettier
  * Created by Rabbit on 2018/4/12.
  */
 
@@ -37,8 +36,7 @@ export class Main extends Component<Props, any> {
   listener: DeviceEventEmitter;
 
   static navigationOptions = ({ navigation }: { navigation: any }) => {
-    const badgeNumber =
-      navigation.state.params && navigation.state.params.badgeNumber;
+    const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
 
     const tabBarButtonComponent = (props: any) => {
       return [
@@ -81,36 +79,23 @@ export class Main extends Component<Props, any> {
       selectedIndex: null,
       modalSelectedIndex: null
     };
-    this._didFocusSubscription = props.navigation.addListener(
-      'didFocus',
-      (payload: any) =>
-        BackHandler.addEventListener(
-          'hardwareBackPress',
-          this.onBackButtonPressAndroid
-        )
+    this._didFocusSubscription = props.navigation.addListener('didFocus', (payload: any) =>
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
     );
   }
 
   componentDidMount() {
-    this.listener = DeviceEventEmitter.addListener(
-      'badgeNumber',
-      (badgeNumber: number) => {
-        // console.log(badgeNumber);
-        // alert(badgeNumber);
+    this.listener = DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+      // console.log(badgeNumber);
+      // alert(badgeNumber);
 
-        this.props.navigation.setParams({
-          badgeNumber: badgeNumber
-        });
-      }
-    );
+      this.props.navigation.setParams({
+        badgeNumber: badgeNumber
+      });
+    });
 
-    this._willBlurSubscription = this.props.navigation.addListener(
-      'willBlur',
-      (payload: any) =>
-        BackHandler.removeEventListener(
-          'hardwareBackPress',
-          this.onBackButtonPressAndroid
-        )
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', (payload: any) =>
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
     );
   }
 

@@ -4,15 +4,7 @@
  */
 
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-  Modal,
-  ActivityIndicator
-} from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, Modal, ActivityIndicator } from 'react-native';
 
 import { TableList } from '../../../components';
 import BaseContainer from '../../../components/BaseContainer';
@@ -44,11 +36,7 @@ class BuDeJie extends React.Component<Props, any> {
     this.buDeJieMobx = new BuDeJieMobx();
   }
 
-  onFetch = async (
-    value: any = this.buDeJieMobx.maxtime,
-    startFetch: Function,
-    abortFetch: Function
-  ) => {
+  onFetch = async (value: any = this.buDeJieMobx.maxtime, startFetch: Function, abortFetch: Function) => {
     try {
       await this.buDeJieMobx.fetchBuDeJieData(this.props.type, value);
       startFetch(this.buDeJieMobx.dataSource.slice(), 20);
@@ -58,7 +46,7 @@ class BuDeJie extends React.Component<Props, any> {
     }
   };
 
-  picturePress = (item: Picture) => {
+  picturePress = (item: Picture | any) => {
     if (item.isLongPicture || item.is_gif) {
       this.props.navigate('WebView', { uri: item.weixin_url });
     } else {
@@ -110,11 +98,7 @@ class BuDeJie extends React.Component<Props, any> {
 
   render() {
     return (
-      <BaseContainer
-        store={this.buDeJieMobx}
-        isHiddenNavBar={true}
-        isTopNavigator={true}
-      >
+      <BaseContainer store={this.buDeJieMobx} isHiddenNavBar={true} isTopNavigator={true}>
         <TableList
           style={{ backgroundColor: 'white' }}
           onFetch={this.onFetch}

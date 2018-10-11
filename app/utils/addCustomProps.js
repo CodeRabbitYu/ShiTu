@@ -11,8 +11,7 @@
  */
 export const addCustomProps = (WrapComponent, customProps) => {
   const componentRender = WrapComponent.prototype.render;
-  const componentDefaultProps =
-    WrapComponent.prototype.constructor.defaultProps;
+  const componentDefaultProps = WrapComponent.prototype.constructor.defaultProps;
   WrapComponent.prototype.constructor.defaultProps = {
     ...componentDefaultProps,
     ...customProps

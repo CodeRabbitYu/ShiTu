@@ -19,8 +19,7 @@ const ViewProps = require('ViewPropTypes');
 let TouchableComponent;
 
 if (Platform.OS === 'android') {
-  TouchableComponent =
-    Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
+  TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
 } else {
   TouchableComponent = TouchableOpacity;
 }
@@ -55,8 +54,7 @@ export default class Button extends React.Component<Props> {
   };
 
   static SelectableBackground = TouchableComponent.SelectableBackground;
-  static SelectableBackgroundBorderless =
-    TouchableComponent.SelectableBackgroundBorderless;
+  static SelectableBackgroundBorderless = TouchableComponent.SelectableBackgroundBorderless;
   static Ripple = TouchableComponent.Ripple;
   static canUseNativeForeground = TouchableComponent.canUseNativeForeground;
 
@@ -84,8 +82,7 @@ export default class Button extends React.Component<Props> {
     }
 
     if (TouchableComponent === TouchableNativeFeedback) {
-      useForeground =
-        foreground && TouchableNativeFeedback.canUseNativeForeground();
+      useForeground = foreground && TouchableNativeFeedback.canUseNativeForeground();
 
       if (foreground && background) {
         console.warn(
@@ -107,11 +104,7 @@ export default class Button extends React.Component<Props> {
       );
     } else if (TouchableComponent === TouchableOpacity) {
       return (
-        <TouchableComponent
-          {...props}
-          style={style}
-          activeOpacity={activeOpacity}
-        >
+        <TouchableComponent {...props} style={style} activeOpacity={activeOpacity}>
           {title}
           {children}
         </TouchableComponent>

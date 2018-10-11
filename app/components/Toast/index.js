@@ -55,14 +55,8 @@ export default class Toast extends Component<Props, State> {
     };
   }
 
-  show(
-    text: string,
-    position?: positionType = 'bottom',
-    duration?: number,
-    callback?: Function
-  ) {
-    this.duration =
-      typeof duration === 'number' ? duration : DURATION.LENGTH_SHORT;
+  show(text: string, position?: positionType = 'bottom', duration?: number, callback?: Function) {
+    this.duration = typeof duration === 'number' ? duration : DURATION.LENGTH_SHORT;
     this.callback = callback;
     this.position = position;
     this.setState({
@@ -122,19 +116,11 @@ export default class Toast extends Component<Props, State> {
 
     const view = this.state.isShow ? (
       <View style={[styles.container, { top: pos }]} pointerEvents="none">
-        <Animated.View
-          style={[
-            styles.content,
-            { opacity: this.state.opacityValue },
-            this.props.style
-          ]}
-        >
+        <Animated.View style={[styles.content, { opacity: this.state.opacityValue }, this.props.style]}>
           {React.isValidElement(this.state.text) ? (
             this.state.text
           ) : (
-            <Text style={[styles.text, this.props.textStyle]}>
-              {this.state.text}
-            </Text>
+            <Text style={[styles.text, this.props.textStyle]}>{this.state.text}</Text>
           )}
         </Animated.View>
       </View>

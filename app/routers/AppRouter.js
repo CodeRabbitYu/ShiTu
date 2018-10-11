@@ -5,12 +5,7 @@
 
 import React from 'react';
 
-import {
-  StackNavigator,
-  TabBarBottom,
-  createBottomTabNavigator,
-  createStackNavigator
-} from 'react-navigation';
+import { StackNavigator, TabBarBottom, createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 
 import { System } from '../utils/index';
 import { CustomIcon, Theme } from '../components/index';
@@ -136,13 +131,7 @@ export const AppRouter = createStackNavigator(
 
 const TabOptions = (tabBarTitle, tabBarIconName) => {
   const title = tabBarTitle;
-  const tabBarIcon = ({
-    tintColor,
-    focused
-  }: {
-    tintColor?: string,
-    focused: boolean
-  }) => {
+  const tabBarIcon = ({ tintColor, focused }: { tintColor?: string, focused: boolean }) => {
     const color = focused ? Theme.tabBarColor : '#aaa';
     return (
       <View style={{ marginTop: 3 }}>

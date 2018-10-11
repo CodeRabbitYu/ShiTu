@@ -33,10 +33,7 @@ export async function loadWelfareData(
 // export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
 export type RTBuDeJieType = 1 | 41 | 10 | 29;
 
-export async function loadBuDeJieData(
-  type: RTBuDeJieType,
-  maxtime: string
-): Promise<RTBDJResult> {
+export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
   const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
 
   return await Fetch.get(url);

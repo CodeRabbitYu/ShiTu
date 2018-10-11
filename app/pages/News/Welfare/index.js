@@ -4,15 +4,7 @@
  */
 
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ActivityIndicator,
-  Modal,
-  TouchableWithoutFeedback
-} from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator, Modal, TouchableWithoutFeedback } from 'react-native';
 import { MasonryList } from '../../../components';
 import BaseContainer from '../../../components/BaseContainer';
 
@@ -101,10 +93,7 @@ class Welfare extends React.Component<Props> {
       <Button onPress={() => this.showPopCustom(item)}>
         <CustomImage
           source={{ uri: item.url }}
-          style={[
-            styles.cell,
-            { height: item.height, backgroundColor: 'white' }
-          ]}
+          style={[styles.cell, { height: item.height, backgroundColor: 'white' }]}
         />
       </Button>
     );
@@ -129,20 +118,10 @@ class Welfare extends React.Component<Props> {
   };
 
   render() {
-    const {
-      dataSource,
-      isRefreshing,
-      refreshData,
-      loadMoreData
-    } = this.welfareMobx;
+    const { dataSource, isRefreshing, refreshData, loadMoreData } = this.welfareMobx;
 
     return (
-      <BaseContainer
-        key={'base'}
-        isHiddenNavBar={true}
-        isTopNavigator={true}
-        store={this.welfareMobx}
-      >
+      <BaseContainer key={'base'} isHiddenNavBar={true} isTopNavigator={true} store={this.welfareMobx}>
         <MasonryList
           onRefresh={refreshData}
           style={{ backgroundColor: 'white' }}

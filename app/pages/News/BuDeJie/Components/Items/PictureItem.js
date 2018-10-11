@@ -3,14 +3,7 @@
  * Created by Rabbit on 2018/5/14.
  */
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ActivityIndicator,
-  AccessibilityInfo
-} from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator, AccessibilityInfo } from 'react-native';
 import { CustomImage, Button } from '../../../../../components/index';
 import { System } from '../../../../../utils';
 import type { Picture } from '../../../../../servers/News/interfaces';
@@ -23,13 +16,7 @@ type Props = {
 const maxImageHeight = 7000;
 
 const renderPicture = (props: Props) => {
-  const {
-    cdn_img,
-    isLongPicture,
-    containerHeight,
-    is_gif,
-    gifFistFrame
-  } = props.pictureData;
+  const { cdn_img, isLongPicture, containerHeight, is_gif, gifFistFrame } = props.pictureData;
 
   // console.log('pictureData', props.pictureData)
 

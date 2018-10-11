@@ -10,9 +10,7 @@ import BaseContainer from '../../components/BaseContainer';
 import { observer, inject } from 'mobx-react';
 
 // import ScrollableTabView from '../../components/ScrollableTabView';
-import ScrollableTabView, {
-  DefaultTabBar
-} from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 import { Welfare } from './Welfare';
 import { BuDeJie } from './BuDeJie';
@@ -77,14 +75,7 @@ class News extends React.Component<any, State> {
                 />
               );
             } else {
-              return (
-                <BuDeJie
-                  type={item.type}
-                  tabLabel={item.title}
-                  key={i}
-                  navigate={item.navigate}
-                />
-              );
+              return <BuDeJie type={item.type} tabLabel={item.title} key={i} navigate={item.navigate} />;
             }
           })}
         </ScrollableTabView>

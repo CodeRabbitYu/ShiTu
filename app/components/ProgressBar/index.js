@@ -4,13 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  LayoutAnimation,
-  InteractionManager
-} from 'react-native';
+import { Text, View, StyleSheet, LayoutAnimation, InteractionManager } from 'react-native';
 import { Theme } from 'teaset';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -57,18 +51,8 @@ export default class ProgressBar extends Component<Props, State> {
   render() {
     return (
       <View style={[styles.flexBox, styles.progressBar, this.props.style]}>
-        <View
-          style={[
-            { flex: this.state.progress },
-            { backgroundColor: 'rgba(79, 181, 250, 1)' }
-          ]}
-        />
-        <View
-          style={[
-            { flex: 100 - this.state.progress },
-            { backgroundColor: this.props.unfilledColor }
-          ]}
-        />
+        <View style={[{ flex: this.state.progress }, { backgroundColor: 'rgba(79, 181, 250, 1)' }]} />
+        <View style={[{ flex: 100 - this.state.progress }, { backgroundColor: this.props.unfilledColor }]} />
       </View>
     );
   }

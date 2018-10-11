@@ -47,10 +47,7 @@ class LoginMobx {
    */
   @action.bound
   checkObj() {
-    const typeArr = [
-      { key: 'mobile', value: '手机号' },
-      { key: 'code', value: '验证码' }
-    ];
+    const typeArr = [{ key: 'mobile', value: '手机号' }, { key: 'code', value: '验证码' }];
     for (let i = 0; i < typeArr.length; i++) {
       if (!this.params[typeArr[i].key]) {
         console.log(typeArr[i].value + '不能为空');

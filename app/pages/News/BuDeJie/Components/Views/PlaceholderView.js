@@ -19,9 +19,7 @@ export default class PlaceholderView extends React.Component<Props> {
 
   render() {
     return (
-      <View
-        style={{ paddingHorizontal: px2dp(20), paddingVertical: px2dp(10) }}
-      >
+      <View style={{ paddingHorizontal: px2dp(20), paddingVertical: px2dp(10) }}>
         <UserInfoPlaceHolderView />
         <ContentPlaceHolderView type={this.props.type} />
         <ToolBarPlaceHolderView />
@@ -41,12 +39,7 @@ const ContentPlaceHolderView = ({ type }: { type: type }) => {
           animate={'fade'}
         />
         <View style={{ marginTop: px2dp(20) }} />
-        <Placeholder.Box
-          height={px2dp(400)}
-          width="100%"
-          radius={5}
-          animate={'fade'}
-        />
+        <Placeholder.Box height={px2dp(400)} width="100%" radius={5} animate={'fade'} />
       </View>
     );
   }
@@ -78,12 +71,7 @@ const ContentPlaceHolderView = ({ type }: { type: type }) => {
           animate={'fade'}
         />
         <View style={{ marginTop: px2dp(20) }} />
-        <Placeholder.Box
-          height={px2dp(400)}
-          width="100%"
-          radius={5}
-          animate={'fade'}
-        />
+        <Placeholder.Box height={px2dp(400)} width="100%" radius={5} animate={'fade'} />
       </View>
     );
   }
@@ -97,12 +85,7 @@ const ContentPlaceHolderView = ({ type }: { type: type }) => {
         animate={'fade'}
       />
       <View style={{ marginTop: px2dp(20) }} />
-      <Placeholder.Box
-        height={px2dp(400)}
-        width="100%"
-        radius={5}
-        animate={'fade'}
-      />
+      <Placeholder.Box height={px2dp(400)} width="100%" radius={5} animate={'fade'} />
     </View>
   );
 };
@@ -121,12 +104,7 @@ const ToolBarPlaceHolderView = () => {
 const ToolBarItem = () => {
   return (
     <View style={{ flexDirection: 'row' }}>
-      <Placeholder.Box
-        height={px2dp(50)}
-        width={SCREEN_WIDTH * 0.234}
-        animate={'fade'}
-        radius={5}
-      />
+      <Placeholder.Box height={px2dp(50)} width={SCREEN_WIDTH * 0.234} animate={'fade'} radius={5} />
       <View style={{ marginLeft: px2dp(2) }} />
     </View>
   );
@@ -147,11 +125,7 @@ const UserInfoPlaceHolderView = () => {
           animate={'fade'}
         />
         <View style={{ marginTop: px2dp(10) }} />
-        <Placeholder.Line
-          textSize={FONT_SIZE(16)}
-          width="30%"
-          animate={'fade'}
-        />
+        <Placeholder.Line textSize={FONT_SIZE(16)} width="30%" animate={'fade'} />
       </View>
     </View>
   );

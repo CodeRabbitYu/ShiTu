@@ -30,11 +30,7 @@ export class BuDeJieDetail extends React.Component<Props> {
   };
 
   renderPicture() {
-    const {
-      cdn_img,
-      isLongPicture,
-      imageHeight
-    } = this.props.navigation.state.params.pictureData;
+    const { cdn_img, isLongPicture, imageHeight } = this.props.navigation.state.params.pictureData;
 
     if (isLongPicture) {
       return (

@@ -27,14 +27,7 @@ export default class index extends React.Component<Props> {
   };
 
   render() {
-    const {
-      startColor,
-      endColor,
-      onPress,
-      gradientStyle,
-      btnStyle,
-      children
-    } = this.props;
+    const { startColor, endColor, onPress, gradientStyle, btnStyle, children } = this.props;
     return (
       <LinearGradient
         start={{ x: 0.0, y: 0.25 }}

@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Animated,
-  TouchableOpacity,
-  ViewPropTypes
-} from 'react-native';
+import { StyleSheet, Text, View, Animated, TouchableOpacity, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 
 export default class DefaultTabBar extends Component {
@@ -38,15 +31,9 @@ export default class DefaultTabBar extends Component {
     const fontWeight = isTabActive ? 'bold' : 'normal';
 
     return (
-      <TouchableOpacity
-        style={styles.flexOne}
-        key={name}
-        onPress={() => onPressHandler(page)}
-      >
+      <TouchableOpacity style={styles.flexOne} key={name} onPress={() => onPressHandler(page)}>
         <View style={[styles.tab, this.props.tabStyle]}>
-          <Text style={[{ color: textColor, fontWeight }, textStyle]}>
-            {name}
-          </Text>
+          <Text style={[{ color: textColor, fontWeight }, textStyle]}>{name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -68,13 +55,7 @@ export default class DefaultTabBar extends Component {
       outputRange: [0, containerWidth / numberOfTabs]
     });
     return (
-      <View
-        style={[
-          styles.tabs,
-          { backgroundColor: this.props.backgroundColor },
-          this.props.style
-        ]}
-      >
+      <View style={[styles.tabs, { backgroundColor: this.props.backgroundColor }, this.props.style]}>
         {this.props.tabs.map((name, page) => {
           const isTabActive = this.props.activeTab === page;
           const renderTab = this.props.renderTab || this.renderTab;
@@ -89,9 +70,9 @@ export default class DefaultTabBar extends Component {
             this.props.underlineStyle
           ]}
         />
-        {/*<Animated.View*/}
-        {/*style={[tabUnderlineStyle, { left }, this.props.underlineStyle]}*/}
-        {/*/>*/}
+        {/* <Animated.View*/}
+        {/* style={[tabUnderlineStyle, { left }, this.props.underlineStyle]}*/}
+        {/* />*/}
       </View>
     );
   }

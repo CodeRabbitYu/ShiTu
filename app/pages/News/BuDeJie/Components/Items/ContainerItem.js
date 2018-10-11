@@ -38,10 +38,7 @@ class ContainerItem extends React.Component<Props> {
       return (
         <View>
           <JokeItem jokeData={jokeData} />
-          <PictureItem
-            pictureData={pictureData}
-            picturePress={this.props.picturePress}
-          />
+          <PictureItem pictureData={pictureData} picturePress={this.props.picturePress} />
         </View>
       );
     }
@@ -58,10 +55,7 @@ class ContainerItem extends React.Component<Props> {
       return (
         <View>
           <JokeItem jokeData={jokeData} />
-          <VideoItem
-            pictureData={pictureData}
-            videoPress={this.props.videoPress}
-          />
+          <VideoItem pictureData={pictureData} videoPress={this.props.videoPress} />
         </View>
       );
     }

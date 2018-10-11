@@ -35,11 +35,7 @@ _Axios.interceptors.request.use(
   config => {
     console.log(config);
 
-    if (
-      config.method === 'post' ||
-      config.method === 'put' ||
-      config.method === 'delete'
-    ) {
+    if (config.method === 'post' || config.method === 'put' || config.method === 'delete') {
       // console.log(qs.stringify(config.data))
       // console.log(JSON.stringify(config.data));
 

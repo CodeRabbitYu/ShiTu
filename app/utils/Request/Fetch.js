@@ -77,13 +77,7 @@ class Fetch {
    * @returns {Promise.<TResult>}
    *
    */
-  static fetch<T>({
-    method,
-    url,
-    params = {},
-    config = {},
-    headers
-  }): Promise<T> {
+  static fetch<T>({ method, url, params = {}, config = {}, headers }): Promise<T> {
     let _method;
     let _params;
     let _url = url;

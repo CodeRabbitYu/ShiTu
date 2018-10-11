@@ -20,10 +20,7 @@ export const VideoItem = (props: Props) => {
   return (
     <Button style={styles.container} onPress={props.videoPress}>
       <View>
-        <CustomImage
-          source={{ uri: cdn_img }}
-          style={[styles.picture, { height: containerHeight }]}
-        />
+        <CustomImage source={{ uri: cdn_img }} style={[styles.picture, { height: containerHeight }]} />
         <View
           style={{
             position: 'absolute',

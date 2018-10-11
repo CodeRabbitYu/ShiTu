@@ -45,9 +45,7 @@ class NavigatorBar extends React.PureComponent<Props> {
     if (isTopNavigator || leftView) {
       left = leftView;
     } else {
-      left = (
-        <NavigationBar.BackButton title="返回" onPress={this.backButtonPress} />
-      );
+      left = <NavigationBar.BackButton title="返回" onPress={this.backButtonPress} />;
     }
     return left;
   };

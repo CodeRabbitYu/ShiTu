@@ -3,14 +3,7 @@
  * Created by Rabbit on 2018/5/1.
  */
 import * as React from 'react';
-import {
-  VirtualizedList,
-  View,
-  ScrollView,
-  StyleSheet,
-  findNodeHandle,
-  RefreshControl
-} from 'react-native';
+import { VirtualizedList, View, ScrollView, StyleSheet, findNodeHandle, RefreshControl } from 'react-native';
 
 type Column = {
   index: number,
@@ -31,10 +24,7 @@ const _stateFromProps = ({ numColumns, data, getHeightForItem }) => {
 
   data.forEach((item, index) => {
     const height = getHeightForItem({ item, index });
-    const column = columns.reduce(
-      (prev, cur) => (cur.totalHeight < prev.totalHeight ? cur : prev),
-      columns[0]
-    );
+    const column = columns.reduce((prev, cur) => (cur.totalHeight < prev.totalHeight ? cur : prev), columns[0]);
     column.data.push(item);
     column.heights.push(height);
     column.totalHeight += height;
@@ -46,9 +36,7 @@ const _stateFromProps = ({ numColumns, data, getHeightForItem }) => {
 export type Props = {
   data: Array<any>,
   numColumns: number,
-  renderItem: ({ item: any, index: number, column: number }) => ?React.Element<
-    any
-  >,
+  renderItem: ({ item: any, index: number, column: number }) => ?React.Element<any>,
   getHeightForItem: ({ item: any, index: number }) => number,
   ListHeaderComponent?: ?React.ComponentType<any>,
   ListEmptyComponent?: ?React.ComponentType<any>,
@@ -102,12 +90,7 @@ export default class MasonryList extends React.Component<Props, State> {
         return (
           <ScrollView
             {...props}
-            refreshControl={
-              <RefreshControl
-                refreshing={props.refreshing}
-                onRefresh={props.onRefresh}
-              />
-            }
+            refreshControl={<RefreshControl refreshing={props.refreshing} onRefresh={props.onRefresh} />}
           />
         );
       }
@@ -145,55 +128,39 @@ export default class MasonryList extends React.Component<Props, State> {
   }
 
   _onLayout = event => {
-    this._listRefs.forEach(
-      list => list && list._onLayout && list._onLayout(event)
-    );
+    this._listRefs.forEach(list => list && list._onLayout && list._onLayout(event));
   };
 
   _onContentSizeChange = (width, height) => {
-    this._listRefs.forEach(
-      list =>
-        list &&
-        list._onContentSizeChange &&
-        list._onContentSizeChange(width, height)
-    );
+    this._listRefs.forEach(list => list && list._onContentSizeChange && list._onContentSizeChange(width, height));
   };
 
   _onScroll = event => {
     if (this.props.onScroll) {
       this.props.onScroll(event);
     }
-    this._listRefs.forEach(
-      list => list && list._onScroll && list._onScroll(event)
-    );
+    this._listRefs.forEach(list => list && list._onScroll && list._onScroll(event));
   };
 
   _onScrollBeginDrag = event => {
     if (this.props.onScrollBeginDrag) {
       this.props.onScrollBeginDrag(event);
     }
-    this._listRefs.forEach(
-      list => list && list._onScrollBeginDrag && list._onScrollBeginDrag(event)
-    );
+    this._listRefs.forEach(list => list && list._onScrollBeginDrag && list._onScrollBeginDrag(event));
   };
 
   _onScrollEndDrag = event => {
     if (this.props.onScrollEndDrag) {
       this.props.onScrollEndDrag(event);
     }
-    this._listRefs.forEach(
-      list => list && list._onScrollEndDrag && list._onScrollEndDrag(event)
-    );
+    this._listRefs.forEach(list => list && list._onScrollEndDrag && list._onScrollEndDrag(event));
   };
 
   _onMomentumScrollEnd = event => {
     if (this.props.onMomentumScrollEnd) {
       this.props.onMomentumScrollEnd(event);
     }
-    this._listRefs.forEach(
-      list =>
-        list && list._onMomentumScrollEnd && list._onMomentumScrollEnd(event)
-    );
+    this._listRefs.forEach(list => list && list._onMomentumScrollEnd && list._onMomentumScrollEnd(event));
   };
 
   _getItemLayout = (columnIndex, rowIndex) => {
@@ -246,12 +213,8 @@ export default class MasonryList extends React.Component<Props, State> {
             data={col.data}
             getItemCount={this._getItemCount}
             getItem={this._getItem}
-            getItemLayout={(data, index) =>
-              this._getItemLayout(col.index, index)
-            }
-            renderItem={({ item, index }) =>
-              renderItem({ item, index, column: col.index })
-            }
+            getItemLayout={(data, index) => this._getItemLayout(col.index, index)}
+            renderItem={({ item, index }) => renderItem({ item, index, column: col.index })}
             renderScrollComponent={this._renderScrollComponent}
             keyExtractor={keyExtractor}
             onEndReached={onEndReached}

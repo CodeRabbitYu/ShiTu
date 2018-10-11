@@ -4,14 +4,7 @@
  */
 
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  ActivityIndicator
-} from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, ActivityIndicator } from 'react-native';
 import { JokeItem } from '../Items/JokeItem';
 import { PictureItem } from '../Items/PictureItem';
 import { CustomImage, Button } from '../../../../../components/index';
@@ -36,14 +29,7 @@ export class ModalView extends React.Component<Props> {
   };
 
   renderItem() {
-    const {
-      jokeData,
-      pictureData,
-      type,
-      isLongPicture,
-      cdn_img,
-      imageHeight
-    } = this.props.itemData;
+    const { jokeData, pictureData, type, isLongPicture, cdn_img, imageHeight } = this.props.itemData;
     /**
      * @desc 全部
      */
@@ -102,11 +88,7 @@ export class ModalView extends React.Component<Props> {
     return (
       <View style={styles.container}>
         {this.renderItem()}
-        <ActivityIndicator
-          size={'large'}
-          animating={this.isVisible}
-          style={styles.activityStyle}
-        />
+        <ActivityIndicator size={'large'} animating={this.isVisible} style={styles.activityStyle} />
       </View>
     );
   }
