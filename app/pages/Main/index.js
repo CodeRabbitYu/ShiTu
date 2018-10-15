@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Label, ListRow, PopoverPicker, Badge } from 'teaset';
 import Theme from 'teaset/themes/Theme';
 import BaseContainer from '../../components/BaseContainer';
-import PopoverPickerViewItem from './Components/PopoverPickerViewItem';
+import PopoverPickerViewItem from '../../components/PopoverItems/PopoverPickerViewItem';
 
 type Props = {
   navigation: any,

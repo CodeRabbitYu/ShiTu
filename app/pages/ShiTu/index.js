@@ -13,7 +13,7 @@ import { StyleSheet, Text, View, ImageBackground, StatusBar, NativeModules, Devi
 
 import { ShiTuMobx } from '../../mobx/ShiTu';
 
-import { GradientButton } from '../../components';
+import { GradientButton, PopoverActionSheetItem } from '../../components';
 import BaseContainer from '../../components/BaseContainer';
 import { System } from '../../utils';
 import { observer, inject } from 'mobx-react';
@@ -41,6 +41,7 @@ class ShiTu extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
+    ActionSheet.ActionSheetView.Item = PopoverActionSheetItem;
     this.shiTuMobx = new ShiTuMobx();
   }
 
@@ -63,13 +64,9 @@ class ShiTu extends Component<Props> {
     const launchType = `launch${type}`;
 
     ImagePicker[launchType](options, async imageResponse => {
-      console.log('imageResponse', imageResponse);
-
       this.props.configStore.showLoading();
 
       const imageData = await this.shiTuMobx.uploadImage(imageResponse);
-
-      console.log('imageData', imageData);
 
       const params = {
         token: imageData.key
@@ -86,45 +83,6 @@ class ShiTu extends Component<Props> {
   };
 
   openImagePicker = async () => {
-    // console.log('NativeModules', NativeModules.InterestQQ);
-
-    // NativeModules.InterestQQ.ssoLogin()
-    // 	.then(() => { console.log('Installed'); })
-    // 	.catch(() => { console.log('not installed'); });
-    //
-    // NativeModules.InterestQQ.testPrint("Jack", {
-    // 	height: '1.78m',
-    // 	weight: '7kg'
-    // });
-    //
-    // NativeModules.InterestQQ.checkClientInstalled()
-    // 	.then(result => {
-    // 		console.log('result', result);
-    // 	})
-    // 	.catch(e => {
-    // 		console.log('e', e);
-    // 	});
-
-    // QQ.shareText('分享文字',QQ.shareScene.QQ)
-    // 	.then((result)=>{console.log('result is', result)})
-    // 	.catch((error)=>{console.log('error is', error)});
-
-    // UMShare.authLogin(SharePlatform.QQ, (result) => {
-    // 	console.log(result);
-    // 	// code: 0成功、1失败、2取消
-    // 	if(result.code === 0) {
-    // 		console.log('授权登录成功:' +
-    // 			'userId: ' + result.uid +QQShareType
-    // 			'accessToken: ' + result.accessToken +
-    // 			'userName: ' + result.userName +
-    // 			'userGender: ' + result.userGender +
-    // 			'userAvatar: ' + result.userAvatar
-    // 		);
-    // 	} else {
-    // 		// TODO...
-    // 	}
-    // });
-
     const items = [
       {
         title: '拍照',

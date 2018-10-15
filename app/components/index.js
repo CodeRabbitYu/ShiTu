@@ -19,6 +19,8 @@ import LoadingSpinner from './LoadingSpinner';
 import MyTextInput from './MyTextInput';
 import CustomToast from './CustomToast';
 import ErrorView from './ErrorView';
+import PopoverActionSheetItem from './PopoverItems/PopoverActionSheetItem';
+import PopoverPickerViewItem from './PopoverItems/PopoverPickerViewItem';
 
 export {
   Button,
@@ -34,5 +36,7 @@ export {
   LoadingSpinner,
   MyTextInput,
   CustomToast,
-  ErrorView
+  ErrorView,
+  PopoverActionSheetItem,
+  PopoverPickerViewItem
 };

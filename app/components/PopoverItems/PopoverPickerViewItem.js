@@ -12,11 +12,12 @@ type Props = {
   title: any,
   accessory: any,
   selected: any,
-  others: any
+  props: any
 };
 export default class PopoverPickerViewItem extends React.Component<Props> {
   buildProps() {
-    let { style, title, accessory, selected, ...others } = this.props;
+    let { style, title, accessory, ...props } = this.props;
+    const { selected } = this.props;
 
     const accessorySource = require('teaset/icons/check.png');
 
@@ -58,15 +59,15 @@ export default class PopoverPickerViewItem extends React.Component<Props> {
       );
     }
 
-    this.props = { style, title, accessory, selected, ...others };
+    this.props = { style, title, accessory, selected, ...props };
   }
 
   render() {
     this.buildProps();
 
-    const { title, accessory, ...others } = this.props;
+    const { title, accessory, ...props } = this.props;
     return (
-      <TouchableOpacity {...others}>
+      <TouchableOpacity {...props}>
         {title}
         {accessory}
       </TouchableOpacity>
