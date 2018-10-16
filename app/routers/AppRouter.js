@@ -16,10 +16,11 @@ import { Main } from '../pages/Main/index';
 import WebView from '../pages/WebView/index';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Login/Register';
+import { MainData } from '../pages/MainData';
 
-// import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
-import { View } from 'react-native';
+import { DeviceEventEmitter, TouchableOpacity, View } from 'react-native';
+import { Badge } from 'teaset';
 
 const MyTab = createBottomTabNavigator(
   {
@@ -39,10 +40,10 @@ const MyTab = createBottomTabNavigator(
   {
     initialRouteName: 'ShiTu',
     backBehavior: 'none',
+    // lazy: false,
     tabBarOptions: {
       tabStyle: {
-        marginTop: 10
-        // height: 49,
+        // marginTop: 10,
       },
       style: {},
       safeAreaInset: {
@@ -53,6 +54,22 @@ const MyTab = createBottomTabNavigator(
     }
   }
 );
+Main.navigationOptions = ({ navigation }) => {
+  DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+    navigation.setParams({
+      badgeNumber: badgeNumber
+    });
+  });
+  const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
+
+  const tabBarButtonComponent = (props: any) => {
+    return [
+      <TouchableOpacity {...props} activeOpacity={1} style={{ width: SCREEN_WIDTH / 3 }} key={'tabBar'} />,
+      <Badge count={badgeNumber} key={'Badge'} style={{ position: 'absolute', left: SCREEN_WIDTH - 60, top: 5 }} />
+    ];
+  };
+  return { tabBarButtonComponent };
+};
 
 MyTab.navigationOptions = ({ navigation }) => {
   const routes = navigation.state.routes;
@@ -111,6 +128,9 @@ export const AppRouter = createStackNavigator(
     },
     Register: {
       screen: Register
+    },
+    MainData: {
+      screen: MainData
     }
   },
   {
@@ -131,7 +151,7 @@ export const AppRouter = createStackNavigator(
 
 const TabOptions = (tabBarTitle, tabBarIconName) => {
   const title = tabBarTitle;
-  const tabBarIcon = ({ tintColor, focused }: { tintColor?: string, focused: boolean }) => {
+  const tabBarIcon = ({ focused }: { focused: boolean }) => {
     const color = focused ? Theme.tabBarColor : '#aaa';
     return (
       <View style={{ marginTop: 3 }}>

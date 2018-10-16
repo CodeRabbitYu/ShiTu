@@ -16,12 +16,10 @@ import {
   DeviceEventEmitter
 } from 'react-native';
 
-import { MyTextInput, Button, GradientButton } from '../../components';
+import { Button, GradientButton, PopoverPickerViewItem } from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Label, ListRow, PopoverPicker, Badge } from 'teaset';
-import Theme from 'teaset/themes/Theme';
 import BaseContainer from '../../components/BaseContainer';
-import PopoverPickerViewItem from '../../components/PopoverItems/PopoverPickerViewItem';
 
 type Props = {
   navigation: any,
@@ -31,85 +29,24 @@ type Props = {
 export class Main extends Component<Props, any> {
   items: Array<any>;
   popView: any;
-  input: any;
   badgeNumber: number = 10;
-  listener: DeviceEventEmitter;
 
-  static navigationOptions = ({ navigation }: { navigation: any }) => {
-    const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
-
-    const tabBarButtonComponent = (props: any) => {
-      return [
-        <TouchableOpacity
-          {...props}
-          activeOpacity={1}
-          style={{ width: SCREEN_WIDTH / 3, marginTop: 10 }}
-          key={'tabBar'}
-        />,
-        <Badge
-          count={badgeNumber}
-          key={'Badge'}
-          style={{ position: 'absolute', left: SCREEN_WIDTH - 50, top: 5 }}
-        />
-      ];
-    };
-    return { tabBarButtonComponent };
-  };
-
-  _didFocusSubscription: any;
-  _willBlurSubscription: any;
+  static navigationOptions = {};
 
   constructor(props: Props) {
     super(props);
-
-    this.items = [
-      // {title: '扫一扫', style: {backgroundColor: 'red'}},
-      // {title: '加好友/群', style: {backgroundColor: 'red'}},
-      // {title: '首付款', style: {backgroundColor: 'red'}},
-      // {title: '高能舞室', style: {backgroundColor: 'red'}},
-      '扫一扫',
-      '加好友/群',
-      '首付款',
-      '高能舞室'
-    ];
+    PopoverPicker.PopoverPickerView.Item = PopoverPickerViewItem;
+    this.items = ['扫一扫', '加好友/群', '首付款', '高能舞室'];
 
     this.state = {
-      value: '',
-      defaultValue: '测试默认value' || this.props.defaultValue,
       selectedIndex: null,
       modalSelectedIndex: null
     };
-    this._didFocusSubscription = props.navigation.addListener('didFocus', (payload: any) =>
-      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-    );
-  }
-
-  componentDidMount() {
-    this.listener = DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
-      // console.log(badgeNumber);
-      // alert(badgeNumber);
-
-      this.props.navigation.setParams({
-        badgeNumber: badgeNumber
-      });
-    });
-
-    this._willBlurSubscription = this.props.navigation.addListener('willBlur', (payload: any) =>
-      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-    );
   }
 
   onBackButtonPressAndroid = () => {
-    alert('123');
-
     return true;
   };
-
-  componentWillUnmount() {
-    this._didFocusSubscription && this._didFocusSubscription.remove();
-    this._willBlurSubscription && this._willBlurSubscription.remove();
-    this.listener.remove();
-  }
 
   login = (type: string) => {
     if (type === 'router') {
@@ -122,13 +59,9 @@ export class Main extends Component<Props, any> {
   openModalPress = (popView: any) => {
     const blackStyle = {
       backgroundColor: '#fff',
-      // paddingTop: 8,
-      // paddingBottom: 8,
       paddingLeft: 12,
       paddingRight: 12
     };
-
-    PopoverPicker.PopoverPickerView.Item = PopoverPickerViewItem;
 
     popView.measure((x, y, width, height, pageX, pageY) => {
       PopoverPicker.show(
@@ -159,10 +92,6 @@ export class Main extends Component<Props, any> {
 
   addBadgeNumber = () => {
     DeviceEventEmitter.emit('badgeNumber', this.badgeNumber++);
-
-    // this.props.navigation.setParams({
-    // 	badgeNumber: this.badgeNumber++,
-    // });
   };
 
   render() {
@@ -173,6 +102,7 @@ export class Main extends Component<Props, any> {
         title={'我的'}
         rightView={this.renderRightView()}
         onWillBlur={payload => {
+          BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
           console.log('Main页面将要失去焦点', payload);
         }}
         onDidBlur={payload => {
@@ -182,6 +112,7 @@ export class Main extends Component<Props, any> {
           console.log('Main页面将要获得焦点', payload);
         }}
         onDidFocus={payload => {
+          BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
           console.log('Main页面已经获得焦点', payload);
         }}
       >
@@ -200,10 +131,16 @@ export class Main extends Component<Props, any> {
             titleStyle={styles.btnTitleStyle}
             btnStyle={styles.btnStyle}
           />
-
           <GradientButton
             title={'添加通知数量'}
             onPress={this.addBadgeNumber}
+            gradientStyle={styles.gradientStyle}
+            titleStyle={styles.btnTitleStyle}
+            btnStyle={styles.btnStyle}
+          />
+          <GradientButton
+            title={'我的资料'}
+            onPress={() => this.props.navigation.navigate('MainData')}
             gradientStyle={styles.gradientStyle}
             titleStyle={styles.btnTitleStyle}
             btnStyle={styles.btnStyle}

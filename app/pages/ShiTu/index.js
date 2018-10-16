@@ -4,7 +4,16 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ImageBackground, StatusBar, NativeModules, DeviceInfo } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  StatusBar,
+  NativeModules,
+  DeviceInfo,
+  DeviceEventEmitter
+} from 'react-native';
 
 // const InterestQQ = NativeModules.InterestQQ;
 
@@ -48,6 +57,7 @@ class ShiTu extends Component<Props> {
   componentDidMount() {
     console.log('statusBarHeight', Theme.statusBarHeight);
     console.log('navBarContentHeight', Theme.navBarContentHeight);
+    DeviceEventEmitter.emit('badgeNumber', 20);
   }
 
   selectedImagePicker = (type: string) => {

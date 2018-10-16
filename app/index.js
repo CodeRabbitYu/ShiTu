@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { View, ActivityIndicator, SafeAreaView } from 'react-native';
+import { View, ActivityIndicator, SafeAreaView, DeviceEventEmitter } from 'react-native';
 
 import { AuthLoadingRouter } from './routers/AuthLoading';
 // import {SafeAreaView} from 'react-navigation';
@@ -25,6 +25,7 @@ export default class index extends React.Component<any> {
   componentDidMount() {
     global.Toast = this.toast;
     SplashScreen.hide();
+    DeviceEventEmitter.emit('badgeNumber', 30);
   }
 
   render() {
@@ -34,17 +35,11 @@ export default class index extends React.Component<any> {
           style={{
             flex: 1,
             backgroundColor: 'white'
-            // shadowColor: 'transparent',
-            // shadowOpacity: 0,
-            // borderBottomWidth: 0,
-            // borderBottomColor: 'transparent',
-            // marginBottom: -39
           }}
-          // forceInset={{ bottom: 'always', top: 'never' }}
         >
           <AuthLoadingRouter
-            persistenceKey={navigationPersistenceKey}
-            renderLoadingExperimental={() => <ActivityIndicator size="large" color="black" />}
+          // persistenceKey={navigationPersistenceKey}
+          // renderLoadingExperimental={() => <ActivityIndicator size="large" color="black" />}
           />
           <Toast ref={(t: any) => (this.toast = t)} />
         </View>
