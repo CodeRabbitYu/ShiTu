@@ -7,9 +7,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { observer } from 'mobx-react';
-import { SafeAreaView } from 'react-navigation';
-
-import { NavigationEvents } from 'react-navigation';
+import { SafeAreaView, NavigationEvents } from 'react-navigation';
 
 import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
 import { Theme } from 'teaset';

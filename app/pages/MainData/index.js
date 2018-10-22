@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, RefreshControl } from 'react-native';
 import BaseContainer from '../../components/BaseContainer';
 import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
+import { Theme } from 'teaset';
 
 type Props = {};
 export class MainData extends React.Component<Props> {
@@ -16,21 +17,37 @@ export class MainData extends React.Component<Props> {
   }
 
   render() {
+    const navHeight = Theme.statusBarHeight + Theme.navBarContentHeight
     return (
-      <View style={styles.container}>
+      <BaseContainer style={styles.container} isHiddenNavBar={true} bottomHeight={0}>
         <HeaderImageScrollView
-          maxHeight={300}
-          minHeight={80}
+          maxHeight={200}
+          minHeight={navHeight}
           fadeOutForeground
           overScrollMode="never"
-          overlayColor="#4A148C"
-          maxOverlayOpacity={0.9}
+          overlayColor="red"
+          maxOverlayOpacity={0.4}
+          renderTouchableFixedForeground={() => (
+            <View style={{ height: 200, justifyContent: 'center', alignItems: 'center' }}>
+              <TouchableOpacity onPress={() => console.log('tap!!')} style={styles.button}>
+                <Text style={styles.buttonText}>Click Me!</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          scrollViewBackgroundColor="#ddddff"
+          refreshControl={
+            <RefreshControl
+              refreshing={true}
+              // onRefresh={this._onRefresh.bind(this)}
+              tintColor="red"
+            />
+          }
           renderForeground={() => (
             <View style={styles.titleContainer}>
               <Text style={styles.imageTitle}>Cat</Text>
             </View>
           )}
-          foregroundParallaxRatio={3}
+          foregroundParallaxRatio={1}
         >
           <View style={{ height: 100, backgroundColor: '#4CAF50' }} />
           <View style={{ height: 100, backgroundColor: '#F44336' }} />
@@ -41,7 +58,7 @@ export class MainData extends React.Component<Props> {
           <View style={{ height: 100, backgroundColor: '#795548' }} />
           <View style={{ height: 100, backgroundColor: '#FFEB3B' }} />
         </HeaderImageScrollView>
-      </View>
+      </BaseContainer>
     );
   }
 }

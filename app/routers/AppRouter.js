@@ -41,6 +41,7 @@ const MyTab = createBottomTabNavigator(
     initialRouteName: 'ShiTu',
     backBehavior: 'none',
     // lazy: false,
+    // navigationOptions: ({ navigation }) => NavigationOptions(navigation),
     tabBarOptions: {
       tabStyle: {
         // marginTop: 10,
@@ -54,25 +55,64 @@ const MyTab = createBottomTabNavigator(
     }
   }
 );
-Main.navigationOptions = ({ navigation }) => {
-  DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
-    navigation.setParams({
-      badgeNumber: badgeNumber
-    });
-  });
-  const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
 
-  const tabBarButtonComponent = (props: any) => {
-    return [
-      <TouchableOpacity {...props} activeOpacity={1} style={{ width: SCREEN_WIDTH / 3 }} key={'tabBar'} />,
-      <Badge count={badgeNumber} key={'Badge'} style={{ position: 'absolute', left: SCREEN_WIDTH - 60, top: 5 }} />
-    ];
-  };
-  return { tabBarButtonComponent };
-};
+// Main.navigationOptions = ({ navigation }) => {
+//   console.log('Main', navigation);
+//   DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+//     navigation.setParams({
+//       badgeNumber: badgeNumber
+//     });
+//   });
+//
+//   const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
+//
+//   const tabBarButtonComponent = (props: any) => {
+//     console.log('tabBarButtonComponent', props);
+//     return [
+//       <TouchableOpacity {...props} activeOpacity={1} style={{ width: SCREEN_WIDTH / 3 }} key={'tabBar'} />,
+//       <Badge count={badgeNumber} key={'Badge'} style={{ position: 'absolute', left: SCREEN_WIDTH - 60, top: 5 }} />
+//     ];
+//   };
+//   return { tabBarButtonComponent };
+// };
+
+// const NavigationOptions = navigation => {
+//   console.log('NavigationOptions', navigation);
+//   if (navigation.state.key === 'Main') {
+//     DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+//       navigation.setParams({
+//         badgeNumber: badgeNumber
+//       });
+//     });
+//   }
+// };
 
 MyTab.navigationOptions = ({ navigation }) => {
   const routes = navigation.state.routes;
+
+  // routes.map(item => {
+  //   if (item.key === 'Main') {
+  //     DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+  //       navigation.setParams({
+  //         badgeNumber: badgeNumber
+  //       });
+  //     });
+  //   }
+  // })
+
+  // const Main = routes[2];
+
+  // if (routes[2].key === 'Main') {
+  //
+  //   // alert('333');
+  //   DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+  //     navigation.setParams({
+  //       badgeNumber: badgeNumber
+  //     });
+  //   });
+  // }
+
+  // console.log('MyTab', navigation);
 
   const params = routes ? routes[navigation.state.index].params : null;
 
@@ -99,14 +139,14 @@ MyTab.navigationOptions = ({ navigation }) => {
   // 识兔这里的导航都是手动控制的，所以这里设置为null就可以隐藏了。
   const header = null;
 
-  return {
-    headerTitle,
-    headerStyle,
-    headerTitleStyle,
-    headerBackTitle,
-    headerTintColor,
-    header
-  };
+  // return {
+  //   headerTitle,
+  //   headerStyle,
+  //   headerTitleStyle,
+  //   headerBackTitle,
+  //   headerTintColor,
+  //   header
+  // };
 };
 
 export const AppRouter = createStackNavigator(

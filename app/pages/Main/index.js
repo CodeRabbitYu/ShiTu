@@ -20,6 +20,7 @@ import { Button, GradientButton, PopoverPickerViewItem } from '../../components'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Label, ListRow, PopoverPicker, Badge } from 'teaset';
 import BaseContainer from '../../components/BaseContainer';
+import { createBottomTabNavigator, BottomTabBar } from 'react-navigation-tabs';
 
 type Props = {
   navigation: any,
@@ -30,8 +31,25 @@ export class Main extends Component<Props, any> {
   items: Array<any>;
   popView: any;
   badgeNumber: number = 10;
+  
+  static navigationOptions = ({ navigation }: { navigation: any }) => {
+    const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
 
-  static navigationOptions = {};
+    const tabBarButtonComponent = (props: any) => {
+      console.log('tabBarButtonComponent', props);
+      return [
+        <TouchableOpacity {...props} activeOpacity={1} style={{ width: SCREEN_WIDTH / 3 }} key={'tabBar'} />,
+        <Badge
+          count={badgeNumber}
+          key={'Badge'}
+          style={{ position: 'absolute', left: SCREEN_WIDTH - 60, top: 5 }}
+        />
+      ];
+    };
+    return { tabBarButtonComponent };
+  };
+
+  // static navigationOptions = {};
 
   constructor(props: Props) {
     super(props);
