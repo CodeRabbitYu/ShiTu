@@ -4634,9 +4634,9 @@ react-native-image-header-scroll-view@^0.8.2:
   dependencies:
     prop-types "^15.6.0"
 
-react-native-image-picker@^0.26.10:
-  version "0.26.10"
-  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.26.10.tgz#0bb9ab928984948c67aee0b9e64216bee007a9fc"
+react-native-image-picker@^0.27.1:
+  version "0.27.1"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.27.1.tgz#32877c667e8c2713466fe178a6c7dd648e6cb5d3"
 
 react-native-linear-gradient@^2.4.2:
   version "2.4.2"
@@ -4756,18 +4756,18 @@ react-navigation-stack@0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-0.7.0.tgz#0b2f139ee1cba953037ef51353df992ec6c74fa2"
 
-react-navigation-tabs@0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-0.8.2.tgz#65f8a6ce368684227603345b4d312da2ef3366e1"
+react-navigation-tabs@0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-0.8.4.tgz#aa767f28b899f13c99f2b034b4a665f8cf0a5737"
   dependencies:
     hoist-non-react-statics "^2.5.0"
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
     react-native-tab-view "^1.0.0"
 
-"react-navigation@git+https://github.com/react-navigation/react-navigation.git":
-  version "2.17.0"
-  resolved "git+https://github.com/react-navigation/react-navigation.git#4bd6f17b466bdbb0d0035cf0b8e779d6343dedd2"
+react-navigation@^2.18.2:
+  version "2.18.2"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.18.2.tgz#ba278ded41f736d029c7cae5d54ab1427dc6ed34"
   dependencies:
     clamp "^1.0.1"
     create-react-context "0.2.2"
@@ -4780,7 +4780,7 @@ react-navigation-tabs@0.8.2:
     react-navigation-deprecated-tab-navigator "1.3.0"
     react-navigation-drawer "0.5.0"
     react-navigation-stack "0.7.0"
-    react-navigation-tabs "0.8.2"
+    react-navigation-tabs "0.8.4"
 
 react-proxy@^1.1.7:
   version "1.1.8"
