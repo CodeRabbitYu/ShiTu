@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, LayoutAnimation, InteractionManager } from 'react-native';
 import { Theme } from 'teaset';
-import LinearGradient from 'react-native-linear-gradient';
 
 type Props = {
   startDelay?: number,
@@ -22,11 +21,12 @@ type State = {
 };
 
 export default class ProgressBar extends Component<Props, State> {
+  timer: any;
   constructor(props: Props) {
     super(props);
     this.state = {
       progress: 0,
-      startDelay: this.props.startDelay || 300
+      startDelay: this.props.startDelay || 100
     };
   }
 
@@ -35,7 +35,7 @@ export default class ProgressBar extends Component<Props, State> {
       this.timer = setTimeout(() => {
         this.setState({ progress: this.props.progress });
       }, this.props.startDelay);
-      // LayoutAnimation.spring();
+      LayoutAnimation.spring();
     });
   }
 
