@@ -148,14 +148,16 @@ export const AppRouter = createStackNavigator(
   },
   {
     // 快速定制导航条，新版识兔中所有的导航都是重写的，所以这里会将全部的导航置空
-    navigationOptions: () => ({
+    defaultNavigationOptions: () => ({
       header: null,
       gesturesEnabled: true
     }),
     // headerMode: 'screen',
     transitionConfig: () => ({
       screenInterpolator: StackViewStyleInterpolator.forHorizontal
-    })
+    }),
+    cardOverlayEnabled: true,
+    // transparentCard: true,
     // headerTransitionPreset: 'fade-in-place',
     // headerMode: 'float',
     // mode: 'modal'

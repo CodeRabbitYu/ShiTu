@@ -15,11 +15,6 @@ import {
   DeviceEventEmitter
 } from 'react-native';
 
-// const InterestQQ = NativeModules.InterestQQ;
-
-// import * as QQ from 'react-native-qqsdk';
-// import * as QQ from 'react-native-interest-qq';
-
 import { ShiTuMobx } from '../../mobx/ShiTu';
 
 import { GradientButton, PopoverActionSheetItem } from '../../components';
@@ -43,20 +38,28 @@ type Props = {
   configStore: ConfigStore
 };
 
+type State = {
+  aaa: string
+};
+
 @inject('configStore', 'powerStore')
 @observer
-class ShiTu extends Component<Props> {
+class ShiTu extends Component<Props, State> {
   shiTuMobx: ShiTuMobx;
 
   constructor(props: Props) {
     super(props);
     ActionSheet.ActionSheetView.Item = PopoverActionSheetItem;
     this.shiTuMobx = new ShiTuMobx();
+
+    this.state = {
+      aaa: ''
+    };
   }
 
   componentDidMount() {
-    console.log('statusBarHeight', Theme.statusBarHeight);
-    console.log('navBarContentHeight', Theme.navBarContentHeight);
+    this.state.aaa;
+
     DeviceEventEmitter.emit('badgeNumber', 20);
   }
 

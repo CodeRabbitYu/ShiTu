@@ -111,7 +111,7 @@ class BaseContainer extends Component<Props> {
     const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
     return (
-      <SafeAreaView style={[styles.container, style]} forceInset={{ bottom: 'never', top: 'never' }}>
+      <View style={[styles.container, style]} forceInset={{ bottom: 'never', top: 'never' }}>
         {!isHiddenNavBar && this.renderNavView()}
         <View style={[styles.contentView, { marginTop, backgroundColor }, style, contentViewStyle]}>
           {this.renderContent()}
@@ -123,7 +123,7 @@ class BaseContainer extends Component<Props> {
           onWillBlur={onWillBlur}
           onDidBlur={onDidBlur}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

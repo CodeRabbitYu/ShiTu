@@ -12,11 +12,14 @@ import { Login } from '../pages/Login';
 export const AuthRouter = createStackNavigator(
   {
     Login: {
-      screen: Login
+      screen: Login,
+      navigationOptions: () => ({
+        header: null
+      })
     }
   },
   {
-    navigationOptions: () => ({
+    defaultNavigationOptions: () => ({
       header: null,
       gesturesEnabled: true
     }),

@@ -5,7 +5,7 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 
-import { createSwitchNavigator } from 'react-navigation';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { AppRouter } from './AppRouter';
 import { AuthRouter } from './AuthRouter';
 
@@ -36,13 +36,15 @@ class AuthLoadingScreen extends React.Component<Props> {
   }
 }
 
-export const AuthLoadingRouter = createSwitchNavigator(
-  {
-    AuthLoading: AuthLoadingScreen,
-    AppRouter: AppRouter,
-    AuthRouter: AuthRouter
-  },
-  {
-    initialRouteName: 'AuthLoading'
-  }
+export const AuthLoadingRouter = createAppContainer(
+  createSwitchNavigator(
+    {
+      AuthLoading: AuthLoadingScreen,
+      AppRouter: AppRouter,
+      AuthRouter: AuthRouter
+    },
+    {
+      initialRouteName: 'AuthLoading'
+    }
+  )
 );
