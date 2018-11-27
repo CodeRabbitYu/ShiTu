@@ -29,7 +29,7 @@
     "react-navigation": "^3.0.0",
     "rn-fetch-blob": "^0.10.13",
     "rn-placeholder": "^1.2.0",
-    "teaset": "^0.5.9"
+    "teaset": "^0.5.10"
   },
   "devDependencies": {
     "@babel/core": "^7.0.1",
