@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { StackNavigator, TabBarBottom, createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, StackViewTransitionConfigs } from 'react-navigation';
 
 import { System } from '../utils/index';
 import { CustomIcon, Theme } from '../components/index';
@@ -21,6 +21,21 @@ import { MainData } from '../pages/MainData';
 import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
 import { DeviceEventEmitter, TouchableOpacity, View } from 'react-native';
 import { Badge } from 'teaset';
+
+const IOS_MODAL_ROUTES = ['Login'];
+
+const dynamicModalTransition = (transitionProps, prevTransitionProps) => {
+  const isModal = IOS_MODAL_ROUTES.some(
+    screenName =>
+      screenName === transitionProps.scene.route.routeName ||
+      (prevTransitionProps && screenName === prevTransitionProps.scene.route.routeName)
+  )
+  return StackViewTransitionConfigs.defaultTransitionConfig(
+    transitionProps,
+    prevTransitionProps,
+    isModal
+  );
+};
 
 const MyTab = createBottomTabNavigator(
   {
@@ -153,10 +168,11 @@ export const AppRouter = createStackNavigator(
       gesturesEnabled: true
     }),
     // headerMode: 'screen',
-    transitionConfig: () => ({
-      screenInterpolator: StackViewStyleInterpolator.forHorizontal
-    }),
-    cardOverlayEnabled: true,
+    // transitionConfig: () => ({
+    //   screenInterpolator: StackViewStyleInterpolator.forHorizontal
+    // }),
+    transitionConfig: dynamicModalTransition,
+    cardOverlayEnabled: true
     // transparentCard: true,
     // headerTransitionPreset: 'fade-in-place',
     // headerMode: 'float',

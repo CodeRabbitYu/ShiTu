@@ -13,7 +13,7 @@ import {
   TextInput,
   TouchableOpacity,
   BackHandler,
-  DeviceEventEmitter
+  DeviceEventEmitter,
 } from 'react-native';
 
 import { Button, GradientButton, PopoverPickerViewItem } from '../../components';
@@ -164,6 +164,8 @@ export class Main extends Component<Props, any> {
             btnStyle={styles.btnStyle}
           />
         </View>
+
+        <TextInput style={{backgroundColor: 'red', height: 44}}/>
       </BaseContainer>
     );
   }

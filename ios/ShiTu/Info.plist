@@ -38,22 +38,26 @@
 		</dict>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>App需要您的同意,才能访问媒体资料库</string>
+	<string>$(PRODUCT_NAME)需要您的同意,才能访问媒体资料库</string>
 	<key>NSCameraUsageDescription</key>
-	<string>App需要您的同意,才能访问相机</string>
+	<string>$(PRODUCT_NAME)需要您的同意,才能访问相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App需要您的同意,才能访问位置</string>
+	<string>$(PRODUCT_NAME)需要您的同意,才能访问位置</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>App需要您的同意,才能访问照片库</string>
+	<string>$(PRODUCT_NAME)需要您的同意,才能访问照片库</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App需要您的同意,才能访问相册</string>
+	<string>$(PRODUCT_NAME)需要您的同意,才能访问相册</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>iconfont.ttf</string>
+		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
 		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
 		<string>Foundation.ttf</string>
 		<string>Ionicons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
@@ -61,9 +65,6 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

@@ -155,7 +155,6 @@ android {
             }
         }
     }
-
     android {
         sourceSets {
             main.jniLibs.srcDirs = ['libs']
@@ -164,7 +163,6 @@ android {
             abortOnError false
         }
     }
-
     walle {
         // 指定渠道包的输出路径
         apkOutputFolder = new File("${project.rootDir}/apk/channels");
@@ -177,16 +175,17 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-vector-icons')
     compile project(':rn-fetch-blob')
+    compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-image-picker')
+    compile project(':react-native-gesture-handler')
     compile project(':react-native-fast-image')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
     compile 'com.tencent.bugly:crashreport:2.6.6.1'
     compile 'com.tencent.bugly:nativecrashreport:3.3.1'
     compile 'com.meituan.android.walle:library:1.1.6'
