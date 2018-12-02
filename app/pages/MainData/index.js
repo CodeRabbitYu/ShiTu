@@ -17,7 +17,7 @@ export class MainData extends React.Component<Props> {
   }
 
   render() {
-    const navHeight = Theme.statusBarHeight + Theme.navBarContentHeight
+    const navHeight = Theme.statusBarHeight + Theme.navBarContentHeight;
     return (
       <BaseContainer style={styles.container} isHiddenNavBar={true} bottomHeight={0}>
         <HeaderImageScrollView

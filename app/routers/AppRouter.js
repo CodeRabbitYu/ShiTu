@@ -29,12 +29,8 @@ const dynamicModalTransition = (transitionProps, prevTransitionProps) => {
     screenName =>
       screenName === transitionProps.scene.route.routeName ||
       (prevTransitionProps && screenName === prevTransitionProps.scene.route.routeName)
-  )
-  return StackViewTransitionConfigs.defaultTransitionConfig(
-    transitionProps,
-    prevTransitionProps,
-    isModal
   );
+  return StackViewTransitionConfigs.defaultTransitionConfig(transitionProps, prevTransitionProps, isModal);
 };
 
 const MyTab = createBottomTabNavigator(

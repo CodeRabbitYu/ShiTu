@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { View, ActivityIndicator, SafeAreaView, DeviceEventEmitter } from 'react-native';
+import { View, ActivityIndicator, DeviceEventEmitter, BackHandler, ToastAndroid } from 'react-native';
 
 import { AuthLoadingRouter } from './routers/AuthLoading';
 // import {SafeAreaView} from 'react-navigation';
@@ -27,6 +27,19 @@ export default class index extends React.Component<any> {
     SplashScreen.hide();
     DeviceEventEmitter.emit('badgeNumber', 30);
   }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
+  }
+
+  onBackButtonPressAndroid = () => {
+    if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+      // 最近2秒内按过back键，可以退出应用。
+      return false;
+    }
+    this.lastBackPressed = Date.now();
+    ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
+    return true;
+  };
 
   render() {
     return (
@@ -40,6 +53,13 @@ export default class index extends React.Component<any> {
           <AuthLoadingRouter
             persistenceKey={navigationPersistenceKey}
             renderLoadingExperimental={() => <ActivityIndicator size="large" color="black" />}
+            onNavigationStateChange={(prevState, currentState) => {
+              if (currentState.routes.length > 1) {
+                BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
+              } else {
+                BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
+              }
+            }}
           />
           <Toast ref={(t: any) => (this.toast = t)} />
         </View>

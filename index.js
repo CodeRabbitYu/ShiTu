@@ -3,7 +3,7 @@
  * @flow
  * Created by Rabbit on 2018/11/28
  */
-import {AppRegistry, YellowBox} from 'react-native';
+import { AppRegistry, YellowBox } from 'react-native';
 
 import { configure } from 'mobx';
 configure({ enforceActions: 'observed' });
@@ -16,18 +16,14 @@ Theme.set(DefaultTheme);
 
 import App from './app/index';
 
-import {name as appName} from './app.json';
+import { name as appName } from './app.json';
 
 if (!__DEV__) {
   global.console = {
-    info: () => {
-    },
-    log: () => {
-    },
-    warn: () => {
-    },
-    error: () => {
-    },
+    info: () => {},
+    log: () => {},
+    warn: () => {},
+    error: () => {}
   };
 }
 
