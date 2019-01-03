@@ -54,7 +54,7 @@ export default class index extends React.Component<any> {
             persistenceKey={navigationPersistenceKey}
             renderLoadingExperimental={() => <ActivityIndicator size="large" color="black" />}
             onNavigationStateChange={(prevState, currentState) => {
-              const AppRouter = currentState.routes[0];
+              const AppRouter = currentState.routes[1];
               if (AppRouter.routes && AppRouter.routes.length > 1) {
                 BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
               } else {

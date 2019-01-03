@@ -167,7 +167,7 @@ export const AppRouter = createStackNavigator(
     // transitionConfig: () => ({
     //   screenInterpolator: StackViewStyleInterpolator.forHorizontal
     // }),
-    transitionConfig: dynamicModalTransition,
+    transitionConfig: iOS ? dynamicModalTransition : StackViewStyleInterpolator.forHorizontal,
     cardOverlayEnabled: true
     // transparentCard: true,
     // headerTransitionPreset: 'fade-in-place',

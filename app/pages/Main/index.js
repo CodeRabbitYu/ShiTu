@@ -62,10 +62,6 @@ export class Main extends Component<Props, any> {
     };
   }
 
-  onBackButtonPressAndroid = () => {
-    return true;
-  };
-
   login = (type: string) => {
     if (type === 'router') {
       this.props.navigation.navigate('AuthRouter', { type });
@@ -120,7 +116,6 @@ export class Main extends Component<Props, any> {
         title={'我的'}
         rightView={this.renderRightView()}
         onWillBlur={payload => {
-          BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
           console.log('Main页面将要失去焦点', payload);
         }}
         onDidBlur={payload => {
@@ -130,7 +125,6 @@ export class Main extends Component<Props, any> {
           console.log('Main页面将要获得焦点', payload);
         }}
         onDidFocus={payload => {
-          BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
           console.log('Main页面已经获得焦点', payload);
         }}
       >
@@ -164,8 +158,6 @@ export class Main extends Component<Props, any> {
             btnStyle={styles.btnStyle}
           />
         </View>
-
-        <TextInput style={{ backgroundColor: 'red', height: 44 }} />
       </BaseContainer>
     );
   }

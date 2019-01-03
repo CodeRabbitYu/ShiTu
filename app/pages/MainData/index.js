@@ -8,6 +8,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, RefreshControl } from 
 import BaseContainer from '../../components/BaseContainer';
 import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import { Theme } from 'teaset';
+import NavigatorBar from '../../components/NavigatorBar';
 
 type Props = {};
 export class MainData extends React.Component<Props> {
@@ -19,7 +20,7 @@ export class MainData extends React.Component<Props> {
   render() {
     const navHeight = Theme.statusBarHeight + Theme.navBarContentHeight;
     return (
-      <BaseContainer style={styles.container} isHiddenNavBar={true} bottomHeight={0}>
+      <BaseContainer style={styles.container} title={'我的资料'} bottomHeight={0}>
         <HeaderImageScrollView
           maxHeight={200}
           minHeight={navHeight}
@@ -37,7 +38,7 @@ export class MainData extends React.Component<Props> {
           scrollViewBackgroundColor="#ddddff"
           refreshControl={
             <RefreshControl
-              refreshing={true}
+              refreshing={false}
               // onRefresh={this._onRefresh.bind(this)}
               tintColor="red"
             />

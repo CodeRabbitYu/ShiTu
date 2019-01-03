@@ -33,10 +33,10 @@ type Props = {
   bottomBackgroundColor?: string,
   bottomHeight?: number,
 
-  onWillFocus: Function,
-  onDidFocus: Function,
-  onWillBlur: Function,
-  onDidBlur: Function,
+  onWillFocus?: Function,
+  onDidFocus?: Function,
+  onWillBlur?: Function,
+  onDidBlur?: Function,
 
   ...NavigatorBar.Props
 };
