@@ -186,8 +186,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    compile 'com.tencent.bugly:crashreport:2.6.6.1'
-    compile 'com.tencent.bugly:nativecrashreport:3.3.1'
+    compile 'com.tencent.bugly:crashreport:2.8.6.0'
+    compile 'com.tencent.bugly:nativecrashreport:3.6.0.1'
     compile 'com.meituan.android.walle:library:1.1.6'
     compile 'com.android.support:support-v4:27.1.1'
     compile 'com.android.support:multidex:1.0.3'
