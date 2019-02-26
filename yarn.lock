@@ -5128,6 +5128,11 @@ react-native-image-picker@^0.27.1:
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.27.1.tgz#32877c667e8c2713466fe178a6c7dd648e6cb5d3"
   integrity sha512-LuEt5I9TFe3+lfN8E9geuN2OOgnld0QmeHRPTCV+mzkT5zASsoibNIUItt6WQBWG4nXC/90aufQYZn92i3lTxw==
 
+react-native-largelist-v3@^3.0.9:
+  version "3.0.9"
+  resolved "http://registry.npm.taobao.org/react-native-largelist-v3/download/react-native-largelist-v3-3.0.9.tgz#bf18effffe6cc95432ca4d342a0f45e014fddcdd"
+  integrity sha1-vxjv//5syVQyyk00Kg9F4BT93N0=
+
 react-native-linear-gradient@^2.5.2:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.2.tgz#e00312997661ef99d76d5fb902fef3d04bc6b5d5"
@@ -5158,6 +5163,11 @@ react-native-splash-screen@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.1.1.tgz#1a4e46c9fdce53ff52af2a2cb4181788c4e30b30"
   integrity sha512-PU2YocOSGbLjL9Vgcq/cwMNuHHKNjjuPpa1IPMuWo+6EB/fSZ5VOmxSa7+eucQe3631s3NhGuk3eHKahU03a4Q==
+
+react-native-spring-scrollview@^2.0.13:
+  version "2.0.13"
+  resolved "http://registry.npm.taobao.org/react-native-spring-scrollview/download/react-native-spring-scrollview-2.0.13.tgz#a24bb6950f2034668b673fc598758018ac379232"
+  integrity sha1-oku2lQ8gNGaLZz/FmHWAGKw3kjI=
 
 react-native-tab-view@^1.0.0, react-native-tab-view@^1.2.0:
   version "1.3.1"
@@ -6118,10 +6128,10 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-teaset@^0.5.10:
-  version "0.5.10"
-  resolved "https://registry.yarnpkg.com/teaset/-/teaset-0.5.10.tgz#9d039090334cd0027a806f136b7afbb164f5a8a5"
-  integrity sha512-NBJoDfg+yO3Sb99dI8yzevs1//F0onySyQwF0VuA/MVVMr0Y6RyAiMGfiozahJziMpyyr5YJipjk9dtmx+K4zg==
+teaset@^0.6.3:
+  version "0.6.3"
+  resolved "http://registry.npm.taobao.org/teaset/download/teaset-0.6.3.tgz#eaeaedbb6586c53707b6c0a38c631ad6ca8c57e7"
+  integrity sha1-6urtu2WGxTcHtsCjjGMa1sqMV+c=
   dependencies:
     prop-types "^15.5.10"
     react-native-deprecated-custom-components "github:facebookarchive/react-native-custom-components"

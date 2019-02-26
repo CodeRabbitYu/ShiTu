@@ -5,15 +5,15 @@
 
 import { observable, action, runInAction } from 'mobx';
 import type { RTGankResult, RTWeal } from '../../servers/News/interfaces';
-import { loadWelfareData } from '../../servers/News';
+import { fetchWelfareData } from '../../servers/News';
 import { System } from '../../utils';
 import FetchBlob from 'rn-fetch-blob';
 import { CameraRoll } from 'react-native';
+import { ConfigStore } from '../../store/ConfigStore';
 const Dirs = FetchBlob.fs.dirs;
+type loadDataType = 'refreshing' | 'load more' | string;
 
-let loadMoreNumber = [];
-
-class WelfareMobx {
+class WelfareMobx extends ConfigStore {
   @observable
   isRefreshing: boolean = true;
   @observable
@@ -56,9 +56,11 @@ class WelfareMobx {
   };
 
   @action.bound
-  async fetchWelfareData(page: number) {
+  async loadWelfareData(type: loadDataType = 'refreshing') {
+    this.page = type === 'refreshing' ? 1 : this.page + 1;
+
     try {
-      const data = await loadWelfareData(page);
+      const data = await fetchWelfareData(this.page);
 
       const results = data.results;
 
@@ -66,25 +68,16 @@ class WelfareMobx {
 
       results.map((item: RTWeal) => {
         const imageWidth = System.SCREEN_WIDTH / 2 - 15;
-        // let imageHeight = imageWidth * 1.15;
-        // imageHeight = parseInt(Math.random() * 100 + imageHeight);
-        // item.height = imageHeight;
-
         const id = item._id;
-
         const hexId = parseInt(id.substring(id.length - 2), 16);
         item.height = defaultHeights[hexId % 6];
-
         item.width = imageWidth;
-
         item.largeUrl = item.url;
         item.url = WelfareMobx.handleImageToSmallSize(item.url);
       });
 
-      if (page !== 1) {
-        // console.log('page不等于1', page);
+      if (type === 'load more') {
         runInAction(() => {
-          this.page = page;
           this.dataSource = this.dataSource.concat(results);
         });
       } else {
@@ -92,47 +85,22 @@ class WelfareMobx {
           this.page = 1;
           this.dataSource = results;
         });
-
-        // console.log('page等于1', page);
       }
-
-      runInAction(() => {
-        this.isRefreshing = false;
-      });
+      // console.log('page', this.page);
+      // console.log('isRefreshing', this.isRefreshing);
     } catch (e) {
+      this.showToast(e);
+      console.log(e);
+    } finally {
       runInAction(() => {
         this.isRefreshing = false;
       });
-      console.log(e);
     }
   }
 
   static handleImageToSmallSize(url: string) {
     // thumbnail|缩略，quare|方形缩略图, thumb180, wap360, small|小图, bmiddle|中图，mw600|600, wap720, mw720|720, mw1024|1024, large|原图。
-
     return url.replace('large', 'wap360');
-  }
-
-  @action.bound
-  async refreshData() {
-    runInAction(() => {
-      this.isRefreshing = true;
-    });
-    await this.fetchWelfareData(1);
-  }
-
-  @action.bound
-  async loadMoreData(distanceFromEnd: Array<number>) {
-    if (loadMoreNumber.length === 2) loadMoreNumber = [];
-
-    loadMoreNumber.push(distanceFromEnd);
-
-    let page = this.page;
-
-    if (loadMoreNumber.length === 2) {
-      page += 1;
-      await this.fetchWelfareData(page);
-    }
   }
 }
 
