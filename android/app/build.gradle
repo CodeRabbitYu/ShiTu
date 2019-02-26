@@ -75,7 +75,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+    entryFile: "index_old.js"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -175,6 +175,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-spring-scrollview')
     compile project(':rn-fetch-blob')
     compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')

@@ -1,42 +1,37 @@
 /**
  * @flow
- * Created by Rabbit on 2018/5/4.
+ * Created by Rabbit on 2019-02-25.
  */
-
 import React from 'react';
-import { StyleSheet, Text, View, Image, ActivityIndicator, Modal, TouchableWithoutFeedback } from 'react-native';
-import { MasonryList } from '../../../components';
-import BaseContainer from '../../../components/BaseContainer';
+import { StyleSheet } from 'react-native';
+import { WaterfallList } from 'react-native-largelist-v3';
+import { NormalFooter } from 'react-native-spring-scrollview/NormalFooter';
 
 import { WelfareMobx } from '../../../mobx/News';
-
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
+import type { RTWeal } from '../../../servers/News/interfaces';
 import { Button, CustomImage } from '../../../components';
-import type { NavigationState } from 'react-navigation';
-import { RTWeal } from '../../../servers/News/interfaces';
 import { System } from '../../../utils';
 import { ActionSheet, Overlay } from 'teaset';
-import { inject } from 'mobx-react';
+import type { NavigationState } from 'react-navigation';
 import { PowerStore } from '../../../store/PowerStore';
+import { ConfigStore } from '../../../store/ConfigStore';
 
 type Props = {
   navigate: NavigationState,
-  powerStore: PowerStore
+  powerStore: PowerStore,
+  configStore: ConfigStore
 };
-
-@inject('powerStore')
+@inject('powerStore', 'configStore')
 @observer
 class Welfare extends React.Component<Props> {
-  welfareMobx: WelfareMobx;
-  customPopView: any;
-
-  constructor(props: Props) {
+  constructor(props) {
     super(props);
     this.welfareMobx = new WelfareMobx();
   }
 
   async componentDidMount(): void {
-    await this.welfareMobx.fetchWelfareData(1);
+    await this.welfareMobx.loadWelfareData('refreshing');
   }
 
   actionSheetToSaveImage = (item: RTWeal) => {
@@ -52,7 +47,7 @@ class Welfare extends React.Component<Props> {
         title: '设置主屏幕',
         type: 'default',
         onPress: async () => {
-          // alert('设置成功');
+          this.props.configStore.showToast('设置成功');
           await this.props.powerStore.setShiTuBackgroundImage(item.url);
         }
       }
@@ -66,7 +61,7 @@ class Welfare extends React.Component<Props> {
       <Overlay.PopView
         style={{ alignItems: 'center', justifyContent: 'center' }}
         overlayOpacity={1}
-        type="zoomIn"
+        type="zoomOut"
         ref={v => (this.customPopView = v)}
       >
         <Button
@@ -88,70 +83,47 @@ class Welfare extends React.Component<Props> {
     Overlay.show(overlayView);
   }
 
-  renderItem = ({ item }: { item: RTWeal, index: number, column: number }) => {
+  renderItem = (item: RTWeal) => {
     return (
-      <Button onPress={() => this.showPopCustom(item)}>
-        <CustomImage
-          source={{ uri: item.url }}
-          style={[styles.cell, { height: item.height, backgroundColor: 'white' }]}
-        />
+      <Button onPress={() => this.showPopCustom(item)} style={{ flex: 1 }}>
+        <CustomImage source={{ uri: item.url }} style={[styles.cell]} />
       </Button>
     );
   };
 
-  renderFooterComponent = () => {
-    const { isRefreshing } = this.welfareMobx;
-    return (
-      !isRefreshing && (
-        <View
-          style={{
-            height: 50,
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <ActivityIndicator size={'small'} />
-        </View>
-      )
-    );
-  };
-
   render() {
-    const { dataSource, isRefreshing, refreshData, loadMoreData } = this.welfareMobx;
-
+    const { dataSource, isRefreshing, loadWelfareData } = this.welfareMobx;
     return (
-      <BaseContainer key={'base'} isHiddenNavBar={true} isTopNavigator={true} store={this.welfareMobx}>
-        <MasonryList
-          onRefresh={refreshData}
-          style={{ backgroundColor: 'white' }}
-          refreshing={isRefreshing}
-          data={dataSource.slice()}
-          renderItem={this.renderItem}
-          getHeightForItem={({ item }) => item.height + 2}
-          numColumns={2}
-          initialNumToRender={10}
-          keyExtractor={item => item._id}
-          ListEmptyComponent={() => <View />}
-          ListHeaderComponent={() => <View />}
-          ListFooterComponent={this.renderFooterComponent}
-          onEndReachedThreshold={0.1}
-          onEndReached={loadMoreData}
-        />
-      </BaseContainer>
+      <WaterfallList
+        ref={ref => (this._scrollView = ref)}
+        data={dataSource}
+        style={styles.container}
+        heightForItem={item => item.height + 10}
+        preferColumnWidth={SCREEN_WIDTH / 2 - 10}
+        renderItem={this.renderItem}
+        onRefresh={() => {
+          loadWelfareData('refreshing');
+          !isRefreshing && this._scrollView.endRefresh(); // 报错
+        }}
+        onLoading={async () => {
+          loadWelfareData('load more');
+          this._scrollView.endLoading();
+        }}
+        // loadingFooter={NormalFooter}
+      />
     );
   }
 }
 
+export { Welfare };
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    paddingHorizontal: 3
   },
   cell: {
-    margin: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1,
+    margin: 5,
+    backgroundColor: 'white'
   }
 });
-
-export { Welfare };

@@ -9,7 +9,7 @@ import { RTGankResult, RTBDJResult } from './interfaces';
 
 type RGankType = '福利' | 'iOS' | 'Android';
 
-export async function loadWelfareData(
+export async function fetchWelfareData(
   page: number,
   type: RGankType = '福利',
   count: number = 20
