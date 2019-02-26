@@ -62,11 +62,19 @@ class WelfareMobx {
 
       const results = data.results;
 
+      const defaultHeights = [277, 216, 211, 206, 287, 214];
+
       results.map((item: RTWeal) => {
         const imageWidth = System.SCREEN_WIDTH / 2 - 15;
-        let imageHeight = imageWidth * 1.15;
-        imageHeight = parseInt(Math.random() * 100 + imageHeight);
-        item.height = imageHeight;
+        // let imageHeight = imageWidth * 1.15;
+        // imageHeight = parseInt(Math.random() * 100 + imageHeight);
+        // item.height = imageHeight;
+
+        const id = item._id;
+
+        const hexId = parseInt(id.substring(id.length - 2), 16);
+        item.height = defaultHeights[hexId % 6];
+
         item.width = imageWidth;
 
         item.largeUrl = item.url;

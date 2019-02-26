@@ -35,7 +35,7 @@ class Welfare extends React.Component<Props> {
     this.welfareMobx = new WelfareMobx();
   }
 
-  async componentDidMount() {
+  async componentDidMount(): void {
     await this.welfareMobx.fetchWelfareData(1);
   }
 
