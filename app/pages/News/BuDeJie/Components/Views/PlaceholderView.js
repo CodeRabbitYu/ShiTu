@@ -22,7 +22,7 @@ export default class PlaceholderView extends React.Component<Props> {
       <View style={{ paddingHorizontal: px2dp(20), paddingVertical: px2dp(10) }}>
         <UserInfoPlaceHolderView />
         <ContentPlaceHolderView type={this.props.type} />
-        <ToolBarPlaceHolderView />
+        {/*<ToolBarPlaceHolderView />*/}
       </View>
     );
   }
@@ -39,7 +39,7 @@ const ContentPlaceHolderView = ({ type }: { type: type }) => {
           animate={'fade'}
         />
         <View style={{ marginTop: px2dp(20) }} />
-        <Placeholder.Box height={px2dp(400)} width="100%" radius={5} animate={'fade'} />
+        <Placeholder.Box height={SCREEN_HEIGHT * 0.5} width="100%" radius={5} animate={'fade'} />
       </View>
     );
   }

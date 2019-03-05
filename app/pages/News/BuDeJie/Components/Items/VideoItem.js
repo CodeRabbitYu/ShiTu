@@ -15,17 +15,17 @@ type Props = {
   videoPress: Function
 };
 export const VideoItem = (props: Props) => {
-  const { cdn_img, containerHeight } = props.pictureData;
+  const { cdn_img, imageHeight } = props.pictureData;
 
   return (
     <Button style={styles.container} onPress={props.videoPress}>
       <View>
-        <CustomImage source={{ uri: cdn_img }} style={[styles.picture, { height: containerHeight }]} />
+        <CustomImage source={{ uri: cdn_img }} style={[styles.picture, { height: imageHeight }]} />
         <View
           style={{
             position: 'absolute',
             left: SCREEN_WIDTH / 2 - 30,
-            top: containerHeight / 2 - 30
+            top: imageHeight / 2 - 30
           }}
         >
           <Icon name={'play-circle'} size={60} color={'white'} />

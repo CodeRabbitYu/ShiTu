@@ -206,7 +206,6 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
       this.props.autoPagination &&
       this.state.paginationStatus === PaginationStatus.WAITING
     ) {
-      console.log('1111111111');
       this.onPaginate();
     }
   };
@@ -279,7 +278,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   };
 
   updateRows = (rows: ?Array<any>, paginationStatus: number) => {
-    console.log('rows', rows, paginationStatus);
+    // console.log('rows', rows, paginationStatus);
     if (rows) {
       this.setRows(rows);
       this.setState({

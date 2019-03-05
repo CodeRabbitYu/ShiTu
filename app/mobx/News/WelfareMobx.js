@@ -57,6 +57,7 @@ class WelfareMobx extends ConfigStore {
 
   @action.bound
   async loadWelfareData(type: loadDataType = 'refreshing') {
+    this.showLoading();
     this.page = type === 'refreshing' ? 1 : this.page + 1;
 
     try {
@@ -64,7 +65,7 @@ class WelfareMobx extends ConfigStore {
 
       const results = data.results;
 
-      const defaultHeights = [277, 216, 211, 206, 287, 214];
+      const defaultHeights = [216, 245, 263, 234, 259, 222];
 
       results.map((item: RTWeal) => {
         const imageWidth = System.SCREEN_WIDTH / 2 - 15;
@@ -82,6 +83,7 @@ class WelfareMobx extends ConfigStore {
         });
       } else {
         runInAction(() => {
+
           this.page = 1;
           this.dataSource = results;
         });
@@ -92,6 +94,7 @@ class WelfareMobx extends ConfigStore {
       this.showToast(e);
       console.log(e);
     } finally {
+      this.hideLoading();
       runInAction(() => {
         this.isRefreshing = false;
       });

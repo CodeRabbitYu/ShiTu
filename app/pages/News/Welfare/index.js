@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   cell: {
     flex: 1,
-    margin: 5,
+    margin: 3,
     backgroundColor: 'white'
   }
 });

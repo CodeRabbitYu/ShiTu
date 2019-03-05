@@ -4,6 +4,8 @@
 
 export default {
   fitIPhoneX: true,
+  navBarHeight: Theme.statusBarHeight + Theme.navBarContentHeight,
+  iPhoneXBottomHeight: Theme.isIPhoneX ? 39 : 0,
 
   mainColor: '#4ECBFC',
 

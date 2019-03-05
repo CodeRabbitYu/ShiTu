@@ -38,7 +38,8 @@ class BuDeJie extends React.Component<Props, any> {
 
   onFetch = async (value: any = this.buDeJieMobx.maxtime, startFetch: Function, abortFetch: Function) => {
     try {
-      await this.buDeJieMobx.fetchBuDeJieData(this.props.type, value);
+      const data = await this.buDeJieMobx.fetchBuDeJieData(this.props.type, value);
+
       startFetch(this.buDeJieMobx.dataSource.slice(), 20);
     } catch (e) {
       abortFetch();
@@ -47,25 +48,21 @@ class BuDeJie extends React.Component<Props, any> {
   };
 
   picturePress = (item: Picture | any) => {
-    if (item.isLongPicture || item.is_gif) {
+    if (item.isLongPicture || !item.is_gif) {
       this.props.navigate('WebView', { uri: item.weixin_url });
     } else {
       const overlayView = (
         <Overlay.PopView
           style={{ alignItems: 'center', justifyContent: 'center' }}
           overlayOpacity={1}
-          type="zoomIn"
           ref={v => (this.customPopView = v)}
         >
-          <Button
-            onLongPress={() => this.actionSheetToSaveImage(item)}
-            onPress={() => this.customPopView && this.customPopView.close()}
-          >
+          <Button onPress={() => this.customPopView && this.customPopView.close()}>
             <CustomImage
               source={{ uri: item.cdn_img }}
-              // resizeMode='cover'
+              resizeMode={'contain'}
               style={{
-                backgroundColor: 'white',
+                backgroundColor: 'black',
                 width: SCREEN_WIDTH,
                 height: SCREEN_HEIGHT
               }}

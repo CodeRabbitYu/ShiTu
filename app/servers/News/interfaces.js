@@ -34,7 +34,7 @@ export interface RTBDJResult {
 /** @desc 不得姐单条数据 */
 export interface RTBDJList {
   id: string;
-  type: string;
+  type: '41' | '10' | string;
   text: string;
   user_id: string;
   name: string;
@@ -79,14 +79,18 @@ export interface RTBDJList {
   ding: string;
   favourite: string;
   isLongPicture: boolean;
+  isLongPictureCanOpened: boolean;
   imageHeight: number;
   containerHeight: number;
+  videoHeight: number;
   gifFistFrame: string;
 
   userInfoData: UserInfo | any;
   toolBarData: ToolBar | any;
   jokeData: Joke | any;
   pictureData: Picture | any;
+
+  itemHeight: number;
 }
 
 /** @desc 不得姐参数 */

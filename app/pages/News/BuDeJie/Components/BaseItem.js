@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { RTBDJList, ToolBar, UserInfo, Joke, Picture } from '../../../../servers/News/interfaces';
 import { ContainerItem } from './Items/ContainerItem';
@@ -25,6 +25,8 @@ const BaseItem = (props: Props) => {
   const { userInfoData, toolBarData } = props.itemData;
   const { itemData, itemPress, picturePress, videoPress } = props;
 
+  // console.log('itemData', itemData);
+
   return (
     <View>
       <UserInfoView userInfoData={userInfoData} />
@@ -34,9 +36,17 @@ const BaseItem = (props: Props) => {
         picturePress={picturePress}
         videoPress={videoPress}
       />
-      <ToolBarView toolBarData={toolBarData} />
+      {/*<ToolBarView toolBarData={toolBarData} />*/}
+      <View style={styles.bottomViewStyle} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  bottomViewStyle: {
+    backgroundColor: 'red',
+    height: px2dp(20)
+  }
+});
 
 export { BaseItem };

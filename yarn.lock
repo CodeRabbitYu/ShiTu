@@ -2346,7 +2346,7 @@ fbjs-scripts@^1.0.0:
     semver "^5.1.0"
     through2 "^2.0.0"
 
-fbjs@^0.8.0, fbjs@^0.8.9, fbjs@~0.8.9:
+fbjs@^0.8.0, fbjs@^0.8.17, fbjs@^0.8.9, fbjs@~0.8.9:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   integrity sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
@@ -5138,6 +5138,11 @@ react-native-linear-gradient@^2.5.2:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.2.tgz#e00312997661ef99d76d5fb902fef3d04bc6b5d5"
   integrity sha512-G16njRgPi52iB5gggpVvI8qJaAT2ZbIyNKXZtrdYoDKp7oOAq3w5F7qwuIz6tdxKMcF6LGYhouFsmuD8cTI/JA==
 
+react-native-measure-text@^1.0.0-beta.1:
+  version "1.0.0-beta.1"
+  resolved "http://registry.npm.taobao.org/react-native-measure-text/download/react-native-measure-text-1.0.0-beta.1.tgz#b7aab0ef2e5a234f349e15a656af84919af82698"
+  integrity sha1-t6qw7y5aI080nhWmVq+EkZr4Jpg=
+
 react-native-safe-area-view@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.11.0.tgz#4f3dda43c2bace37965e7c6aef5fc83d4f19d174"
@@ -5184,6 +5189,14 @@ react-native-vector-icons@^6.1.0:
     lodash "^4.0.0"
     prop-types "^15.6.2"
     yargs "^8.0.2"
+
+react-native-webview@^5.2.4:
+  version "5.2.4"
+  resolved "http://registry.npm.taobao.org/react-native-webview/download/react-native-webview-5.2.4.tgz#9fbcc67e99f3cc9b1ca0eb102e5550026ac3f8e2"
+  integrity sha1-n7zGfpnzzJscoOsQLlVQAmrD+OI=
+  dependencies:
+    escape-string-regexp "^1.0.5"
+    fbjs "^0.8.17"
 
 react-native@0.57.7:
   version "0.57.7"

@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Image, WebView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { ProgressBar, Button } from '../../components';
 import { System } from '../../utils';
+import { WebView } from 'react-native-webview';
 
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -35,6 +36,9 @@ export default class index extends React.Component<Props, State> {
     super(props);
 
     const { uri } = this.props.navigation.state.params;
+
+    console.log('webView地址', uri);
+
     this.state = {
       active: false,
       isGoBack: false,
@@ -83,7 +87,7 @@ export default class index extends React.Component<Props, State> {
     //     });
     // }
 
-    console.log('onNavigationStateChange');
+    console.log('onNavigationStateChange', navState);
     this.setState({
       isGoBack: navState.canGoBack,
       isForWard: navState.canGoForward,
@@ -184,12 +188,10 @@ export default class index extends React.Component<Props, State> {
         <WebView
           ref={ref => (this.webView = ref)}
           style={styles.webView}
+          useWebKit={true}
           source={{ uri: this.state.uri }}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          scalesPageToFit={true}
-          automaticallyAdjustContentInsets={false}
           onNavigationStateChange={this.onNavigationStateChange}
+          javaScriptEnabled={false}
           // onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           renderError={this.renderError}
           onLoad={this.onLoad}
@@ -197,7 +199,6 @@ export default class index extends React.Component<Props, State> {
           onLoadStart={this.onLoadStart}
           onError={this.onError}
         />
-
         {this.renderActionButton()}
       </BaseContainer>
     );

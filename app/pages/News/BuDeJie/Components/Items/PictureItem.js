@@ -3,7 +3,7 @@
  * Created by Rabbit on 2018/5/14.
  */
 import React from 'react';
-import { StyleSheet, Text, View, Image, ActivityIndicator, AccessibilityInfo } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { CustomImage, Button } from '../../../../../components/index';
 import { System } from '../../../../../utils';
 import type { Picture } from '../../../../../servers/News/interfaces';
@@ -12,47 +12,55 @@ type Props = {
   pictureData: Picture,
   picturePress: Function
 };
-
-const maxImageHeight = 7000;
+// https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png
 
 const renderPicture = (props: Props) => {
-  const { cdn_img, isLongPicture, containerHeight, is_gif, gifFistFrame } = props.pictureData;
+  const {
+    cdn_img,
+    isLongPicture,
+    imageHeight,
+    is_gif,
+    gifFistFrame,
+    isLongPictureCanOpened,
+    itemHeight
+  } = props.pictureData;
 
-  // console.log('pictureData', props.pictureData)
+  // console.log('pictureData', props.pictureData);
+  console.log('sssssss', imageHeight, itemHeight);
 
-  if (isLongPicture && containerHeight < maxImageHeight) {
-    return (
-      <View>
-        <CustomImage
-          source={{ uri: cdn_img }}
-          resizeMode={'cover'}
-          style={[styles.picture, { height: System.SCREEN_HEIGHT * 0.5 }]}
-        />
-        <View style={styles.longPictureSignView}>
-          <Text style={styles.longPictureSignText}>点击查看原图</Text>
+
+  const isLongPictureCanOpenedAndNoGif = isLongPictureCanOpened && is_gif === '0';
+
+  if (isLongPicture) {
+    if (isLongPictureCanOpenedAndNoGif) {
+      return (
+        <View>
+          <CustomImage
+            source={{ uri: cdn_img }}
+            resizeMode={'cover'}
+            style={[styles.picture, { height: imageHeight }]}
+          />
+          <View style={styles.longPictureSignView}>
+            <Text style={styles.longPictureSignText}>点击查看原图</Text>
+          </View>
         </View>
-      </View>
-    );
-  } else if (containerHeight > maxImageHeight) {
-    return (
-      <View style={styles.promptView}>
-        <Text style={styles.promptTitle}>图片可能过长哦，请点击查看原图</Text>
-        <View style={styles.longPictureSignView}>
-          <Text style={styles.longPictureSignText}>点击查看原图</Text>
+      );
+    } else {
+      return (
+        <View style={styles.promptView}>
+          <Text style={styles.promptTitle}>图片可能过长哦，请点击查看原图</Text>
+          <View style={styles.longPictureSignView}>
+            <Text style={styles.longPictureSignText}>点击查看原图</Text>
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
   } else if (is_gif === '1') {
-    // let gitImage = this.gifError
-    // 	?
-    // 	'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png'
-    // 	: gifFistFrame;
-
     return (
       <CustomImage
         source={{ uri: gifFistFrame }}
-        // resizeMode={'contain'}
-        style={[styles.picture, { height: containerHeight }]}
+        resizeMode={'contain'}
+        style={[styles.picture, { height: imageHeight }]}
         // onLoadEnd={() => this.gifError = false}
         // onError={() => this.gifError = true}
       />
@@ -62,7 +70,7 @@ const renderPicture = (props: Props) => {
       <CustomImage
         source={{ uri: cdn_img }}
         // resizeMode={'contain'}
-        style={[styles.picture, { height: containerHeight }]}
+        style={[styles.picture, { height: imageHeight }]}
       />
     );
   }
@@ -78,6 +86,7 @@ const GifSignView = () => {
 
 export const PictureItem = (props: Props) => {
   const { is_gif } = props.pictureData;
+
   return (
     <Button style={styles.pictureView} onPress={props.picturePress}>
       <View>
@@ -107,7 +116,8 @@ const styles = StyleSheet.create({
   },
   pictureView: {
     paddingHorizontal: px2dp(20),
-    paddingVertical: px2dp(10)
+    backgroundColor: 'green'
+    // paddingVertical: px2dp(10)
   },
   picture: {
     width: System.SCREEN_WIDTH - px2dp(40)
@@ -116,7 +126,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: px2dp(600)
+    // height: px2dp(600),
+    height: System.SCREEN_HEIGHT * 0.5
   },
   promptTitle: {
     fontSize: FONT_SIZE(20)

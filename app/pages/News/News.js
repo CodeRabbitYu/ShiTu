@@ -18,6 +18,7 @@ import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type { NavigationState } from 'react-navigation';
 import type { RTBuDeJieType } from '../../servers/News';
+import MeasureText from 'react-native-measure-text';
 
 type State = {
   typeArr: Array<typeItem>
@@ -32,7 +33,8 @@ type typeItem = {
 @inject('powerStore')
 @observer
 class News extends React.Component<any, State> {
-  componentDidMount() {
+  async componentDidMount(): void {
+
     this.props.navigation.setParams({
       title: '百思不得姐'
     });
@@ -43,11 +45,11 @@ class News extends React.Component<any, State> {
     const { navigate } = this.props.navigation;
     this.state = {
       typeArr: [
-        { title: '福利', type: '福利', navigate: navigate },
         { title: '图片', type: 10, navigate: navigate },
         { title: '全部', type: 1, navigate: navigate },
         { title: '视频', type: 41, navigate: navigate },
-        { title: '笑话', type: 29, navigate: navigate }
+        { title: '笑话', type: 29, navigate: navigate },
+        { title: '福利', type: '福利', navigate: navigate }
       ]
     };
   }
@@ -65,7 +67,7 @@ class News extends React.Component<any, State> {
           tabBarTextStyle={{ fontSize: 15 }}
         >
           {this.state.typeArr.map((item, i) => {
-            if (i === 0) {
+            if (i === 1) {
               return (
                 <Welfare
                   tabLabel={item.title}

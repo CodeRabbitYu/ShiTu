@@ -175,6 +175,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-webview')
+    compile project(':react-native-measure-text')
     compile project(':react-native-spring-scrollview')
     compile project(':rn-fetch-blob')
     compile project(':react-native-vector-icons')
