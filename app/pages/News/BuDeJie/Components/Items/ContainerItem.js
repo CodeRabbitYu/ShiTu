@@ -20,18 +20,12 @@ type Props = {
 class ContainerItem extends React.Component<Props> {
   renderItem() {
     const { type, jokeData, pictureData } = this.props.itemData;
-    // const { text } = this.props.itemData;
-
 
     /**
      * @desc 全部
      */
     if (type === '1') {
       return <JokeItem jokeData={jokeData} />;
-    }
-
-    {
-      /* <Button onPress={() => navigate('BuDeJieDetail', { pictureData: pictureData })}>*/
     }
 
     /**
@@ -58,7 +52,7 @@ class ContainerItem extends React.Component<Props> {
       return (
         <View>
           <JokeItem jokeData={jokeData} />
-          {/* <VideoItem pictureData={pictureData} videoPress={this.props.videoPress} />*/}
+          <VideoItem pictureData={pictureData} videoPress={this.props.videoPress} />
         </View>
       );
     }

@@ -44,8 +44,8 @@ const BaseItem = (props: Props) => {
 
 const styles = StyleSheet.create({
   bottomViewStyle: {
-    backgroundColor: 'red',
-    height: px2dp(20)
+    backgroundColor: '#c0c0c0',
+    height: px2dp(10)
   }
 });
 

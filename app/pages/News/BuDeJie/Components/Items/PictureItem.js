@@ -26,8 +26,6 @@ const renderPicture = (props: Props) => {
   } = props.pictureData;
 
   // console.log('pictureData', props.pictureData);
-  console.log('sssssss', imageHeight, itemHeight);
-
 
   const isLongPictureCanOpenedAndNoGif = isLongPictureCanOpened && is_gif === '0';
 
@@ -115,8 +113,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   pictureView: {
-    paddingHorizontal: px2dp(20),
-    backgroundColor: 'green'
+    paddingHorizontal: px2dp(20)
+    // backgroundColor: 'green'
     // paddingVertical: px2dp(10)
   },
   picture: {
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    width: System.SCREEN_WIDTH
+    width: System.SCREEN_WIDTH - px2dp(40)
   },
   longPictureSignText: {
     fontSize: FONT_SIZE(18),

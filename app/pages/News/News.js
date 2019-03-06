@@ -13,7 +13,8 @@ import { observer, inject } from 'mobx-react';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 import { Welfare } from './Welfare';
-import { BuDeJie } from './BuDeJie';
+// import { BuDeJie } from './BuDeJie';
+import { BuDeJie } from './BuDeJie/index_new';
 import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type { NavigationState } from 'react-navigation';
@@ -67,7 +68,7 @@ class News extends React.Component<any, State> {
           tabBarTextStyle={{ fontSize: 15 }}
         >
           {this.state.typeArr.map((item, i) => {
-            if (i === 1) {
+            if (i === 4) {
               return (
                 <Welfare
                   tabLabel={item.title}

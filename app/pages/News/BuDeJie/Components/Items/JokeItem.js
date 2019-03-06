@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginVertical: px2dp(10)
   },
   jokeText: {
-    lineHeight: px2dp(44),
+    // lineHeight: px2dp(44),
     fontSize: FONT_SIZE(17)
   }
 });

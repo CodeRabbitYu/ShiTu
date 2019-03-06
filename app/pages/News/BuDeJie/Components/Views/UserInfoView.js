@@ -42,7 +42,7 @@ export function UserInfoView(props: Props) {
 const styles = StyleSheet.create({
   userInfo: {
     flexDirection: 'row',
-    marginTop: px2dp(20)
+    marginTop: px2dp(10)
   },
   icon: {
     width: px2dp(80),
