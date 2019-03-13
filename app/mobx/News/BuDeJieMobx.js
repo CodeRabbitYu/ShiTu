@@ -42,7 +42,7 @@ const JOKE_ITEM_WIDTH = SCREEN_WIDTH - px2dp(40);
 const JOKE_FONT_SIZE = FONT_SIZE(17);
 
 class BuDeJieMobx extends ConfigStore {
-  static async handleJokeTextWidth(text) {
+  static async handleJokeTextWidth(text: string) {
     const heights = await MeasureText.heights({
       texts: [text],
       width: JOKE_ITEM_WIDTH,
@@ -52,9 +52,7 @@ class BuDeJieMobx extends ConfigStore {
     return parseFloat(heights.join());
   }
 
-  static async handleLargeListData(parameters) {
-    const { data, type } = parameters;
-
+  static async handleLargeListData(data: Array<RTBDJList>, type: any) {
     const containerHeight =
       SCREEN_HEIGHT -
       DEFAULT_TAB_BAR_HEIGHT -
@@ -63,7 +61,7 @@ class BuDeJieMobx extends ConfigStore {
       DEFAULT_SCROLL_TOP_BAR_HEIGHT -
       DEFAULT_SPACE_HEIGHT;
 
-    const dataSource: Array = [];
+    const dataSource: Array<any> = [];
 
     const largeListData = { items: [] };
     const _containerHeight = containerHeight;
@@ -85,8 +83,7 @@ class BuDeJieMobx extends ConfigStore {
       item.isLongPictureCanOpened = !(height > _containerHeight && height > MAX_SCREEN_IMAGE_HEIGHT && !isGif);
 
       const JokeHeight = await BuDeJieMobx.handleJokeTextWidth(item.text);
-      const ImageHeight = item.imageHeight;
-      // const ImageHeight = 0;
+      const ImageHeight = item?.imageHeight ? item.imageHeight : 0;
       item.itemHeight = USER_INFO_HEIGHT + JokeHeight + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
 
       const {
@@ -106,7 +103,8 @@ class BuDeJieMobx extends ConfigStore {
         theme_name,
         is_gif,
         gifFistFrame,
-        imageHeight
+        imageHeight,
+        itemHeight
       } = item;
 
       const userInfoData = { profile_image, name, passtime, theme_name, type };
@@ -124,7 +122,8 @@ class BuDeJieMobx extends ConfigStore {
         is_gif,
         type,
         gifFistFrame,
-        ...item
+        itemHeight,
+        ...jokeData
       };
 
       item.userInfoData = userInfoData;
@@ -146,12 +145,7 @@ class BuDeJieMobx extends ConfigStore {
   @observable
   maxtime: string = '';
   @observable
-  largeListData: Array = [{ items: [] }];
-
-  constructor(type) {
-    super();
-    console.log('type------', type);
-  }
+  largeListData: Array<any> = [{ items: [] }];
 
   /**
    * imageHeight: 所有Item中，Image的高度
@@ -165,10 +159,7 @@ class BuDeJieMobx extends ConfigStore {
     try {
       const buDeJieData: RTBDJResult = await loadBuDeJieData(type, value);
 
-      const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData({
-        data: buDeJieData.list,
-        type: type
-      });
+      const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.list, type);
 
       console.log('largeListData', largeListData);
 
@@ -190,12 +181,10 @@ class BuDeJieMobx extends ConfigStore {
       }
 
       console.log('this.largeListData.slice', this.largeListData.slice());
-
     } catch (e) {
       this.showErrorView(e);
     }
   }
-
 }
 
 export { BuDeJieMobx };

@@ -80,7 +80,7 @@ class BuDeJie extends React.Component<Props, any> {
     const { largeListData } = this.buDeJieMobx;
 
     const item = largeListData[section].items[row];
-    console.log('item-----', item);
+    // console.log('item-----', item);
     return (
       <BaseItem
         itemData={item}
@@ -102,7 +102,7 @@ class BuDeJie extends React.Component<Props, any> {
         data={largeListData}
         ref={ref => (this._list = ref)}
         heightForIndexPath={({ section, row }: { section: number, row: number }) => {
-          const item = largeListData[section].items[row];
+          const item: RTBDJList = largeListData[section].items[row];
           return item.itemHeight;
         }}
         renderIndexPath={this.renderItem}

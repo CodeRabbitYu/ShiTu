@@ -4,11 +4,12 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { CustomImage, Button } from '../../../../../components';
 import type { Picture } from '../../../../../servers/News/interfaces';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { System } from '../../../../../utils';
 
 type Props = {
   pictureData: Picture,
@@ -38,7 +39,9 @@ export const VideoItem = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: px2dp(20),
-    // marginVertical: px2dp(10)
+    marginHorizontal: px2dp(20)
+  },
+  picture: {
+    width: System.SCREEN_WIDTH - px2dp(40)
   }
 });

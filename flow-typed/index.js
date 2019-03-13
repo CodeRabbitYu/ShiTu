@@ -16,6 +16,7 @@ declare var Android: boolean;
 declare var Toast: Function;
 declare var ApiConfig: Function;
 declare var isIPhoneX: any;
+declare var Theme: any;
 
 
 

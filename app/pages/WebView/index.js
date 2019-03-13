@@ -38,6 +38,7 @@ export default class index extends React.Component<Props, State> {
     const { uri } = this.props.navigation.state.params;
 
     console.log('webView地址', uri);
+    console.log('navigation', this.props.navigation);
 
     this.state = {
       active: false,

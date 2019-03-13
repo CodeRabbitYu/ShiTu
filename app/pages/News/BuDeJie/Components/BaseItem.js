@@ -22,7 +22,7 @@ type Props = {
 };
 
 const BaseItem = (props: Props) => {
-  const { userInfoData, toolBarData } = props.itemData;
+  const { userInfoData } = props.itemData;
   const { itemData, itemPress, picturePress, videoPress } = props;
 
   // console.log('itemData', itemData);

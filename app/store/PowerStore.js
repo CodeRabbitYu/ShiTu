@@ -3,7 +3,7 @@
  * Created by Rabbit on 2018/8/7.
  */
 
-import { observable, action, computed, runInAction } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { AsyncStorage } from 'react-native';
 
 const ST_BACKGROUND_IMAGE = 'ST_BACKGROUND_IMAGE';
@@ -16,7 +16,7 @@ class PowerStore {
     this.handleShiTuBackgroundImage();
   }
 
-  @action
+  @action.bound
   handleShiTuBackgroundImage = () => {
     let image_url;
 

@@ -133,4 +133,5 @@ export interface Picture extends RTBDJList {
   containerHeight: number;
   weixin_url: string;
   gifFistFrame: string;
+  itemHeight: number;
 }

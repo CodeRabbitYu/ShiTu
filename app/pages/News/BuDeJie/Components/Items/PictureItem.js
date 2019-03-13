@@ -22,10 +22,7 @@ const renderPicture = (props: Props) => {
     is_gif,
     gifFistFrame,
     isLongPictureCanOpened,
-    itemHeight
   } = props.pictureData;
-
-  // console.log('pictureData', props.pictureData);
 
   const isLongPictureCanOpenedAndNoGif = isLongPictureCanOpened && is_gif === '0';
 

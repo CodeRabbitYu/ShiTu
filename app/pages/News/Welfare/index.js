@@ -8,7 +8,7 @@ import { WaterfallList } from 'react-native-largelist-v3';
 import { NormalFooter } from 'react-native-spring-scrollview/NormalFooter';
 
 import { WelfareMobx } from '../../../mobx/News';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import type { RTWeal } from '../../../servers/News/interfaces';
 import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
@@ -22,17 +22,19 @@ type Props = {
   powerStore: PowerStore,
   configStore: ConfigStore
 };
-@inject('powerStore', 'configStore')
 @observer
 class Welfare extends React.Component<Props> {
-  constructor(props) {
+  welfareMobx: WelfareMobx;
+  customPopView: any;
+
+  constructor(props: any) {
     super(props);
     this.welfareMobx = new WelfareMobx();
   }
 
-  async componentDidMount(): void {
+  componentDidMount = async () => {
     await this.welfareMobx.loadWelfareData('refreshing');
-  }
+  };
 
   actionSheetToSaveImage = (item: RTWeal) => {
     const items = [

@@ -19,7 +19,6 @@ import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type { NavigationState } from 'react-navigation';
 import type { RTBuDeJieType } from '../../servers/News';
-import MeasureText from 'react-native-measure-text';
 
 type State = {
   typeArr: Array<typeItem>
@@ -31,25 +30,25 @@ type typeItem = {
   navigate: NavigationState
 };
 
-@inject('powerStore')
+@inject('powerStore', 'configStore')
 @observer
 class News extends React.Component<any, State> {
-  async componentDidMount(): void {
-
+  componentDidMount = async () => {
+    console.log('navigation', this.props.navigation);
     this.props.navigation.setParams({
       title: '百思不得姐'
     });
-  }
+  };
 
   constructor(props: any) {
     super(props);
     const { navigate } = this.props.navigation;
     this.state = {
       typeArr: [
+        { title: '笑话', type: 29, navigate: navigate },
         { title: '图片', type: 10, navigate: navigate },
         { title: '全部', type: 1, navigate: navigate },
         { title: '视频', type: 41, navigate: navigate },
-        { title: '笑话', type: 29, navigate: navigate },
         { title: '福利', type: '福利', navigate: navigate }
       ]
     };
@@ -74,6 +73,7 @@ class News extends React.Component<any, State> {
                   tabLabel={item.title}
                   key={i}
                   navigate={item.navigate}
+                  configStore={this.props.configStore}
                   powerStore={this.props.powerStore}
                 />
               );

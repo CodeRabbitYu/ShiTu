@@ -22,7 +22,9 @@ export class Register extends React.Component<Props> {
         <Button
           title={'点我跳转'}
           onPress={() => {
-            this.props.navigation.push('Login');
+            // this.props.navigation.push('Login');
+            // this.props.navigation.navigate('AppRouter');
+            this.props.navigation.navigate('WebView', {data: '123'});
           }}
         />
       </BaseContainer>
