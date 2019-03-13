@@ -75,7 +75,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index_old.js"
+    entryFile: "index.js"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -102,7 +102,11 @@ bugly {
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.shitu"
@@ -110,18 +114,16 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
     }
     splits {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86"
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86-64"
         }
     }
+
     signingConfigs {
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
@@ -130,8 +132,10 @@ android {
                 keyAlias MYAPP_RELEASE_KEY_ALIAS
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD
             }
-        }
-    }
+         }
+     }
+
+
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
@@ -144,10 +148,11 @@ android {
         if (variant.buildType.name != "debug") {
             variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk/release")
         }
+
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a":1, "x86":2, "arm64-v8a": 3, "x86-64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -155,45 +160,40 @@ android {
             }
         }
     }
-    android {
-        sourceSets {
-            main.jniLibs.srcDirs = ['libs']
-        }
-        lintOptions {
-            abortOnError false
-        }
-    }
     walle {
-        // 指定渠道包的输出路径
+    // 指定渠道包的输出路径
         apkOutputFolder = new File("${project.rootDir}/apk/channels");
-        // 定制渠道包的APK的文件名称
-//        apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
+    // 定制渠道包的APK的文件名称
+//       apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}.apk';
         apkFileNameFormat = 'ShiTu-${channel}-${buildType}-v${versionName}.apk';
         // 渠道配置文件
         channelFile = new File("${project.getProjectDir()}/channel")
     }
+
 }
 
 dependencies {
-    compile project(':react-native-webview')
-    compile project(':react-native-measure-text')
-    compile project(':react-native-spring-scrollview')
-    compile project(':rn-fetch-blob')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-splash-screen')
-    compile project(':react-native-linear-gradient')
-    compile project(':react-native-image-picker')
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-fast-image')
+    implementation project(':react-native-webview')
+    implementation project(':rn-fetch-blob')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-spring-scrollview')
+    implementation project(':react-native-splash-screen')
+    implementation project(':react-native-measure-text')
+    implementation project(':react-native-linear-gradient')
+    implementation project(':react-native-image-picker')
+    implementation project(':react-native-gesture-handler')
+    implementation project(':react-native-fast-image')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    compile 'com.tencent.bugly:crashreport:2.8.6.0'
-    compile 'com.tencent.bugly:nativecrashreport:3.6.0.1'
-    compile 'com.meituan.android.walle:library:1.1.6'
-    compile 'com.android.support:support-v4:27.1.1'
-    compile 'com.android.support:multidex:1.0.3'
+    implementation 'com.tencent.bugly:crashreport:2.8.6.0'
+    implementation 'com.tencent.bugly:nativecrashreport:3.6.0.1'
+    implementation 'com.meituan.android.walle:library:1.1.6'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
+
+
 }
 
 // Run this once to be able to run the application with BUCK

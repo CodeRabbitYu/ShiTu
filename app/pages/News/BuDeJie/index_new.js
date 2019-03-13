@@ -22,7 +22,7 @@ import PlaceholderView from './Components/Views/PlaceholderView';
 import type { RTBuDeJieType } from '../../../servers/News';
 
 import { LargeList } from 'react-native-largelist-v3';
-import { ChineseWithLastDateFooter } from 'react-native-spring-scrollview/Customize';
+// import { ChineseWithLastDateFooter } from 'react-native-spring-scrollview/Customize';
 
 type Props = {
   type: RTBuDeJieType | string,
@@ -106,7 +106,7 @@ class BuDeJie extends React.Component<Props, any> {
           return item.itemHeight;
         }}
         renderIndexPath={this.renderItem}
-        loadingFooter={ChineseWithLastDateFooter}
+        // loadingFooter={ChineseWithLastDateFooter}
         onLoading={async () => {
           await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
           this._list.endLoading();

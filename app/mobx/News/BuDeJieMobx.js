@@ -47,8 +47,10 @@ class BuDeJieMobx extends ConfigStore {
       texts: [text],
       width: JOKE_ITEM_WIDTH,
       fontSize: JOKE_FONT_SIZE,
-      fontWeight: 'normal'
+      fontWeight: 'normal',
+      fontFamily: Android ? 'normal' : 'Heiti SC',
     });
+    console.log('heights', heights);
     return parseFloat(heights.join());
   }
 
@@ -159,6 +161,9 @@ class BuDeJieMobx extends ConfigStore {
     try {
       const buDeJieData: RTBDJResult = await loadBuDeJieData(type, value);
 
+      console.log('data', buDeJieData);
+      
+
       const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.list, type);
 
       console.log('largeListData', largeListData);
@@ -183,6 +188,7 @@ class BuDeJieMobx extends ConfigStore {
       console.log('this.largeListData.slice', this.largeListData.slice());
     } catch (e) {
       this.showErrorView(e);
+      console.log('e', e.message);
     }
   }
 }

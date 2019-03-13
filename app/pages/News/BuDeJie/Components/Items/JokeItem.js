@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     marginVertical: px2dp(10)
   },
   jokeText: {
-    fontSize: FONT_SIZE(17)
+    fontSize: FONT_SIZE(17),
+    fontFamily: Android ? 'normal' : 'Heiti SC',
   }
 });

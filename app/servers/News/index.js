@@ -36,12 +36,8 @@ export type RTBuDeJieType = 1 | 41 | 10 | 29;
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
   const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
 
+  // const data = await fetch(url);
+  // console.log('xxxxxxx', await data.json());
+
   return await Fetch.get(url);
-
-  // const data = await fetch('http://api.budejie.com/api/api_open.php?a=list&c=data&type=10');
-  // console.log(await data.json());
-  //
-  // return await data.json();
-
-  // console.log(url)
 }

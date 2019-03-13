@@ -114,7 +114,7 @@ export class Main extends Component<Props, any> {
         style={styles.container}
         isTopNavigator={true}
         title={'我的'}
-        rightView={this.renderRightView()}
+        // rightView={this.renderRightView()}
         onWillBlur={payload => {
           console.log('Main页面将要失去焦点', payload);
         }}
