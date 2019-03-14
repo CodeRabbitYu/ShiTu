@@ -31,7 +31,7 @@ export async function fetchWelfareData(
 // };
 
 // export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
-export type RTBuDeJieType = 1 | 41 | 10 | 29;
+export type RTBuDeJieType = '1' | '41' | '10' | '29' | string | number;
 
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
   const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;

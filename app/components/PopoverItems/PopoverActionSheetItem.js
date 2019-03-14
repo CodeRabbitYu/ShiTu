@@ -4,9 +4,10 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import Theme from 'teaset/themes/Theme';
+import PropTypes from 'prop-types';
 
 type Props = {
   type: 'default' | 'cancel',
@@ -14,10 +15,19 @@ type Props = {
   topSeparator: 'none' | 'full' | 'indent',
   bottomSeparator: 'none' | 'full' | 'indent',
   disabled: boolean,
-  ...TouchableOpacity
+  ...TouchableOpacity.propTypes
 };
 
 export default class ActionSheetItem extends Component<Props> {
+  static propTypes = {
+    ...TouchableOpacity.propTypes,
+    type: PropTypes.oneOf(['default', 'cancel']),
+    title: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+    topSeparator: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf(['none', 'full', 'indent'])]),
+    bottomSeparator: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf(['none', 'full', 'indent'])]),
+    disabled: PropTypes.bool
+  };
+
   static defaultProps = {
     ...TouchableOpacity.defaultProps,
     type: 'default',
@@ -26,11 +36,9 @@ export default class ActionSheetItem extends Component<Props> {
     disabled: false
   };
 
-  buildProps() {
-    let { style, title, topSeparator, bottomSeparator, activeOpacity, ...others } = this.props;
-
-    const { type, disabled, onPress } = this.props;
-
+  buildStyle() {
+    let { style } = this.props;
+    const { type } = this.props;
     style = [
       {
         backgroundColor: type === 'cancel' ? Theme.asCancelItemColor : Theme.asItemColor,
@@ -43,20 +51,55 @@ export default class ActionSheetItem extends Component<Props> {
         justifyContent: 'center'
       }
     ].concat(style);
+    return style;
+  }
 
-    let textStyle, separatorStyle;
+  renderSeparator(separator) {
+    const { type } = this.props;
+
+    const indentViewStyle = {
+      backgroundColor: 'rgba(0,0,0,0)',
+      paddingLeft: Theme.asItemPaddingLeft
+    };
+    let separatorStyle;
+    if (type === 'cancel') {
+      separatorStyle = {
+        backgroundColor: Theme.asCancelItemSeparatorColor,
+        height: Theme.asCancelItemSeparatorLineWidth
+      };
+    } else {
+      separatorStyle = {
+        backgroundColor: Theme.asItemSeparatorColor,
+        height: Theme.asItemSeparatorLineWidth
+      };
+    }
+    switch (separator) {
+      case 'full':
+        return <View style={separatorStyle} />;
+      case 'indent':
+        return (
+          <View style={indentViewStyle}>
+            <View style={separatorStyle} />
+          </View>
+        );
+      default:
+        return null;
+    }
+  }
+
+  renderTitle() {
+    const { type, title, disabled } = this.props;
+    if (title === null || title === undefined || React.isValidElement(title)) return title;
+
+    let textStyle;
     if (type === 'cancel') {
       textStyle = {
         backgroundColor: 'rgba(0, 0, 0, 0)',
-        color: 'red',
+        color: Theme.asCancelItemTitleColor,
         fontSize: Theme.asCancelItemFontSize,
         textAlign: Theme.asCancelItemTitleAlign,
         opacity: disabled ? Theme.asItemDisabledOpacity : 1,
         overflow: 'hidden'
-      };
-      separatorStyle = {
-        backgroundColor: Theme.asCancelItemSeparatorColor,
-        height: Theme.asCancelItemSeparatorLineWidth
       };
     } else {
       textStyle = {
@@ -67,81 +110,33 @@ export default class ActionSheetItem extends Component<Props> {
         opacity: disabled ? Theme.asItemDisabledOpacity : 1,
         overflow: 'hidden'
       };
-      separatorStyle = {
-        backgroundColor: Theme.asItemSeparatorColor,
-        height: Theme.asItemSeparatorLineWidth
-      };
     }
+    return (
+      <Text style={textStyle} numberOfLines={1}>
+        {title}
+      </Text>
+    );
+  }
 
-    if ((title || title === '' || title === 0) && !React.isValidElement(title)) {
-      title = (
-        <Text style={textStyle} numberOfLines={1}>
-          {title}
-        </Text>
-      );
-    }
-
-    const indentViewStyle = {
-      backgroundColor: StyleSheet.flatten(style).backgroundColor,
-      paddingLeft: Theme.asItemPaddingLeft
-    };
-    switch (topSeparator) {
-      case 'none':
-        topSeparator = null;
-        break;
-      case 'full':
-        topSeparator = <View style={separatorStyle} />;
-        break;
-      case 'indent':
-        topSeparator = (
-          <View style={indentViewStyle}>
-            <View style={separatorStyle} />
-          </View>
-        );
-        break;
-    }
-    switch (bottomSeparator) {
-      case 'none':
-        bottomSeparator = null;
-        break;
-      case 'full':
-        bottomSeparator = <View style={separatorStyle} />;
-        break;
-      case 'indent':
-        bottomSeparator = (
-          <View style={indentViewStyle}>
-            <View style={separatorStyle} />
-          </View>
-        );
-        break;
-    }
-
-    if (disabled) activeOpacity = 1;
-
-    this.props = {
+  render() {
+    const {
       style,
+      children,
       type,
       title,
       topSeparator,
       bottomSeparator,
       disabled,
       activeOpacity,
-      onPress,
       ...others
-    };
-  }
-
-  render() {
-    this.buildProps();
-
-    const { style, title, topSeparator, bottomSeparator, ...others } = this.props;
+    } = this.props;
     return (
       <View style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}>
-        {topSeparator}
-        <TouchableOpacity style={style} {...others}>
-          {title}
+        {this.renderSeparator(topSeparator)}
+        <TouchableOpacity style={this.buildStyle()} activeOpacity={disabled ? 1 : activeOpacity} {...others}>
+          {this.renderTitle()}
         </TouchableOpacity>
-        {bottomSeparator}
+        {this.renderSeparator(bottomSeparator)}
       </View>
     );
   }

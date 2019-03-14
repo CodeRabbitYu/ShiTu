@@ -19,7 +19,7 @@ import LoadingSpinner from './LoadingSpinner';
 import MyTextInput from './MyTextInput';
 import CustomToast from './CustomToast';
 import ErrorView from './ErrorView';
-// import PopoverActionSheetItem from './PopoverItems/PopoverActionSheetItem';
+import PopoverActionSheetItem from './PopoverItems/PopoverActionSheetItem';
 // import PopoverPickerViewItem from './PopoverItems/PopoverPickerViewItem';
 
 export {
@@ -37,6 +37,6 @@ export {
   MyTextInput,
   CustomToast,
   ErrorView,
-  // PopoverActionSheetItem,
+  PopoverActionSheetItem,
   // PopoverPickerViewItem
 };

@@ -2,20 +2,23 @@
  * @flow
  * Created by Rabbit on 2019-03-14.
  */
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-type Props = {};
-type State = {};
-export default class index extends React.Component<Props, State> {
-  render() {
-    return (
-      <View style={styles.container}>
-
-      </View>
-    );
-  }
-}
+export const Main = () => {
+  const [title, setTitle] = useState('123');
+  return (
+    <View style={styles.container}>
+      <Text
+        onPress={() => {
+          setTitle('4444');
+        }}
+      >
+        {title}
+      </Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

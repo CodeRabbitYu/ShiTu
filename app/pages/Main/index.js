@@ -53,7 +53,7 @@ export class Main extends Component<Props, any> {
 
   constructor(props: Props) {
     super(props);
-    PopoverPicker.PopoverPickerView.Item = PopoverPickerViewItem;
+    // PopoverPicker.PopoverPickerView.Item = PopoverPickerViewItem;
     this.items = ['扫一扫', '加好友/群', '首付款', '高能舞室'];
 
     this.state = {
@@ -114,7 +114,7 @@ export class Main extends Component<Props, any> {
         style={styles.container}
         isTopNavigator={true}
         title={'我的'}
-        // rightView={this.renderRightView()}
+        rightView={this.renderRightView()}
         onWillBlur={payload => {
           console.log('Main页面将要失去焦点', payload);
         }}

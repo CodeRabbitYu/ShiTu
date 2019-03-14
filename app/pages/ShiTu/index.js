@@ -46,19 +46,16 @@ class ShiTu extends Component<Props, State> {
     super(props);
     ActionSheet.ActionSheetView.Item = PopoverActionSheetItem;
     this.shiTuMobx = new ShiTuMobx();
-
-    this.state = {
-      aaa: ''
-    };
   }
 
   componentDidMount() {
-    this.state.aaa;
-
     DeviceEventEmitter.emit('badgeNumber', 20);
   }
 
   selectedImagePicker = (type: string) => {
+
+    ActionSheet.hide();
+
     const options = {
       quality: 0.5,
       allowsEditing: false,
@@ -72,6 +69,11 @@ class ShiTu extends Component<Props, State> {
     const launchType = `launch${type}`;
 
     ImagePicker[launchType](options, async imageResponse => {
+
+      console.log('options', options, imageResponse);
+
+      if (imageResponse.didCancel) return;
+
       this.props.configStore.showLoading();
 
       const imageData = await this.shiTuMobx.uploadImage(imageResponse);

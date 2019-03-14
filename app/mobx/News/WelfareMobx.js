@@ -45,9 +45,8 @@ class WelfareMobx extends ConfigStore {
 
     try {
       // 下载图片
-      await FetchBlob.config(config)
-        .fetch('GET', url)
-        .then(() => FetchBlob.fs.scanFile([{ path: Dirs.DCIMDir + imageName }]));
+      await FetchBlob.config(config).fetch('GET', url);
+      FetchBlob.fs.scanFile([{ path: Dirs.DCIMDir + imageName, mime: '' }])
       alert('保存成功');
     } catch (e) {
       console.log(e);
@@ -83,7 +82,6 @@ class WelfareMobx extends ConfigStore {
         });
       } else {
         runInAction(() => {
-
           this.page = 1;
           this.dataSource = results;
         });

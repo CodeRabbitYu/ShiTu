@@ -33,16 +33,17 @@ type Props = {
 class BuDeJie extends React.Component<Props, any> {
   buDeJieMobx: BuDeJieMobx;
   customPopView: any;
+  _list: LargeList;
 
   constructor(props: Props) {
     super(props);
-    this.buDeJieMobx = new BuDeJieMobx(this.props.type);
+    this.buDeJieMobx = new BuDeJieMobx();
   }
 
-  async componentDidMount(): void {
+  componentDidMount = async () => {
     const { maxtime } = this.buDeJieMobx;
     await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
-  }
+  };
 
   picturePress = (item: Picture | any) => {
     if (item.isLongPicture || !item.is_gif) {

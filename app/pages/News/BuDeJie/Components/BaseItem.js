@@ -28,7 +28,7 @@ const BaseItem = (props: Props) => {
   // console.log('itemData', itemData);
 
   return (
-    <View>
+    <View style={{}}>
       <UserInfoView userInfoData={userInfoData} />
       <ContainerItem
         itemData={itemData}

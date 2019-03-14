@@ -6,7 +6,7 @@
 import { observable, action } from 'mobx';
 import { AsyncStorage } from 'react-native';
 
-import { Toast, Theme } from 'teaset';
+import { Toast } from 'teaset';
 import React from 'react';
 import { CustomToast } from '../components';
 

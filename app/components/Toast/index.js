@@ -21,7 +21,7 @@ type Props = {
   positionValue: number | any,
   fadeInDuration?: number,
   fadeOutDuration?: number,
-  opacity?: number,
+  opacity?: any | ?number,
   defaultCloseDelay?: number
 };
 

@@ -7,7 +7,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native';
 
 type Props = {
-  style: any
+  style?: any
 };
 const CustomToast = (props: Props) => {
   const { style } = props;

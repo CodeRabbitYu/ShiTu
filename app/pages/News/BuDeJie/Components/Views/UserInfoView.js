@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button, CustomImage } from '../../../../../components';
 import type { UserInfo } from '../../../../../servers/News/interfaces';
 
@@ -28,11 +28,11 @@ export function UserInfoView(props: Props) {
       </Button>
 
       <Button style={styles.userDetailView} activeOpacity={1} onPress={() => alert('点击用户信息')}>
-        <View>
+        <View style={{}}>
           <Text style={styles.userText} numberOfLines={2}>
             {name}
           </Text>
-          <Text style={styles.userTime}>{theme_name}</Text>
+          {!!theme_name && <Text style={styles.userTime}>{theme_name}</Text>}
         </View>
       </Button>
     </View>
@@ -42,7 +42,9 @@ export function UserInfoView(props: Props) {
 const styles = StyleSheet.create({
   userInfo: {
     flexDirection: 'row',
-    marginTop: px2dp(10)
+    // backgroundColor: 'green',
+    height: px2dp(100)
+    // marginTop: px2dp(10)
   },
   icon: {
     width: px2dp(80),
@@ -52,10 +54,12 @@ const styles = StyleSheet.create({
     marginLeft: px2dp(20)
   },
   userDetailView: {
-    alignSelf: 'center',
+    // alignSelf: 'center',
     marginLeft: px2dp(16),
     marginVertical: px2dp(10),
-    marginRight: '15%'
+    marginRight: '15%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   userText: {
     fontSize: FONT_SIZE(16),

@@ -22,7 +22,7 @@ const MAX_SCREEN_IMAGE_HEIGHT = 7000;
 /*
  * 顶部UserInfo的高度， px2dp(100)为整体预估高度， px2dp(10)为距离顶部的margin高度
  */
-const USER_INFO_HEIGHT = px2dp(100) + px2dp(10);
+const USER_INFO_HEIGHT = px2dp(100);
 
 /**
  * 文字有marginVertical: px2dp(10)属性
@@ -33,13 +33,16 @@ const JOKE_SPACE_HEIGHT = px2dp(20);
  *  px2dp(20) 为底部间距高度
  */
 const ITEM_HEIGHT_SPACE_HEIGHT = px2dp(10) + JOKE_SPACE_HEIGHT;
+// const ITEM_HEIGHT_SPACE_HEIGHT = JOKE_SPACE_HEIGHT;
 
 const DEFAULT_SPACE_HEIGHT = 10;
 const DEFAULT_TAB_BAR_HEIGHT = 49;
 const DEFAULT_SCROLL_TOP_BAR_HEIGHT = 54;
 
 const JOKE_ITEM_WIDTH = SCREEN_WIDTH - px2dp(40);
-const JOKE_FONT_SIZE = FONT_SIZE(17);
+// const JOKE_ITEM_WIDTH = SCREEN_WIDTH ;
+// const JOKE_FONT_SIZE = FONT_SIZE(17);
+const JOKE_FONT_SIZE = 17;
 
 class BuDeJieMobx extends ConfigStore {
   static async handleJokeTextWidth(text: string) {
@@ -48,7 +51,7 @@ class BuDeJieMobx extends ConfigStore {
       width: JOKE_ITEM_WIDTH,
       fontSize: JOKE_FONT_SIZE,
       fontWeight: 'normal',
-      fontFamily: Android ? 'normal' : 'Heiti SC',
+      fontFamily: Android ? 'normal' : 'Heiti SC'
     });
     console.log('heights', heights);
     return parseFloat(heights.join());
@@ -87,6 +90,9 @@ class BuDeJieMobx extends ConfigStore {
       const JokeHeight = await BuDeJieMobx.handleJokeTextWidth(item.text);
       const ImageHeight = item?.imageHeight ? item.imageHeight : 0;
       item.itemHeight = USER_INFO_HEIGHT + JokeHeight + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
+      // item.itemHeight = JokeHeight + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
+
+      console.log('itemHeight', item.itemHeight);
 
       const {
         text,
@@ -157,27 +163,19 @@ class BuDeJieMobx extends ConfigStore {
    */
   @action.bound
   async fetchBuDeJieData(type: RTBuDeJieType, value: string) {
-    console.log('value', type, value);
     try {
       const buDeJieData: RTBDJResult = await loadBuDeJieData(type, value);
 
-      console.log('data', buDeJieData);
-      
-
       const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.list, type);
 
-      console.log('largeListData', largeListData);
 
       if (value === '') {
-        console.log('第一次加载？value', value);
         runInAction(() => {
           this.dataSource = dataSource;
           this.largeListData = [largeListData];
           this.maxtime = buDeJieData.info.maxid;
         });
       } else {
-        console.log('加载更多？value', value);
-        console.log('largeListData-----', this.largeListData[0].items);
         runInAction(() => {
           this.dataSource = this.dataSource.concat(dataSource);
           this.largeListData = this.largeListData.concat([largeListData]);
@@ -187,7 +185,7 @@ class BuDeJieMobx extends ConfigStore {
 
       console.log('this.largeListData.slice', this.largeListData.slice());
     } catch (e) {
-      this.showErrorView(e);
+      this.showErrorView(e.message);
       console.log('e', e.message);
     }
   }

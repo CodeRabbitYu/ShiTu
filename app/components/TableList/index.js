@@ -152,7 +152,7 @@ export default class index<ItemT> extends React.Component<Props<ItemT>, State<It
   value: ?number | ?string;
   // _flatList: ?React.ElementRef<any> = null;
 
-  _flatList: null | VirtualizedList | ScrollView;
+  _flatList: any;
 
   constructor(props: Props<ItemT>) {
     super(props);
