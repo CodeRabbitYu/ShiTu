@@ -90,7 +90,7 @@ class BuDeJieMobx extends ConfigStore {
       const JokeHeight = await BuDeJieMobx.handleJokeTextWidth(item.text);
       const ImageHeight = item?.imageHeight ? item.imageHeight : 0;
       item.itemHeight = USER_INFO_HEIGHT + JokeHeight + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
-      // item.itemHeight = JokeHeight + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
+      // item.itemHeight = USER_INFO_HEIGHT + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
 
       console.log('itemHeight', item.itemHeight);
 

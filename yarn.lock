@@ -5487,10 +5487,10 @@ react-native-webview@^5.3.0:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"
 
-react-native@0.59.0:
-  version "0.59.0"
-  resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.59.0.tgz#7d0ad297da3fd2e18f387f0ef5581270aaabac42"
-  integrity sha1-fQrSl9o/0uGPOH8O9VgScKqrrEI=
+react-native@0.59.1:
+  version "0.59.1"
+  resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.59.1.tgz#3274dcc0f9558799bd41c8092acac2a79bd627ce"
+  integrity sha1-MnTcwPlVh5m9QcgJKsrCp5vWJ84=
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^1.2.1"
