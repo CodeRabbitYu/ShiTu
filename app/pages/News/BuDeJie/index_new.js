@@ -108,10 +108,10 @@ class BuDeJie extends React.Component<Props, any> {
         }}
         renderIndexPath={this.renderItem}
         // loadingFooter={ChineseWithLastDateFooter}
-        onLoading={async () => {
-          await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
-          this._list.endLoading();
-        }}
+        // onLoading={async () => {
+        //   await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
+        //   this._list.endLoading();
+        // }}
       />
     );
   }
