@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, Image, Alert } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Alert } from 'react-native';
 import { ProgressBar, Button } from '../../components';
 import { System } from '../../utils';
 import { WebView } from 'react-native-webview';
@@ -50,6 +50,7 @@ export default class index extends React.Component<Props, State> {
 
   componentWillUnmount() {
     this.props.configStore.hideLoading();
+    StatusBar.setHidden(false);
   }
 
   reload = () => {
@@ -199,6 +200,7 @@ export default class index extends React.Component<Props, State> {
           onLoadEnd={this.onLoadEnd}
           onLoadStart={this.onLoadStart}
           onError={this.onError}
+          mediaPlaybackRequiresUserAction={false}
         />
         {this.renderActionButton()}
       </BaseContainer>
