@@ -14,7 +14,7 @@ import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-vi
 
 import { Welfare } from './Welfare';
 // import { BuDeJie } from './BuDeJie';
-import { BuDeJie } from './BuDeJie/index_new';
+import { BuDeJie } from './BuDeJie';
 import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type { NavigationState } from 'react-navigation';

@@ -4,7 +4,6 @@
  */
 
 import { observable, action } from 'mobx';
-import { AsyncStorage } from 'react-native';
 
 import { Toast } from 'teaset';
 import React from 'react';
@@ -68,24 +67,5 @@ class ConfigStore {
     this.isError = false;
   }
 
-  @action.bound
-  async fetchStartUp() {
-    const getToken = await AsyncStorage.getItem('User');
-    console.log('存在Token', getToken);
-    try {
-      // const responseData: responseType = await fetchUserData();
-      //
-      // const data = responseData.data;
-      //
-      // const session = data.session;
-      // console.log('data', data);
-      //
-      // if (!getToken || getToken === null || getToken === 'null') {
-      // 	await AsyncStorage.setItem('Session', session);
-      // 	console.log('不存在Token', session, data);
-      // 	// if (getSession) alert('不存在');
-      // }
-    } catch (e) {}
-  }
 }
 export { ConfigStore };

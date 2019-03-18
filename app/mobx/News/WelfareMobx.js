@@ -7,10 +7,11 @@ import { observable, action, runInAction } from 'mobx';
 import type { RTGankResult, RTWeal } from '../../servers/News/interfaces';
 import { fetchWelfareData } from '../../servers/News';
 import { System } from '../../utils';
-import FetchBlob from 'rn-fetch-blob';
 import { CameraRoll } from 'react-native';
 import { ConfigStore } from '../../store/ConfigStore';
+import FetchBlob from 'rn-fetch-blob';
 const Dirs = FetchBlob.fs.dirs;
+
 type loadDataType = 'refreshing' | 'load more' | string;
 
 class WelfareMobx extends ConfigStore {

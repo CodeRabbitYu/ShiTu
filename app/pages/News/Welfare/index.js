@@ -8,7 +8,7 @@ import { WaterfallList } from 'react-native-largelist-v3';
 import { NormalFooter } from 'react-native-spring-scrollview/NormalFooter';
 
 import { WelfareMobx } from '../../../mobx/News';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import type { RTWeal } from '../../../servers/News/interfaces';
 import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
@@ -16,12 +16,15 @@ import { ActionSheet, Overlay } from 'teaset';
 import type { NavigationState } from 'react-navigation';
 import { PowerStore } from '../../../store/PowerStore';
 import { ConfigStore } from '../../../store/ConfigStore';
+import { PublicStore } from '../../../store/PublicStore';
 
 type Props = {
   navigate: NavigationState,
   powerStore: PowerStore,
-  configStore: ConfigStore
+  configStore: ConfigStore,
+  publicStore: PublicStore
 };
+@inject('publicStore')
 @observer
 class Welfare extends React.Component<Props> {
   welfareMobx: WelfareMobx;
@@ -37,13 +40,11 @@ class Welfare extends React.Component<Props> {
   };
 
   actionSheetToSaveImage = (item: RTWeal) => {
+    const { saveImageWithIOS, saveImageWithAndroid } = this.props.publicStore;
     const items = [
       {
         title: '保存图片',
-        onPress: () =>
-          System.iOS
-            ? this.welfareMobx.saveImageWithIOS(item.largeUrl)
-            : this.welfareMobx.saveImageWithAndroid(item.largeUrl)
+        onPress: () => (System.iOS ? saveImageWithIOS(item.largeUrl) : saveImageWithAndroid(item.largeUrl))
       },
       {
         title: '设置主屏幕',

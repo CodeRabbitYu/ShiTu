@@ -1,6 +1,6 @@
 /**
  * @flow
- * Created by Rabbit on 2018/5/4.
+ * Created by Rabbit on 2019-03-05.
  */
 
 import React from 'react';
@@ -11,40 +11,54 @@ import BaseContainer from '../../../components/BaseContainer';
 
 import type { RTBDJList, RTWeal } from '../../../servers/News/interfaces';
 import { BuDeJieMobx } from '../../../mobx/News/BuDeJieMobx';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { BaseItem } from './Components/BaseItem';
 import type { NavigationState } from 'react-navigation';
-import { Overlay } from 'teaset';
+import { ActionSheet, Overlay } from 'teaset';
 import { Button, CustomImage } from '../../../components';
 
 import { Picture } from '../../../servers/News/interfaces';
 import PlaceholderView from './Components/Views/PlaceholderView';
 import type { RTBuDeJieType } from '../../../servers/News';
 
+import { LargeList } from 'react-native-largelist-v3';
+import { System } from '../../../utils';
+import { PublicStore } from '../../../store/PublicStore';
+// import { ChineseWithLastDateFooter } from 'react-native-spring-scrollview/Customize';
+
 type Props = {
   type: RTBuDeJieType | string,
-  navigate: NavigationState
+  navigate: NavigationState,
+  publicStore: PublicStore
 };
 
+@inject('publicStore')
 @observer
 class BuDeJie extends React.Component<Props, any> {
   buDeJieMobx: BuDeJieMobx;
   customPopView: any;
+  _list: LargeList;
 
   constructor(props: Props) {
     super(props);
     this.buDeJieMobx = new BuDeJieMobx();
   }
 
-  onFetch = async (value: any = this.buDeJieMobx.maxtime, startFetch: Function, abortFetch: Function) => {
-    try {
-      const data = await this.buDeJieMobx.fetchBuDeJieData(this.props.type, value);
+  componentDidMount = async () => {
+    const { maxtime } = this.buDeJieMobx;
+    await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
+  };
 
-      startFetch(this.buDeJieMobx.dataSource.slice(), 20);
-    } catch (e) {
-      abortFetch();
-      console.log(e);
-    }
+  actionSheetToSaveImage = (url: string) => {
+    const { saveImageWithIOS, saveImageWithAndroid } = this.props.publicStore;
+    const items = [
+      {
+        title: '保存图片',
+        onPress: () => (System.iOS ? saveImageWithIOS(url) : saveImageWithAndroid(url))
+      }
+    ];
+    const cancelItem = { title: '取消' };
+    ActionSheet.show(items, cancelItem);
   };
 
   picturePress = (item: Picture | any) => {
@@ -57,7 +71,10 @@ class BuDeJie extends React.Component<Props, any> {
           overlayOpacity={1}
           ref={v => (this.customPopView = v)}
         >
-          <Button onPress={() => this.customPopView && this.customPopView.close()}>
+          <Button
+            onPress={() => this.customPopView && this.customPopView.close()}
+            onLongPress={() => this.actionSheetToSaveImage(item.cdn_img)}
+          >
             <CustomImage
               source={{ uri: item.cdn_img }}
               resizeMode={'contain'}
@@ -78,8 +95,12 @@ class BuDeJie extends React.Component<Props, any> {
     this.props.navigate('WebView', { uri: item.weixin_url });
   };
 
-  renderItem = ({ item }: { item: RTBDJList, index: number }) => {
+  renderItem = ({ section, row }: { section: number, row: number }) => {
     const { navigate } = this.props;
+    const { largeListData } = this.buDeJieMobx;
+
+    const item = largeListData[section].items[row];
+    // console.log('item-----', item);
     return (
       <BaseItem
         itemData={item}
@@ -94,26 +115,54 @@ class BuDeJie extends React.Component<Props, any> {
   };
 
   render() {
+    const { largeListData, maxtime } = this.buDeJieMobx;
     return (
-      <BaseContainer store={this.buDeJieMobx} isHiddenNavBar={true} isTopNavigator={true}>
-        <TableList
-          style={{ backgroundColor: 'white' }}
-          onFetch={this.onFetch}
-          renderItem={this.renderItem}
-          keyExtractor={item => item.id}
-          initialNumToRender={10}
-          paginationType={'value'}
-          PaginationFetchingView={() => {
-            return [
-              <PlaceholderView type={this.props.type} key={'top'} />,
-              <PlaceholderView type={this.props.type} key={'center'} />,
-              <PlaceholderView type={this.props.type} key={'bottom'} />
-            ];
-          }}
-        />
-      </BaseContainer>
+      <LargeList
+        style={styles.container}
+        data={largeListData}
+        ref={ref => (this._list = ref)}
+        heightForIndexPath={({ section, row }: { section: number, row: number }) => {
+          const item: RTBDJList = largeListData[section].items[row];
+          return item.itemHeight;
+        }}
+        renderIndexPath={this.renderItem}
+        onRefresh={async () => {
+          await this.buDeJieMobx.fetchBuDeJieData(this.props.type, '');
+          this._list.endRefresh();
+        }}
+        // loadingFooter={ChineseWithLastDateFooter}
+        onLoading={async () => {
+          await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
+          this._list.endLoading();
+        }}
+      />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  section: {
+    flex: 1,
+    backgroundColor: 'gray',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  row: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  line: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 1,
+    backgroundColor: '#EEE'
+  }
+});
 
 export { BuDeJie };

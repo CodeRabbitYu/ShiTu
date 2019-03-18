@@ -7,7 +7,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { observer } from 'mobx-react';
-import { SafeAreaView, NavigationEvents } from 'react-navigation';
+import { NavigationEvents } from 'react-navigation';
+import NetInfo from '@react-native-community/netinfo';
 
 import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
 import { Theme } from 'teaset';
@@ -38,14 +39,56 @@ type Props = {
   onWillBlur?: Function,
   onDidBlur?: Function,
 
+  netInfoCallBack?: (network: NetType) => void, // 网络监听回调
+
   ...NavigatorBar.Props
 };
 
+export type NetType = {
+  isConnect: boolean, // 是否连接网络
+  isWifi: boolean, // 是否是wifi连接
+  isCellular: boolean // 是否是流量连接
+};
+
+type State = {
+  netInfo: NetType // 网络状态
+};
+
 @observer
-class BaseContainer extends Component<Props> {
+class BaseContainer extends Component<Props, State> {
+  netInfoListen: any;
   componentWillUnmount() {
-    // Toast.close(0);
+    this.netInfoListen && NetInfo.removeEventListener('connectionChange', this.networkHandle);
   }
+
+  componentDidMount = async () => {
+    // // 添加网络获取判断
+    NetInfo.getConnectionInfo().then(this.networkHandle);
+    // 添加网络监听
+    if (this.netInfoListen) {
+      NetInfo.removeEventListener('connectionChange', this.networkHandle);
+    } else {
+      this.netInfoListen = NetInfo.addEventListener('connectionChange', this.networkHandle);
+    }
+  };
+
+  networkHandle = (netInfo: NetType) => {
+    const { netInfoCallBack } = this.props;
+    const network: NetType = this.getNetInfoStatus(netInfo);
+
+    const { store } = this.props;
+    store && store.setNetInfo(network);
+    netInfoCallBack && netInfoCallBack(network);
+  };
+
+  getNetInfoStatus = (netInfo: any) => {
+    const type: string = netInfo.type;
+    return {
+      isConnect: type.toUpperCase() === 'WIFI' || type.toUpperCase() === 'CELLULAR',
+      isWifi: type.toUpperCase() === 'WIFI',
+      isCellular: type.toUpperCase() === 'CELLULAR'
+    };
+  };
 
   renderContent() {
     const { store, children, onErrorPress, errorTitle, imageSource, errorStyle } = this.props;
@@ -111,7 +154,7 @@ class BaseContainer extends Component<Props> {
     const marginTop = !isHiddenNavBar ? Theme.statusBarHeight + Theme.navBarContentHeight : 0;
 
     return (
-      <View style={[styles.container, style]} forceInset={{ bottom: 'never', top: 'never' }}>
+      <View style={[styles.container, style]}>
         {!isHiddenNavBar && this.renderNavView()}
         <View style={[styles.contentView, { marginTop, backgroundColor }, style, contentViewStyle]}>
           {this.renderContent()}

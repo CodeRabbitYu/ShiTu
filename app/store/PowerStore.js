@@ -4,7 +4,7 @@
  */
 
 import { observable, action, runInAction } from 'mobx';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage, { useAsyncStorage } from '@react-native-community/async-storage';
 
 const ST_BACKGROUND_IMAGE = 'ST_BACKGROUND_IMAGE';
 

@@ -3,7 +3,7 @@
  * Created by Rabbit on 2018/8/15.
  */
 
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { observable, action, runInAction } from 'mobx';
 

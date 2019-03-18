@@ -1,6 +1,6 @@
 /**
  * @flow
- * Created by Rabbit on 2019-03-05.
+ * Created by Rabbit on 2018/5/4.
  */
 
 import React from 'react';
@@ -21,9 +21,6 @@ import { Picture } from '../../../servers/News/interfaces';
 import PlaceholderView from './Components/Views/PlaceholderView';
 import type { RTBuDeJieType } from '../../../servers/News';
 
-import { LargeList } from 'react-native-largelist-v3';
-// import { ChineseWithLastDateFooter } from 'react-native-spring-scrollview/Customize';
-
 type Props = {
   type: RTBuDeJieType | string,
   navigate: NavigationState
@@ -33,16 +30,21 @@ type Props = {
 class BuDeJie extends React.Component<Props, any> {
   buDeJieMobx: BuDeJieMobx;
   customPopView: any;
-  _list: LargeList;
 
   constructor(props: Props) {
     super(props);
     this.buDeJieMobx = new BuDeJieMobx();
   }
 
-  componentDidMount = async () => {
-    const { maxtime } = this.buDeJieMobx;
-    await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
+  onFetch = async (value: any = this.buDeJieMobx.maxtime, startFetch: Function, abortFetch: Function) => {
+    try {
+      const data = await this.buDeJieMobx.fetchBuDeJieData(this.props.type, value);
+
+      startFetch(this.buDeJieMobx.dataSource.slice(), 20);
+    } catch (e) {
+      abortFetch();
+      console.log(e);
+    }
   };
 
   picturePress = (item: Picture | any) => {
@@ -76,12 +78,8 @@ class BuDeJie extends React.Component<Props, any> {
     this.props.navigate('WebView', { uri: item.weixin_url });
   };
 
-  renderItem = ({ section, row }: { section: number, row: number }) => {
+  renderItem = ({ item }: { item: RTBDJList, index: number }) => {
     const { navigate } = this.props;
-    const { largeListData } = this.buDeJieMobx;
-
-    const item = largeListData[section].items[row];
-    // console.log('item-----', item);
     return (
       <BaseItem
         itemData={item}
@@ -96,50 +94,26 @@ class BuDeJie extends React.Component<Props, any> {
   };
 
   render() {
-    const { largeListData, maxtime } = this.buDeJieMobx;
     return (
-      <LargeList
-        style={styles.container}
-        data={largeListData}
-        ref={ref => (this._list = ref)}
-        heightForIndexPath={({ section, row }: { section: number, row: number }) => {
-          const item: RTBDJList = largeListData[section].items[row];
-          return item.itemHeight;
-        }}
-        renderIndexPath={this.renderItem}
-        // loadingFooter={ChineseWithLastDateFooter}
-        onLoading={async () => {
-          await this.buDeJieMobx.fetchBuDeJieData(this.props.type, maxtime);
-          this._list.endLoading();
-        }}
-      />
+      <BaseContainer store={this.buDeJieMobx} isHiddenNavBar={true} isTopNavigator={true}>
+        <TableList
+          style={{ backgroundColor: 'white' }}
+          onFetch={this.onFetch}
+          renderItem={this.renderItem}
+          keyExtractor={item => item.id}
+          initialNumToRender={10}
+          paginationType={'value'}
+          PaginationFetchingView={() => {
+            return [
+              <PlaceholderView type={this.props.type} key={'top'} />,
+              <PlaceholderView type={this.props.type} key={'center'} />,
+              <PlaceholderView type={this.props.type} key={'bottom'} />
+            ];
+          }}
+        />
+      </BaseContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  section: {
-    flex: 1,
-    backgroundColor: 'gray',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  row: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  line: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 1,
-    backgroundColor: '#EEE'
-  }
-});
 
 export { BuDeJie };

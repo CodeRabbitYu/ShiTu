@@ -53,7 +53,7 @@ class BuDeJieMobx extends ConfigStore {
       fontWeight: 'normal',
       fontFamily: Android ? 'normal' : 'Heiti SC'
     });
-    console.log('heights', heights);
+    // console.log('heights', heights);
     return parseFloat(heights.join());
   }
 
@@ -92,7 +92,7 @@ class BuDeJieMobx extends ConfigStore {
       item.itemHeight = USER_INFO_HEIGHT + JokeHeight + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
       // item.itemHeight = USER_INFO_HEIGHT + ImageHeight + ITEM_HEIGHT_SPACE_HEIGHT;
 
-      console.log('itemHeight', item.itemHeight);
+      // console.log('itemHeight', item.itemHeight);
 
       const {
         text,
@@ -183,7 +183,7 @@ class BuDeJieMobx extends ConfigStore {
         });
       }
 
-      console.log('this.largeListData.slice', this.largeListData.slice());
+      // console.log('this.largeListData.slice', this.largeListData.slice());
     } catch (e) {
       this.showErrorView(e.message);
       console.log('e', e.message);

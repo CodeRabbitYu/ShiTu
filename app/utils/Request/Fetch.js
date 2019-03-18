@@ -5,14 +5,18 @@
 
 import RNFetchBlob from 'rn-fetch-blob';
 
-import { AsyncStorage } from 'react-native';
-
 interface RTBody {
-  [key: string]: string | number | boolean;
+  [key: string]: string | number | boolean | Object;
 }
 
+type ErrorType = {
+  [key: string]: any
+};
+
+type MethodType = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'get' | 'post' | 'delete' | 'put' | string;
+
 // 处理url
-function encodeQuery(url, params = {}) {
+function encodeQuery(url: string, params: Object = {}) {
   let _url = url;
   if (!params || !Object.keys(params).length) {
     return _url;
@@ -24,8 +28,8 @@ function encodeQuery(url, params = {}) {
   return `${_url}${query}`;
 }
 // 处理错误请求
-function throwError(json) {
-  const error = new Error(json);
+function throwError(json: any) {
+  const error: ErrorType = new Error(json);
   error.msg = json.msg;
   error.status = json.status;
   throw error;
@@ -77,8 +81,20 @@ class Fetch {
    * @returns {Promise.<TResult>}
    *
    */
-  static fetch<T>({ method, url, params = {}, config = {}, headers }): Promise<T> {
-    let _method;
+  static fetch<T>({
+    method,
+    url,
+    params = {},
+    config = {},
+    headers
+  }: {
+    method: MethodType,
+    url: string,
+    params: Object,
+    config: Object,
+    headers: RTBody
+  }): Promise<T> {
+    let _method: string | any;
     let _params;
     let _url = url;
     const _config = {
@@ -137,7 +153,7 @@ class Fetch {
    * @returns
    *
    */
-  static get<T>(url, params = {}, headers = {}, config = {}): Promise<T> {
+  static get<T>(url: string, params: Object = {}, headers: Object = {}, config: Object = {}): Promise<T> {
     return Fetch.fetch({ method: 'get', url, params, headers, config });
     // .then((data)=>{
     //   // console.log(data);
@@ -149,7 +165,7 @@ class Fetch {
     // })
   }
 
-  static post(url, params = {}, headers = {}, config = {}): Promise {
+  static post<T>(url: string, params: Object = {}, headers: Object = {}, config: Object = {}): Promise<T> {
     return Fetch.fetch({ method: 'post', url, params, headers, config });
     // .then((data)=>{
     //   // console.log(data);
@@ -161,10 +177,10 @@ class Fetch {
     // })
   }
 
-  static upload(url, params = {}, _headers = {}, config = {}): Promise {
-    const headers = { 'Content-Type': 'multipart/form-data', ..._headers };
+  static upload<T>(url: string, params: Object = {}, headers: Object = {}, config: Object = {}): Promise<T> {
+    const _headers = { 'Content-Type': 'multipart/form-data', ...headers };
     return RNFetchBlob.config(config)
-      .fetch('POST', url, headers, params)
+      .fetch('POST', url, _headers, params)
       .then(response => response.json())
       .then(response => {
         // 上传信息返回

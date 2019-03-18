@@ -15,7 +15,7 @@ import { System } from '../../utils';
 import { Icon, Theme } from '../../components';
 
 import { ShiTu } from '../ShiTu';
-import { BuDeJie } from '../News/BuDeJie';
+import { BuDeJie } from './BuDeJie/index_old';
 import { Main } from '../Main';
 
 export const GankTab = createMaterialTopTabNavigator(

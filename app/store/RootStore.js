@@ -5,8 +5,10 @@
 
 import { ConfigStore } from './ConfigStore';
 import { PowerStore } from './PowerStore';
+import { PublicStore } from './PublicStore';
 
 const configStore = new ConfigStore();
 const powerStore = new PowerStore();
+const publicStore = new PublicStore();
 
-export { configStore, powerStore };
+export { configStore, powerStore, publicStore };
