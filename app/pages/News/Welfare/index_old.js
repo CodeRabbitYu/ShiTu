@@ -17,14 +17,12 @@ import { RTWeal } from '../../../servers/News/interfaces';
 import { System } from '../../../utils';
 import { ActionSheet, Overlay } from 'teaset';
 import { inject } from 'mobx-react';
-import { PowerStore } from '../../../store/PowerStore';
 
 type Props = {
   navigate: NavigationState,
-  powerStore: PowerStore
 };
 
-@inject('powerStore')
+@inject('shiTuStore')
 @observer
 class Welfare extends React.Component<Props> {
   welfareMobx: WelfareMobx;
@@ -53,7 +51,7 @@ class Welfare extends React.Component<Props> {
         type: 'default',
         onPress: async () => {
           // alert('设置成功');
-          await this.props.powerStore.setShiTuBackgroundImage(item.url);
+          await this.props.shiTuStore.setShiTuBackgroundImage(item.url);
         }
       }
     ];

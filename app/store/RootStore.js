@@ -4,11 +4,11 @@
  */
 
 import { ConfigStore } from './ConfigStore';
-import { PowerStore } from './PowerStore';
 import { PublicStore } from './PublicStore';
+import { ShiTuStore } from './ShiTu/ShiTuStore';
 
 const configStore = new ConfigStore();
-const powerStore = new PowerStore();
 const publicStore = new PublicStore();
+const shiTuStore = new ShiTuStore();
 
-export { configStore, powerStore, publicStore };
+export { configStore, publicStore, shiTuStore };

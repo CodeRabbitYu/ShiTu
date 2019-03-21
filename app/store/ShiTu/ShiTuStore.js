@@ -1,21 +1,52 @@
 /**
  * @flow
- * Created by Rabbit on 2018/8/6.
+ * Created by Rabbit on 2019-03-22.
  */
 
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { ConfigStore } from '../../store/ConfigStore';
 import type { Response } from 'react-native-image-picker';
 import { fetchUpLoadToken, upLoadImage, fetchSearchDetail } from '../../servers/ShiTu';
 import RNFetchBlob from 'rn-fetch-blob';
+import AsyncStorage from '@react-native-community/async-storage';
 
-class ShiTuMobx extends ConfigStore {
+const ST_BACKGROUND_IMAGE = 'ST_BACKGROUND_IMAGE';
+
+class ShiTuStore extends ConfigStore {
   @observable
-  backgroundImageUrl: string;
+  backgroundImageUrl: string = 'https://ww1.sinaimg.cn/bmiddle/0065oQSqly1ftzsj15hgvj30sg15hkbw.jpg';
 
   constructor() {
     super();
+    // this.getBackgroundImageUrl();
   }
+
+  @action.bound
+  getBackgroundImageUrl = async () => {
+    let image_url;
+    const result = await AsyncStorage.getItem(ST_BACKGROUND_IMAGE);
+
+    if (result === null) {
+      image_url = 'https://ww1.sinaimg.cn/bmiddle/0065oQSqly1ftzsj15hgvj30sg15hkbw.jpg';
+    } else {
+      image_url = result;
+    }
+
+    console.log('image_url', image_url);
+
+    runInAction(() => {
+      this.backgroundImageUrl = image_url;
+    });
+  };
+
+  @action.bound
+  setBackgroundImageUrl = async (url: string) => {
+    runInAction(() => {
+      this.backgroundImageUrl = url;
+    });
+
+    await AsyncStorage.setItem(ST_BACKGROUND_IMAGE, url);
+  };
 
   @action.bound
   uploadImage = async (response: Response) => {
@@ -58,4 +89,4 @@ class ShiTuMobx extends ConfigStore {
   };
 }
 
-export { ShiTuMobx };
+export { ShiTuStore };

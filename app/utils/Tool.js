@@ -3,6 +3,7 @@
  * Created by Rabbit on 2018/7/11.
  */
 
+import React from 'react';
 import { Dimensions, Platform, PixelRatio } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -13,3 +14,5 @@ export const Px2Dp = function px2dp(px: number): number {
 
   return PixelRatio.roundToNearestPixel(layoutSize);
 };
+
+export const StoreContext = React.createContext({});

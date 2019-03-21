@@ -3,16 +3,14 @@
  * Created by Rabbit on 2018/4/12.
  */
 
-import React, { Component } from 'react';
-import { StyleSheet, ImageBackground, DeviceEventEmitter } from 'react-native';
-
-import { ShiTuMobx } from '../../mobx/ShiTu';
+import React, { useEffect, useContext } from 'react';
+import { StyleSheet, ImageBackground } from 'react-native';
 
 import { GradientButton, PopoverActionSheetItem } from '../../components';
 import BaseContainer from '../../components/BaseContainer';
 import { System } from '../../utils';
-import { observer, inject } from 'mobx-react';
-import { PowerStore } from '../../store/PowerStore';
+// import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 import * as Animatable from 'react-native-animatable';
 const AnimationButton = Animatable.createAnimatableComponent(GradientButton);
@@ -20,16 +18,16 @@ const AnimationImageBackground = Animatable.createAnimatableComponent(ImageBackg
 
 import { ActionSheet } from 'teaset';
 import * as ImagePicker from 'react-native-image-picker';
-import { ConfigStore } from '../../store/ConfigStore';
+
 import type { NavigationScreenProp } from 'react-navigation';
+// import { PublicStore } from '../../store/PublicStore';
+// import { ConfigStore } from '../../store/ConfigStore';
+import { StoreContext } from '../../utils/Tool';
 
 type Props = {
-  navigation: NavigationScreenProp<*>,
-  powerStore: PowerStore,
-  configStore: ConfigStore
+  navigation: NavigationScreenProp<*>
 };
 
-const shiTuMobx: ShiTuMobx = new ShiTuMobx();
 ActionSheet.ActionSheetView.Item = PopoverActionSheetItem;
 
 function selectedImagePicker(type: string, callBack: Function) {
@@ -71,54 +69,59 @@ function openImagePicker(imageResponse) {
   ActionSheet.show(items, cancelItem);
 }
 
-const ShiTu = inject('configStore', 'powerStore')(
-  observer(function(props: Props) {
-    const { ShiTuBackgroundImage } = props.powerStore;
-    const { showLoading, hideLoading } = props.configStore;
-    const { uploadImage, getSearchDetail } = shiTuMobx;
+const ShiTu = observer((props: Props) => {
+  const store = useContext(StoreContext);
 
-    function openImagePickerAndHandleImageData() {
-      openImagePicker(async imageResponse => {
-        showLoading();
+  const { uploadImage, getSearchDetail, backgroundImageUrl, getBackgroundImageUrl } = store.shiTuStore;
 
-        const imageData = await uploadImage(imageResponse);
+  const { showLoading, hideLoading } = store.configStore;
+  const { navigation } = props;
 
-        const params = {
-          token: imageData.key
-        };
+  function openImagePickerAndHandleImageData() {
+    openImagePicker(async imageResponse => {
+      showLoading();
 
-        const searchDetail = await getSearchDetail(params);
+      const imageData = await uploadImage(imageResponse);
 
-        hideLoading();
+      const params = {
+        token: imageData.key
+      };
 
-        props.navigation.navigate('WebView', {
-          uri: searchDetail.data.webURL
-        });
+      const searchDetail = await getSearchDetail(params);
+
+      hideLoading();
+
+      navigation.navigate('WebView', {
+        uri: searchDetail.data.webURL
       });
-    }
+    });
+  }
 
-    return (
-      <BaseContainer title={'识兔'} isTopNavigator={true}>
-        <AnimationImageBackground
-          style={styles.container}
-          animation="fadeIn"
-          source={{ uri: ShiTuBackgroundImage }}
-          blurRadius={System.Android ? 5 : 5}
-        >
-          <AnimationButton
-            title={'点我寻找!'}
-            animation="bounceInLeft"
-            useNativeDriver
-            titleStyle={styles.buttonTitle}
-            gradientStyle={styles.button}
-            onPress={openImagePickerAndHandleImageData}
-            btnStyle={styles.btnStyle}
-          />
-        </AnimationImageBackground>
-      </BaseContainer>
-    );
-  })
-);
+  useEffect(() => {
+    getBackgroundImageUrl();
+  }, []);
+
+  return (
+    <BaseContainer title={'识兔'} isTopNavigator={true}>
+      <AnimationImageBackground
+        style={styles.container}
+        animation="fadeIn"
+        source={{ uri: backgroundImageUrl }}
+        blurRadius={System.Android ? 5 : 5}
+      >
+        <AnimationButton
+          title={'点我寻找!'}
+          animation="bounceInLeft"
+          useNativeDriver
+          titleStyle={styles.buttonTitle}
+          gradientStyle={styles.button}
+          onPress={openImagePickerAndHandleImageData}
+          btnStyle={styles.btnStyle}
+        />
+      </AnimationImageBackground>
+    </BaseContainer>
+  );
+});
 
 const styles = StyleSheet.create({
   container: {

@@ -14,17 +14,17 @@ import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
 import { ActionSheet, Overlay } from 'teaset';
 import type { NavigationState } from 'react-navigation';
-import { PowerStore } from '../../../store/PowerStore';
 import { ConfigStore } from '../../../store/ConfigStore';
 import { PublicStore } from '../../../store/PublicStore';
+import { ShiTuStore } from '../../../store/ShiTu/ShiTuStore';
 
 type Props = {
   navigate: NavigationState,
-  powerStore: PowerStore,
   configStore: ConfigStore,
-  publicStore: PublicStore
+  publicStore: PublicStore,
+  shiTuStore: ShiTuStore
 };
-@inject('publicStore')
+
 @observer
 class Welfare extends React.Component<Props> {
   welfareMobx: WelfareMobx;
@@ -36,6 +36,8 @@ class Welfare extends React.Component<Props> {
   }
 
   componentDidMount = async () => {
+    console.log('props', this.props);
+
     await this.welfareMobx.loadWelfareData('refreshing');
   };
 
@@ -51,7 +53,8 @@ class Welfare extends React.Component<Props> {
         type: 'default',
         onPress: async () => {
           this.props.configStore.showToast('设置成功');
-          await this.props.powerStore.setShiTuBackgroundImage(item.url);
+          // await this.props.
+          await this.props.shiTuStore.setBackgroundImageUrl(item.url);
         }
       }
     ];

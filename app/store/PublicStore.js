@@ -3,16 +3,18 @@
  * Created by Rabbit on 2019-03-18.
  */
 
-import { action } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import { ConfigStore } from './ConfigStore';
 import FetchBlob from 'rn-fetch-blob';
 const Dirs = FetchBlob.fs.dirs;
 import CameraRoll from '@react-native-community/cameraroll';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class PublicStore extends ConfigStore {
   constructor() {
     super();
   }
+
   @action.bound
   saveImageWithIOS = async (url: string) => {
     try {
@@ -38,7 +40,7 @@ class PublicStore extends ConfigStore {
     try {
       // 下载图片
       await FetchBlob.config(config).fetch('GET', url);
-      FetchBlob.fs.scanFile([{ path: Dirs.DCIMDir + imageName, mime: '' }])
+      FetchBlob.fs.scanFile([{ path: Dirs.DCIMDir + imageName, mime: '' }]);
       this.showToast('保存成功');
     } catch (e) {
       console.log(e);
@@ -46,5 +48,8 @@ class PublicStore extends ConfigStore {
     }
   };
 }
+
+// const publicStore = new PublicStore();
+// export { publicStore };
 
 export { PublicStore };

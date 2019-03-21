@@ -13,6 +13,7 @@
     "@types/react-navigation": "^3.0.5",
     "axios": "^0.18.0",
     "mobx-react": "^5.4.3",
+    "mobx-react-lite": "^1.1.1",
     "react": "16.8.3",
     "react-native": "0.59.1",
     "react-native-action-button": "^2.8.5",

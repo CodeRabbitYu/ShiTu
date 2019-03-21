@@ -17,6 +17,7 @@ import WebView from '../pages/WebView/index';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Login/Register';
 import { MainData } from '../pages/MainData';
+import { Hook } from '../pages/Hook';
 
 import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
 import { DeviceEventEmitter, TouchableOpacity, View } from 'react-native';
@@ -49,7 +50,7 @@ const MyTab = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'ShiTu',
+    // initialRouteName: 'Hook',
     backBehavior: 'none',
     // lazy: false,
     // navigationOptions: ({ navigation }) => NavigationOptions(navigation),
@@ -67,23 +68,23 @@ const MyTab = createBottomTabNavigator(
   }
 );
 
-Main.navigationOptions = ({ navigation }) => {
-  DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
-    navigation.setParams({
-      badgeNumber: badgeNumber
-    });
-  });
-
-  const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
-
-  const tabBarButtonComponent = (props: any) => {
-    return [
-      <TouchableOpacity {...props} activeOpacity={1} style={{ width: SCREEN_WIDTH / 3 }} key={'tabBar'} />,
-      <Badge count={badgeNumber} key={'Badge'} style={{ position: 'absolute', left: SCREEN_WIDTH - 60, top: 5 }} />
-    ];
-  };
-  return { tabBarButtonComponent };
-};
+// Main.navigationOptions = ({ navigation }) => {
+//   DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+//     navigation.setParams({
+//       badgeNumber: badgeNumber
+//     });
+//   });
+//
+//   const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
+//
+//   const tabBarButtonComponent = (props: any) => {
+//     return [
+//       <TouchableOpacity {...props} activeOpacity={1} style={{ width: SCREEN_WIDTH / 3 }} key={'tabBar'} />,
+//       <Badge count={badgeNumber} key={'Badge'} style={{ position: 'absolute', left: SCREEN_WIDTH - 60, top: 5 }} />
+//     ];
+//   };
+//   return { tabBarButtonComponent };
+// };
 
 // const NavigationOptions = navigation => {
 //   console.log('NavigationOptions', navigation);

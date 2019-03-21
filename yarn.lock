@@ -4619,6 +4619,11 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+mobx-react-lite@^1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/mobx-react-lite/download/mobx-react-lite-1.1.1.tgz#a8c1d813b5c1485861c2e5081ea6863772865c0a"
+  integrity sha1-qMHYE7XBSFhhwuUIHqaGN3KGXAo=
+
 mobx-react@^5.4.3:
   version "5.4.3"
   resolved "http://registry.npm.taobao.org/mobx-react/download/mobx-react-5.4.3.tgz#6709b7dd89670c40e9815914ac2ca49cc02bfb47"
