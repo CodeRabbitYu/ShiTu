@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
 import { Button, GradientButton } from '../../components';
 import BaseContainer from '../../components/BaseContainer';

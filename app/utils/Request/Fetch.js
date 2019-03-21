@@ -13,7 +13,7 @@ type ErrorType = {
   [key: string]: any
 };
 
-type MethodType = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'get' | 'post' | 'delete' | 'put' | string;
+type MethodType = string | 'GET' | 'POST' | 'DELETE' | 'PUT' | 'get' | 'post' | 'delete' | 'put' ;
 
 // 处理url
 function encodeQuery(url: string, params: Object = {}) {
@@ -82,7 +82,7 @@ class Fetch {
    *
    */
   static fetch<T>({
-    method,
+    method = 'GET',
     url,
     params = {},
     config = {},
@@ -94,7 +94,6 @@ class Fetch {
     config: Object,
     headers: RTBody
   }): Promise<T> {
-    let _method: string | any;
     let _params;
     let _url = url;
     const _config = {
@@ -111,8 +110,8 @@ class Fetch {
 
     // let userData = await AsyncStorage.getItem('USER_TOKEN');
 
-    if (!method) _method = 'GET';
-    else _method = method.toUpperCase();
+
+    const _method: any = method.toUpperCase();
 
     if (_method === 'GET' && params) {
       _url = encodeQuery(_url, params);
