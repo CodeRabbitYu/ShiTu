@@ -4,11 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  ImageBackground,
-  DeviceEventEmitter
-} from 'react-native';
+import { StyleSheet, ImageBackground, DeviceEventEmitter } from 'react-native';
 
 import { ShiTuMobx } from '../../mobx/ShiTu';
 
@@ -33,87 +29,80 @@ type Props = {
   configStore: ConfigStore
 };
 
-type State = {
-  aaa: string
-};
+const shiTuMobx: ShiTuMobx = new ShiTuMobx();
+ActionSheet.ActionSheetView.Item = PopoverActionSheetItem;
 
-@inject('configStore', 'powerStore')
-@observer
-class ShiTu extends Component<Props, State> {
-  shiTuMobx: ShiTuMobx;
+function selectedImagePicker(type: string, callBack: Function) {
+  ActionSheet.hide();
 
-  constructor(props: Props) {
-    super(props);
-    ActionSheet.ActionSheetView.Item = PopoverActionSheetItem;
-    this.shiTuMobx = new ShiTuMobx();
-  }
+  const options = {
+    quality: 0.5,
+    allowsEditing: false,
+    noData: true,
+    storageOptions: {
+      skipBackup: true,
+      path: 'ShiTu'
+    }
+  };
 
-  componentDidMount() {
-    DeviceEventEmitter.emit('badgeNumber', 20);
-  }
+  const launchType = `launch${type}`;
 
-  selectedImagePicker = (type: string) => {
+  ImagePicker[launchType](options, imageResponse => {
+    // console.log('options', options, imageResponse);
 
-    ActionSheet.hide();
+    if (imageResponse.didCancel) return;
 
-    const options = {
-      quality: 0.5,
-      allowsEditing: false,
-      noData: true,
-      storageOptions: {
-        skipBackup: true,
-        path: 'ShiTu'
-      }
-    };
+    callBack(imageResponse);
+  });
+}
 
-    const launchType = `launch${type}`;
+function openImagePicker(imageResponse) {
+  const items = [
+    {
+      title: '拍照',
+      onPress: () => selectedImagePicker('Camera', imageResponse)
+    },
+    {
+      title: '选择相册',
+      onPress: () => selectedImagePicker('ImageLibrary', imageResponse)
+    }
+  ];
+  const cancelItem = { title: '取消' };
+  ActionSheet.show(items, cancelItem);
+}
 
-    ImagePicker[launchType](options, async imageResponse => {
+const ShiTu = inject('configStore', 'powerStore')(
+  observer(function(props: Props) {
+    const { ShiTuBackgroundImage } = props.powerStore;
+    const { showLoading, hideLoading } = props.configStore;
+    const { uploadImage, getSearchDetail } = shiTuMobx;
 
-      console.log('options', options, imageResponse);
+    function openImagePickerAndHandleImageData() {
+      openImagePicker(async imageResponse => {
+        showLoading();
 
-      if (imageResponse.didCancel) return;
+        const imageData = await uploadImage(imageResponse);
 
-      this.props.configStore.showLoading();
+        const params = {
+          token: imageData.key
+        };
 
-      const imageData = await this.shiTuMobx.uploadImage(imageResponse);
+        const searchDetail = await getSearchDetail(params);
 
-      const params = {
-        token: imageData.key
-      };
+        hideLoading();
 
-      const searchDetail = await this.shiTuMobx.getSearchDetail(params);
-
-      this.props.configStore.hideLoading();
-
-      this.props.navigation.navigate('WebView', {
-        uri: searchDetail.data.webURL
+        props.navigation.navigate('WebView', {
+          uri: searchDetail.data.webURL
+        });
       });
-    });
-  };
+    }
 
-  openImagePicker = async () => {
-    const items = [
-      {
-        title: '拍照',
-        onPress: () => this.selectedImagePicker('Camera')
-      },
-      {
-        title: '选择相册',
-        onPress: () => this.selectedImagePicker('ImageLibrary')
-      }
-    ];
-    const cancelItem = { title: '取消' };
-    ActionSheet.show(items, cancelItem);
-  };
-
-  render() {
     return (
       <BaseContainer title={'识兔'} isTopNavigator={true}>
         <AnimationImageBackground
           style={styles.container}
           animation="fadeIn"
-          source={{ uri: this.props.powerStore.ShiTuBackgroundImage }}
+          source={{ uri: ShiTuBackgroundImage }}
           blurRadius={System.Android ? 5 : 5}
         >
           <AnimationButton
@@ -122,14 +111,14 @@ class ShiTu extends Component<Props, State> {
             useNativeDriver
             titleStyle={styles.buttonTitle}
             gradientStyle={styles.button}
-            onPress={this.openImagePicker}
+            onPress={openImagePickerAndHandleImageData}
             btnStyle={styles.btnStyle}
           />
         </AnimationImageBackground>
       </BaseContainer>
     );
-  }
-}
+  })
+);
 
 const styles = StyleSheet.create({
   container: {
