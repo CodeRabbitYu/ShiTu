@@ -2,13 +2,15 @@
  * @flow
  * Created by Rabbit on 2019-02-25.
  */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { WaterfallList } from 'react-native-largelist-v3';
 import { NormalFooter } from 'react-native-spring-scrollview/NormalFooter';
 
 import { WelfareMobx } from '../../../mobx/News';
-import { inject, observer } from 'mobx-react';
+// import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+
 import type { RTWeal } from '../../../servers/News/interfaces';
 import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
@@ -18,6 +20,8 @@ import { ConfigStore } from '../../../store/ConfigStore';
 import { PublicStore } from '../../../store/PublicStore';
 import { ShiTuStore } from '../../../store/ShiTu/ShiTuStore';
 
+const welfareMobx = new WelfareMobx();
+
 type Props = {
   navigate: NavigationState,
   configStore: ConfigStore,
@@ -25,24 +29,18 @@ type Props = {
   shiTuStore: ShiTuStore
 };
 
-@observer
-class Welfare extends React.Component<Props> {
-  welfareMobx: WelfareMobx;
-  customPopView: any;
+const Welfare = observer(function(props: Props) {
+  const { dataSource, isRefreshing, loadWelfareData } = welfareMobx;
+  const scrollViewRef: WaterfallList = useRef();
+  const customPopView: Overlay = useRef();
+  const { publicStore, configStore, shiTuStore } = props;
 
-  constructor(props: any) {
-    super(props);
-    this.welfareMobx = new WelfareMobx();
-  }
+  useEffect(() => {
+    welfareMobx.loadWelfareData('refreshing');
+  }, []);
 
-  componentDidMount = async () => {
-    console.log('props', this.props);
-
-    await this.welfareMobx.loadWelfareData('refreshing');
-  };
-
-  actionSheetToSaveImage = (item: RTWeal) => {
-    const { saveImageWithIOS, saveImageWithAndroid } = this.props.publicStore;
+  function actionSheetToSaveImage(item: RTWeal) {
+    const { saveImageWithIOS, saveImageWithAndroid } = publicStore;
     const items = [
       {
         title: '保存图片',
@@ -52,27 +50,26 @@ class Welfare extends React.Component<Props> {
         title: '设置主屏幕',
         type: 'default',
         onPress: async () => {
-          this.props.configStore.showToast('设置成功');
-          // await this.props.
-          await this.props.shiTuStore.setBackgroundImageUrl(item.url);
+          configStore.showToast('设置成功');
+          await shiTuStore.setBackgroundImageUrl(item.url);
         }
       }
     ];
     const cancelItem = { title: '取消' };
     ActionSheet.show(items, cancelItem);
-  };
+  }
 
-  showPopCustom(item: RTWeal) {
+  function showPopCustom(item: RTWeal) {
     const overlayView = (
       <Overlay.PopView
         style={{ alignItems: 'center', justifyContent: 'center' }}
         overlayOpacity={1}
         type="zoomOut"
-        ref={v => (this.customPopView = v)}
+        ref={customPopView}
       >
         <Button
-          onLongPress={() => this.actionSheetToSaveImage(item)}
-          onPress={() => this.customPopView && this.customPopView.close()}
+          onLongPress={() => actionSheetToSaveImage(item)}
+          onPress={() => customPopView && customPopView.current.close()}
         >
           <CustomImage
             source={{ uri: item.largeUrl }}
@@ -89,37 +86,34 @@ class Welfare extends React.Component<Props> {
     Overlay.show(overlayView);
   }
 
-  renderItem = (item: RTWeal) => {
+  function renderItem(item: RTWeal) {
     return (
-      <Button onPress={() => this.showPopCustom(item)} style={{ flex: 1 }}>
+      <Button onPress={() => showPopCustom(item)} style={{ flex: 1 }}>
         <CustomImage source={{ uri: item.url }} style={[styles.cell]} />
       </Button>
     );
-  };
-
-  render() {
-    const { dataSource, isRefreshing, loadWelfareData } = this.welfareMobx;
-    return (
-      <WaterfallList
-        ref={ref => (this._scrollView = ref)}
-        data={dataSource}
-        style={styles.container}
-        heightForItem={item => item.height + 10}
-        preferColumnWidth={SCREEN_WIDTH / 2 - 10}
-        renderItem={this.renderItem}
-        onRefresh={() => {
-          loadWelfareData('refreshing');
-          !isRefreshing && this._scrollView.endRefresh(); // 报错
-        }}
-        onLoading={async () => {
-          loadWelfareData('load more');
-          this._scrollView.endLoading();
-        }}
-        // loadingFooter={NormalFooter}
-      />
-    );
   }
-}
+
+  return (
+    <WaterfallList
+      ref={scrollViewRef}
+      data={dataSource}
+      style={styles.container}
+      heightForItem={item => item.height + 10}
+      preferColumnWidth={SCREEN_WIDTH / 2 - 10}
+      renderItem={renderItem}
+      onRefresh={() => {
+        loadWelfareData('refreshing');
+        !isRefreshing && scrollViewRef.current.endRefresh(); // 报错
+      }}
+      onLoading={async () => {
+        loadWelfareData('load more');
+        scrollViewRef && scrollViewRef.current.endLoading();
+      }}
+      // loadingFooter={NormalFooter}
+    />
+  );
+});
 
 export { Welfare };
 

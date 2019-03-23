@@ -50,7 +50,7 @@ const MyTab = createBottomTabNavigator(
     }
   },
   {
-    // initialRouteName: 'Hook',
+    initialRouteName: 'News',
     backBehavior: 'none',
     // lazy: false,
     // navigationOptions: ({ navigation }) => NavigationOptions(navigation),
