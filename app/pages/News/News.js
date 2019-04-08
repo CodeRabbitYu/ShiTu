@@ -13,13 +13,14 @@ import { observer } from 'mobx-react-lite';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 import { Welfare } from './Welfare';
-// import { BuDeJie } from './BuDeJie';
 import { BuDeJie } from './BuDeJie';
-import { BuDeJieDetail } from './BuDeJieDetail';
+// import { BuDeJieDetail } from './BuDeJieDetail';
 
 import type { NavigationState } from 'react-navigation';
 import type { RTBuDeJieType } from '../../servers/News';
 import { StoreContext } from '../../utils/Tool';
+import { BaseItem } from './BuDeJie/Components/BaseItem';
+import { BuDeJieMobx } from '../../mobx/News';
 
 type typeItem = {
   title: string,
@@ -27,19 +28,20 @@ type typeItem = {
 };
 
 const typeArr: Array<typeItem> = [
-  { title: '福利', type: '福利' },
-  { title: '笑话', type: 29 },
-  { title: '图片', type: 10 },
   { title: '全部', type: 1 },
-  { title: '视频', type: 41 }
+  { title: '视频', type: 41 },
+  { title: '图片', type: 10 },
+  { title: '笑话', type: 29 },
+  { title: '福利', type: '福利' }
 ];
 
 const News = observer(function(props) {
+
   const store = useContext(StoreContext);
   const { configStore, publicStore, shiTuStore } = store;
-  const { navigate } = props.navigation;
+  const { navigation } = props;
 
-  console.log('store', store);
+  // console.log('store', store);
 
   return (
     <BaseContainer title={'百思不得姐'} isTopNavigator={true}>
@@ -53,12 +55,11 @@ const News = observer(function(props) {
         tabBarTextStyle={{ fontSize: 15 }}
       >
         {typeArr.map((item, i) => {
-          if (i === 0) {
+          if (i === 4) {
             return (
               <Welfare
                 tabLabel={item.title}
                 key={i}
-                navigate={navigate}
                 configStore={configStore}
                 publicStore={publicStore}
                 shiTuStore={shiTuStore}
@@ -70,7 +71,8 @@ const News = observer(function(props) {
                 type={item.type}
                 tabLabel={item.title}
                 key={i}
-                navigate={navigate}
+                navigation={navigation}
+                configStore={configStore}
                 publicStore={publicStore}
               />
             );
@@ -81,4 +83,4 @@ const News = observer(function(props) {
   );
 });
 
-export { News, Welfare, BuDeJie, BuDeJieDetail };
+export { News, Welfare, BuDeJie };

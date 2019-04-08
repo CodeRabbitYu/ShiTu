@@ -31,8 +31,8 @@ type Props = {
 
 const Welfare = observer(function(props: Props) {
   const { dataSource, isRefreshing, loadWelfareData } = welfareMobx;
-  const scrollViewRef: WaterfallList = useRef();
-  const customPopView: Overlay = useRef();
+  const waterfallRef: WaterfallList = useRef();
+  const customOverlayRef: Overlay = useRef();
   const { publicStore, configStore, shiTuStore } = props;
 
   useEffect(() => {
@@ -65,11 +65,11 @@ const Welfare = observer(function(props: Props) {
         style={{ alignItems: 'center', justifyContent: 'center' }}
         overlayOpacity={1}
         type="zoomOut"
-        ref={customPopView}
+        ref={customOverlayRef}
       >
         <Button
           onLongPress={() => actionSheetToSaveImage(item)}
-          onPress={() => customPopView && customPopView.current.close()}
+          onPress={() => customOverlayRef && customOverlayRef.current.close()}
         >
           <CustomImage
             source={{ uri: item.largeUrl }}
@@ -96,7 +96,7 @@ const Welfare = observer(function(props: Props) {
 
   return (
     <WaterfallList
-      ref={scrollViewRef}
+      ref={waterfallRef}
       data={dataSource}
       style={styles.container}
       heightForItem={item => item.height + 10}
@@ -104,11 +104,11 @@ const Welfare = observer(function(props: Props) {
       renderItem={renderItem}
       onRefresh={() => {
         loadWelfareData('refreshing');
-        !isRefreshing && scrollViewRef.current.endRefresh(); // 报错
+        !isRefreshing && waterfallRef.current.endRefresh(); // 报错
       }}
       onLoading={async () => {
         loadWelfareData('load more');
-        scrollViewRef && scrollViewRef.current.endLoading();
+        waterfallRef && waterfallRef.current.endLoading();
       }}
       // loadingFooter={NormalFooter}
     />

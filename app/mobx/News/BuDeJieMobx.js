@@ -183,7 +183,7 @@ class BuDeJieMobx extends ConfigStore {
         });
       }
 
-      // console.log('this.largeListData.slice', this.largeListData.slice());
+      console.log('this.largeListData.slice', this.largeListData.slice());
     } catch (e) {
       this.showErrorView(e.message);
       console.log('e', e.message);

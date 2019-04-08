@@ -8,7 +8,6 @@ import { ConfigStore } from './ConfigStore';
 import FetchBlob from 'rn-fetch-blob';
 const Dirs = FetchBlob.fs.dirs;
 import CameraRoll from '@react-native-community/cameraroll';
-import AsyncStorage from '@react-native-community/async-storage';
 
 class PublicStore extends ConfigStore {
   constructor() {

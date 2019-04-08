@@ -11,7 +11,7 @@ import { System } from '../utils/index';
 import { CustomIcon, Theme } from '../components/index';
 
 import { ShiTu } from '../pages/ShiTu/index';
-import { News, Welfare, BuDeJie, BuDeJieDetail } from '../pages/News/News';
+import { News, Welfare, BuDeJie } from '../pages/News/News';
 import { Main } from '../pages/Main/index';
 import WebView from '../pages/WebView/index';
 import { Login } from '../pages/Login';
@@ -141,9 +141,6 @@ export const AppRouter = createStackNavigator(
     },
     BuDeJie: {
       screen: BuDeJie
-    },
-    BuDeJieDetail: {
-      screen: BuDeJieDetail
     },
     WebView: {
       screen: WebView

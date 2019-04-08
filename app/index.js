@@ -7,9 +7,6 @@ import React, { useEffect } from 'react';
 import { View, ActivityIndicator, DeviceEventEmitter, BackHandler, ToastAndroid } from 'react-native';
 
 import { AuthLoadingRouter } from './routers/AuthLoading';
-// import {SafeAreaView} from 'react-navigation';
-import { Toast } from './components';
-import { Provider } from 'mobx-react';
 import * as rootStore from './store/RootStore';
 
 import SplashScreen from 'react-native-splash-screen';

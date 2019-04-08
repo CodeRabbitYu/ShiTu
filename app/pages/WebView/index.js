@@ -28,7 +28,7 @@ type State = {
   isForWard: boolean
 };
 
-@inject('configStore')
+// @inject('configStore')
 export default class index extends React.Component<Props, State> {
   webView: WebView;
 
@@ -49,7 +49,7 @@ export default class index extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    this.props.configStore.hideLoading();
+    // this.props.configStore.hideLoading();
     StatusBar.setHidden(false);
   }
 
@@ -110,14 +110,14 @@ export default class index extends React.Component<Props, State> {
   };
   onLoadEnd = () => {
     console.log('加载结束，成功或失败都会走到这里');
-    this.props.configStore.hideLoading();
+    // this.props.configStore.hideLoading();
   };
   onLoadStart = () => {
     console.log('开始加载');
-    this.props.configStore.showLoading();
+    // this.props.configStore.showLoading();
   };
   onError = () => {
-    this.props.configStore.hideLoading();
+    // this.props.configStore.hideLoading();
     Alert.alert(
       '加载失败',
       null,
