@@ -13,7 +13,7 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from 'teaset';
 import BaseContainer from '../../components/BaseContainer';
-import { inject } from 'mobx-react';
+import { StoreContext } from '../../utils/Tool';
 
 type Props = {
   uri?: string,
@@ -31,6 +31,7 @@ type State = {
 // @inject('configStore')
 export default class index extends React.Component<Props, State> {
   webView: WebView;
+  static contextType = {};
 
   constructor(props: Props) {
     super(props);
@@ -46,6 +47,11 @@ export default class index extends React.Component<Props, State> {
       isForWard: false,
       uri: uri
     };
+  }
+
+  componentDidMount(): void {
+    const { configStore } = this.context;
+    configStore.showLoading();
   }
 
   componentWillUnmount() {
@@ -110,14 +116,17 @@ export default class index extends React.Component<Props, State> {
   };
   onLoadEnd = () => {
     console.log('加载结束，成功或失败都会走到这里');
-    // this.props.configStore.hideLoading();
+    const { configStore } = this.context;
+    configStore.hideLoading();
   };
   onLoadStart = () => {
     console.log('开始加载');
-    // this.props.configStore.showLoading();
+    // const {configStore} = this.context;
+    // configStore.showLoading();
   };
   onError = () => {
-    // this.props.configStore.hideLoading();
+    const { configStore } = this.context;
+    configStore.hideLoading();
     Alert.alert(
       '加载失败',
       null,
@@ -207,6 +216,8 @@ export default class index extends React.Component<Props, State> {
     );
   }
 }
+
+index.contextType = StoreContext;
 
 const styles = StyleSheet.create({
   container: {

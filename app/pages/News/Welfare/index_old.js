@@ -19,7 +19,7 @@ import { ActionSheet, Overlay } from 'teaset';
 import { inject } from 'mobx-react';
 
 type Props = {
-  navigate: NavigationState,
+  navigate: NavigationState
 };
 
 @inject('shiTuStore')

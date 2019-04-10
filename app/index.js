@@ -11,6 +11,7 @@ import * as rootStore from './store/RootStore';
 
 import SplashScreen from 'react-native-splash-screen';
 import { StoreContext } from './utils/Tool';
+import NavigationModule from './utils/NavigationMoudle';
 
 const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV' : null;
 let lastBackPressed: number;
@@ -45,6 +46,9 @@ function index() {
         <AuthLoadingRouter
           // persistenceKey={navigationPersistenceKey}
           renderLoadingExperimental={() => <ActivityIndicator size="large" color="black" />}
+          ref={navigatorRef => {
+            NavigationModule.setNavigatorRef(navigatorRef);
+          }}
           onNavigationStateChange={(prevState, currentState) => {
             const AppRouter = currentState.routes[1];
             if (AppRouter.routes && AppRouter.routes.length > 1) {
