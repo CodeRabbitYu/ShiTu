@@ -163,11 +163,11 @@ class BuDeJieMobx extends ConfigStore {
    */
   @action.bound
   async fetchBuDeJieData(type: RTBuDeJieType, value: string) {
+    this.showLoading();
     try {
       const buDeJieData: RTBDJResult = await loadBuDeJieData(type, value);
 
       const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.list, type);
-
 
       if (value === '') {
         runInAction(() => {
@@ -187,6 +187,8 @@ class BuDeJieMobx extends ConfigStore {
     } catch (e) {
       this.showErrorView(e.message);
       console.log('e', e.message);
+    } finally {
+      this.hideLoading();
     }
   }
 }
