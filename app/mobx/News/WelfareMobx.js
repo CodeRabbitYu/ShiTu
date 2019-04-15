@@ -47,7 +47,7 @@ class WelfareMobx extends ConfigStore {
     try {
       // 下载图片
       await FetchBlob.config(config).fetch('GET', url);
-      FetchBlob.fs.scanFile([{ path: Dirs.DCIMDir + imageName, mime: '' }])
+      await FetchBlob.fs.scanFile([{ path: Dirs.DCIMDir + imageName, mime: '' }]);
       alert('保存成功');
     } catch (e) {
       console.log(e);
@@ -58,6 +58,7 @@ class WelfareMobx extends ConfigStore {
   @action.bound
   async loadWelfareData(type: loadDataType = 'refreshing') {
     this.showLoading();
+    console.log('福利页加载');
     this.page = type === 'refreshing' ? 1 : this.page + 1;
 
     try {

@@ -36,7 +36,7 @@ const Welfare = observer(function(props: Props) {
   const { publicStore, configStore, shiTuStore } = props;
 
   useEffect(() => {
-    welfareMobx.loadWelfareData('refreshing');
+    loadWelfareData('refreshing');
   }, []);
 
   function actionSheetToSaveImage(item: RTWeal) {

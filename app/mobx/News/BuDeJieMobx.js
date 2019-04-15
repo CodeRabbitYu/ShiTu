@@ -164,6 +164,7 @@ class BuDeJieMobx extends ConfigStore {
   @action.bound
   async fetchBuDeJieData(type: RTBuDeJieType, value: string) {
     this.showLoading();
+    console.log('不得姐加载');
     try {
       const buDeJieData: RTBDJResult = await loadBuDeJieData(type, value);
 
