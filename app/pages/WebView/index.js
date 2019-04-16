@@ -55,6 +55,8 @@ export default class index extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
+    const { configStore } = this.context;
+    configStore.hideLoading();
     // this.props.configStore.hideLoading();
     StatusBar.setHidden(false);
   }

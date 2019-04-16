@@ -9,12 +9,14 @@ import { View, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react';
 import { NavigationEvents } from 'react-navigation';
 import NetInfo from '@react-native-community/netinfo';
+import type { ConnectionType } from '@react-native-community/netinfo';
 
 import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
 import { Theme } from 'teaset';
+import { ConfigStore } from '../../store/ConfigStore';
 
 type Props = {
-  store?: Object, // 页面中的mobx状态
+  store?: ConfigStore, // 页面中的mobx状态
   onErrorPress?: Function, // 出错页面的点击事件
   navBar?: any, // 导航条
   children?: any,
@@ -58,6 +60,7 @@ type State = {
 class BaseContainer extends Component<Props, State> {
   netInfoListen: any;
   componentWillUnmount() {
+    this.props.store && this.props.store.hideLoading();
     this.netInfoListen && NetInfo.removeEventListener('connectionChange', this.networkHandle);
   }
 
@@ -72,7 +75,7 @@ class BaseContainer extends Component<Props, State> {
     }
   };
 
-  networkHandle = (netInfo: NetType) => {
+  networkHandle = (netInfo: any) => {
     const { netInfoCallBack } = this.props;
     const network: NetType = this.getNetInfoStatus(netInfo);
 
@@ -82,7 +85,7 @@ class BaseContainer extends Component<Props, State> {
   };
 
   getNetInfoStatus = (netInfo: any) => {
-    const type: string = netInfo.type;
+    const type: ConnectionType = netInfo.type;
     return {
       isConnect: type.toUpperCase() === 'WIFI' || type.toUpperCase() === 'CELLULAR',
       isWifi: type.toUpperCase() === 'WIFI',

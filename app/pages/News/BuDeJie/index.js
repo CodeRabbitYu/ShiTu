@@ -60,6 +60,9 @@ const BuDeJie = observer(function(props: Props) {
     if (item.isLongPicture || !item.is_gif) {
       navigation.navigate('WebView', { uri: item.weixin_url });
     } else {
+
+      const height = isIPhoneX ? SCREEN_HEIGHT - 44 - 49 : SCREEN_HEIGHT;
+
       const overlayView = (
         <Overlay.PopView
           style={{ alignItems: 'center', justifyContent: 'center' }}
@@ -76,7 +79,7 @@ const BuDeJie = observer(function(props: Props) {
               style={{
                 backgroundColor: 'black',
                 width: SCREEN_WIDTH,
-                height: SCREEN_HEIGHT
+                height: height
               }}
             />
           </Button>

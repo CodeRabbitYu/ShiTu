@@ -73,7 +73,7 @@ const Welfare = observer(function(props: Props) {
         >
           <CustomImage
             source={{ uri: item.largeUrl }}
-            resizeMode="cover"
+            // resizeMode="cover"
             style={{
               backgroundColor: 'white',
               width: SCREEN_WIDTH,
