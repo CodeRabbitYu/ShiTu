@@ -52,13 +52,27 @@ export default class index extends React.Component<Props, State> {
   componentDidMount(): void {
     const { configStore } = this.context;
     configStore.showLoading();
+
+    StatusBar.pushStackEntry({
+      animated: false,
+      showHideTransition: 'fade',
+      backgroundColor: 'white',
+      barStyle: 'light-content',
+      translucent: true,
+      hidden: false,
+      networkActivityIndicatorVisible: false
+    });
+  }
+
+  onWillFocus = () => {
+    StatusBar.setHidden(false);
   }
 
   componentWillUnmount() {
     const { configStore } = this.context;
     configStore.hideLoading();
     // this.props.configStore.hideLoading();
-    StatusBar.setHidden(false);
+
   }
 
   reload = () => {
@@ -197,7 +211,7 @@ export default class index extends React.Component<Props, State> {
 
   render() {
     return (
-      <BaseContainer style={styles.container} bottomHeight={10}>
+      <BaseContainer style={styles.container} bottomHeight={10} onDidFocus={this.onWillFocus}>
         <WebView
           ref={ref => (this.webView = ref)}
           style={styles.webView}
@@ -211,7 +225,7 @@ export default class index extends React.Component<Props, State> {
           onLoadEnd={this.onLoadEnd}
           onLoadStart={this.onLoadStart}
           onError={this.onError}
-          mediaPlaybackRequiresUserAction={false}
+          mediaPlaybackRequiresUserAction={true}
         />
         {this.renderActionButton()}
       </BaseContainer>
