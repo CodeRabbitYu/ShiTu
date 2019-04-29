@@ -23,14 +23,12 @@ import type { RTBuDeJieType } from '../../../servers/News';
 import { LargeList, WaterfallList } from 'react-native-largelist-v3';
 import { System } from '../../../utils';
 import { PublicStore } from '../../../store/PublicStore';
-import { ConfigStore } from '../../../store/ConfigStore';
 // import { ChineseWithLastDateFooter } from 'react-native-spring-scrollview/Customize';
 
 type Props = {
   type: RTBuDeJieType | string,
   navigation: NavigationState,
-  publicStore: PublicStore,
-  configStore: ConfigStore
+  publicStore: PublicStore
 };
 
 function actionSheetToSaveImage(url: string, props: Props) {

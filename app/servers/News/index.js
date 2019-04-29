@@ -14,9 +14,9 @@ export async function fetchWelfareData(
   type: RGankType = '福利',
   count: number = 20
 ): Promise<RTGankResult> {
-  let _type: string;
+  // let _type: string;
 
-  _type = encodeURIComponent(type);
+  const _type: string = encodeURIComponent(type);
 
   const url = `http://gank.io/api/data/${_type}/${count}/${page}`;
 

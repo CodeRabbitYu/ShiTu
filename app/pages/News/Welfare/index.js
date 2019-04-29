@@ -16,7 +16,6 @@ import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
 import { ActionSheet, Overlay } from 'teaset';
 import type { NavigationState } from 'react-navigation';
-import { ConfigStore } from '../../../store/ConfigStore';
 import { PublicStore } from '../../../store/PublicStore';
 import { ShiTuStore } from '../../../store/ShiTu/ShiTuStore';
 
@@ -24,7 +23,6 @@ const welfareMobx = new WelfareMobx();
 
 type Props = {
   navigate: NavigationState,
-  configStore: ConfigStore,
   publicStore: PublicStore,
   shiTuStore: ShiTuStore
 };
@@ -33,7 +31,7 @@ const Welfare = observer(function(props: Props) {
   const { dataSource, isRefreshing, loadWelfareData } = welfareMobx;
   const waterfallRef: WaterfallList = useRef();
   const customOverlayRef: Overlay = useRef();
-  const { publicStore, configStore, shiTuStore } = props;
+  const { publicStore, shiTuStore } = props;
 
   useEffect(() => {
     loadWelfareData('refreshing');
@@ -50,7 +48,7 @@ const Welfare = observer(function(props: Props) {
         title: '设置主屏幕',
         type: 'default',
         onPress: async () => {
-          configStore.showToast('设置成功');
+          welfareMobx.showToast('设置成功');
           await shiTuStore.setBackgroundImageUrl(item.url);
         }
       }

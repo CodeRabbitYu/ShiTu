@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { View, ActivityIndicator, DeviceEventEmitter, BackHandler, ToastAndroid } from 'react-native';
+import { View, ActivityIndicator, DeviceEventEmitter, BackHandler, ToastAndroid, StyleSheet } from 'react-native';
 
 import { AuthLoadingRouter } from './routers/AuthLoading';
 import * as rootStore from './store/RootStore';
@@ -37,12 +37,7 @@ function index() {
 
   return (
     <StoreContext.Provider value={rootStore}>
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'white'
-        }}
-      >
+      <View style={styles.container}>
         <AuthLoadingRouter
           // persistenceKey={navigationPersistenceKey}
           renderLoadingExperimental={() => <ActivityIndicator size="large" color="black" />}
@@ -62,5 +57,12 @@ function index() {
     </StoreContext.Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  }
+});
 
 export default index;

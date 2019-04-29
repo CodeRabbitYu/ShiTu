@@ -4,14 +4,13 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Alert } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Alert, AppState } from 'react-native';
 import { ProgressBar, Button } from '../../components';
 import { System } from '../../utils';
 import { WebView } from 'react-native-webview';
 
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Theme } from 'teaset';
 import BaseContainer from '../../components/BaseContainer';
 import { StoreContext } from '../../utils/Tool';
 
@@ -53,27 +52,35 @@ export default class index extends React.Component<Props, State> {
     const { configStore } = this.context;
     configStore.showLoading();
 
-    StatusBar.pushStackEntry({
-      animated: false,
-      showHideTransition: 'fade',
-      backgroundColor: 'white',
-      barStyle: 'light-content',
-      translucent: true,
-      hidden: false,
-      networkActivityIndicatorVisible: false
-    });
+    AppState.addEventListener('change', this._handleAppStateChange);
+
+    // StatusBar.pushStackEntry({
+    //   animated: false,
+    //   showHideTransition: 'fade',
+    //   backgroundColor: 'white',
+    //   barStyle: 'light-content',
+    //   translucent: true,
+    //   hidden: false,
+    //   networkActivityIndicatorVisible: false
+    // });
   }
 
   onWillFocus = () => {
     StatusBar.setHidden(false);
-  }
+  };
 
   componentWillUnmount() {
+    StatusBar.setHidden(false);
     const { configStore } = this.context;
     configStore.hideLoading();
-    // this.props.configStore.hideLoading();
-
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
+
+  _handleAppStateChange = appState => {
+    console.log('App状态', appState);
+
+    StatusBar.setHidden(false);
+  };
 
   reload = () => {
     console.log('刷新');
@@ -225,7 +232,9 @@ export default class index extends React.Component<Props, State> {
           onLoadEnd={this.onLoadEnd}
           onLoadStart={this.onLoadStart}
           onError={this.onError}
-          mediaPlaybackRequiresUserAction={true}
+          mediaPlaybackRequiresUserAction={false}
+          allowsInlineMediaPlayback={true}
+          userAgent={'anti_DNS_kidnapping'}
         />
         {this.renderActionButton()}
       </BaseContainer>

@@ -3,71 +3,57 @@
  * Created by Rabbit on 2018/4/12.
  */
 
-import React, { useContext, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet } from 'react-native';
 
 import BaseContainer from '../../components/BaseContainer';
 
-// import { observer, inject } from 'mobx-react';
-import { observer } from 'mobx-react-lite';
+import { observer, useObserver } from 'mobx-react-lite';
 
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 import { Welfare } from './Welfare';
 import { BuDeJie } from './BuDeJie';
-// import { BuDeJieDetail } from './BuDeJieDetail';
 
-import type { NavigationState } from 'react-navigation';
-import type { RTBuDeJieType } from '../../servers/News';
 import { StoreContext } from '../../utils/Tool';
-import { BaseItem } from './BuDeJie/Components/BaseItem';
-import { BuDeJieMobx } from '../../mobx/News';
 
-import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+import { TabView, TabBar } from 'react-native-tab-view';
 
 type typeItem = {
   title: string,
-  type: RTBuDeJieType | string
+  type: string,
+  key: number
 };
 
 const typeArr: Array<typeItem> = [
-  { title: '全部', type: 1 },
-  { title: '视频', type: 41 },
-  { title: '图片', type: 10 },
-  { title: '笑话', type: 29 },
-  { title: '福利', type: '福利' }
+  { key: 'ALL', title: '全部', type: 1 },
+  { key: 'VIDEO', title: '视频', type: 41 },
+  { key: 'PICTURE', title: '图片', type: 10 },
+  { key: 'JOKE', title: '笑话', type: 29 },
+  { key: 'WELFARE', title: '福利', type: '福利' }
 ];
 
-type State = NavigationState<{
-  key: string,
-  title: string
-}>;
+const typeData = {
+  index: 0,
+  routes: typeArr
+};
 
-class News extends React.Component<{}, State> {
-  static title = 'Scrollable top bar';
-  static backgroundColor = '#3f51b5';
-  static appbarElevation = 0;
+const News = observer(props => {
+  const store = useContext(StoreContext);
+  const { navigation } = props;
+  const { publicStore, shiTuStore } = store;
 
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      index: 0,
-      routes: [
-        { key: 'ALL', title: '全部', type: 1 },
-        { key: 'VIDEO', title: '视频', type: 41 },
-        { key: 'PICTURE', title: '图片', type: 10 },
-        { key: 'JOKE', title: '笑话', type: 29 },
-        { key: 'WELFARE', title: '福利', type: '福利' }
-      ]
+  const [type, setType] = useState(typeData);
+
+  function _handleIndexChange(index) {
+    const _type = {
+      index: index,
+      routes: typeArr
     };
+    setType(_type);
   }
-  _handleIndexChange = index =>
-    this.setState({
-      index
-    });
 
-  _renderTabBar = props => {
-    console.log('props', props);
+  function _renderTabBar(props) {
     return (
       <TabBar
         {...props}
@@ -78,56 +64,41 @@ class News extends React.Component<{}, State> {
         labelStyle={styles.label}
         activeColor={'#4ECBFC'}
         inactiveColor={'black'}
-        // renderIndicator={() => (
-        //   <View style={{backgroundColor: 'red', height: 1, width: SCREEN_WIDTH / 4 }}/>
-        // )}
       />
     );
-  };
-
-  // _renderScene = SceneMap({
-  //   albums: Welfare,
-  //   contacts: BuDeJie,
-  //   article: BuDeJie,
-  //   chat: BuDeJie
-  // });
-
-  _renderScene = ({route, jumpTo}) => {
-    // console.log('route', route);
-    switch (route.key) {
-      case 'WELFARE':
-        return <Welfare jumpTo={jumpTo} navigation={this.props.navigation} type={route.type} />;
-      default:
-        return <BuDeJie jumpTo={jumpTo} navigation={this.props.navigation} type={route.type} />;
-      // case 'ALL':
-      //   return
-      // case 'VIDEO':
-      //   return <BuDeJie jumpTo={jumpTo} navigation={this.props.navigation} type={route.type} />;
-      // case 'PICTURE':
-      //   return <BuDeJie jumpTo={jumpTo} navigation={this.props.navigation} type={route.type} />;
-      // case 'JOKE':
-      //   return <BuDeJie jumpTo={jumpTo} navigation={this.props.navigation} type={route.type} />;
-      //
-    }
-  };
-
-  render() {
-    return (
-      <BaseContainer title={'百思不得姐'} isTopNavigator={true}>
-        <TabView
-          // style={this.props.style}
-          navigationState={this.state}
-          renderScene={this._renderScene}
-          renderTabBar={this._renderTabBar}
-          onIndexChange={this._handleIndexChange}
-          lazy={true}
-          swipeDistanceThreshold={SCREEN_WIDTH / 10}
-          initialLayout={{ width: SCREEN_WIDTH }}
-        />
-      </BaseContainer>
-    );
   }
-}
+
+  function _renderScene({ route, jumpTo }: { route: typeItem, jumpTo: Function }) {
+    // console.log('route', route);
+    if (route.key === 'WELFARE') {
+      return (
+        <Welfare
+          jumpTo={jumpTo}
+          navigation={navigation}
+          type={route.type}
+          publicStore={publicStore}
+          shiTuStore={shiTuStore}
+        />
+      );
+    } else {
+      return <BuDeJie jumpTo={jumpTo} navigation={navigation} type={route.type} publicStore={publicStore} />;
+    }
+  }
+
+  return useObserver(() => (
+    <BaseContainer title={'百思不得姐'} isTopNavigator={true}>
+      <TabView
+        navigationState={type}
+        renderScene={_renderScene}
+        renderTabBar={_renderTabBar}
+        onIndexChange={_handleIndexChange}
+        lazy={true}
+        swipeDistanceThreshold={SCREEN_WIDTH / 10}
+        initialLayout={{ width: SCREEN_WIDTH }}
+      />
+    </BaseContainer>
+  ));
+});
 
 const News1 = observer(function(props) {
   const store = useContext(StoreContext);
