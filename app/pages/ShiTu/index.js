@@ -4,12 +4,11 @@
  */
 
 import React, { useEffect, useContext } from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, DeviceEventEmitter } from 'react-native';
 
 import { GradientButton, PopoverActionSheetItem } from '../../components';
 import BaseContainer from '../../components/BaseContainer';
 import { System } from '../../utils';
-// import { observer, inject } from 'mobx-react';
 import { observer } from 'mobx-react-lite';
 
 import * as Animatable from 'react-native-animatable';
@@ -20,8 +19,6 @@ import { ActionSheet } from 'teaset';
 import * as ImagePicker from 'react-native-image-picker';
 
 import type { NavigationScreenProp } from 'react-navigation';
-// import { PublicStore } from '../../store/PublicStore';
-// import { ConfigStore } from '../../store/ConfigStore';
 import { StoreContext } from '../../utils/Tool';
 
 type Props = {
@@ -32,7 +29,6 @@ ActionSheet.ActionSheetView.Item = PopoverActionSheetItem;
 
 function selectedImagePicker(type: string, callBack: Function) {
   ActionSheet.hide();
-
   const options = {
     quality: 0.5,
     allowsEditing: false,
@@ -72,9 +68,15 @@ function openImagePicker(imageResponse) {
 const ShiTu = observer((props: Props) => {
   const store = useContext(StoreContext);
 
-  const { uploadImage, getSearchDetail, backgroundImageUrl, getBackgroundImageUrl } = store.shiTuStore;
+  const {
+    uploadImage,
+    getSearchDetail,
+    backgroundImageUrl,
+    getBackgroundImageUrl,
+    showLoading,
+    hideLoading
+  } = store.shiTuStore;
 
-  const { showLoading, hideLoading } = store.configStore;
   const { navigation } = props;
 
   function openImagePickerAndHandleImageData() {

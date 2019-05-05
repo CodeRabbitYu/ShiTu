@@ -10,17 +10,22 @@ import { createBottomTabNavigator, createStackNavigator, StackViewTransitionConf
 import { System } from '../utils/index';
 import { CustomIcon, Theme } from '../components/index';
 
-import { ShiTu } from '../pages/ShiTu/index';
+import { ShiTu } from '../pages/ShiTu';
 import { News, BuDeJie } from '../pages/News/News';
-import { Main } from '../pages/Main/index';
-import WebView from '../pages/STWebView/index';
+import { Main } from '../pages/Main';
+import WebView from '../pages/STWebView';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Login/Register';
 import { MainData } from '../pages/MainData';
+import { ThemeScreen } from '../pages/Theme';
 
 import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
-import { DeviceEventEmitter, TouchableOpacity, View } from 'react-native';
+import { DeviceEventEmitter, TouchableOpacity } from 'react-native';
 import { Badge } from 'teaset';
+import { TabOptions } from '../utils/TabOptions';
+
+let badgeNumberListener;
+
 
 const IOS_MODAL_ROUTES = ['Login'];
 
@@ -49,7 +54,7 @@ const MyTab = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'News',
+    initialRouteName: 'ShiTu',
     backBehavior: 'none',
     tabBarOptions: {
       tabStyle: {
@@ -66,11 +71,13 @@ const MyTab = createBottomTabNavigator(
 );
 
 Main.navigationOptions = ({ navigation }) => {
-  DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
-    navigation.setParams({
-      badgeNumber: badgeNumber
+  if (!badgeNumberListener) {
+    badgeNumberListener = DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
+      navigation.setParams({
+        badgeNumber: badgeNumber
+      });
     });
-  });
+  }
 
   const badgeNumber = navigation.state.params && navigation.state.params.badgeNumber;
 
@@ -82,17 +89,6 @@ Main.navigationOptions = ({ navigation }) => {
   };
   return { tabBarButtonComponent: tabBarButtonComponent };
 };
-
-// const NavigationOptions = navigation => {
-//   console.log('NavigationOptions', navigation);
-//   if (navigation.state.key === 'Main') {
-//     DeviceEventEmitter.addListener('badgeNumber', (badgeNumber: number) => {
-//       navigation.setParams({
-//         badgeNumber: badgeNumber
-//       });
-//     });
-//   }
-// };
 
 MyTab.navigationOptions = ({ navigation }) => {
   const routes = navigation.state.routes;
@@ -150,6 +146,9 @@ export const AppRouter = createStackNavigator(
     },
     MainData: {
       screen: MainData
+    },
+    ThemeScreen: {
+      screen: ThemeScreen
     }
   },
   {
@@ -173,16 +172,16 @@ export const AppRouter = createStackNavigator(
   }
 );
 
-const TabOptions = (tabBarTitle, tabBarIconName) => {
-  const title = tabBarTitle;
-  const tabBarIcon = ({ focused }: { focused: boolean }) => {
-    const color = focused ? Theme.tabBarColor : '#aaa';
-    return (
-      <View style={{ marginTop: 3 }}>
-        <CustomIcon name={tabBarIconName} size={35} color={color} />
-      </View>
-    );
-  };
-  const tabBarVisible = true;
-  return { title, tabBarVisible, tabBarIcon };
-};
+// const TabOptions = (tabBarTitle, tabBarIconName) => {
+//   const title = tabBarTitle;
+//   const tabBarIcon = ({ focused }: { focused: boolean }) => {
+//     const color = focused ? Theme.tabBarColor : '#aaa';
+//     return (
+//       <View style={{ marginTop: 3 }}>
+//         <CustomIcon name={tabBarIconName} size={35} color={color} />
+//       </View>
+//     );
+//   };
+//   const tabBarVisible = true;
+//   return { title, tabBarVisible, tabBarIcon };
+// };

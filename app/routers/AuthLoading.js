@@ -3,7 +3,7 @@
  * Created by Rabbit on 2018/8/15.
  */
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, DeviceEventEmitter } from 'react-native';
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { AppRouter } from './AppRouter';
@@ -36,11 +36,26 @@ class AuthLoadingScreen extends React.Component<Props> {
   }
 }
 
+class AppRouterScreen extends React.Component<Props> {
+  static router = AppRouter.router;
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount(): void {
+    DeviceEventEmitter.emit('badgeNumber', 30);
+  }
+
+  render() {
+    return <AppRouter navigation={this.props.navigation} />;
+  }
+}
+
 export const AuthLoadingRouter = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      AppRouter: AppRouter,
+      AppRouter: AppRouterScreen,
       AuthRouter: AuthRouter
     },
     {

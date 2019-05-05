@@ -21,8 +21,8 @@ import { TabView, TabBar } from 'react-native-tab-view';
 
 type typeItem = {
   title: string,
-  type: string,
-  key: number
+  type: string | number,
+  key: string
 };
 
 const typeArr: Array<typeItem> = [
@@ -41,7 +41,8 @@ const typeData = {
 const News = observer(props => {
   const store = useContext(StoreContext);
   const { navigation } = props;
-  const { publicStore, shiTuStore } = store;
+  const { publicStore, shiTuStore, themeStore } = store;
+  const { themes } = themeStore;
 
   const [type, setType] = useState(typeData);
 
@@ -61,7 +62,7 @@ const News = observer(props => {
         indicatorStyle={styles.indicator}
         style={styles.tabbar}
         tabStyle={styles.tab}
-        labelStyle={styles.label}
+        labelStyle={[styles.label, { color: themes.labelColor }]}
         activeColor={'#4ECBFC'}
         inactiveColor={'black'}
       />
@@ -69,7 +70,6 @@ const News = observer(props => {
   }
 
   function _renderScene({ route, jumpTo }: { route: typeItem, jumpTo: Function }) {
-    // console.log('route', route);
     if (route.key === 'WELFARE') {
       return (
         <Welfare

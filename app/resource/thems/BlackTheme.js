@@ -7,5 +7,12 @@ export default {
 
   mainColor: 'black',
 
-  transparentColor: 'transparent'
+  transparentColor: 'transparent',
+
+  navColor: 'black',
+  tabBarColor: 'black',
+  labelColor: 'white',
+
+  addColor: 'red',
+  buttonColor: 'black'
 };

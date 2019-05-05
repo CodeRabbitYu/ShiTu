@@ -54,21 +54,22 @@ class NavigatorBar extends React.PureComponent<Props> {
     return (
       <NavigationBar
         leftView={this.renderLeftView()}
-        background={
-          !this.props.isNotBackground ? (
-            <LinearGradient
-              start={{ x: 0.0, y: 0.25 }}
-              end={{ x: 0.5, y: 1.0 }}
-              locations={[0, 1]}
-              colors={['rgb(13,199,255)', 'rgb(16,174,255)']}
-              style={{
-                height: Theme.statusBarHeight + Theme.navBarContentHeight
-              }}
-            />
-          ) : (
-            this.props.background
-          )
-        }
+        // background={
+        //   !this.props.isNotBackground ? (
+        //     <LinearGradient
+        //       start={{ x: 0.0, y: 0.25 }}
+        //       end={{ x: 0.5, y: 1.0 }}
+        //       locations={[0, 1]}
+        //       // colors={['rgb(13,199,255)', 'rgb(16,174,255)']}
+        //       colors={['rgb(255,255,255)', 'rgb(16,174,255)']}
+        //       style={{
+        //         height: Theme.statusBarHeight + Theme.navBarContentHeight
+        //       }}
+        //     />
+        //   ) : (
+        //     this.props.background
+        //   )
+        // }
         titleStyle={{
           fontSize: System.iOS ? 23 : 20,
           color: 'white',

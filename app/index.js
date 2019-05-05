@@ -3,7 +3,7 @@
  * Created by Rabbit on 2018/4/12.
  */
 
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, ActivityIndicator, DeviceEventEmitter, BackHandler, ToastAndroid, StyleSheet } from 'react-native';
 
 import { AuthLoadingRouter } from './routers/AuthLoading';
@@ -19,7 +19,7 @@ let lastBackPressed: number;
 function index() {
   useEffect(() => {
     SplashScreen.hide();
-    DeviceEventEmitter.emit('badgeNumber', 30);
+    // themeStore.setBlackTheme();
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
     };
