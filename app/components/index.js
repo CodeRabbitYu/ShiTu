@@ -37,6 +37,6 @@ export {
   MyTextInput,
   CustomToast,
   ErrorView,
-  PopoverActionSheetItem,
+  PopoverActionSheetItem
   // PopoverPickerViewItem
 };

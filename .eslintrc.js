@@ -15,6 +15,7 @@ module.exports = {
 		"Toast": true,
 		"isIPhoneX": true,
     "Theme": true,
+    "ApiConfig": true
 	},
 	"extends": [
 		"eslint:recommended",

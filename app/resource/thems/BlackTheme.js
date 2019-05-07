@@ -1,18 +1,38 @@
 /**
+ * @flow
  * Created by Rabbit on 2018/4/13.
  */
 
+import themes from './DefaultTheme';
+
+const mainColor = 'black';
+
 export default {
-  fitIPhoneX: true,
+  ...themes,
+  ...Theme.themes.black,
 
-  mainColor: 'black',
+  themeType: 'black',
 
-  transparentColor: 'transparent',
+  mainColor: mainColor,
 
-  navColor: 'black',
-  tabBarColor: 'black',
-  labelColor: 'white',
+  navColor: mainColor,
+  tabBarColor: mainColor,
 
-  addColor: 'red',
-  buttonColor: 'black'
+  mainPopColor: 'white',
+
+  navStartColor: 'red',
+  navEndColor: mainColor,
+
+  gradientStartColor: mainColor,
+  gradientEndColor: mainColor,
+
+  safeAreaViewBottomColor: mainColor,
+
+  newsActiveColor: 'white',
+
+  newsInactiveColor: 'red',
+
+  whiteColor: 'black',
+
+  btnColor: mainColor
 };

@@ -33,7 +33,7 @@ const items = ['扫一扫', '加好友/群', '首付款', '高能舞室'];
 
 const Main = observer((props: Props) => {
   const store = useContext(StoreContext);
-  const { themeStore } = store;
+  const { themes } = store.themeStore;
 
   const popViewRef: PopoverPicker = useRef();
   const [modalSelectedIndex, setModalSelectedIndex] = useState(0);
@@ -74,7 +74,7 @@ const Main = observer((props: Props) => {
     return (
       <Button onPress={() => openModalPress(popViewRef.current)}>
         <View ref={popViewRef} style={{ marginRight: px2dp(20) }}>
-          <Icon name={'md-add'} size={30} color={themeStore.themes.addColor} />
+          <Icon name={'md-add'} size={30} color={themes.mainPopColor} />
         </View>
       </Button>
     );

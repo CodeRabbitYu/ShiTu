@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useContext } from 'react';
-import { StyleSheet, ImageBackground, DeviceEventEmitter } from 'react-native';
+import { StyleSheet, ImageBackground } from 'react-native';
 
 import { GradientButton, PopoverActionSheetItem } from '../../components';
 import BaseContainer from '../../components/BaseContainer';
@@ -67,14 +67,15 @@ function openImagePicker(imageResponse) {
 
 const ShiTu = observer((props: Props) => {
   const store = useContext(StoreContext);
+  const { themes } = store.themeStore;
 
   const {
+    backgroundImageUrl,
+    showLoading,
+    hideLoading,
     uploadImage,
     getSearchDetail,
-    backgroundImageUrl,
-    getBackgroundImageUrl,
-    showLoading,
-    hideLoading
+    getBackgroundImageUrl
   } = store.shiTuStore;
 
   const { navigation } = props;
@@ -86,7 +87,7 @@ const ShiTu = observer((props: Props) => {
       const imageData = await uploadImage(imageResponse);
 
       const params = {
-        token: imageData.key
+        token: imageData.key,
       };
 
       const searchDetail = await getSearchDetail(params);
@@ -94,7 +95,7 @@ const ShiTu = observer((props: Props) => {
       hideLoading();
 
       navigation.navigate('WebView', {
-        uri: searchDetail.data.webURL
+        uri: searchDetail.data.url
       });
     });
   }

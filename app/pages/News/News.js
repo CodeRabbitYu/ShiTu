@@ -8,7 +8,7 @@ import { StyleSheet } from 'react-native';
 
 import BaseContainer from '../../components/BaseContainer';
 
-import { observer, useObserver } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
@@ -59,17 +59,17 @@ const News = observer(props => {
       <TabBar
         {...props}
         scrollEnabled
-        indicatorStyle={styles.indicator}
-        style={styles.tabbar}
+        indicatorStyle={{ backgroundColor: themes.mainColor }}
+        style={{ backgroundColor: themes.whiteColor }}
         tabStyle={styles.tab}
-        labelStyle={[styles.label, { color: themes.labelColor }]}
-        activeColor={'#4ECBFC'}
-        inactiveColor={'black'}
+        labelStyle={[styles.label]}
+        activeColor={themes.newsActiveColor}
+        inactiveColor={themes.newsInactiveColor}
       />
     );
   }
 
-  function _renderScene({ route, jumpTo }: { route: typeItem, jumpTo: Function }) {
+  function _renderScene({ route, jumpTo }: { route: any, jumpTo: Function }) {
     if (route.key === 'WELFARE') {
       return (
         <Welfare
@@ -85,7 +85,7 @@ const News = observer(props => {
     }
   }
 
-  return useObserver(() => (
+  return (
     <BaseContainer title={'百思不得姐'} isTopNavigator={true}>
       <TabView
         navigationState={type}
@@ -97,7 +97,7 @@ const News = observer(props => {
         initialLayout={{ width: SCREEN_WIDTH }}
       />
     </BaseContainer>
-  ));
+  );
 });
 
 const News1 = observer(function(props) {
@@ -148,7 +148,7 @@ const News1 = observer(function(props) {
 });
 
 const styles = StyleSheet.create({
-  tabbar: {
+  tabBar: {
     backgroundColor: 'white'
   },
   tab: {

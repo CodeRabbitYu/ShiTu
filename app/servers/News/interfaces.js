@@ -3,9 +3,9 @@
  * Created by Rabbit on 2018/5/4.
  */
 
-export interface RTGankResult {
-  error: boolean;
-  results: Array<RTWeal>;
+export interface RTGankData {
+  data: Array<RTWeal>;
+  status: string;
 }
 
 export interface RTWeal {
@@ -22,6 +22,11 @@ export interface RTWeal {
   who: string;
   height: number;
   width: number;
+}
+
+export interface RTBDJData {
+  data: RTBDJResult;
+  status: string;
 }
 
 /** @desc 不得姐总数据源 */

@@ -13,7 +13,7 @@ type ErrorType = {
   [key: string]: any
 };
 
-type MethodType = string | 'GET' | 'POST' | 'DELETE' | 'PUT' | 'get' | 'post' | 'delete' | 'put' ;
+type MethodType = string | 'GET' | 'POST' | 'DELETE' | 'PUT' | 'get' | 'post' | 'delete' | 'put';
 
 // 处理url
 function encodeQuery(url: string, params: Object = {}) {
@@ -34,14 +34,24 @@ function throwError(json: any) {
   error.status = json.status;
   throw error;
 }
-function checkStatus(resp, json) {
-  if (resp.respInfo.status === 200 && resp.respInfo.status < 300) {
-    return json;
+async function checkStatus(resp) {
+  let responseData;
+
+  if (resp.respInfo.status === 200) {
+    responseData = resp.json();
+    if (responseData.status === 'success') {
+      return responseData;
+    } else {
+      console.log('200 ---- throwError', responseData);
+      throwError(responseData);
+    }
+    // return responseData;
   } else {
-    console.log(resp, json);
-    throwError(json);
+    // console.log('throwError', resp.text());
+    throwError(resp.text());
   }
-  return json;
+
+  return resp.text();
 }
 
 class Fetch {
@@ -110,7 +120,6 @@ class Fetch {
 
     // let userData = await AsyncStorage.getItem('USER_TOKEN');
 
-
     const _method: any = method.toUpperCase();
 
     if (_method === 'GET' && params) {
@@ -129,11 +138,38 @@ class Fetch {
       // console.log('_header:', _headers);
     }
 
+    //
+    // let baidu = 'http://image.baidu.com/wiseshitu?guess=1&uptype=upload_wise&queryImageUrl=http://pr2rtw08n.bkt.clouddn.com/68196417-6d0d-4a2a-886c-64e751ae89c2.jpeg&querySign=&simid='
+    //
+    // let testUrl: string = 'http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F32fa828ba61ea8d3fcd2e9ce9e0a304e241f5803.jpg';
+    // testUrl = 'http://pr2rtw08n.bkt.clouddn.com/68196417-6d0d-4a2a-886c-64e751ae89c2.jpeg';
+    //
+    //
+    // const _url =
+    //   'http://image.baidu.com/search/detail?z=0' +
+    //   '&word=%E7%8E%8B%E4%B9%89%E5%8D%9A%E4%BD%9C%E5%93%81&hs=0&pn=0' +
+    //   '&spn=0&di=0&pi=42860072193&tn=baiduimagedetail&is=0%2C0' +
+    //   '&ie=utf-8&oe=utf-8&cs=1635775129%2C499054354&os=' +
+    //   '&simid=&adpicid=0&lpn=0&fm=&sme=&cg=&bdtype=-1&oriquery=' +
+    //   '&objurl=' + 'http://pr2rtw08n.bkt.clouddn.com/68196417-6d0d-4a2a-886c-64e751ae89c2.jpeg' +
+    //   '&fromurl=&gsm=0&catename=pcindexhot&islist=&querylist=';
+    //
+    // 'http://'
+    //
+    // https://graph.baidu.com/details?isfromtusoupc=1&tn=pc&carousel=0&promotion_name=pc_image_shituindex&extUiData%5bisLogoShow%5d=1&image=&image=http://mms-graph.cdn.bcebos.com/1.jpeg
+    //
+    // testUrl
+
+    // 'http://graph.baidu.com/s?sign=202966bac3f2d4838e2bc01557197646&f=all&tn=wise' +
+    // '&jsup=%7B%22promotion_name%22%3A%22platform_tusou_homepage%22%7D&pageFrom=graph_upload_wise&idctag=nj' +
+    // '&sids=10006_10040_10190_10290_10390_10693_10705_10301_10708_10801_10902_11006_10905_10911_11000_10014_10117_10016_10018_11021_11031&logid=3246103176'
+
+    // ('https://graph.baidu.com/details?isfromtusoupc=0&tn=wise&carousel=0&tpl_from=wise&promotion_name=pc_image_shituindex&extUiData%5bisLogoShow%5d=1&image=&image=http://pr2rtw08n.bkt.clouddn.com/68bc2b40-674c-4b98-becc-3d801b9c401d.jpeg');
+
     return RNFetchBlob.config(_config)
       .fetch(_method, _url, _headers, _params)
       .then(resp => {
-        // console.log(resp);
-        return checkStatus(resp, resp.json());
+        return checkStatus(resp);
       })
       .then(response => {
         return response;
@@ -183,12 +219,12 @@ class Fetch {
       .then(response => response.json())
       .then(response => {
         // 上传信息返回
-        // console.log(response);
+        console.log(response);
         return response;
       })
       .catch(error => {
         // 错误信息
-        // console.log(error);
+        console.log(error);
         throw error;
       });
   }

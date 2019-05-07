@@ -11,7 +11,7 @@ import * as rootStore from './store/RootStore';
 
 import SplashScreen from 'react-native-splash-screen';
 import { StoreContext } from './utils/Tool';
-import NavigationModule from './utils/NavigationMoudle';
+import NavigationModule from './utils/NavigationModule';
 
 const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV' : null;
 let lastBackPressed: number;

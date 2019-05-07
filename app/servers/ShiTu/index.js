@@ -16,7 +16,9 @@ export async function fetchUpLoadToken(): Promise<RTUploadToken> {
 export async function upLoadImage(params: any): Promise<RTUploadImage> {
   const url = ApiConfig.qiniu.upload;
 
-  return await Fetch.upload(url, params);
+  const data = await Fetch.upload(url, params);
+  console.log('upLoadImage', data);
+  return data;
 }
 
 export async function fetchSearchDetail(params: any): Promise<RTSearchDetail> {

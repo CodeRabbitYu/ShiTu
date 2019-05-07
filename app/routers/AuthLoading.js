@@ -36,7 +36,7 @@ class AuthLoadingScreen extends React.Component<Props> {
   }
 }
 
-class AppRouterScreen extends React.Component<Props> {
+class AppRouterNavigator extends React.Component<Props> {
   static router = AppRouter.router;
   constructor(props) {
     super(props);
@@ -55,7 +55,7 @@ export const AuthLoadingRouter = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      AppRouter: AppRouterScreen,
+      AppRouter: AppRouterNavigator,
       AuthRouter: AuthRouter
     },
     {

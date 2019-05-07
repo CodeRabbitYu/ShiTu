@@ -4,7 +4,7 @@
  */
 
 import { observable, action, runInAction } from 'mobx';
-import type { RTGankResult, RTWeal } from '../../servers/News/interfaces';
+import type { RTGankData, RTWeal } from '../../servers/News/interfaces';
 import { fetchWelfareData } from '../../servers/News';
 import { System } from '../../utils';
 import { CameraRoll } from 'react-native';
@@ -62,9 +62,9 @@ class WelfareMobx extends ConfigStore {
     this.page = type === 'refreshing' ? 1 : this.page + 1;
 
     try {
-      const data = await fetchWelfareData(this.page);
+      const welfareData: RTGankData = await fetchWelfareData(this.page);
 
-      const results = data.results;
+      const results = welfareData.data;
 
       const defaultHeights = [216, 245, 263, 234, 259, 222];
 

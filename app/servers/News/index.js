@@ -5,7 +5,7 @@
 
 import { Fetch } from '../../utils';
 
-import { RTGankResult, RTBDJResult } from './interfaces';
+import { RTGankData, RTBDJData } from './interfaces';
 
 type RGankType = '福利' | 'iOS' | 'Android';
 
@@ -13,14 +13,20 @@ export async function fetchWelfareData(
   page: number,
   type: RGankType = '福利',
   count: number = 20
-): Promise<RTGankResult> {
-  // let _type: string;
-
+): Promise<RTGankData> {
   const _type: string = encodeURIComponent(type);
 
-  const url = `http://gank.io/api/data/${_type}/${count}/${page}`;
+  // const url = `http://gank.io/api/data/${_type}/${count}/${page}`;
 
-  return await Fetch.get(url);
+  const params = {
+    type: _type,
+    count: count,
+    page: page
+  };
+
+  const url = ApiConfig.api.news.list;
+
+  return await Fetch.get(url, params);
 }
 
 // const BuDeJieValue = {
@@ -33,11 +39,15 @@ export async function fetchWelfareData(
 // export type RTBuDeJieType = $Keys<typeof BuDeJieValue>;
 export type RTBuDeJieType = '1' | '41' | '10' | '29' | string | number;
 
-export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
-  const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
+export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJData> {
+  // const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
 
-  // const data = await fetch(url);
-  // console.log('xxxxxxx', await data.json());
+  const params = {
+    type,
+    maxtime
+  };
 
-  return await Fetch.get(url);
+  const url = ApiConfig.api.news.list;
+
+  return await Fetch.get(url, params);
 }

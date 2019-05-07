@@ -23,16 +23,15 @@ class ShiTuStore extends ConfigStore {
 
   @action.bound
   getBackgroundImageUrl = async () => {
-    let image_url;
+    let image_url = this.backgroundImageUrl;
+
     const result = await AsyncStorage.getItem(ST_BACKGROUND_IMAGE);
 
-    if (result === null) {
-      image_url = 'https://ww1.sinaimg.cn/bmiddle/0065oQSqly1ftzsj15hgvj30sg15hkbw.jpg';
-    } else {
+    if (result !== null) {
       image_url = result;
     }
 
-    console.log('image_url', image_url);
+    console.log('首页图片地址', image_url);
 
     runInAction(() => {
       this.backgroundImageUrl = image_url;
@@ -52,6 +51,8 @@ class ShiTuStore extends ConfigStore {
   uploadImage = async (response: Response) => {
     // 获取上传需要的token和key
     const tokenData = await fetchUpLoadToken();
+
+    console.log('tokenData', tokenData);
 
     // response = {
     // 	uri: 'file:///Users/Rabbit/Library/Developer/CoreSimulator/Devices/BB817212-9896-4E20-A8F6-221489895E53/data/Containers/Data/Application/93925139-4818-4043-8407-1B900076BA09/Documents/ShiTu/DEC950B5-DBFE-45A4-A821-5FC8886A6585.jpg'
@@ -76,6 +77,8 @@ class ShiTuStore extends ConfigStore {
       }
     ];
 
+    console.log('params', params);
+
     return await upLoadImage(params);
   };
 
@@ -83,7 +86,7 @@ class ShiTuStore extends ConfigStore {
   getSearchDetail = async (params: any) => {
     const searchDetail = await fetchSearchDetail(params);
 
-    console.log('searchDetail', searchDetail);
+    console.log('搜索详情', searchDetail);
 
     return searchDetail;
   };

@@ -8,7 +8,6 @@ import React from 'react';
 import { createBottomTabNavigator, createStackNavigator, StackViewTransitionConfigs } from 'react-navigation';
 
 import { System } from '../utils/index';
-import { CustomIcon, Theme } from '../components/index';
 
 import { ShiTu } from '../pages/ShiTu';
 import { News, BuDeJie } from '../pages/News/News';
@@ -54,7 +53,7 @@ const MyTab = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'ShiTu',
+    initialRouteName: 'News',
     backBehavior: 'none',
     tabBarOptions: {
       tabStyle: {
@@ -171,17 +170,3 @@ export const AppRouter = createStackNavigator(
     // mode: 'modal'
   }
 );
-
-// const TabOptions = (tabBarTitle, tabBarIconName) => {
-//   const title = tabBarTitle;
-//   const tabBarIcon = ({ focused }: { focused: boolean }) => {
-//     const color = focused ? Theme.tabBarColor : '#aaa';
-//     return (
-//       <View style={{ marginTop: 3 }}>
-//         <CustomIcon name={tabBarIconName} size={35} color={color} />
-//       </View>
-//     );
-//   };
-//   const tabBarVisible = true;
-//   return { title, tabBarVisible, tabBarIcon };
-// };
