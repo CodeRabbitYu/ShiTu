@@ -4,7 +4,7 @@
  */
 
 import { action, observable, runInAction } from 'mobx';
-import type { RTBDJData, RTBDJList } from '../../servers/News/interfaces';
+import type { RTBDJData, RTBDJList, RTBDJResult } from '../../servers/News/interfaces';
 import type { RTBuDeJieType } from '../../servers/News';
 import { loadBuDeJieData } from '../../servers/News';
 import { System } from '../../utils';
@@ -165,15 +165,15 @@ class BuDeJieMobx extends ConfigStore {
     this.showLoading();
     console.log('不得姐加载');
     try {
-      const buDeJieData: RTBDJData = await loadBuDeJieData(type, value);
+      const buDeJieData: RTBDJResult = await loadBuDeJieData(type, value);
 
-      const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.data.list, type);
+      const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.list, type);
 
       if (value === '') {
         runInAction(() => {
           this.dataSource = dataSource;
           this.largeListData = [largeListData];
-          this.maxtime = buDeJieData.data.info.maxid;
+          this.maxtime = buDeJieData.info.maxid;
         });
       } else {
         runInAction(() => {

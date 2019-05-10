@@ -39,13 +39,13 @@ async function checkStatus(resp) {
 
   if (resp.respInfo.status === 200) {
     responseData = resp.json();
-    if (responseData.status === 'success') {
-      return responseData;
-    } else {
-      console.log('200 ---- throwError', responseData);
-      throwError(responseData);
-    }
-    // return responseData;
+    // if (responseData.status === 'success') {
+    //   return responseData;
+    // } else {
+    //   console.log('200 ---- throwError', responseData);
+    //   throwError(responseData);
+    // }
+    return responseData;
   } else {
     // console.log('throwError', resp.text());
     throwError(resp.text());

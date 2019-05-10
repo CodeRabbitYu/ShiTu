@@ -50,7 +50,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-native": "^3.7.0",
-    "flow-bin": "^0.94.0",
+    "flow-bin": "^0.93.0",
     "jest": "^24.5.0",
     "metro-react-native-babel-preset": "^0.53.0",
     "mobx": "^5.9.0",

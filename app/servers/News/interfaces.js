@@ -8,6 +8,11 @@ export interface RTGankData {
   status: string;
 }
 
+export interface RTWealResult {
+  results: Array<RTWeal>;
+  error: boolean;
+}
+
 export interface RTWeal {
   _id: string;
   createdAt: string;
