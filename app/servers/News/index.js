@@ -11,12 +11,12 @@ type RGankType = '福利' | 'iOS' | 'Android';
 
 export async function fetchWelfareData(
   page: number,
-  type: RGankType = '福利',
-  count: number = 20
+  type?: RGankType = '福利',
+  count?: number = 20
 ): Promise<RTWealResult> {
   const _type: string = encodeURIComponent(type);
 
-  const url = `http://gank.io/api/data/${_type}/${count}/${page}`;
+  let url = `http://gank.io/api/data/${_type}/${count}/${page}`;
 
   const params = {
     type: _type,
@@ -24,7 +24,7 @@ export async function fetchWelfareData(
     page: page
   };
 
-  // const url = ApiConfig.api.news.list;
+  // url = ApiConfig.api.news.list;
 
   return await Fetch.get(url, params);
 }
@@ -40,14 +40,14 @@ export async function fetchWelfareData(
 export type RTBuDeJieType = '1' | '41' | '10' | '29' | string | number;
 
 export async function loadBuDeJieData(type: RTBuDeJieType, maxtime: string): Promise<RTBDJResult> {
-  const url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
+  let url = `http://api.budejie.com/api/api_open.php?a=list&c=data&type=${type}&maxtime=${maxtime}`;
 
   const params = {
     type,
     maxtime
   };
 
-  // const url = ApiConfig.api.news.list;
+  // url = ApiConfig.api.news.list;
 
   return await Fetch.get(url, params);
 }

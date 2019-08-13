@@ -6,7 +6,7 @@
 import React from 'react';
 
 import FastImage from 'react-native-fast-image';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, Animated } from 'react-native';
 import { observer } from 'mobx-react';
 // import {observable, action} from 'mobx';
 
@@ -30,6 +30,22 @@ class CustomImage extends React.Component<Props, any> {
 
     this.props.onError && this.props.onError();
   }
+
+  onLoad = () => {
+    const minimumWait = 100;
+    const staggerNonce = 200 * Math.random();
+
+    setTimeout(
+      () => {
+        Animated.timing(placeholderOpacity, {
+          toValue: 0,
+          duration: 350,
+          useNativeDriver: Android ? false : true,
+        }).start();
+      },
+      Platform.OS === 'android' ? 0 : Math.floor(minimumWait + staggerNonce)
+    );
+  };
 
   render() {
     let { source } = this.props;

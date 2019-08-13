@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 import { Welfare } from './Welfare';
-import { BuDeJie } from './BuDeJie';
+import { BuDeJie } from './BuDeJie/index';
 
 import { StoreContext } from '../../utils/Tool';
 
@@ -26,11 +26,11 @@ type typeItem = {
 };
 
 const typeArr: Array<typeItem> = [
+  { key: 'WELFARE', title: '福利', type: '福利' },
   { key: 'ALL', title: '全部', type: 1 },
   { key: 'VIDEO', title: '视频', type: 41 },
   { key: 'PICTURE', title: '图片', type: 10 },
-  { key: 'JOKE', title: '笑话', type: 29 },
-  { key: 'WELFARE', title: '福利', type: '福利' }
+  { key: 'JOKE', title: '笑话', type: 29 }
 ];
 
 const typeData = {

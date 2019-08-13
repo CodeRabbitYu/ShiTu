@@ -3,7 +3,7 @@
  * Created by Rabbit on 2019-02-25.
  */
 import React, { useEffect, useRef } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ActivityIndicator } from 'react-native';
 import { WaterfallList } from 'react-native-largelist-v3';
 import { NormalFooter } from 'react-native-spring-scrollview/NormalFooter';
 
@@ -12,7 +12,8 @@ import { WelfareMobx } from '../../../mobx/News';
 import { observer } from 'mobx-react-lite';
 
 import type { RTWeal } from '../../../servers/News/interfaces';
-import { Button, CustomImage } from '../../../components';
+import { Button } from '../../../components';
+import { CustomImage } from '../../../components/CustomImage/index_new';
 import { System } from '../../../utils';
 import { ActionSheet, Overlay } from 'teaset';
 import type { NavigationState } from 'react-navigation';
@@ -60,7 +61,7 @@ const Welfare = observer(function(props: Props) {
   function showPopCustom(item: RTWeal) {
     const overlayView = (
       <Overlay.PopView
-        style={{ alignItems: 'center', justifyContent: 'center' }}
+        // style={{ alignItems: 'center', justifyContent: 'center' }}
         overlayOpacity={1}
         type="zoomOut"
         ref={customOverlayRef}
@@ -71,12 +72,14 @@ const Welfare = observer(function(props: Props) {
         >
           <CustomImage
             source={{ uri: item.largeUrl }}
-            // resizeMode="cover"
+            resizeMode="contain"
             style={{
-              backgroundColor: 'white',
+              // backgroundColor: 'white',
               width: SCREEN_WIDTH,
               height: SCREEN_HEIGHT
             }}
+            PlaceholderContent={<ActivityIndicator />}
+            placeholderStyle={{ backgroundColor: 'black' }}
           />
         </Button>
       </Overlay.PopView>
@@ -87,7 +90,13 @@ const Welfare = observer(function(props: Props) {
   function renderItem(item: RTWeal) {
     return (
       <Button onPress={() => showPopCustom(item)} style={{ flex: 1 }}>
-        <CustomImage source={{ uri: item.url }} style={[styles.cell]} />
+        <CustomImage
+          source={{ uri: item.url }}
+          containerStyle={[styles.cell]}
+          style={{ flex: 1 }}
+          placeholderStyle={{ backgroundColor: 'white' }}
+          PlaceholderContent={<ActivityIndicator />}
+        />
       </Button>
     );
   }
@@ -121,7 +130,11 @@ const styles = StyleSheet.create({
   },
   cell: {
     flex: 1,
-    margin: 3,
-    backgroundColor: 'white'
+    margin: 3
+    // backgroundColor: 'white',
+    // height: 100,
+    // width: 100,
+    // width: SCREEN_WIDTH / 2 - 5,
+    // height: 300
   }
 });

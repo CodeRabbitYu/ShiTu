@@ -167,6 +167,7 @@ class BuDeJieMobx extends ConfigStore {
     try {
       const buDeJieData: RTBDJResult = await loadBuDeJieData(type, value);
 
+      // const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.data.list, type);
       const { largeListData, dataSource } = await BuDeJieMobx.handleLargeListData(buDeJieData.list, type);
 
       if (value === '') {
@@ -174,6 +175,7 @@ class BuDeJieMobx extends ConfigStore {
           this.dataSource = dataSource;
           this.largeListData = [largeListData];
           this.maxtime = buDeJieData.info.maxid;
+          // this.maxtime = buDeJieData.data.info.maxid;
         });
       } else {
         runInAction(() => {

@@ -1925,7 +1925,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shitu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shitu.shitu;
 				PRODUCT_NAME = ShiTu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1965,7 +1965,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shitu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shitu.shitu;
 				PRODUCT_NAME = ShiTu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";

@@ -62,10 +62,11 @@ class WelfareMobx extends ConfigStore {
     this.page = type === 'refreshing' ? 1 : this.page + 1;
 
     try {
-      // const welfareData: RTGankData = await fetchWelfareData(this.page);
-      const welfareData: RTWealResult = await fetchWelfareData(this.page);
+      const welfareData: RTGankData = await fetchWelfareData(this.page);
+      // const welfareData: RTWealResult = await fetchWelfareData(this.page);
       console.log('welfareData', welfareData);
 
+      // const results = welfareData.data;
       const results = welfareData.results;
 
       const defaultHeights = [216, 245, 263, 234, 259, 222];

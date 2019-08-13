@@ -25,7 +25,6 @@ import { TabOptions } from '../utils/TabOptions';
 
 let badgeNumberListener;
 
-
 const IOS_MODAL_ROUTES = ['Login'];
 
 const dynamicModalTransition = (transitionProps, prevTransitionProps) => {

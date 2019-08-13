@@ -50,7 +50,7 @@ export default class index extends React.Component<Props, State> {
 
   componentDidMount(): void {
     const { configStore } = this.context;
-    configStore.showLoading();
+    // configStore.showLoading();
 
     AppState.addEventListener('change', this._handleAppStateChange);
 
@@ -136,6 +136,8 @@ export default class index extends React.Component<Props, State> {
 
   onLoad = () => {
     console.log('加载中');
+    const { configStore } = this.context;
+    configStore.showLoading();
   };
   onLoadEnd = () => {
     console.log('加载结束，成功或失败都会走到这里');
@@ -144,8 +146,8 @@ export default class index extends React.Component<Props, State> {
   };
   onLoadStart = () => {
     console.log('开始加载');
-    // const {configStore} = this.context;
-    // configStore.showLoading();
+    const {configStore} = this.context;
+    configStore.showLoading();
   };
   onError = () => {
     const { configStore } = this.context;

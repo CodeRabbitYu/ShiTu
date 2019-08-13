@@ -12,8 +12,8 @@ const base = {
   // baseURL:!iOS?'http://localhost:1234/api':'http://172.16.17.61:1234/api',
 
   // baseURL :__DEV__ ? iOS?'http://localhost:3000/api':'http://172.16.17.11:3000/api' : 'http://shitu.leanapp.cn/api'
-  // baseURL: 'http://shitu.leanapp.cn/api',
-  baseURL: 'http://127.0.0.1:7001'
+  baseURL: 'http://shitu.leanapp.cn/api',
+  // baseURL: 'http://127.0.0.1:7001'
 };
 
 const ApiConfig = {
