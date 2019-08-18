@@ -15,6 +15,7 @@ import { NavigatorBar, LoadingSpinner, ErrorView } from '../index';
 import { Theme } from 'teaset';
 import { ConfigStore } from '../../store/ConfigStore';
 import { getNetInfoStatus, StoreContext } from '../../utils/Tool';
+import type { StoreType } from '../../store/RootStore';
 
 type Props = {
   store?: ConfigStore, // 页面中的mobx状态
@@ -53,12 +54,10 @@ export type NetType = {
   isCellular: boolean // 是否是流量连接
 };
 
-
-
 let netInfoListen: any;
 
 const BaseContainer = observer((props: Props) => {
-  const store = useContext(StoreContext);
+  const store: StoreType = useContext(StoreContext);
   const { themes } = store.themeStore;
   const {
     style,
@@ -107,7 +106,7 @@ const BaseContainer = observer((props: Props) => {
         return <LoadingSpinner isVisible={store.isLoading} />;
       } else {
         return (
-          <View style={{ flex: 1 }}>
+          <View style={styles.contentView}>
             {children}
             <LoadingSpinner isVisible={store.isLoading} />
           </View>

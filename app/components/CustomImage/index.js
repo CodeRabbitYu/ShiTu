@@ -1,37 +1,38 @@
 /**
+ * Created by Rabbit on 2019-08-12.
  * @flow
- * Created by Rabbit on 2018/4/26.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
+// import PropTypes, { any } from 'prop-types';
+import { Animated, Image as ImageNative, StyleSheet, View, Platform } from 'react-native';
+import FastImage, { ImageStyle } from 'react-native-fast-image';
 
-import FastImage from 'react-native-fast-image';
-import { Image, StyleSheet, View, Animated } from 'react-native';
-import { observer } from 'mobx-react';
-// import {observable, action} from 'mobx';
-
-type Props = {
-  ...Image.propTypes
+type ImageType = {
+  placeholderStyle: any,
+  PlaceholderContent: any,
+  containerStyle: any,
+  style: any,
+  ImageComponent: any,
+  children: any,
+  ...ImageStyle
 };
 
-@observer
-class CustomImage extends React.Component<Props, any> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      imageLoading: true
-    };
-  }
+const CustomImage = ({
+  placeholderStyle,
+  PlaceholderContent,
+  containerStyle,
+  style,
+  ImageComponent,
+  children,
+  ...attributes
+}: ImageType) => {
+  const [placeholderOpacity] = useState(new Animated.Value(1));
+  const [imageError, setImageError] = useState(false);
+  const hasImage = typeof attributes.source !== 'undefined';
 
-  imageLoadError() {
-    console.log('onError');
-    // this.imageLoadedError = true;
-    this.setState({ imageLoading: false });
-
-    this.props.onError && this.props.onError();
-  }
-
-  onLoad = () => {
+  const onLoad = () => {
+    setImageError(false);
     const minimumWait = 100;
     const staggerNonce = 200 * Math.random();
 
@@ -40,41 +41,90 @@ class CustomImage extends React.Component<Props, any> {
         Animated.timing(placeholderOpacity, {
           toValue: 0,
           duration: 350,
-          useNativeDriver: Android ? false : true,
+          useNativeDriver: Platform.OS !== 'android'
         }).start();
       },
       Platform.OS === 'android' ? 0 : Math.floor(minimumWait + staggerNonce)
     );
   };
 
-  render() {
-    let { source } = this.props;
-    const { style, resizeMode } = this.props;
+  const onError = () => {
+    setImageError(true);
+  };
 
-    source = this.state.imageLoading
-      ? source
-      : {
-          uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png'
-        };
-    return (
-      <View style={[styles.customImageView]}>
+  return (
+    <View accessibilityIgnoresInvertColors={true} style={StyleSheet.flatten([styles.container, containerStyle])}>
+      <ImageComponent
+        {...attributes}
+        onLoad={onLoad}
+        onError={onError}
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            width: style.width,
+            height: style.height
+          }
+        ]}
+        testID="RNE__Image"
+      />
+
+      <Animated.View
+        pointerEvents={hasImage ? 'none' : 'auto'}
+        accessibilityElementsHidden={hasImage}
+        importantForAccessibility={hasImage ? 'no-hide-descendants' : 'yes'}
+        style={[
+          styles.placeholderContainer,
+          {
+            opacity: hasImage ? placeholderOpacity : 1
+          }
+        ]}
+      >
+        <View
+          testID="RNE__Image__placeholder"
+          style={StyleSheet.flatten([style, styles.placeholder, placeholderStyle])}
+        >
+          {PlaceholderContent}
+        </View>
+      </Animated.View>
+
+      <View style={style}>{children}</View>
+
+      {imageError && (
         <FastImage
-          {...this.props}
-          style={style}
-          source={source}
-          resizeMode={this.state.imageLoading ? resizeMode : 'contain'}
-          onError={this.imageLoadError.bind(this)}
+          source={{ uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/Error_Img.png' }}
+          style={[containerStyle, style]}
         />
-      </View>
-    );
-  }
-}
+      )}
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({
-  customImageView: {
-    flex: 1,
+const styles = {
+  container: {
+    backgroundColor: 'transparent',
+    position: 'relative'
+  },
+  placeholderContainer: {
+    ...StyleSheet.absoluteFillObject
+  },
+  placeholder: {
+    backgroundColor: '#bdbdbd',
+    alignItems: 'center',
     justifyContent: 'center'
   }
-});
+};
+
+// CustomImage.propTypes = {
+//   ...ImageStyle,
+//   ImageComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+//   PlaceholderContent: any,
+//   containerStyle: any,
+//   placeholderStyle: ImageNative.propTypes.style
+// };
+
+CustomImage.defaultProps = {
+  ImageComponent: FastImage,
+  style: {}
+};
 
 export default CustomImage;

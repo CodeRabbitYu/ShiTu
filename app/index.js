@@ -21,7 +21,7 @@ function index() {
     SplashScreen.hide();
     // themeStore.setBlackTheme();
     return () => {
-      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
+      BackHandler.removeEventListener('hardwareBackPress', onBackButtonPressAndroid);
     };
   });
 

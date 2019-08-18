@@ -181,7 +181,8 @@ class BuDeJieMobx extends ConfigStore {
         runInAction(() => {
           this.dataSource = this.dataSource.concat(dataSource);
           this.largeListData = this.largeListData.concat([largeListData]);
-          this.maxtime = buDeJieData.data.info.maxid;
+          this.maxtime = buDeJieData.info.maxid;
+          // this.maxtime = buDeJieData.data.info.maxid;
         });
       }
 

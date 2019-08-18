@@ -13,4 +13,11 @@ const publicStore = new PublicStore();
 const shiTuStore = new ShiTuStore();
 const themeStore = new ThemeStore();
 
+export type StoreType = {
+  configStore: ConfigStore,
+  publicStore: PublicStore,
+  themeStore: ThemeStore,
+  shiTuStore: ShiTuStore,
+};
+
 export { configStore, publicStore, shiTuStore, themeStore };

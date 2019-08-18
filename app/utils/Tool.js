@@ -6,6 +6,9 @@
 import React from 'react';
 import { Dimensions, Platform, PixelRatio } from 'react-native';
 import type { ConnectionType } from '@react-native-community/netinfo';
+import type { StoreType } from '../store/RootStore';
+
+
 const { width } = Dimensions.get('window');
 
 const basePx = Platform.OS === 'ios' ? 750 : 720;
@@ -25,4 +28,5 @@ export const getNetInfoStatus = (netInfo: any) => {
   };
 };
 
-export const StoreContext = React.createContext({});
+
+export const StoreContext: StoreType = React.createContext({});

@@ -12,8 +12,7 @@ import { WelfareMobx } from '../../../mobx/News';
 import { observer } from 'mobx-react-lite';
 
 import type { RTWeal } from '../../../servers/News/interfaces';
-import { Button } from '../../../components';
-import { CustomImage } from '../../../components/CustomImage/index_new';
+import { Button, CustomImage } from '../../../components';
 import { System } from '../../../utils';
 import { ActionSheet, Overlay } from 'teaset';
 import type { NavigationState } from 'react-navigation';

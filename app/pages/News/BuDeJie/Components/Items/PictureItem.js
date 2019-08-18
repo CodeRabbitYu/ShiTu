@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { CustomImage, Button } from '../../../../../components/index';
+import { CustomImage, Button } from '../../../../../components';
 import { System } from '../../../../../utils';
 import type { Picture } from '../../../../../servers/News/interfaces';
 

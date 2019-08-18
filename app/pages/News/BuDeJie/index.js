@@ -122,6 +122,7 @@ const BuDeJie = observer(function(props: Props) {
         }}
         // loadingFooter={ChineseWithLastDateFooter}
         onLoading={async () => {
+
           await fetchBuDeJieData(type, maxtime);
           waterfallRef.current.endLoading();
         }}
