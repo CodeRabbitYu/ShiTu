@@ -26,7 +26,7 @@
     "react-native-largelist-v3": "^3.0.10",
     "react-native-linear-gradient": "^2.5.3",
     "react-native-measure-text": "^1.0.0-beta.1",
-    "react-native-reanimated": "^1.0.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-scrollable-tab-view": "^0.10.0",
     "react-native-splash-screen": "^3.2.0",
     "react-native-spring-scrollview": "^2.0.16",
